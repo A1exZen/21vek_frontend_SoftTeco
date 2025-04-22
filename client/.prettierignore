@@ -1,0 +1,12 @@
+# folders
+public
+build
+dist
+
+node_modules
+dist
+dist-ssr
+*.local
+
+**/*.html
+**/*.md

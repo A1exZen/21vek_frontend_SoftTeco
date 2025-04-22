@@ -1,0 +1,48 @@
+*,
+*::after,
+*::before {
+  margin: 0;
+  padding: 0;
+  text-decoration: none;
+  color: black;
+  box-sizing: border-box;
+  border: 0;
+  list-style-type: none;
+  line-height: 1;
+  scroll-behavior: smooth;
+}
+
+button {
+  padding: 0;
+  border: none;
+  font: inherit;
+  color: inherit;
+  background-color: transparent;
+  cursor: pointer;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+img,
+svg {
+  max-width: 100%;
+  height: auto;
+}
+
+input:focus,
+input:active,
+button:focus,
+button:active {
+  outline: none;
+}
+
+a,
+a:link,
+a:visited {
+  text-decoration: none;
+  cursor: pointer;
+}
+
+main {
+  display: block;
+}
