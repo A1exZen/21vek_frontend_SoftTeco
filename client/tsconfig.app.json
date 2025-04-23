@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.app.tsbuildinfo",
-    "target": "ES2020",
+    "target": "ES2022",
     "useDefineForClassFields": true,
     "lib": ["ES2020", "DOM", "DOM.Iterable"],
     "module": "ESNext",
@@ -21,34 +21,38 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true,
-    "useUnknownInCatchVariables": true
-  },
-  "baseUrl": "./",
-  "paths": {
-    "@/*": ["src/*"],
+    "useUnknownInCatchVariables": true,
 
-    "@components/*": ["src/components/*"],
-    "@pages/*": ["src/components/pages/*"],
-    "@layouts/*": ["src/components/layouts/*"],
-    "@dummies/*": ["src/components/dummies/*"],
-    "@ui/*": ["src/components/ui/"],
+    "baseUrl": "./",
+    "paths": {
+      "@/*": ["src/*"],
 
-    "@assets/*": ["src/assets/*"],
-    "@icons": ["src/assets/icons/"],
-    "@images/*": ["src/assets/images/*"],
-    "@audio/*": ["src/assets/audio/*"],
-    "@video/*": ["src/assets/video/*"],
+      "@components/*": ["src/components/*"],
+      "@pages/*": ["src/components/pages/*"],
+      "@layouts/*": ["src/components/layouts/*"],
+      "@dummies/*": ["src/components/dummies/*"],
+      "@ui/*": ["src/components/ui/"],
 
-    "@app/*": ["src/app/*"],
-    "@router/*": ["src/app/router/*"],
+      "@assets/*": ["src/assets/*"],
+      "@icons": ["src/assets/icons/"],
+      "@images/*": ["src/assets/images/*"],
+      "@audio/*": ["src/assets/audio/*"],
+      "@video/*": ["src/assets/video/*"],
 
-    "@constants/*": ["src/constants/*"],
+      "@models/*": ["src/models/*"],
+      "@common/*": ["src/models/common/*"],
 
-    "@hooks/*": ["src/hooks/*"],
+      "@app/*": ["src/app/*"],
+      "@router/*": ["src/app/constants/router/*"],
 
-    "@store/*": ["src/store/*"],
+      "@constants/*": ["src/constants/*"],
 
-    "@utils/*": ["src/utils/*"]
+      "@hooks/*": ["src/hooks/*"],
+
+      "@store/*": ["src/store/*"],
+
+      "@utils/*": ["src/utils/*"]
+    }
   },
   "include": ["src"]
 }
