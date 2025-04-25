@@ -2,3 +2,7 @@
 @use './colors';
 @use './fonts';
 @use './root-variables';
+
+:root {
+  font-family: Inter, sans-serif;
+}
