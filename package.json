@@ -13,6 +13,7 @@
   "dependencies": {
     "@reduxjs/toolkit": "^2.7.0",
     "@tanstack/react-query": "^5.74.4",
+    "antd": "^5.24.8",
     "axios": "^1.8.4",
     "framer-motion": "^12.7.4",
     "install": "^0.13.0",
