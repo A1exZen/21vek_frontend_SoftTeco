@@ -1,0 +1,245 @@
+:root {
+  --black-500: #1a1a1a;
+  --black-400: #323233;
+  --gray-700: #a0a1a3;
+  --gray-600: #b4b5b8;
+  --gray-500: #c8c9cc;
+  --gray-400: #dcdde0;
+  --gray-300: #e6e8eb;
+  --gray-200: #ebedf0;
+  --gray-100: #f7f8fa;
+  --white: #fff;
+  --blue-900: #005998;
+  --blue-800: #0061a6;
+  --blue-700: #0068b2;
+  --blue-600: #006ebd;
+  --blue-450: #bad8ef;
+  --blue-400: #d6e9f7;
+  --blue-300: #ebf4fb;
+  --pink-700: #cc215a;
+  --pink-500: #e52e6b;
+  --pink-400: #fbdee7;
+  --pink-300: #fdeef3;
+  --purple-700: #672f9e;
+  --purple-600: #6f36a8;
+  --purple-500: #7b3eb8;
+  --purple-400: rgba(123, 62, 184, 0.16);
+  --purple-300: rgba(123, 62, 184, 0.08);
+  --purple-200: #4d0892;
+  --magenta-700: #b82587;
+  --magenta-600: #c22b90;
+  --magenta-500: #d1329c;
+  --magenta-400: rgba(209, 50, 156, 0.16);
+  --magenta-300: rgba(209, 50, 156, 0.08);
+  --green-700: #038041;
+  --green-600: #068a48;
+  --green-500: #099951;
+  --green-400: rgba(9, 153, 81, 0.16);
+  --green-300: rgba(9, 153, 81, 0.08);
+  --orange-700: #e09524;
+  --orange-600: #eb9e2a;
+  --orange-500: #faaa32;
+  --orange-450: rgba(250, 170, 50, 0.25);
+  --orange-400: rgba(250, 170, 50, 0.16);
+  --orange-300: rgba(250, 170, 50, 0.08);
+  --yellow-100: #ffc43d;
+  --yellow-300: #faaa32;
+  --overlay: rgba(26, 26, 26, 0.5);
+  --gradient: linear-gradient(90deg, #941e94, #e52e6b);
+  --new-gradient:
+    radial-gradient(
+      107.53% 82.28% at 63.72% 30.57%,
+      rgba(255, 149, 52, 0.9) 0%,
+      rgba(242, 0, 97, 0.18) 100%
+    ),
+    linear-gradient(
+      89.75deg,
+      #b300b3 50.07%,
+      #d4009a 65.11%,
+      #f2007a 78.99%,
+      #f06 102.42%
+    );
+  --new-gradient-linear: linear-gradient(
+    89.59deg,
+    #909 -4.29%,
+    #b08 26.34%,
+    #d9006d 54.6%,
+    #f20061 102.3%
+  );
+  --premium-body: #b4b0ca;
+  --premium-chip: #d5a2fa;
+  --premium-bkg: #100d1e;
+  --premium-modal: #201a39;
+  --premium-box-dark: #221c38;
+  --premium-box-light: #2b2449;
+  --premium-button: #312b4e;
+  --premium-button-hover: #3a335c;
+  --premium-overlay: rgba(7, 4, 23, 0.85);
+  --shadow-drop-2dp-soft:
+    0px 1px 1px rgba(41, 44, 51, 0.04), 0px 2px 4px rgba(41, 44, 51, 0.08);
+  --shadow-drop-2dp-hard:
+    0px 1px 1px rgba(41, 44, 51, 0.04), 0px 2px 8px rgba(41, 44, 51, 0.12);
+  --shadow-drop-3dp-soft:
+    0px 1px 4px 0px rgba(6, 10, 13, 0.08),
+    0px 4px 16px 0px rgba(6, 10, 13, 0.06);
+  --shadow-drop-4dp-soft:
+    0px 2px 2px rgba(41, 44, 51, 0.04), 0px 4px 12px rgba(41, 44, 51, 0.12);
+  --shadow-drop-4dp-hard:
+    0px 2px 8px rgba(41, 44, 51, 0.04), 0px 8px 16px rgba(41, 44, 51, 0.12);
+  --regular: 400;
+  --bold: 700;
+  --strikethrough: line-through;
+  --underline: underline;
+  --caps: uppercase;
+  --caps-spacing: 0.1em;
+  --loader-z-index: 18;
+  --icon-button-font-size: 13px;
+  --icon-button-line-height: 18px;
+  --select-z-index: 1000;
+  --freeze-body-top: 0;
+  --blue-500: #07c;
+  --pink-600: #d62761;
+  --base-font-family: Arial, sans-serif;
+  --button-font-size: 14px;
+  --button-line-height: 20px;
+  --button-disabled-color: #b4b5b8;
+  --base-link-color: #e52e6b;
+  --base-link-color-hover: #d62761;
+  --partly-pay-link-color-hover: #d62761;
+  --default-shadow-color: rgb(23 35 38 / 5%);
+  --scrollbar-width: inherit;
+  --scrollbar-width-fallback: calc(100vw - 100%);
+  --button-up-bg-color: #07c;
+  --button-up-bg-color-hover: #006ebd;
+  --button-up-bg-color-active: #0068b2;
+  --button-up-color: #fff;
+  --button-up-border: none;
+  --base-header-text-color: #1a1a1a;
+  --header-base-border-color: #e6e8eb;
+  --header-list-base-border-color: #dcdde0;
+  --header-bg-color: #f7f8fa;
+  --header-react-bg-color: var(--header-bg-color);
+  --header-dropdown-title-active-color: #a0a1a3;
+  --header-list-bg-color: #fff;
+  --header-list-item-color: #1a1a1a;
+  --header-list-item-color-hover: #d62761;
+  --header-list-item-content-color-hover: #d62761;
+  --header-list-item-bg-color-hover: rgb(219 33 95 / 8%);
+  --header-list-item-content-bg-color-hover: rgb(219 33 95 / 8%);
+  --header-call-center-color: #e52e6b;
+  --header-call-center-color-hover: #e52e6b;
+  --header-call-center-tooltip-color: #fff;
+  --header-call-center-tooltip-bg: #1a1a1a;
+  --header-button-text-color: inherit;
+  --header-button-text-color-hover: #1a1a1a;
+  --header-button-text-color-active: #a0a1a3;
+  --header-button-text-color-active-hover: #a0a1a3;
+  --header-button-border-color: #dcdde0;
+  --header-button-bg-color-hover: #fff;
+  --header-button-bg-color-active: #ebedf0;
+  --header-button-bg-color-active-hover: #e6e8eb;
+  --header-catalog-button-border: #dcdde0;
+  --header-catalog-button-text: #1a1a1a;
+  --header-catalog-button-text-hover: #1a1a1a;
+  --header-catalog-button-bg-hover: #fff;
+  --header-catalog-button-bg-active: #ebedf0;
+  --header-catalog-button-bg-active-hover: #e6e8eb;
+  --header-catalog-button-text-active: #a0a1a3;
+  --header-promo-line-bg: linear-gradient(
+    90deg,
+    #909 -4.29%,
+    #b08 26.34%,
+    #d9006d 54.6%,
+    #f20061 102.3%
+  );
+  --header-promo-item-text-color: #fff;
+  --header-promo-item-hover: rgba(26, 26, 26, 0.2);
+  --header-promo-item-separator: #fff;
+  --header-search-icon: #b4b5b8;
+  --header-search-icon-active: #1a1a1a;
+  --locality-btn-color-hover: #d62761;
+  --locality-btn-color: #1a1a1a;
+  --working-time-color: #a0a1a3;
+  --icon-live-color: #052992;
+  --icon-home-phone: #1a1a1a;
+  --icon-telegram-fill-color: #fff;
+  --icon-telegram-bg-color: #229ed9;
+  --icon-telegram-bg-color-hover: #e52e6b;
+  --icon-telegram-fill-color-hover: var(--icon-telegram-fill-color);
+  --icon-viber-fill-color: #7c53a6;
+  --icon-viber-fill-color-hover: currentColor;
+  --icon-a1-fill-color: currentColor;
+  --communication-icon-text-color: var(--header-list-item-color);
+  --communication-icon-text-color-hover: var(--base-link-color-hover);
+  --communication-menu-separator-border-color: #dcdde0;
+  --communication-list-border-color: #dcdde0;
+  --icon-catalog-circle-bg: #e52e6b;
+  --icon-catalog-circle-bg-hover: #e52e6b;
+  --icon-catalog-circle-bg-active-hover: #f7f8fa;
+  --icon-catalog-squares-bg: #fff;
+  --icon-catalog-squares-bg-hover: #fff;
+  --profile-item-bg-color: var(--header-list-bg-color);
+  --profile-item-content-bg-color: #fff;
+  --profile-item-color: #1a1a1a;
+  --profile-item-color-special: #e52e6b;
+  --profile-item-content-color: #1a1a1a;
+  --item-current-color: #a0a1a3;
+  --item-current-color-bg-color: #a0a1a3;
+  --item-current-couner-bg-color: #ebedf0;
+  --counter-color: #fff;
+  --counter-content-color: #fff;
+  --counter-pink-content-color: #fff;
+  --counter-color-active: #fff;
+  --counter-content-color-active: #fff;
+  --counter-bg-color: #07c;
+  --counter-pink-bg-color: #e52e6b;
+  --counter-content-bg-color: #07c;
+  --counter-bg-color-active: #d62761;
+  --counter-content-bg-color-active: #d62761;
+  --user-tools-separator-color: #ebedf0;
+  --user-tools-content-separator-color: #ebedf0;
+  --bonus-color: #07c;
+  --bonus-hover-color: #d62761;
+  --bonus-content-color: #07c;
+  --bonus-content-hover-color: #d62761;
+  --footer-background: #f7f8fa;
+  --subscription-block-react-bg-color: transparent;
+  --subscription-block-icon-color: #f7f8fa;
+  --footer-base-color: #1a1a1a;
+  --footer-base-border-color: hsla(225, 6%, 87%, 0.5);
+  --footer-inner-bg-color: transparent;
+  --subscription-btn-bgcolor: #07c;
+  --subscription-btn-color: #fff;
+  --subscription-btn-bgcolor-hover: #006ebd;
+  --subscription-btn-bgcolor-active: #0068b2;
+  --subscription-btn-color-hover: #fff;
+  --subscription-btn-send-icon-tail: #07c;
+  --react-input__input-container_focused: #07c;
+  --sitemap-item-color: #1a1a1a;
+  --sitemap-item-color-hover: #d62761;
+  --contact-block-item-color: #1a1a1a;
+  --contact-block-item-color-hover: #d62761;
+  --contacts-block-border-color: hsla(225, 6%, 87%, 0.5);
+  --legal-information-block-color: #a0a1a3;
+  --subscription-block-ling-color: #e52e6b;
+  --payment-systems-filter: none;
+  --social-icon-bg-color: #fff;
+  --vk-active-bg-color: #07f;
+  --instagram-active-bg-color: linear-gradient(
+    -10deg,
+    #f9cb76 12.38%,
+    #ea1e59 53.89%,
+    #c02290 70.24%,
+    #6820f5 97.18%
+  );
+  --youtube-active-bg-color: #ff2638;
+  --telegram-active-bg-color: linear-gradient(
+    180deg,
+    #2aabee,
+    #229ed9 9925.83%
+  );
+  --tiktok-active-bg-color: #1a1a1a;
+  --social-icon-active-color: #fff;
+  --social-icon-filter: none;
+  --swiper-theme-color: #007aff;
+}
