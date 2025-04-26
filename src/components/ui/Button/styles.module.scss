@@ -1,0 +1,54 @@
+@mixin base-button {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 2.5rem;
+	padding: 8px 16px;
+	border-radius: 5px;
+	width: auto;
+	cursor: pointer;
+	transition: all 0.3s ease;
+}
+
+
+.button_variant_solid {
+	@include base-button;
+
+	color: var(--text-color);
+
+	border-radius: 10px;
+	background-color: var(--background-color);
+
+}
+
+.button_variant_link {
+	@include base-button;
+	text-decoration: underline;
+	color: var(--black-500);
+
+	border-radius: 10px;
+	background-color: transparent;
+	&:hover{
+		color: var(--base-link-color);
+	}
+}
+
+
+.button_color_first {
+	--text-color: var(--white);
+	--background-color: var(--base-link-color);
+	&:hover{
+		background-color: var(--base-link-color-hover);
+	}
+}
+.button_color_second {
+	--text-color: var(--white);
+	--background-color: var(--button-up-bg-color);
+	&:hover{
+		background-color: var(--button-up-bg-color-hover);
+	}
+}
+
+.maxWidth {
+	width: 100%;
+}
