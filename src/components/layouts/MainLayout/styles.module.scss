@@ -1,0 +1,8 @@
+@use '../../../styles/mixins';
+
+.main-layout {
+  @include mixins.full-width;
+  max-width: mixins.rem(1090);
+  padding: 0 mixins.rem(20);
+  margin: 0 auto;
+}
