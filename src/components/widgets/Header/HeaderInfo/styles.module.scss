@@ -1,0 +1,55 @@
+@use '../../../../styles/mixins';
+
+
+.header-info-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: mixins.rem(16) 0;
+}
+
+.header-nav-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: mixins.rem(16) 0;
+}
+
+.nav {
+  flex-grow: 1;
+}
+
+.nav-list {
+  display: flex;
+  gap: mixins.rem(24);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-item {
+  position: relative;
+}
+
+.nav-link {
+  text-decoration: none;
+  color: inherit;
+  font-weight: 500;
+  transition: color 0.2s ease;
+  
+  &:hover {
+    color: var(--color-primary);
+  }
+}
+
+.additionalBlock {
+  display: flex;
+  gap: mixins.rem(20);
+  align-items: center;
+}
+
+.extraItem {
+  padding: mixins.rem(8) mixins.rem(12);
+  background: rgba(0,0,0,0.05);
+  border-radius: mixins.rem(4);
+}

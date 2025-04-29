@@ -2,7 +2,7 @@
 
 .main-layout {
   @include mixins.full-width;
-  max-width: mixins.rem(1090);
+  max-width: mixins.rem(1440);
   padding: 0 mixins.rem(20);
   margin: 0 auto;
 }
