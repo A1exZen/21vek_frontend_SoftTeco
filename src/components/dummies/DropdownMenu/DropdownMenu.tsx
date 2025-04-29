@@ -5,6 +5,7 @@ import styles from './styles.module.scss';
 type DropdownItem = {
   title: string;
   path?: string;
+  href?: string;
   onClick?: () => void;
   isText?: boolean;
 };
@@ -41,34 +42,44 @@ const DropdownMenu = ({ title, items, icon }: DropdownMenuProps) => {
       </button>
       
       {isOpen && (
-        <ul className={styles["dropdown__menu"]}>
-          {items.map((item, index) => (
-            <li key={index} className={styles["dropdown__item"]}>
-              {item.isText ? (
-                <span className={styles["dropdown__text"]}>{item.title}</span>
-              ) : item.path ? (
-                <Link 
-                  to={item.path} 
-                  className={styles["dropdown__link"]}
-                  onClick={() => setIsOpen(false)}
-                >
-                  {item.title}
-                </Link>
-              ) : (
-                <button 
-                  className={styles["dropdown__button"]}
-                  onClick={() => {
-                    item.onClick?.();
-                    setIsOpen(false);
-                  }}
-                >
-                  {item.title}
-                </button>
-              )}
-            </li>
-          ))}
-        </ul>
-      )}
+  <ul className={styles["dropdown__menu"]}>
+    {items.map((item, index) => (
+      <li key={index} className={styles["dropdown__item"]}>
+        {item.isText ? (
+          <span className={styles["dropdown__text"]}>{item.title}</span>
+        ) : item.path ? (
+          <Link 
+            to={item.path} 
+            className={styles["dropdown__link"]}
+            onClick={() => setIsOpen(false)}
+          >
+            {item.title}
+          </Link>
+        ) : item.href ? (
+          <a 
+            href={item.href} 
+            className={styles["dropdown__link"]}
+            onClick={() => setIsOpen(false)}
+            target={item.href.startsWith('http') ? '_blank' : undefined}
+            rel={item.href.startsWith('http') ? 'noopener noreferrer' : undefined}
+          >
+            {item.title}
+          </a>
+        ) : (
+          <button 
+            className={styles["dropdown__button"]}
+            onClick={() => {
+              item.onClick?.();
+              setIsOpen(false);
+            }}
+          >
+            {item.title}
+          </button>
+        )}
+      </li>
+    ))}
+  </ul>
+)}
     </div>
   );
 };

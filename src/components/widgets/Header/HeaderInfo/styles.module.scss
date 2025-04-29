@@ -5,7 +5,9 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: mixins.rem(16) 0;
+  max-width: mixins.rem(1440);
+  margin: 0 auto;
+  padding: 20px mixins.rem(20);
 }
 
 .header-nav-container {
@@ -52,4 +54,41 @@
   padding: mixins.rem(8) mixins.rem(12);
   background: rgba(0,0,0,0.05);
   border-radius: mixins.rem(4);
+}
+
+.contacts-block {
+  display: flex;
+  align-items: center;
+  padding: 10px 0;
+}
+
+.contacts-content {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.telegram-link a,
+.main-phone a {
+  color: inherit;
+  text-decoration: none;
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.more-contacts {
+  position: relative;
+}
+
+.more-icon {
+  margin-left: 5px;
+  font-size: 0.8em;
+}
+
+.working-time-text {
+    min-width: 74px;
+    margin-left: 2px;
+    font-size: 10px;
+    line-height: 14px;
 }
