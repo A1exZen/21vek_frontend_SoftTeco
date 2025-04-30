@@ -1,0 +1,12 @@
+@use '../../../../styles/mixins';
+
+.header-info-container {
+  max-width: mixins.rem(1440);
+  display: flex;
+  justify-content: space-between;
+  padding: 20px mixins.rem(20);
+}
+
+.main-logo {
+  max-width: mixins.rem(160);
+}
