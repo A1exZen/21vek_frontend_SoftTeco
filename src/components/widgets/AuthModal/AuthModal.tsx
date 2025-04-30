@@ -5,6 +5,8 @@ import { Controller, useForm } from 'react-hook-form';
 import Regexs from '@constants/regexes.ts';
 import styles from './styles.module.scss';
 import Button from '@components/ui/Button'
+import FormErrorMessage
+  from '@components/ui/FormErrorMessage/FormErrorMessage.tsx';
 
 type AuthModalProps = {
   visible: boolean;
@@ -81,11 +83,7 @@ const AuthModal = ({ visible, onClose }: AuthModalProps) => {
               />
             )}
           />
-          {errors.email && (
-            <div className={styles['auth-modal__error']}>
-              {errors.email.message}
-            </div>
-          )}
+          {errors.email && <FormErrorMessage message={errors.email.message!} />}
         </div>
 
         <div className={styles['auth-modal__field']}>
@@ -97,10 +95,6 @@ const AuthModal = ({ visible, onClose }: AuthModalProps) => {
             control={control}
             rules={{
               required: tAuth('passwordRequired'),
-              minLength: {
-                value: 6,
-                message: tAuth('passwordMinLength'),
-              },
               pattern: {
                 value: Regexs.PASSWORD,
                 message: tAuth('passwordInvalid'),
@@ -114,11 +108,7 @@ const AuthModal = ({ visible, onClose }: AuthModalProps) => {
               />
             )}
           />
-          {errors.password && (
-            <div className={styles['auth-modal__error']}>
-              {errors.password.message}
-            </div>
-          )}
+          {errors.password && <FormErrorMessage message={errors.password.message!} />}
         </div>
 
         <Space direction="vertical" align='center' className={styles['auth-modal__buttons']}>
