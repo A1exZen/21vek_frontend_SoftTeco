@@ -98,8 +98,12 @@ const AuthModal = ({ visible, onClose }: AuthModalProps) => {
             rules={{
               required: tAuth('passwordRequired'),
               minLength: {
-                value: 4,
+                value: 6,
                 message: tAuth('passwordMinLength'),
+              },
+              pattern: {
+                value: Regexs.PASSWORD,
+                message: tAuth('passwordInvalid'),
               },
             }}
             render={({ field }) => (
