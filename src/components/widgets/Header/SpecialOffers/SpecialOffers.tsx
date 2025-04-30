@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { useSpecialOffers } from './useSpecialOffers';
 import styles from './styles.module.scss';
+import { Divider } from 'antd';
 
 const SpecialOffers = () => {
   const { offers } = useSpecialOffers();
@@ -8,6 +9,7 @@ const SpecialOffers = () => {
   const MainLink = () => (
     <div className={styles["main-link"]}>
       <Link to="/promo">Все акции</Link>
+      <Divider type='vertical'/>
     </div>
   );
 

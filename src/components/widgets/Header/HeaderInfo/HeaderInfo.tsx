@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import styles from './styles.module.scss';
 import DropdownMenu from '@/components/dummies/DropdownMenu';
+import { Divider } from 'antd';
 
 const HeaderInfo = () => {
   const customerItems = [
@@ -64,13 +65,13 @@ const HeaderInfo = () => {
             <DropdownMenu 
               title="Еще" 
               items={phoneItems}
-              icon={<span className={styles["more-icon"]}>▼</span>}
             />
           </div>
         </div>
       </div>
 
       <div className={styles["working-time-block"]}>
+      <Divider type='vertical'/>
           <div className={styles["working-time-text"]}>
             контакт-центр <br/> с 8.00 до 22.00
           </div>

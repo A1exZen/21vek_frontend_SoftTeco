@@ -11,7 +11,7 @@
   font-size: mixins.rem(14);
   transition: all 0.2s ease;
   border-radius: mixins.rem(15);
-  border: 1px solid constants.$color-primary;
+  border: 1px solid constants.$light-gray;
 
   @include mixins.hover {
     &:hover {

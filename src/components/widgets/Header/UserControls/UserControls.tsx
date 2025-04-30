@@ -1,4 +1,4 @@
-import UserControlsButton from "@/components/dummies/UserControlsButton";
+import UserControlsButton from "@/components/ui/UserControlsButton";
 import styles from "./styles.module.scss";
 import Logo from "/src/assets/icons/main-logo.png";
 import { Input } from 'antd';
