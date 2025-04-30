@@ -3,6 +3,10 @@ import styles from "./styles.module.scss";
 import Logo from "/src/assets/icons/main-logo.png";
 import { Input } from 'antd';
 import { SearchOutlined } from '@ant-design/icons';
+import Catalog from "@/assets/icons/catalog.svg";
+import Favorite from "@/assets/icons/heart.svg";
+import Account from "@/assets/icons/user.svg";
+import Basket from "@/assets/icons/basket.svg";
 
 const UserControls = () => {
   return (
@@ -13,7 +17,7 @@ const UserControls = () => {
       </div>
 
       <UserControlsButton 
-        icon={"nm"} 
+        icon={<Catalog/>} 
         text="Каталог товаров" 
         to="/favorites" 
       />
@@ -28,17 +32,17 @@ const UserControls = () => {
       </div>
 
       <UserControlsButton 
-        icon={"nm"} 
+        icon={<Favorite/>} 
         text="Избранное" 
         to="/favorites" 
       />
       <UserControlsButton 
-        icon={"nm"} 
+        icon={<Account/>} 
         text="Аккаунт" 
         to="/favorites" 
       />
       <UserControlsButton 
-        icon={"nm"} 
+        icon={<Basket/>} 
         text="Корзина" 
         to="/favorites" 
       />

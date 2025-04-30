@@ -13,6 +13,8 @@
 .main-link {
   margin-right: mixins.rem(20);
   margin-bottom: 0;
+  display: flex;
+  align-items: center;
 
   a {
     font-size: mixins.rem(14);
@@ -21,6 +23,7 @@
     text-decoration: none;
     transition: color 0.2s ease;
     white-space: nowrap;
+    padding-left: 10px;
 
     &:hover {
       color: constants.$color-primary-hover;

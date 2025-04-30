@@ -8,6 +8,7 @@ type DropdownItem = {
   href?: string;
   onClick?: () => void;
   isText?: boolean;
+  icon?: React.ReactNode;
 };
 
 type DropdownMenuProps = {
@@ -53,6 +54,7 @@ const DropdownMenu = ({ title, items, icon }: DropdownMenuProps) => {
             className={styles["dropdown__link"]}
             onClick={() => setIsOpen(false)}
           >
+            {item.icon && <span className={styles["dropdown__icon"]}>{item.icon}</span>}
             {item.title}
           </Link>
         ) : item.href ? (
@@ -63,6 +65,7 @@ const DropdownMenu = ({ title, items, icon }: DropdownMenuProps) => {
             target={item.href.startsWith('http') ? '_blank' : undefined}
             rel={item.href.startsWith('http') ? 'noopener noreferrer' : undefined}
           >
+            {item.icon && <span className={styles["dropdown__icon"]}>{item.icon}</span>}
             {item.title}
           </a>
         ) : (
@@ -73,6 +76,7 @@ const DropdownMenu = ({ title, items, icon }: DropdownMenuProps) => {
               setIsOpen(false);
             }}
           >
+            {item.icon && <span className={styles["dropdown__icon"]}>{item.icon}</span>}
             {item.title}
           </button>
         )}
