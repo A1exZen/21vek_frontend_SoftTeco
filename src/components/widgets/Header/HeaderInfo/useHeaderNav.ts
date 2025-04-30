@@ -1,14 +1,14 @@
-export interface NavItem {
+export interface INavItem {
   title: string;
   path: string;
 }
 
 export const useHeaderNav = () => {
-  const navItems: NavItem[] = [
+  const INavItems: INavItem[] = [
     { title: 'Оплата частями', path: '/installment' },
     { title: 'Для бизнеса', path: '/business' },
     { title: 'Покупателям', path: '/customers' }
   ];
 
-  return { navItems };
+  return { INavItems };
 };

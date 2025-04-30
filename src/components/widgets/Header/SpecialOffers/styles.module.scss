@@ -1,13 +1,17 @@
 @use '../../../../styles/constants';
 @use '../../../../styles/mixins';
 
+.background {
+  width: 100%;
+  background: constants.$background-gradient;
+}
+
 .container {
   max-width: mixins.rem(1440);
   margin: 0 auto;
   padding: 20px mixins.rem(20);
   display: flex;
   align-items: center;
-  background-color: constants.$color-primary;
 }
 
 .main-link {
@@ -42,7 +46,6 @@
 }
 
 .offer-item {
-  background: constants.$color-static-white;
   border-radius: mixins.rem(8);
   box-shadow: 0 mixins.rem(1) mixins.rem(3) rgba(0, 0, 0, 0.08);
   transition: all 0.2s ease;
@@ -51,7 +54,7 @@
   a {
     display: block;
     padding: mixins.rem(6) mixins.rem(12);
-    color: constants.$color-dark;
+    color: constants.$color-static-white;
     text-decoration: none;
     font-weight: 500;
     font-size: mixins.rem(14);

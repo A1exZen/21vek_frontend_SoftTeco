@@ -1,17 +1,17 @@
 import { useState, useEffect } from 'react';
 
-export type Offer = {
+export type OfferType = {
   id: string;
   title: string;
   path: string;
 };
 
 export const useSpecialOffers = () => {
-  const [offers, setOffers] = useState<Offer[]>([]);
+  const [offers, setOffers] = useState<OfferType[]>([]);
   
   useEffect(() => {
     // Api
-    const mockOffers: Offer[] = [
+    const mockOffers: OfferType[] = [
       { id: '1', title: 'Уценка', path: '/discounts' },
       { id: '2', title: 'Розыгрыш квартиры', path: '/apartment-giveaway' },
       { id: '3', title: 'Кофе', path: '/coffee-promo' },

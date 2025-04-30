@@ -22,7 +22,8 @@ const SpecialOffers = () => {
   );
 
   return (
-    <div className={styles.container}>
+    <div className={styles["background"]}>
+      <div className={styles.container}>
       <MainLink />
       
       <ul className={styles["offers-list"]}>
@@ -34,6 +35,7 @@ const SpecialOffers = () => {
           />
         ))}
       </ul>
+    </div>
     </div>
   );
 };

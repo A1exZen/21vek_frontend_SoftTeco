@@ -2,7 +2,7 @@ import { useState, useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import styles from './styles.module.scss';
 
-type DropdownItem = {
+type DropdownItemType = {
   title: string;
   path?: string;
   href?: string;
@@ -11,13 +11,13 @@ type DropdownItem = {
   icon?: React.ReactNode;
 };
 
-type DropdownMenuProps = {
+type DropdownMenuPropsType = {
   title: string;
-  items: DropdownItem[];
+  items: DropdownItemType[];
   icon?: React.ReactNode;
 };
 
-const DropdownMenu = ({ title, items, icon }: DropdownMenuProps) => {
+const DropdownMenu = ({ title, items, icon }: DropdownMenuPropsType) => {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 

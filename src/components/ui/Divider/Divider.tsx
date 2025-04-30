@@ -1,12 +1,12 @@
 import { Divider as AntDivider } from 'antd';
 import styles from './styles.module.scss';
 
-type DividerProps = {
+type DividerPropsType = {
   type?: 'vertical' | 'horizontal';
   className?: string;
 };
 
-const Divider = ({ type = 'horizontal', className = '' }: DividerProps) => {
+const Divider = ({ type = 'horizontal', className = '' }: DividerPropsType) => {
   return (
     <AntDivider 
       type={type}

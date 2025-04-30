@@ -1,11 +1,11 @@
 import { useState } from 'react';
 
-type UseButtonProps = {
+type UseButtonPropsType = {
   initialActive?: boolean;
   onClick?: () => void;
 };
 
-const useButton = ({ initialActive = false, onClick }: UseButtonProps = {}) => {
+const useButton = ({ initialActive = false, onClick }: UseButtonPropsType = {}) => {
   const [isActive, setIsActive] = useState(initialActive);
 
   const handleClick = () => {
