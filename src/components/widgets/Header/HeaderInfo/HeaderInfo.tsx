@@ -2,8 +2,8 @@ import { Link } from 'react-router-dom';
 import styles from './styles.module.scss';
 import DropdownMenu from '@/components/dummies/DropdownMenu';
 import { Divider } from 'antd';
-import { useState, useEffect } from 'react';
-
+import { useLocation } from '@/components/widgets/Header/HeaderInfo/useLocation';
+import { useHeaderNav } from '@/components/widgets/Header/HeaderInfo/useHeaderNav';
 
 import Location from '@/assets/icons/location.svg';
 import Toolbox from '@/assets/icons/toolbox.svg';
@@ -18,39 +18,22 @@ import PhoneCall from '@/assets/icons/phone-call.svg';
 import Message from '@/assets/icons/message.svg';
 
 const HeaderInfo = () => {
-  const [city, setCity] = useState<string>('Минск');
+  const { data: cityData, isLoading, isError } = useLocation();
+  const { customerItems, phoneItems } = useHeaderNav();
 
-  useEffect(() => {
-    const fetchCity = async () => {
-      try {
-        const response = await fetch('https://ipapi.co/json/');
-        const data = await response.json();
-        if (data.city) {
-          setCity(data.city);
-        }
-      } catch (error) {
-        console.error("Не удалось определить город:", error);
-      }
-    };
-
-    fetchCity();
-  }, []);
-
-  const customerItems = [
-    { title: 'Доставка и оплата', path: '/delivery' },
-    { title: 'Возврат товара', path: '/returns' },
-    { title: 'Помощь покупателю', path: '/help' },
-    { title: 'Контакты', path: '/contacts' }
+  const city = cityData?.city || 'Минск';
+  
+  const phoneItemsWithIcons = [
+    { ...phoneItems[0], icon: <Life /> },
+    { ...phoneItems[1], icon: <Phone /> },
+    { ...phoneItems[2], icon: <Telegram1 /> },
+    { ...phoneItems[3], icon: <Mail /> },
+    { ...phoneItems[4], icon: <PhoneCall /> },
+    { ...phoneItems[5], icon: <Message /> }
   ];
 
-  const phoneItems = [
-    { title: '+375 25 502 10 21', href: 'tel:+375255021021', icon: <Life/>},
-    { title: '+375 17 302 10 21', href: 'tel:+375173021021',  icon: <Phone/> },
-    { title: 'Telegram', href: 'https://t.me/your_telegram', icon: <Telegram1/> },
-    { title: 'Почта', href: 'mailto:info@example.com', icon: <Mail/> },
-    { title: 'Заказать звонок', onClick: () => console.log('Заказать звонок'), icon: <PhoneCall/> },
-    { title: 'Написать нам', href: '/contacts', icon: <Message/> }
-  ];
+  if (isLoading) return <div className={styles.loading}>Определяем город...</div>;
+  if (isError) return <div className={styles.error}>Не удалось определить город</div>;
 
   return (
     <div className={styles["header-info-container"]}>
@@ -106,7 +89,7 @@ const HeaderInfo = () => {
           <div className={styles["more-contacts"]}>
             <DropdownMenu 
               title="Еще" 
-              items={phoneItems}
+              items={phoneItemsWithIcons}
             />
           </div>
           </div>
