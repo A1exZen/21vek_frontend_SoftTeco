@@ -29,23 +29,23 @@
 	border-radius: 10px;
 	background-color: transparent;
 	&:hover{
-		color: var(--base-link-color);
+		color: var(--primary-hover);
 	}
 }
 
 
 .button_color_first {
 	--text-color: var(--white);
-	--background-color: var(--base-link-color);
+	--background-color: var(--primary);
 	&:hover{
-		background-color: var(--base-link-color-hover);
+		background-color: var(--primary-hover);
 	}
 }
 .button_color_second {
 	--text-color: var(--white);
-	--background-color: var(--button-up-bg-color);
+	--background-color: var(--secondary);
 	&:hover{
-		background-color: var(--button-up-bg-color-hover);
+		background-color: var(--secondary-hover);
 	}
 }
 
