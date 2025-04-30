@@ -1,5 +1,4 @@
 @use '../../../styles/mixins' as mixins;
-@use '../../../styles/constants';
 
 .user-controls-button {
   display: inline-flex;
@@ -11,7 +10,7 @@
   font-size: mixins.rem(14);
   transition: all 0.2s ease;
   border-radius: mixins.rem(15);
-  border: 1px solid constants.$light-gray;
+  border: 1px solid var(--light-gray);
 
   @include mixins.hover {
     &:hover {

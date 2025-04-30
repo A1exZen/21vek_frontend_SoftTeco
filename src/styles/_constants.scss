@@ -1,12 +1,3 @@
-$color-primary: #e52e6b;
-$color-static-white: #fff;
-$color-content-background: #ecf3f8;
-$color-dark: #1a1a1a;
-$color-button-blue: #07c;;
-
-$background-gradient: linear-gradient(90deg, #9f0096 0%, #ef5b4c 49.23%, #ed0064 100%);
-$color-primary-hover: #851b3e;
-$light-gray: #a0a1a3;
-$color-overlay: rgba(24, 28, 41, 0.8);
-
-$icon-padding: 20px;
+:root {
+  --icon-padding: 20px;
+}

@@ -1,16 +1,14 @@
-@use '@/styles/constants' as *;
-
 .divider {
   &-horizontal {
     &.ant-divider-horizontal {
-      border-top-color: $light-gray;
+      border-top-color: var(--light-gray);
       margin: 16px 0;
     }
   }
 
   &-vertical {
     &.ant-divider-vertical {
-      border-left-color: $light-gray;
+      border-left-color: var(--light-gray);
       margin: 0 8px;
     }
   }
