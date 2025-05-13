@@ -1,0 +1,66 @@
+@use '../../../../styles/mixins';
+
+.background {
+  width: 100%;
+  background: var(--background-gradient);
+}
+
+.container {
+  max-width: mixins.rem(1440);
+  margin: 0 auto;
+  padding: 20px mixins.rem(20);
+  display: flex;
+  align-items: center;
+}
+
+.main-link {
+  margin-right: mixins.rem(20);
+  margin-bottom: 0;
+  display: flex;
+  align-items: center;
+
+  a {
+    font-size: mixins.rem(14);
+    color: var(--color-static-white);
+    font-weight: 600;
+    text-decoration: none;
+    transition: color 0.2s ease;
+    white-space: nowrap;
+    padding-left: 10px;
+
+    &:hover {
+      color: var(--color-primary-hover);
+    }
+  }
+}
+
+.offers-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: mixins.rem(12);
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  align-items: center;
+}
+
+.offer-item {
+  border-radius: mixins.rem(8);
+  box-shadow: 0 mixins.rem(1) mixins.rem(3) rgba(0, 0, 0, 0.08);
+  transition: all 0.2s ease;
+  white-space: nowrap;
+
+  a {
+    display: block;
+    padding: mixins.rem(6) mixins.rem(12);
+    color: var(--color-static-white);
+    text-decoration: none;
+    font-weight: 500;
+    font-size: mixins.rem(14);
+  }
+
+  &:hover {
+    transform: translateY(mixins.rem(-2));
+    box-shadow: 0 mixins.rem(2) mixins.rem(6) rgba(0, 0, 0, 0.12);
+  }
+}
