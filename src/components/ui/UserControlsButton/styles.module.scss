@@ -1,0 +1,46 @@
+@use '../../../styles/mixins' as mixins;
+
+.user-controls-button {
+  display: inline-flex;
+  align-items: center;
+  gap: mixins.rem(8);
+  padding: mixins.rem(8) mixins.rem(12);
+  color: inherit;
+  text-decoration: none;
+  font-size: mixins.rem(14);
+  transition: all 0.2s ease;
+  border-radius: mixins.rem(15);
+  border: 1px solid var(--light-gray);
+
+  @include mixins.hover {
+    &:hover {
+      opacity: 0.8;
+      transform: translateY(mixins(-1));
+    }
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+
+  .button-icon {
+    display: flex;
+    width: mixins.rem(16);
+    height: mixins.rem(16);
+    
+    svg {
+      width: 100%;
+      height: 100%;
+    }
+  }
+
+  .button-text {
+    font-size: inherit;
+    line-height: 1;
+  }
+
+  @media (max-width: 768px) {
+    font-size: mixins.rem(12);
+    padding: mixins.rem(6) mixins.rem(8);
+  }
+}
