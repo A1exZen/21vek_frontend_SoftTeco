@@ -7,6 +7,7 @@ import Catalog from "@/assets/icons/catalog.svg";
 import Favorite from "@/assets/icons/heart.svg";
 import Account from "@/assets/icons/user.svg";
 import Basket from "@/assets/icons/basket.svg";
+import { PATHS } from "@/constants/path.config";
 
 const UserControls = () => {
   return (
@@ -19,7 +20,7 @@ const UserControls = () => {
       <UserControlsButton 
         icon={<Catalog/>} 
         text="Каталог товаров" 
-        to="/favorites" 
+        to={PATHS.PRODUCTS} 
       />
 
       <div className={styles['search-container']}>
@@ -34,17 +35,17 @@ const UserControls = () => {
       <UserControlsButton 
         icon={<Favorite/>} 
         text="Избранное" 
-        to="/favorites" 
+        to={PATHS.FAVORITES}
       />
       <UserControlsButton 
         icon={<Account/>} 
         text="Аккаунт" 
-        to="/favorites" 
+        to={PATHS.ACCOUNT} 
       />
       <UserControlsButton 
         icon={<Basket/>} 
         text="Корзина" 
-        to="/favorites" 
+        to={PATHS.BASKET} 
       />
     </div>
   );
