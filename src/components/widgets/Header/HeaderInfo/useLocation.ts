@@ -1,3 +1,4 @@
+import { QueryKeys } from '@/constants/queryKeys';
 import { useQuery } from '@tanstack/react-query';
 
 interface ICityData {
@@ -6,7 +7,7 @@ interface ICityData {
 
 export const useLocation = () => {
   return useQuery<ICityData>({
-    queryKey: ['userCity'],
+    queryKey: [QueryKeys.USER_CITY],
     queryFn: async () => {
       const response = await fetch('https://ipapi.co/json/');
       if (!response.ok) throw new Error('Ошибка определения города');
