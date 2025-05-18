@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import styles from './styles.module.scss';
 import DropdownMenu from '@/components/dummies/DropdownMenu';
 import { Divider } from 'antd';
-import { useLocation } from '@/components/widgets/Header/HeaderInfo/useLocation';
+import { useUserLocation } from '@/components/widgets/Header/HeaderInfo/useUserLocation';
 import { useHeaderNav } from '@/components/widgets/Header/HeaderInfo/useHeaderNav';
 
 import Location from '@/assets/icons/location.svg';
@@ -18,10 +18,8 @@ import PhoneCall from '@/assets/icons/phone-call.svg';
 import Message from '@/assets/icons/message.svg';
 
 const HeaderInfo = () => {
-  const { data: cityData, isLoading, isError } = useLocation();
+  const { data: cityData, isLoading, isError } = useUserLocation();
   const { customerItems, phoneItems } = useHeaderNav();
-
-  const city = cityData?.city || 'Минск';
   
   const phoneItemsWithIcons = [
     { ...phoneItems[0], icon: <Life /> },
@@ -32,15 +30,18 @@ const HeaderInfo = () => {
     { ...phoneItems[5], icon: <Message /> }
   ];
 
-  if (isLoading) return <div className={styles.loading}>Определяем город...</div>;
-  if (isError) return <div className={styles.error}>Не удалось определить город</div>;
-
   return (
     <div className={styles["header-info-container"]}>
       <div className={styles["locality-block"]}>
         <Location/>
           <div className={styles["locality-text"]}>
-          {city}
+          {isLoading ? (
+            <span className={styles.loading}>Определяем...</span>
+          ) : isError ? (
+            <span className={styles.error}>Город не определён</span>
+          ) : (
+            cityData?.city || 'Unknown City'
+          )}
           </div>
       </div>
 
