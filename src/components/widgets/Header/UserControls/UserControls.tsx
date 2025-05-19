@@ -21,7 +21,7 @@ const UserControls = () => {
         icon={<Catalog/>} 
         text="Каталог товаров" 
         to={PATHS.PRODUCTS} 
-      />
+      /> 
 
       <div className={styles['search-container']}>
         <Input 
@@ -31,7 +31,7 @@ const UserControls = () => {
           className={styles.searchInput}
         />
       </div>
-
+      
       <UserControlsButton 
         icon={<Favorite/>} 
         text="Избранное" 

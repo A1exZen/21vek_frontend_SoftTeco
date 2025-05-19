@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import styles from "./styles.module.scss";
+import { cc } from "@/utils/combineClasses";
 
 type UserControlsButtonProps = {
   icon: React.ReactNode;
@@ -12,7 +13,7 @@ const UserControlsButton = ({ icon, text, to, className = '' }: UserControlsButt
   return ( 
   <Link 
       to={to} 
-      className={`${styles['user-controls-button']} ${className}`}
+      className={cc(styles['user-controls-button'], className)}
     >
       <span className={styles['button-icon']}>{icon}</span>
       <span className={styles['button-text']}>{text}</span>

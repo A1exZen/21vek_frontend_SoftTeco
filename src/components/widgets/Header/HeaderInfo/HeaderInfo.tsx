@@ -16,6 +16,7 @@ import Phone from '@/assets/icons/phone.svg';
 import Mail from '@/assets/icons/mail.svg';
 import PhoneCall from '@/assets/icons/phone-call.svg';
 import Message from '@/assets/icons/message.svg';
+import { cc } from '@/utils/combineClasses';
 
 const HeaderInfo = () => {
   const { data: cityData, isLoading, isError } = useUserLocation();
@@ -31,14 +32,16 @@ const HeaderInfo = () => {
   ];
 
   return (
-    <div className={styles["header-info-container"]}>
+    <div className={cc(styles["header-info-container"], styles['header-info-text'])}>
       <div className={styles["locality-block"]}>
         <Location/>
-          <div className={styles["locality-text"]}>
+          <div className={styles["header-info-text"]}>
           {isLoading ? (
-            <span className={styles.loading}>Определяем...</span>
+            <span className={cc(styles.loading, styles['header-info-text'])}>
+            Определяем...
+          </span>
           ) : isError ? (
-            <span className={styles.error}>Город не определён</span>
+            <span className={cc(styles.error, styles['header-info-text'])}>Город не определён</span>
           ) : (
             cityData?.city || 'Unknown City'
           )}
