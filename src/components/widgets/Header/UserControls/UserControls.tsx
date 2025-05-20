@@ -1,4 +1,3 @@
-import UserControlsButton from "@/components/ui/UserControlsButton";
 import styles from "./styles.module.scss";
 import Logo from "/src/assets/icons/main-logo.png";
 import { Input } from 'antd';
@@ -8,6 +7,8 @@ import Favorite from "@/assets/icons/heart.svg";
 import Account from "@/assets/icons/user.svg";
 import Basket from "@/assets/icons/basket.svg";
 import { PATHS } from "@/constants/path.config";
+import { Link } from "react-router-dom";
+import Button from "@/components/ui/Button";
 
 const UserControls = () => {
   return (
@@ -17,11 +18,9 @@ const UserControls = () => {
         <img src={Logo} alt="Логотип" className={styles["main-logo"]} />
       </div>
 
-      <UserControlsButton 
-        icon={<Catalog/>} 
-        text="Каталог товаров" 
-        to={PATHS.PRODUCTS} 
-      /> 
+      <Button icon={<Catalog />} variant="bordered" color="third">
+          Каталог товаров
+      </Button>
 
       <div className={styles['search-container']}>
         <Input 
@@ -32,21 +31,21 @@ const UserControls = () => {
         />
       </div>
       
-      <UserControlsButton 
-        icon={<Favorite/>} 
-        text="Избранное" 
-        to={PATHS.FAVORITES}
-      />
-      <UserControlsButton 
-        icon={<Account/>} 
-        text="Аккаунт" 
-        to={PATHS.ACCOUNT} 
-      />
-      <UserControlsButton 
-        icon={<Basket/>} 
-        text="Корзина" 
-        to={PATHS.BASKET} 
-      />
+      <Link to={PATHS.FAVORITES}>
+        <Button icon={<Favorite />} variant="bordered" color="third">
+          Избранное
+        </Button>
+      </Link>
+
+      <Button icon={<Account />} variant="bordered" color="third">
+          Аккаунт
+      </Button>
+
+      <Link to={PATHS.BASKET}>
+        <Button icon={<Basket />} variant="bordered" color="third">
+          Корзина
+        </Button>
+      </Link>
     </div>
   );
 };
