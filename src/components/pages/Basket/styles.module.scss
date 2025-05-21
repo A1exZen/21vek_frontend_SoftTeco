@@ -1,0 +1,53 @@
+.wrapper {
+  width: 1440px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.content {
+  margin-top: 48px;
+  width: 1090px;
+  color: var(--color-dark);
+}
+
+.headline {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding-bottom: 12px;
+  border-bottom: 2px solid var(--black-400);
+  h2 {
+    font-size: 18px;
+  }
+}
+
+.columnHeaders {
+  display: grid;
+  grid-template-columns: 3fr repeat(3, 1fr);
+  padding: 32px 0 12px;
+  border-bottom: 1px solid var(--gray-700);
+  justify-items: center;
+
+  span{
+    color: var(--black-400);
+  }
+}
+
+.basketTotal {
+  padding: 48px 0;
+  display: flex;
+  justify-content: flex-end;
+  gap: 20px;
+
+  .totalPrice {
+    font-size: 20px;
+    font-weight: 700;
+  }
+
+}
+
+
+
+
