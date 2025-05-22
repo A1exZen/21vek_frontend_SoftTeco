@@ -14,21 +14,21 @@ const Footer = () => {
   return (
     <footer className={styles.footer}>
       <div className={styles.wrapper}>
-        <div className={styles.contactsContainer}>
+        <div className={styles.contacts__container}>
           <div className={styles.contacts}>
-            <div className={styles.contactItem}>
+            <div className={styles.contact__item}>
               <A1Icon />
               <span>+375 29 302 10 21</span>
             </div>
-            <div className={styles.contactItem}>
+            <div className={styles.contact__item}>
               <LifeIcon />
               <span>+375 25 502 10 21</span>
             </div>
-            <div className={styles.contactItem}>
+            <div className={styles.contact__item}>
               <PhoneIcon />
               <span>+375 17 302 10 21</span>
             </div>
-            <div className={styles.contactItem}>
+            <div className={styles.contact__item}>
               <TelegramIcon />
               <a
                 href="https://t.me/my21vekby"
@@ -38,11 +38,11 @@ const Footer = () => {
                 Telegram
               </a>
             </div>
-            <div className={styles.contactItem}>
+            <div className={styles.contact__item}>
               <MailIcon />
               <a href="mailto:21@21vek.by">Почта</a>
             </div>
-            <div className={styles.contactItem}>
+            <div className={styles.contact__item}>
               <MessageIcon />
               <a href="/contact-form">Написать нам</a>
             </div>

@@ -6,11 +6,20 @@ footer {
 .wrapper {
   width: 1440px;
   margin: 0 auto;
+
+  @media screen and (max-width: 1480px) {
+    width: 100%;
+    padding: 0 20px;
+  }
 }
 
-.contactsContainer {
+.contacts__container {
   border-top: 1px solid var(--contacts-block-border-color);
   border-bottom: 1px solid var(--contacts-block-border-color);
+
+  @media screen and (max-width: 360px) {
+    width: 100%;
+  }
 }
 
 .contacts {
@@ -21,12 +30,29 @@ footer {
   padding: 12px 0;
   max-width: 950px;
   margin: 0 auto;
+
+  @media screen and (max-width: 920px) {
+    grid-template-columns: repeat(3, auto);
+    justify-content: space-around;
+  }
+
+  @media screen and (max-width: 600px) {
+    grid-template-columns: repeat(2, auto);
+  }
+
+  @media screen and (max-width: 360px) {
+    grid-template-columns: repeat(1, 1fr);
+  }
 }
 
-.contactItem {
+.contact__item {
   display: flex;
   align-items: center;
   gap: 2px;
+
+  @media screen and (max-width: 920px) {
+    justify-content: center;
+  }
 }
 
 .socials {
@@ -116,31 +142,3 @@ footer {
   }
 }
 
-@media screen and (max-width: 1480px) {
-    .wrapper {
-      width: 100%;
-      padding: 0 20px;
-    }
-}
-@media screen and (max-width: 920px) {
-    .contacts {
-      grid-template-columns: repeat(3, auto);
-      justify-content: space-around;
-    }
-    .contactItem {
-    justify-content: center;
-    }
-}
-@media screen and (max-width: 600px) {
-    .contacts {
-      grid-template-columns: repeat(2, auto);
-    }
-}
-@media screen and (max-width: 360px) {
-    .contactsContainer {
-      width: 100%;
-    }
-    .contacts {
-      grid-template-columns: repeat(1, 1fr);
-    }
-}
