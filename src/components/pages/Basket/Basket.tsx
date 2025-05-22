@@ -39,7 +39,7 @@ export const Basket = () => {
           <h1>Оформление заказа</h1>
           <h2>Список товаров</h2>
         </div>
-        <div className={styles.columnHeaders}>
+        <div className={styles.column__headers}>
           <span>Товар</span>
           <span>Количество</span>
           <span>Доставка</span>
@@ -48,9 +48,9 @@ export const Basket = () => {
         {basketItems.map((item) => (
           <BasketItem key={item.id} item={item} />
         ))}
-        <div className={styles.basketTotal}>
-          <span className={styles.totalPrice}>Итого</span>
-          <span className={styles.totalPrice}>
+        <div className={styles.basket__total}>
+          <span className={styles.total__price}>Итого</span>
+          <span className={styles.total__price}>
             {totalPrice.toFixed(2).replace('.', ',')} р.
           </span>
         </div>

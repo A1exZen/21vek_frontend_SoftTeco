@@ -18,21 +18,23 @@ export const BasketItem = ({ item }: BasketItemProps) => {
   const totalPrice = item.price * quantity;
 
   return (
-    <div className={styles.basketItem}>
+    <div className={styles.basket__item}>
       <div className={styles.product}>
-        <div className={styles.productImageContainer}>
-          <img
-            src={item.image}
-            alt={item.name}
-            className={styles.productImageWrapper}
-          />
+        <div className={styles.product__image}>
+          <div>
+            <img
+              src={item.image}
+              alt={item.name}
+              className={styles['product__image-container']}
+            />
+          </div>
           <button>удалить</button>
         </div>
-        <div className={styles.productInfo}>
-          <Link to="#" className={styles.productLink}>
+        <div className={styles.product__info}>
+          <Link to="#" className={styles.product__link}>
             {item.name}
           </Link>
-          <span className={styles.productCode}>код {item.id}</span>
+          <span className={styles.product__code}>код {item.id}</span>
         </div>
       </div>
       <div>

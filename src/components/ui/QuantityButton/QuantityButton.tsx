@@ -33,13 +33,13 @@ export const QuantityButton = ({
     <div className={styles.control}>
       <button
         onClick={decrease}
-        className={styles.quantityButton}
+        className={styles.quantity__button}
         disabled={quantity <= 1}
       >
         <Minus size={16} />
       </button>
       <span className={styles.quantity}>{quantity}</span>
-      <button onClick={increase} className={styles.quantityButton}>
+      <button onClick={increase} className={styles.quantity__button}>
         <Plus size={16} />
       </button>
     </div>
