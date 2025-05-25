@@ -50,7 +50,7 @@ const Footer = () => {
         </div>
 
         <div className={styles.socials}>
-          <div>
+          <div className={styles['socials__icon-wrapper']}>
             <a
               href="https://vk.com/21vek_by"
               target="_blank"
@@ -59,7 +59,7 @@ const Footer = () => {
               <VkIcon />
             </a>
           </div>
-          <div>
+          <div className={styles['socials__icon-wrapper']}>
             <a
               href="https://www.instagram.com/21vek.by/"
               target="_blank"
@@ -68,7 +68,7 @@ const Footer = () => {
               <InstagramIcon />
             </a>
           </div>
-          <div>
+          <div className={styles['socials__icon-wrapper']}>
             <a
               href="https://www.youtube.com/channel/UChNfLMJmxWcaMy1oPxxSvog"
               target="_blank"
@@ -77,7 +77,7 @@ const Footer = () => {
               <YoutubeIcon />
             </a>
           </div>
-          <div>
+          <div className={styles['socials__icon-wrapper']}>
             <a
               href="https://t.me/my21vekby"
               target="_blank"
@@ -86,7 +86,7 @@ const Footer = () => {
               <TelegramIcon />
             </a>
           </div>
-          <div>
+          <div className={styles['socials__icon-wrapper']}>
             <a
               href="https://www.tiktok.com/@21vek.by"
               target="_blank"
