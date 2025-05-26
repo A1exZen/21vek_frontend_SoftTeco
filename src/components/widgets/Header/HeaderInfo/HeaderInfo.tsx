@@ -16,6 +16,7 @@ import Phone from '@/assets/icons/phone.svg';
 import Mail from '@/assets/icons/mail.svg';
 import PhoneCall from '@/assets/icons/phone-call.svg';
 import Message from '@/assets/icons/message.svg';
+import LanguageSwitcher from '@components/widgets/LanguageSwitcher';
 
 const HeaderInfo = () => {
   const { data: cityData, isLoading, isError } = useLocation();
@@ -96,6 +97,7 @@ const HeaderInfo = () => {
         </div>
       </div>
 
+      <LanguageSwitcher/>
       <div className={styles["working-time-block"]}>
       <Divider type='vertical'/>
           <div className={styles["working-time-text"]}>

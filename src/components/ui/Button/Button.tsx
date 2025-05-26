@@ -7,7 +7,7 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: 'solid' | 'outline' | 'link'
   color?: 'first' | 'second';
   className?: string;
-  maxWidth?: boolean;
+  maxWidth?: string;
   width?: string | number;
   children: string | ReactNode;
 }
@@ -16,7 +16,7 @@ const Button = (props: ButtonProps) => {
   const {
     className,
     variant = 'solid',
-    color,
+    color ='first',
     maxWidth,
     width,
     type = 'button',
