@@ -1,26 +1,32 @@
 import { useState } from 'react';
 import { Modal, Input, Space } from 'antd';
 import { useTranslation } from 'react-i18next';
-import { Controller, useForm } from 'react-hook-form';
+import { Controller, useForm, SubmitHandler } from 'react-hook-form';
+import { useMutation } from '@tanstack/react-query';
+import { useAppDispatch } from '@/hooks/reduxHooks';
+import { login, register } from '@/api/auth';
+import { setUser } from '@/store/slices/auth.slice';
+import {
+  LoginRequest,
+  LoginResponse,
+  RegisterRequest,
+} from '@/models/auth/api';
 import Regexs from '@constants/regexes.ts';
 import styles from './styles.module.scss';
-import Button from '@components/ui/Button'
-import FormErrorMessage
-  from '@components/ui/FormErrorMessage/FormErrorMessage.tsx';
+import Button from '@components/ui/Button';
+import FormErrorMessage from '@components/ui/FormErrorMessage/FormErrorMessage.tsx';
 
 type AuthModalProps = {
   visible: boolean;
   onClose: () => void;
 };
 
-type FormValues = {
-  email: string;
-  password: string;
-};
+type FormValues = LoginRequest;
 
 const AuthModal = ({ visible, onClose }: AuthModalProps) => {
   const { t: tAuth } = useTranslation('auth');
   const [isLogin, setIsLogin] = useState(true);
+  const dispatch = useAppDispatch();
 
   const {
     handleSubmit,
@@ -35,8 +41,23 @@ const AuthModal = ({ visible, onClose }: AuthModalProps) => {
     mode: 'onSubmit',
   });
 
-  const onSubmit = (values: FormValues) => {
+  const { mutate: onSubmitLogin } = useMutation({
+    mutationFn: async (data: LoginRequest): Promise<LoginResponse> =>
+      await login(data),
+    onSuccess: async (data) => {
+      await dispatch(setUser(data));
+    },
+  });
+
+  const { mutate: onSubmitRegister } = useMutation({
+    mutationFn: async (data: RegisterRequest): Promise<void> =>
+      await register(data),
+  });
+
+  const onSubmit: SubmitHandler<FormValues> = (values: FormValues) => {
     console.log(isLogin ? 'Login' : 'Register', values);
+    if (isLogin) onSubmitLogin(values);
+    if (!isLogin) onSubmitRegister(values);
     reset();
     onClose();
   };
@@ -108,22 +129,20 @@ const AuthModal = ({ visible, onClose }: AuthModalProps) => {
               />
             )}
           />
-          {errors.password && <FormErrorMessage message={errors.password.message!} />}
+          {errors.password && (
+            <FormErrorMessage message={errors.password.message!} />
+          )}
         </div>
 
-        <Space direction="vertical" align='center' className={styles['auth-modal__buttons']}>
-          <Button
-            type="submit"
-            color="first"
-            variant="solid"
-          >
+        <Space
+          direction="vertical"
+          align="center"
+          className={styles['auth-modal__buttons']}
+        >
+          <Button type="submit" color="first" variant="solid">
             {isLogin ? tAuth('login') : tAuth('register')}
           </Button>
-          <Button
-            type="button"
-            variant="link"
-            onClick={toggleMode}
-          >
+          <Button type="button" variant="link" onClick={toggleMode}>
             {isLogin ? tAuth('goToRegister') : tAuth('goToLogin')}
           </Button>
         </Space>

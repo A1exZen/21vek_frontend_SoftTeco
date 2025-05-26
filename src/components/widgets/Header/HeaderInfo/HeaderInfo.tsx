@@ -37,34 +37,29 @@ const HeaderInfo = () => {
   if (isError) return <div className={styles.error}>Не удалось определить город</div>;
 
   return (
-    <div className={styles["header-info-container"]}>
-      <div className={styles["locality-block"]}>
-        <Location/>
-          <div className={styles["locality-text"]}>
-          {city}
-          </div>
+    <div className={styles['header-info-container']}>
+      <div className={styles['locality-block']}>
+        <Location />
+        <div className={styles['locality-text']}>{city}</div>
       </div>
 
-      <div className={styles["header-nav-container"]}>
-        <nav className={styles["nav"]}>
-          <ul className={styles["nav-list"]}>
-            <li className={styles["nav-item"]}>
-              <Toolbox/>
-              <Link to="/installment" className={styles["nav-link"]}>
+      <div className={styles['header-nav-container']}>
+        <nav className={styles['nav']}>
+          <ul className={styles['nav-list']}>
+            <li className={styles['nav-item']}>
+              <Toolbox />
+              <Link to="/installment" className={styles['nav-link']}>
                 Для бизнеса
               </Link>
             </li>
-            <li className={styles["nav-item"]}>
-              <Partpay/>
-              <Link to="/installment" className={styles["nav-link"]}>
+            <li className={styles['nav-item']}>
+              <Partpay />
+              <Link to="/installment" className={styles['nav-link']}>
                 Оплата частями
               </Link>
             </li>
-            <li className={styles["nav-item"]}>
-              <DropdownMenu 
-                title="Покупателям" 
-                items={customerItems}
-              />
+            <li className={styles['nav-item']}>
+              <DropdownMenu title="Покупателям" items={customerItems} />
             </li>
           </ul>
         </nav>
@@ -80,19 +75,16 @@ const HeaderInfo = () => {
             </a>
           </span>
           </div>
-          <div className={styles["link-container"]}>
-          <A1/>
-          <span className={styles["main-phone"]}>
-            <a href="tel:+375293021021">+375 29 302 10 21</a>
-          </span>
+          <div className={styles['link-container']}>
+            <A1 />
+            <span className={styles['main-phone']}>
+              <a href="tel:+375293021021">+375 29 302 10 21</a>
+            </span>
           </div>
-          <div className={styles["link-container"]}>
-          <div className={styles["more-contacts"]}>
-            <DropdownMenu 
-              title="Еще" 
-              items={phoneItemsWithIcons}
-            />
-          </div>
+          <div className={styles['link-container']}>
+            <div className={styles['more-contacts']}>
+              <DropdownMenu title="Еще" items={phoneItemsWithIcons} />
+            </div>
           </div>
         </div>
       </div>
