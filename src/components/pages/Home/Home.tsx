@@ -1,11 +1,5 @@
-import AuthModal from '@/components/widgets/AuthModal';
-
 const Home = () => {
-  return (
-    <div>
-      <AuthModal visible={true} />
-    </div>
-  );
+  return <div></div>;
 };
 
 export default Home;
