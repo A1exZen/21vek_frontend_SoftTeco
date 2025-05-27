@@ -1,3 +1,5 @@
+@use '../../../styles/mixins' as mixins;
+
 @mixin base-button {
 	display: flex;
 	justify-content: center;
@@ -33,6 +35,23 @@
 	}
 }
 
+.button_variant_bordered {
+	@include base-button;
+	border: 1px solid var(--light-gray);
+	font-size: mixins.rem(14);
+	border-radius: mixins.rem(15);
+	background-color: transparent;
+	gap: mixins.rem(8);
+
+	svg {
+		width: 100%;
+		height: 100%;
+		display: flex;
+		width: mixins.rem(16);
+		height: mixins.rem(16);
+	}
+}
+
 
 .button_color_first {
 	--text-color: var(--white);
@@ -46,6 +65,13 @@
 	--background-color: var(--secondary);
 	&:hover{
 		background-color: var(--secondary-hover);
+	}
+}
+.button_color_third {
+	--color: var(--light-gray);
+	&:hover{
+		border: none;
+		box-shadow: 0 2px 4px var(--gray-300),
 	}
 }
 
