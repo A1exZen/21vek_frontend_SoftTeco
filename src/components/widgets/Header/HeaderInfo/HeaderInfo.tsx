@@ -19,6 +19,7 @@ import Message from '@/assets/icons/message.svg';
 import { cc } from '@/utils/combineClasses';
 
 const HeaderInfo = () => {
+
   const { data: cityData, isLoading, isError } = useUserLocation();
   const { customerItems, phoneItems } = HEADER_NAV;
   
@@ -28,7 +29,7 @@ const HeaderInfo = () => {
     { ...phoneItems[2], icon: <Telegram1 /> },
     { ...phoneItems[3], icon: <Mail /> },
     { ...phoneItems[4], icon: <PhoneCall /> },
-    { ...phoneItems[5], icon: <Message /> }
+    { ...phoneItems[5], icon: <Message /> },
   ];
 
   return (
@@ -89,22 +90,25 @@ const HeaderInfo = () => {
             <a href={HEADER_NAV.phoneItems[1].href}>{HEADER_NAV.phoneItems[1].title}</a>
           </span>
           </div>
-          <div className={styles["link-container"]}>
-          <div className={styles["more-contacts"]}>
-            <DropdownMenu 
-              title="Еще" 
-              items={phoneItemsWithIcons}
-            />
+          <div className={styles['link-container']}>
+            <A1 />
+            <span className={styles['main-phone']}>
+              <a href="tel:+375293021021">+375 29 302 10 21</a>
+            </span>
           </div>
+          <div className={styles['link-container']}>
+            <div className={styles['more-contacts']}>
+              <DropdownMenu title="Еще" items={phoneItemsWithIcons} />
+            </div>
           </div>
         </div>
       </div>
 
-      <div className={styles["working-time-block"]}>
-      <Divider type='vertical'/>
-          <div className={styles["working-time-text"]}>
-            контакт-центр <br/> с 8.00 до 22.00
-          </div>
+      <div className={styles['working-time-block']}>
+        <Divider type="vertical" />
+        <div className={styles['working-time-text']}>
+          контакт-центр <br /> с 8.00 до 22.00
+        </div>
       </div>
     </div>
   );
