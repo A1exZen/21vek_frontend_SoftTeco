@@ -1,10 +1,10 @@
-import AuthModal from '@/components/widgets/AuthModal';
+import ProductSlider from "@/components/dummies/ProductSlider";
 
 const Home = () => {
   return (
-    <div>
-      <AuthModal visible={true} />
-    </div>
+    <>
+      <ProductSlider />
+    </>
   );
 };
 
