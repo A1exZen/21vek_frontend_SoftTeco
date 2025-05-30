@@ -9,22 +9,33 @@ import { BaseError, ensureError, handleHttpError } from '@utils/ErrorHandler';
 import { HttpStatusCode } from '@/models/common';
 import Cookies from 'js-cookie';
 
-export const login = async (data: LoginRequest): Promise<LoginResponse> =>
-  await $api.post<LoginResponse, LoginResponse, LoginRequest>(
-    API_CONFIG.ENDPOINTS.AUTH.LOGIN,
-    data,
-    {
-      headers: {
-        Accept: 'application/json',
+export const login = async (data: LoginRequest): Promise<LoginResponse> => {
+  try {
+    return await $api.post<LoginResponse, LoginResponse, LoginRequest>(
+      API_CONFIG.ENDPOINTS.AUTH.LOGIN,
+      data,
+      {
+        headers: {
+          Accept: 'application/json',
+        },
       },
-    },
-  );
+    );
+  } catch (error) {
+    const err = ensureError(error);
+    throw new BaseError('Login failed', { cause: err });
+  }
+};
 
 export const register = async (data: RegisterRequest): Promise<void> => {
-  await $api.post<void, void, RegisterRequest>(
-    API_CONFIG.ENDPOINTS.AUTH.REGISTER,
-    data,
-  );
+  try {
+    await $api.post<void, void, RegisterRequest>(
+      API_CONFIG.ENDPOINTS.AUTH.REGISTER,
+      data,
+    );
+  } catch (error) {
+    const err = ensureError(error);
+    throw new BaseError('Registration failed', { cause: err });
+  }
 };
 
 export const refreshToken = async (): Promise<void> => {
@@ -52,5 +63,11 @@ export const refreshToken = async (): Promise<void> => {
   }
 };
 
-export const checkToken = async (): Promise<void> =>
-  await $api.get(API_CONFIG.ENDPOINTS.AUTH.CHECK);
+export const checkToken = async (): Promise<void> => {
+  try {
+    await $api.get(API_CONFIG.ENDPOINTS.AUTH.CHECK);
+  } catch (error) {
+    const err = ensureError(error);
+    throw new BaseError('Token check failed', { cause: err });
+  }
+};

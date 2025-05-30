@@ -1,4 +1,4 @@
-import { AxiosResponse, isAxiosError } from 'axios';
+import { AxiosError, AxiosResponse, isAxiosError } from 'axios';
 import { camelizeKeys } from 'humps';
 import {
   BaseError,
@@ -12,7 +12,7 @@ import { refreshToken } from '@/api/auth';
 
 interface Interceptors {
   onSuccess: (response: AxiosResponse) => AxiosResponse;
-  onError: (error: Error) => Promise<never>;
+  onError: (error: AxiosError) => Promise<never>;
 }
 
 export const interceptors: Interceptors = {
@@ -25,15 +25,12 @@ export const interceptors: Interceptors = {
     }
     return response.data ? response.data : response;
   },
-  onError: async (error) => {
+  onError: async (error: AxiosError) => {
     const err = ensureError(error);
 
     if (!isAxiosError(err)) {
       throw new BaseError('Non axios error', {
         cause: err,
-        context: {
-          errorStack: err.stack,
-        },
       });
     }
 

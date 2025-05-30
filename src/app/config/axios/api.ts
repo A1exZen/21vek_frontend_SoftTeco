@@ -21,9 +21,7 @@ $api.interceptors.request.use(
     }
     return config;
   },
-  (error: AxiosError) => {
-    return Promise.reject(error);
-  },
+  (error: AxiosError) => Promise.reject(error),
 );
 
 $api.interceptors.response.use(interceptors.onSuccess, interceptors.onError);
