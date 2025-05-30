@@ -19,8 +19,14 @@
 				opacity: 1;
 			}
 		}
-		@media (max-width: 768px) {
-			top: 175px;
+		@media (max-width: 1444px) {
+			top: 250px;
+		}
+		@media (max-width: 1024px) {
+			top: 280px;
+		}
+		@media (max-width: 767px) {
+			top: 360px;
 		}
 	}
 
@@ -114,6 +120,7 @@
 		.product-catalog__category-link,
 		.product-catalog__subcategory-link {
 			display: flex;
+			font-weight: 600;
 			align-items: center;
 			gap: 8px;
 			text-decoration: none;
@@ -212,6 +219,7 @@
 
 	}
 }
+
 @media (max-width: 768px) {
 	.product-catalog__panel {
 		width: 100%;

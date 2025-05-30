@@ -1,27 +1,25 @@
-import UserControlsButton from '@/components/ui/UserControlsButton';
 import styles from './styles.module.scss';
 import Logo from '/src/assets/icons/main-logo.png';
 import { Input } from 'antd';
 import { SearchOutlined } from '@ant-design/icons';
-// import Catalog from '@/assets/icons/catalog.svg';
+import Catalog from '@/assets/icons/catalog.svg';
 import Favorite from '@/assets/icons/heart.svg';
 import Account from '@/assets/icons/user.svg';
 import Basket from '@/assets/icons/basket.svg';
-import { useEffect, useRef, useState } from 'react';
+import { PATHS } from '@/constants/path.config';
+import { Link } from 'react-router-dom';
+import Button from '@/components/ui/Button';
+import { useRef, useState } from 'react';
 import ProductCatalog from '@components/widgets/ProductCatalog';
-import {CircleX, LayoutGrid } from 'lucide-react';
-import { useLocation } from 'react-router-dom';
 
 const UserControls = () => {
   const [isCatalogOpen, setIsCatalogOpen] = useState(false);
-  const buttonRef = useRef<HTMLButtonElement | null>(null);
-  const location = useLocation();
+  const buttonRef = useRef<HTMLButtonElement>(null);
 
-  useEffect(() => {
-    if (location.pathname.startsWith('/category/')) {
-      setIsCatalogOpen(false);
-    }
-  }, [location]);
+  const handleCatalogToggle = () => {
+    setIsCatalogOpen((prev) => !prev);
+  };
+
   return (
     <>
       <div className={styles['header-info-container']}>
@@ -31,17 +29,16 @@ const UserControls = () => {
 
         <button
           ref={buttonRef}
-          className={`${styles['user-controls-button']} ${isCatalogOpen ? styles['catalog-btn-open'] : ''}`}
-          onClick={() => setIsCatalogOpen(!isCatalogOpen)}
+          type="button"
+          className={`${styles.button_variant_bordered} ${
+            isCatalogOpen ? styles.button_color_gray : styles.button_color_third
+          }`}
+          onClick={handleCatalogToggle}
         >
-          <span className={styles['user-controls-button__icon']}>
-            {isCatalogOpen ? (
-              <CircleX size={20} fill={'#c5c5c5'} color={'#737373'} />
-            ) : (
-              <LayoutGrid size={20} color={'#e52e6b'} />
-            )}
+          <span className={styles.icon}>
+            <Catalog />
           </span>
-          <span className={styles['user-controls-button__text']}>Каталог товаров</span>
+          Каталог товаров
         </button>
 
         <div className={styles['search-container']}>
@@ -53,15 +50,27 @@ const UserControls = () => {
           />
         </div>
 
-        <UserControlsButton
-          icon={<Favorite />}
-          text="Избранное"
-          to="/favorites"
-        />
-        <UserControlsButton icon={<Account />} text="Аккаунт" to="/favorites" />
-        <UserControlsButton icon={<Basket />} text="Корзина" to="/favorites" />
+        <Link to={PATHS.FAVORITES}>
+          <Button icon={<Favorite />} variant="bordered" color="third">
+            Избранное
+          </Button>
+        </Link>
+
+        <Button icon={<Account />} variant="bordered" color="third">
+          Аккаунт
+        </Button>
+
+        <Link to={PATHS.BASKET}>
+          <Button icon={<Basket />} variant="bordered" color="third">
+            Корзина
+          </Button>
+        </Link>
       </div>
-      <ProductCatalog isOpen={isCatalogOpen} onToggle={setIsCatalogOpen} toggleButtonRef={buttonRef} />
+      <ProductCatalog
+        isOpen={isCatalogOpen}
+        onToggle={setIsCatalogOpen}
+        toggleButtonRef={buttonRef}
+      />
     </>
   );
 };

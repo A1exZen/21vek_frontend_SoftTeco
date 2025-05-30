@@ -37,6 +37,10 @@
   .button-text {
     font-size: inherit;
     line-height: 1;
+
+    @media (max-width: 768px) {
+      display: none;
+    }
   }
 
   @media (max-width: 768px) {

@@ -1,4 +1,7 @@
-import { Category } from '@components/widgets/ProductCatalog/constants.ts';
+import {
+  Category,
+  productCategories
+} from '@components/widgets/ProductCatalog/constants.ts';
 import styles from '@components/widgets/ProductCatalog/styles.module.scss';
 import { Link } from 'react-router-dom';
 import {
@@ -10,32 +13,28 @@ export const SubcategoryGrid = ({
 }: {
   activeCategory: Category;
 }) => {
+  const subcategories = productCategories.filter(
+    (category) => category.idParent === activeCategory.id
+  );
   return (
     <div className={styles['product-catalog__subcategories-grid']}>
-      {(activeCategory.subcategories || []).map((subcategory) => (
+      {subcategories.map((subcategory) => (
         <div
-          key={subcategory.name}
+          key={subcategory.id}
           className={styles['product-catalog__subcategory']}
         >
           <div className={styles['product-catalog__subcategory-title']}>
-            {subcategory.icon && (
-              <span className={styles['product-catalog__subcategory-icon']}>
-                {subcategory.icon}
-              </span>
-            )}
             <Link
-              to={`category/${subcategory.id}/`}
+              to={`/category/${subcategory.url}`}
               className={styles['product-catalog__subcategory-link']}
             >
               {subcategory.name}
             </Link>
           </div>
-          {subcategory.subcategories && (
-            <SubcategoryItems
-              items={subcategory.subcategories}
-              subcategoryName={subcategory.name}
-            />
-          )}
+          <SubcategoryItems
+            parentCategoryId={subcategory.id}
+            subcategoryName={subcategory.name}
+          />
         </div>
       ))}
     </div>

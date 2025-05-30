@@ -12,7 +12,9 @@ interface ProductCatalogProps {
 
 const ProductCatalog = ({ isOpen, onToggle, toggleButtonRef }: ProductCatalogProps) => {
   const catalogRef = useRef<HTMLDivElement>(null);
-  const [activeCategory, setActiveCategory] = useState<Category | null>(productCategories[0]);
+  const [activeCategory, setActiveCategory] = useState<Category | null>(
+    productCategories.find((cat) => cat.idParent === null) || null
+  );
 
   const handleCategoryHover = useCallback((category: Category) => {
     setActiveCategory(category);
@@ -47,6 +49,8 @@ const ProductCatalog = ({ isOpen, onToggle, toggleButtonRef }: ProductCatalogPro
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, [isOpen, handleClickOutside]);
 
+  const topLevelCategories = productCategories.filter((category) => category.idParent === null);
+
   return (
     <div className={styles['product-catalog']}>
       {isOpen && (
@@ -56,7 +60,7 @@ const ProductCatalog = ({ isOpen, onToggle, toggleButtonRef }: ProductCatalogPro
             <div className={styles['product-catalog__content']}>
               <nav className={styles['product-catalog__main-categories']}>
                 <ul className={styles['product-catalog__category-list']}>
-                  {productCategories.map((category) => (
+                  {topLevelCategories.map((category) => (
                     <li
                       key={category.name}
                       className={`${styles['product-catalog__main-category']} ${
@@ -77,11 +81,6 @@ const ProductCatalog = ({ isOpen, onToggle, toggleButtonRef }: ProductCatalogPro
                         to={`category/${category.id}/`}
                         className={styles['product-catalog__category-link']}
                       >
-                        <span
-                          className={styles['product-catalog__category-icon']}
-                        >
-                          {category.icon}
-                        </span>
                         {category.name}
                       </Link>
                     </li>

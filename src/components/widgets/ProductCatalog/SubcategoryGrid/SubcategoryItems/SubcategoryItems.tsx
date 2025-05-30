@@ -1,30 +1,33 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import styles from '@components/widgets/ProductCatalog/styles.module.scss';
+import {
+  productCategories
+} from '@components/widgets/ProductCatalog/constants.ts';
 
 interface SubcategoryItemsProps {
-  items: {id: string, name: string; icon?: React.ReactNode }[];
+  parentCategoryId: string;
   subcategoryName: string;
 }
-export const SubcategoryItems = ({ items }: SubcategoryItemsProps) => {
+export const SubcategoryItems = ({ parentCategoryId }: SubcategoryItemsProps) => {
   const [showAllItems, setShowAllItems] = useState(false);
   const ITEMS_LIMIT = 5;
 
+  const items = productCategories.filter(
+    (category) => category.idParent === parentCategoryId
+  );
+
   const visibleItems = showAllItems ? items : items.slice(0, ITEMS_LIMIT);
+
 
   return (
     <div>
       {visibleItems.map((item) => (
         <Link
-          key={item.name}
-          to={`category/${item.id}/`}
+          key={item.id}
+          to={`/category/${item.url}`}
           className={styles['product-catalog__subcategory-item']}
         >
-          {item.icon && (
-            <span className={styles['product-catalog__subcategory-item-icon']}>
-              {item.icon}
-            </span>
-          )}
           {item.name}
         </Link>
       ))}

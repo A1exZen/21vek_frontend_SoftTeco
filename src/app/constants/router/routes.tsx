@@ -21,7 +21,7 @@ export const routes: RouteObject[] = [
         index: true,
         element: <Home />,
       },
-      { path: '/category/:categoryId', element: <CategoryPage /> },
+      { path: '/category/:categoryUrl', element: <CategoryPage /> },
       { path: '/category/:categoryId/product/:productId', element: <ProductPage /> },
     ],
   },

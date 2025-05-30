@@ -1,0 +1,86 @@
+.sliderSection {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40px;
+}
+
+.carouselWrapper {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.slideContainer {
+  width: 80%;
+}
+
+.slideWrapper {
+  display: block;
+  height: 100%;
+}
+
+.slideContent {
+  height: 350px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+
+  img {
+    width: auto;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 15px;
+  }
+}
+
+.arrowButton {
+  top: 50%;
+  z-index: 10;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  cursor: pointer;
+  border: none;
+  font-size: 18px;
+
+  &:hover {
+    background-color: var(--pink-400);
+  }
+
+  &:hover svg {
+    color: var(--color-primary);
+  }
+}
+
+.arrowLeft {
+  border: 2px solid var(--color-primary);
+  color: var(--color-primary);
+}
+
+.arrowRight {
+  border: 2px solid var(--color-primary);
+  color: var(--color-primary);
+}
+
+.dotsContainer {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: #ccc;
+  transition: background-color 0.3s;
+}
+
+.activeDot {
+  background-color: var(--color-primary);
+}
