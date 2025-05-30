@@ -7,3 +7,9 @@ export type Jsonable =
   | readonly Jsonable[]
   | { readonly [key: string]: Jsonable }
   | { toJSON(): Jsonable };
+
+export enum ToastAlertType {
+  ERROR = 'error',
+  WARNING = 'warning',
+  SUCCESS = 'success',
+}

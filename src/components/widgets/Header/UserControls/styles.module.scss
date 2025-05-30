@@ -11,15 +11,15 @@
 
   .main-logo {
     max-width: mixins.rem(160);
-  
+
     @media (max-width: 768px) {
       max-width: mixins.rem(120);
     }
   }
-  
+
   .search-container {
     width: 40%;
-  
+
     @media (max-width: 768px) {
       max-width: mixins.rem(160);
     }

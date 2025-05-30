@@ -1,14 +1,14 @@
 import styles from './styles.module.scss';
-import A1Icon from '@/assets/icons/a1.svg';
-import LifeIcon from '@/assets/icons/life.svg';
+import A1Icon from '@/assets/icons/social-media/a1.svg';
+import LifeIcon from '@/assets/icons/social-media/life.svg';
 import PhoneIcon from '@/assets/icons/phone.svg';
-import TelegramIcon from '@/assets/icons/telegram.svg';
+import TelegramIcon from '@/assets/icons/social-media/telegram.svg';
 import MailIcon from '@/assets/icons/mail.svg';
 import MessageIcon from '@/assets/icons/message.svg';
-import VkIcon from '@/assets/icons/vk.svg';
-import InstagramIcon from '@/assets/icons/instagram.svg';
-import YoutubeIcon from '@/assets/icons/youtube.svg';
-import TikTokIcon from '@/assets/icons/tiktok.svg';
+import VkIcon from '@/assets/icons/social-media/vk.svg';
+import InstagramIcon from '@/assets/icons/social-media/instagram.svg';
+import YoutubeIcon from '@/assets/icons/social-media/youtube.svg';
+import TikTokIcon from '@/assets/icons/social-media/tiktok.svg';
 
 const Footer = () => {
   return (

@@ -1,0 +1,21 @@
+.error-page {
+  padding: 20px 0;
+  .error-page__header {
+    display: flex;
+    gap: 30px;
+    align-items: center;
+    font-size: 53px;
+    line-height: 60px;
+    margin-bottom: 10px;
+
+    .error-page__404 {
+      font-size: 124px;
+      color: var(--color-primary);
+    }
+  }
+  .error-page__content {
+    max-width: 456px;
+    font-size: 12px;
+    text-align: left;
+  }
+}
