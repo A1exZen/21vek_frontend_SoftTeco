@@ -1,7 +1,9 @@
-const Home = () => {
+import ProductSlider from '@/components/dummies/ProductSlider';
 
+const Home = () => {
   return (
     <>
+      <ProductSlider />
     </>
   );
 };

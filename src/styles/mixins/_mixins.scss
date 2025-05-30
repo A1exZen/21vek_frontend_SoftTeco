@@ -1,0 +1,59 @@
+@function rem($value) {
+  @return calc($value / 16) + rem;
+}
+
+@function minus-rem($value) {
+  @return calc($value / 16 * (-1)) + rem;
+}
+
+@mixin hover {
+  @media (hover: hover) and (pointer: fine) {
+    @content;
+  }
+}
+
+@mixin full-width {
+  width: 100%;
+  margin-right: calc(50% - 50vw);
+  margin-left: calc(50% - 50vw);
+}
+
+@mixin notification {
+  position: absolute;
+  top: 1%;
+  z-index: var(--alert-toast-z-index);
+  right: 1%;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  padding: 20px 10px;
+  border-radius: 10px;
+  box-shadow: 0px 0px 5px #9b9b9b;
+  max-width: 300px;
+
+  background-color: var(--color-static-white);
+
+  @keyframes start {
+    0% {
+      right: -5%;
+    }
+    100% {
+      top: 1%;
+      right: 1%;
+    }
+  }
+
+  animation: start 0.3s forwards;
+}
+
+@mixin notification-icon {
+  width: 32px;
+}
+
+@mixin notification-title {
+  margin-bottom: 5px;
+}
+@mixin notification-message {
+  font-size: 14px;
+}

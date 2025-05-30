@@ -38,11 +38,11 @@
 
   @media (max-width: 768px) {
     font-size: mixins.rem(12);
-  }  
+  }
 
   @media (max-width: 570px) {
     font-size: mixins.rem(10);
-  }  
+  }
 }
 
 .nav-link {
@@ -57,7 +57,7 @@
   @media (max-width: 768px) {
     font-size: mixins.rem(12);
   }
-  
+
   &:hover {
     color: var(--color-primary);
   }
