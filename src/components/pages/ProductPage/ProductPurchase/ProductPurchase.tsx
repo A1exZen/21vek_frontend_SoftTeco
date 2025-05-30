@@ -1,5 +1,5 @@
 import styles from './styles.module.scss';
-import { Star } from 'lucide-react';
+import { Heart, Star } from 'lucide-react';
 
 export const ProductPurchase = () => {
   return (
@@ -17,7 +17,7 @@ export const ProductPurchase = () => {
       </div>
       <div className={styles['product-purchase__buttons-section']}>
         <button className={styles['product-purchase__cart-btn']}>Добавить в корзину</button>
-        <button className={styles['product-purchase__favorite-btn']}>♡</button>
+        <button className={styles['product-purchase__favorite-btn']}><Heart/></button>
       </div>
     </div>
   );

@@ -1,8 +1,7 @@
 .product-purchase {
-	border: 1px solid #eee;
+	border: 1px solid var(--gray-200);
 	border-radius: 12px;
 	padding: 1.2rem;
-	background: #fff;
 	width: 100%;
 	max-width: 320px;
 	display: flex;
@@ -56,7 +55,7 @@
 
 .product-purchase__cart-btn {
 	width: 100%;
-	background-color: #f03e6b;
+	background-color: var(--primary);
 	color: #fff;
 	font-size: 1rem;
 	padding: 0.7rem 1rem;
@@ -66,7 +65,7 @@
 	font-weight: 600;
 
 	&:hover {
-		background-color: #d42e5b;
+		background-color: var(--primary-hover);
 	}
 }
 

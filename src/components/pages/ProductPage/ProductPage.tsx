@@ -6,19 +6,18 @@ import { ProductSpecs } from '@pages/ProductPage/ProductSpecs';
 import { ProductTabs } from '@pages/ProductPage/ProductTabs';
 import { Breadcrumbs } from '@components/widgets/Breadcrumbs';
 import { Copy } from 'lucide-react';
-import { useState } from 'react';
+import toast from 'react-hot-toast';
+import { RecommendedProducts } from '@pages/ProductPage/RecommendedProducts';
 
 export const ProductPage = () => {
-  const [,setCopySuccess] = useState<string | null>(null);
+
   const copyToClipboard = async (text: string) => {
     try {
       await navigator.clipboard.writeText(text);
-      setCopySuccess('Скопировано!');
-      setTimeout(() => setCopySuccess(null), 2000);
+      toast.success('Скопировано')
     } catch (error) {
       console.log(error)
-      setCopySuccess('Ошибка копирования');
-      setTimeout(() => setCopySuccess(null), 2000);
+      toast.error('Ошибка копирования')
     }
   };
 
@@ -39,13 +38,11 @@ export const ProductPage = () => {
         </div>
         <div className={styles['product-page__details']}>
           <ProductPurchase />
-          {/*<ProductDelivery />*/}
         </div>
       </div>
-
-      {/* Bottom blocks */}
       <ProductSpecs />
       <ProductTabs />
+      <RecommendedProducts />
     </div>
   );
 };
