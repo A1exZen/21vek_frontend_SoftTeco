@@ -5,13 +5,13 @@ import Cookies from 'js-cookie';
 type AuthState = {
   user: User | null;
   loading: boolean;
-  error: boolean;
+  error: string | null;
 };
 
 const initialState: AuthState = {
   user: null,
   loading: false,
-  error: false,
+  error: null,
 };
 
 const authSlice = createSlice({
@@ -20,6 +20,15 @@ const authSlice = createSlice({
   reducers: {
     setUser: (state, action: PayloadAction<User>) => {
       state.user = action.payload;
+      state.loading = false;
+      state.error = null;
+    },
+    setLoading: (state, action: PayloadAction<boolean>) => {
+      state.loading = action.payload;
+    },
+    setError: (state, action: PayloadAction<string | null>) => {
+      state.error = action.payload;
+      state.loading = false;
     },
     remove: (state) => {
       Cookies.remove('accessToken');
@@ -29,5 +38,5 @@ const authSlice = createSlice({
   },
 });
 
-export const { setUser, remove } = authSlice.actions;
+export const { setUser, remove, setLoading, setError } = authSlice.actions;
 export default authSlice.reducer;

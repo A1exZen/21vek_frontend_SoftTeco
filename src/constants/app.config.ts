@@ -1,5 +1,5 @@
 export const API_CONFIG = {
-  BASE_URL: '',
+  BASE_URL: 'http://locahost:8000/',
   ENDPOINTS: {
     AUTH: {
       LOGIN: 'auth/login',
