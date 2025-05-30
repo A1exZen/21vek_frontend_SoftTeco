@@ -1,4 +1,4 @@
-@use '../../../../styles/mixins';
+@use '../../../../styles/mixins/mixins';
 
 .header-info-container {
   display: flex;
@@ -38,11 +38,11 @@
 
   @media (max-width: 768px) {
     font-size: mixins.rem(12);
-  }  
+  }
 
   @media (max-width: 570px) {
     font-size: mixins.rem(10);
-  }  
+  }
 }
 
 .nav-link {
@@ -57,7 +57,7 @@
   @media (max-width: 768px) {
     font-size: mixins.rem(12);
   }
-  
+
   &:hover {
     color: var(--color-primary);
   }
@@ -79,7 +79,7 @@
 
 .extraItem {
   padding: mixins.rem(8) mixins.rem(12);
-  background: rgba(0,0,0,0.05);
+  background: rgba(0, 0, 0, 0.05);
   border-radius: mixins.rem(4);
 }
 
@@ -121,11 +121,11 @@
 }
 
 .working-time-text {
-    min-width: 74px;
-    margin-left: 2px;
-    font-size: 10px;
-    line-height: 14px;
-    color: var(--light-gray);
+  min-width: 74px;
+  margin-left: 2px;
+  font-size: 10px;
+  line-height: 14px;
+  color: var(--light-gray);
 }
 
 .working-time-block {
