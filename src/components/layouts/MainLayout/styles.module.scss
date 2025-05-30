@@ -1,8 +1,16 @@
-@use '../../../styles/mixins';
+@use '../../../styles/mixins/mixins';
 
 .main-layout {
-  @include mixins.full-width;
-  max-width: mixins.rem(1440);
-  padding: 0 mixins.rem(20);
-  margin: 0 auto;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  .main-layout__main {
+    @include mixins.full-width;
+    max-width: mixins.rem(1440);
+    padding: 0 mixins.rem(20);
+    margin: 0 auto;
+    flex-grow: 1;
+  }
 }

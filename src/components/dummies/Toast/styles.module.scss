@@ -1,0 +1,17 @@
+@use '../../../styles/mixins/mixins' as mixin;
+
+.toast {
+  @include mixin.notification;
+
+  .toast__icon {
+    @include mixin.notification-icon;
+  }
+  .toast__info {
+    .toast__title {
+      @include mixin.notification-title;
+    }
+    .toast__message {
+      @include mixin.notification-message;
+    }
+  }
+}

@@ -1,11 +1,20 @@
+import styles from './styles.module.scss';
+
 const ErrorPage = () => {
-  const status: number = 404;
-  const message: string = 'Не найден';
   return (
-    <>
-      <h1>{status}</h1>
-      <p>{message}</p>
-    </>
+    <div className={styles['error-page']}>
+      <h2 className={styles['error-page__header']}>
+        <span className={styles['error-page__404']}>404</span>
+        <span>
+          Страница <br />
+          не найдена
+        </span>
+      </h2>
+      <p className={styles['error-page__content']}>
+        Извините, такой странички у нас нет. Воспользуйтесь навигацией или
+        поиском, расположенными вверху, чтобы найти нужный вам товар.
+      </p>
+    </div>
   );
 };
 

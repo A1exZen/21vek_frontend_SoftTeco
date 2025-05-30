@@ -1,4 +1,4 @@
-import ProductSlider from "@/components/dummies/ProductSlider";
+import ProductSlider from '@/components/dummies/ProductSlider';
 
 const Home = () => {
   return (
