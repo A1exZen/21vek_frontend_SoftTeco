@@ -9,6 +9,7 @@ import MainLayout from '@/components/layouts/MainLayout';
 import Home from '@components/pages/Home/Home';
 import { CategoryPage } from '@pages/CaterogyPage';
 import { ProductPage } from '@pages/ProductPage/ProductPage.tsx';
+
 const ErrorPage = lazy(() => import('@pages/Error'));
 
 export const routes: RouteObject[] = [
@@ -19,8 +20,13 @@ export const routes: RouteObject[] = [
       { index: true, element: <Home /> },
       { path: PATHS.NOT_FOUND, element: <ErrorPage /> },
       { path: PATHS.ALL, element: <ErrorPage /> },
-      { path: '/category/:categoryUrl', element: <CategoryPage /> },
-      { path: '/category/:categoryId/product/:productId', element: <ProductPage /> },
+      {
+        path: '/:categoryUrl',
+        element: <CategoryPage />,
+        children: [
+          { path: ':productId', element: <ProductPage /> },
+        ],
+      },
     ],
   },
 ];

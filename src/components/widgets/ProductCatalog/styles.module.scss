@@ -4,10 +4,10 @@
 	.product-catalog__overlay {
 		z-index: 99;
 		position: fixed;
-		top: 160px;
+		top: 210px;
 		left: 0;
 		width: 100%;
-		height: calc(100% - 160px);
+		height: calc(100% - 210px);
 		background: rgba(0, 0, 0, 0.5);
 		animation: fadeIn 0.3s ease forwards;
 
@@ -144,7 +144,7 @@
 
 		.product-catalog__subcategory-title-header {
 			padding: 12px 24px;
-			font-size: 18px;
+			font-size: 1.3rem;
 			font-weight: 600;
 			border-bottom: 1px solid #eee;
 		}
@@ -217,6 +217,11 @@
 			padding: 40px;
 		}
 
+		.product-catalog__no-subcategories{
+			color: var(--gray-700);
+			font-size: 1.1rem;
+			padding: 6px 12px;
+		}
 	}
 }
 

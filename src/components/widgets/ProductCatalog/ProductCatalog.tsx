@@ -1,5 +1,11 @@
-import React, { useCallback, useState, useEffect, useRef } from 'react';
-import { Link } from 'react-router-dom';
+import React, {
+  useCallback,
+  useState,
+  useEffect,
+  useRef,
+  useMemo,
+} from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import styles from './styles.module.scss';
 import { productCategories, Category } from './constants.ts';
 import { SubcategoryGrid } from './SubcategoryGrid';
@@ -10,10 +16,20 @@ interface ProductCatalogProps {
   toggleButtonRef?: React.RefObject<HTMLButtonElement | null>;
 }
 
-const ProductCatalog = ({ isOpen, onToggle, toggleButtonRef }: ProductCatalogProps) => {
+const ProductCatalog = ({
+  isOpen,
+  onToggle,
+  toggleButtonRef,
+}: ProductCatalogProps) => {
   const catalogRef = useRef<HTMLDivElement>(null);
+  const location = useLocation();
+
+  const topLevelCategories = useMemo(
+    () => productCategories.filter((category) => category.idParent === null),
+    [],
+  );
   const [activeCategory, setActiveCategory] = useState<Category | null>(
-    productCategories.find((cat) => cat.idParent === null) || null
+    () => topLevelCategories[0] || null,
   );
 
   const handleCategoryHover = useCallback((category: Category) => {
@@ -25,11 +41,28 @@ const ProductCatalog = ({ isOpen, onToggle, toggleButtonRef }: ProductCatalogPro
     setActiveCategory(null);
   }, [onToggle]);
 
+  const handleCategoryKeyDown = useCallback(
+    (event: React.KeyboardEvent, category: Category) => {
+      if (event.key === 'Enter' || event.key === ' ') {
+        event.preventDefault();
+        handleCategoryHover(category);
+      } else if (event.key === 'Escape') {
+        handleClose();
+      }
+    },
+    [handleCategoryHover, handleClose],
+  );
+
+  useEffect(() => {
+    if (isOpen) {
+      handleClose();
+    }
+  }, [location.pathname, handleClose]);
+
   const handleClickOutside = useCallback(
     (event: MouseEvent) => {
       const target = event.target as Node;
       if (
-        isOpen &&
         catalogRef.current &&
         !catalogRef.current.contains(target) &&
         (!toggleButtonRef?.current || !toggleButtonRef.current.contains(target))
@@ -37,76 +70,71 @@ const ProductCatalog = ({ isOpen, onToggle, toggleButtonRef }: ProductCatalogPro
         handleClose();
       }
     },
-    [isOpen, handleClose, toggleButtonRef],
+    [handleClose, toggleButtonRef],
   );
 
   useEffect(() => {
     if (isOpen) {
       document.addEventListener('mousedown', handleClickOutside);
-    } else {
-      document.removeEventListener('mousedown', handleClickOutside);
+      return () =>
+        document.removeEventListener('mousedown', handleClickOutside);
     }
-    return () => document.removeEventListener('mousedown', handleClickOutside);
   }, [isOpen, handleClickOutside]);
+  useEffect(() => {
+    if (isOpen && topLevelCategories.length > 0) {
+      setActiveCategory(topLevelCategories[0]);
+    }
+  }, [isOpen, topLevelCategories]);
 
-  const topLevelCategories = productCategories.filter((category) => category.idParent === null);
+  if (!isOpen) {
+    return null;
+  }
 
   return (
     <div className={styles['product-catalog']}>
-      {isOpen && (
-        <>
-          <div className={styles['product-catalog__overlay']} />
-          <div className={styles['product-catalog__panel']} ref={catalogRef}>
-            <div className={styles['product-catalog__content']}>
-              <nav className={styles['product-catalog__main-categories']}>
-                <ul className={styles['product-catalog__category-list']}>
-                  {topLevelCategories.map((category) => (
-                    <li
-                      key={category.name}
-                      className={`${styles['product-catalog__main-category']} ${
-                        activeCategory?.name === category.name
-                          ? styles['product-catalog__main-category--active']
-                          : ''
-                      }`}
-                      onMouseEnter={() => handleCategoryHover(category)}
-                      role="menuitem"
-                      tabIndex={0}
-                      onKeyDown={(e) => {
-                        if (e.key === 'Enter' || e.key === ' ') {
-                          handleCategoryHover(category);
-                        }
-                      }}
-                    >
-                      <Link
-                        to={`category/${category.id}/`}
-                        className={styles['product-catalog__category-link']}
-                      >
-                        {category.name}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </nav>
-              <div className={styles['product-catalog__subcategories-wrapper']}>
-                {activeCategory && (
-                  <h2
-                    className={
-                      styles['product-catalog__subcategory-title-header']
-                    }
+      <div className={styles['product-catalog__overlay']} />
+      <div className={styles['product-catalog__panel']} ref={catalogRef}>
+        <div className={styles['product-catalog__content']}>
+          <nav className={styles['product-catalog__main-categories']}>
+            <ul className={styles['product-catalog__category-list']}>
+              {topLevelCategories.map((category) => (
+                <li
+                  key={category.name}
+                  className={`${styles['product-catalog__main-category']} ${
+                    activeCategory?.name === category.name
+                      ? styles['product-catalog__main-category--active']
+                      : ''
+                  }`}
+                  onMouseEnter={() => handleCategoryHover(category)}
+                >
+                  <Link
+                    to={`/${category.url}/`}
+                    className={styles['product-catalog__category-link']}
+                    onKeyDown={(e) => handleCategoryKeyDown(e, category)}
+                    onFocus={() => handleCategoryHover(category)}
                   >
-                    {activeCategory.name}
-                  </h2>
-                )}
-                <div className={styles['product-catalog__subcategories']}>
-                  {activeCategory && (
-                    <SubcategoryGrid activeCategory={activeCategory} />
-                  )}
-                </div>
-              </div>
+                    {category.name}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </nav>
+          <div className={styles['product-catalog__subcategories-wrapper']}>
+            {activeCategory && (
+              <h2
+                className={styles['product-catalog__subcategory-title-header']}
+              >
+                {activeCategory.name}
+              </h2>
+            )}
+            <div className={styles['product-catalog__subcategories']}>
+              {activeCategory && (
+                <SubcategoryGrid activeCategory={activeCategory} />
+              )}
             </div>
           </div>
-        </>
-      )}
+        </div>
+      </div>
     </div>
   );
 };
