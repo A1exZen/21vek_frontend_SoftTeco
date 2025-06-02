@@ -55,13 +55,13 @@ const UndoNotification = ({
         <span>{message}</span>
         <button 
           onClick={handleUndo}
-          className={styles.undoButton}
+          className={styles.undo__button}
         >
           {undoText}
         </button>
       </div>
       <div 
-        className={styles.progressBar}
+        className={styles['progress-bar']}
         style={{ width: `${progress}%` }}
       />
     </div>

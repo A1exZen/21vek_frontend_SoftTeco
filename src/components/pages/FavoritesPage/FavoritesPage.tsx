@@ -51,28 +51,28 @@ const FavoritesPage = () => {
       <Divider type='horizontal'/>
       
       {favorites.length === 0 ? (
-        <div className={styles.emptyMessage}>
+        <div className={styles.empty__message}>
           У вас пока нет ни одного товара в избранном.
         </div>
       ) : (
-        <div className={styles.favoritesList}>
+        <div className={styles.favorites__list}>
           {favorites.map((item) => (
             <div key={item.id} className={styles.card}>
-              <div className={styles.cardContent}>
-                <div className={styles.imageContainer}>
+              <div className={styles.card__content}>
+                <div className={styles.image__container}>
                   <img 
                     src={item.image} 
                     alt={item.name}
-                    className={styles.productImage}
+                    className={styles.product__image}
                   />
                 </div>
                 
-                <div className={styles.infoContainer}>
-                  <Link to={`/product/${item.id}`} className={styles.productLink}>
+                <div className={styles.info__container}>
+                  <Link to={`/product/${item.id}`} className={styles.product__link}>
                     {item.name}
                   </Link>
                   
-                  <div className={styles.productCode}>код {item.code}</div>
+                  <div className={styles.product__code}>код {item.code}</div>
                   
                   <div className={styles.rating}>
                     {[...Array(5)].map((_, i) => (
@@ -83,7 +83,7 @@ const FavoritesPage = () => {
                         color="#FFD700"
                       />
                     ))}
-                    <span className={styles.ratingValue}>({item.rating.toFixed(1)})</span>
+                    <span className={styles['rating-value']}>({item.rating.toFixed(1)})</span>
                   </div>
                   
                   <div className={styles.price}>{item.price.toLocaleString()} р.</div>
@@ -93,7 +93,7 @@ const FavoritesPage = () => {
                       <Button 
                         variant="solid"
                         color="first"
-                        className={styles.inCartButton}
+                        className={styles['in-cart__button']}
                         onClick={() => handleToggleCart(item.id)}
                       >
                         <Check size={16} className={styles.icon} />
@@ -103,7 +103,7 @@ const FavoritesPage = () => {
                       <Button 
                         variant="solid"
                         color="first"
-                        className={styles.cartButton}
+                        className={styles.cart__button}
                         onClick={() => handleToggleCart(item.id)}
                       >
                         <ShoppingCart size={16} className={styles.icon} color='white'/>
@@ -113,7 +113,7 @@ const FavoritesPage = () => {
                     
                     <Button 
                       variant="link"
-                      className={styles.removeButton}
+                      className={styles.remove__button}
                       onClick={() => handleRemove(item.id)}
                     >
                       Удалить из списка

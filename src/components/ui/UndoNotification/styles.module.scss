@@ -22,7 +22,7 @@
   margin-bottom: 8px;
 }
 
-.undoButton {
+.undo__button {
   background: none;
   border: none;
   color: var(--primary);
@@ -31,11 +31,11 @@
   padding: 4px 8px;
 }
 
-.undoButton:hover {
+.undo__button:hover {
   text-decoration: underline;
 }
 
-.progressBar {
+.progress-bar {
   height: 3px;
   background-color: var(--primary);
   transition: width 0.03s linear;
