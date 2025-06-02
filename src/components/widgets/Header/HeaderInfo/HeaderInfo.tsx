@@ -34,19 +34,19 @@ const HeaderInfo = () => {
   return (
     <div
       className={cc(
-        styles['header-info-container'],
-        styles['header-info-text'],
+        styles['header-info__container'],
+        styles['header-info__text'],
       )}
     >
       <div className={styles['locality-block']}>
         <Location />
-        <div className={styles['header-info-text']}>
+        <div className={styles['header-info__text']}>
           {isLoading ? (
-            <span className={cc(styles.loading, styles['header-info-text'])}>
+            <span className={cc(styles.loading, styles['header-info__text'])}>
               Определяем...
             </span>
           ) : isError ? (
-            <span className={cc(styles.error, styles['header-info-text'])}>
+            <span className={cc(styles.error, styles['header-info__text'])}>
               Город не определён
             </span>
           ) : (
@@ -55,7 +55,7 @@ const HeaderInfo = () => {
         </div>
       </div>
 
-      <div className={styles['header-nav-container']}>
+      <div className={styles['header-nav__container']}>
         <nav className={styles['nav']}>
           <ul className={styles['nav-list']}>
             <li className={styles['nav-item']}>
@@ -105,12 +105,6 @@ const HeaderInfo = () => {
             </span>
           </div>
           <div className={styles['link-container']}>
-            <A1 />
-            <span className={styles['main-phone']}>
-              <a href="tel:+375293021021">+375 29 302 10 21</a>
-            </span>
-          </div>
-          <div className={styles['link-container']}>
             <div className={styles['more-contacts']}>
               <DropdownMenu title="Еще" items={phoneItemsWithIcons} />
             </div>
@@ -118,9 +112,9 @@ const HeaderInfo = () => {
         </div>
       </div>
 
-      <div className={styles['working-time-block']}>
+      <div className={styles['working-time__block']}>
         <Divider type="vertical" />
-        <div className={styles['working-time-text']}>
+        <div className={styles['working-time__text']}>
           контакт-центр <br /> с 8.00 до 22.00
         </div>
       </div>

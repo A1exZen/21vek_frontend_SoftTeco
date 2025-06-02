@@ -12,10 +12,12 @@ import Button from '@/components/ui/Button';
 
 const UserControls = () => {
   return (
-    <div className={styles['header-info-container']}>
-      <div className={styles['logo-container']}>
-        <img src={Logo} alt="Логотип" className={styles['main-logo']} />
-      </div>
+    <div className={styles['header-info__container']}>
+      <Link to={PATHS.HOME}>
+        <div className={styles['logo-container']}>
+          <img src={Logo} alt="Логотип" className={styles['main-logo']} />
+        </div>
+      </Link>
 
       <Button icon={<Catalog />} variant="bordered" color="third">
         Каталог товаров
