@@ -5,16 +5,20 @@
   --color-dark: #212020;
   --color-button-blue: #07c;
 
-  --background-gradient: linear-gradient(90deg, #9f0096 0%, #ef5b4c 49.23%, #ed0064 100%);
+  --background-gradient: linear-gradient(
+    90deg,
+    #9f0096 0%,
+    #ef5b4c 49.23%,
+    #ed0064 100%
+  );
   --color-primary-hover: #851b3e;
   --light-gray: #a0a1a3;
   --color-overlay-gray: #e9eaedd4;
 
-
   --primary: #d72862;
   --primary-hover: #ba2355;
   --primary-light: #fbe1ea;
-  --secondary: #006EBD;
+  --secondary: #006ebd;
   --secondary-hover: #0063aa;
 
   --black-500: #1a1a1a;

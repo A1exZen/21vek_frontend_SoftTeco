@@ -1,7 +1,7 @@
 export enum PATHS {
   HOME = '/',
+  LOGIN = '/login',
   NOT_FOUND = '/404',
-
   INSTALLMENT = '/installment',
   BUSINESS = '/business',
   CUSTOMERS = '/customers',
@@ -26,4 +26,6 @@ export enum PATHS {
   SMARTPHONES = '/smartphones',
   VACUUM = '/vacuum',
   SOFAS = '/sofas',
+  
+  ALL = '*',
 }
