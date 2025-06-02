@@ -1,0 +1,26 @@
+@use '../../../styles/mixins/mixins' as mixin;
+
+.alert {
+  @include mixin.notification;
+  padding-right: 30px;
+
+  .alert__icon {
+    @include mixin.notification-icon;
+  }
+
+  .alert__info {
+    .alert__title {
+      @include mixin.notification-title;
+    }
+    .toast__message {
+      @include mixin.notification-message;
+    }
+  }
+
+  .alert__close-btn {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    width: 32px;
+  }
+}

@@ -1,8 +1,10 @@
 import { RouterProvider } from 'react-router-dom';
 import { QueryClientProvider } from '@tanstack/react-query';
+import { Provider } from 'react-redux';
 
 import router from './constants/router';
 import queryClient from './constants/queryClient';
+import store from '@/store';
 
 import './styles/globals.scss';
 
@@ -12,9 +14,11 @@ import { antdTheme } from '@app/config/antd/antdTheme.ts';
 
 const App = () => (
   <ConfigProvider locale={getAntdLocale()} theme={antdTheme}>
-    <QueryClientProvider client={queryClient}>
-      <RouterProvider router={router} />
-    </QueryClientProvider>
+    <Provider store={store}>
+      <QueryClientProvider client={queryClient}>
+        <RouterProvider router={router} />
+      </QueryClientProvider>
+    </Provider>
   </ConfigProvider>
 );
 
