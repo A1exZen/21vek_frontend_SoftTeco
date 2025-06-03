@@ -1,32 +1,38 @@
-import { useState, useEffect } from 'react';
+import { useQuery } from '@tanstack/react-query';
+import { PATHS } from '@/constants/path.config';
 
 export type OfferType = {
   id: string;
   title: string;
-  path: string;
+  path: `${PATHS}`;
+};
+
+const fetchSpecialOffers = async (): Promise<OfferType[]> => {
+  return [
+    { id: '1', title: 'Уценка', path: PATHS.DISCOUNTS },
+    { id: '2', title: 'Розыгрыш квартиры', path: PATHS.APARTMENT },
+    { id: '3', title: 'Кофе', path: PATHS.COFFEE },
+    { id: '4', title: 'Велосипеды', path: PATHS.BIKES },
+    { id: '5', title: 'Сделано в РБ', path: PATHS.BELARUSIAN },
+    { id: '6', title: 'Ветаптека', path: PATHS.VET },
+    { id: '7', title: 'Холодильники', path: PATHS.FRIDGES },
+    { id: '8', title: 'Телевизоры', path: PATHS.TV },
+    { id: '9', title: 'Смартфоны', path: PATHS.SMARTPHONES },
+    { id: '10', title: 'Пылесосы', path: PATHS.VACUUM },
+    { id: '11', title: 'Диваны', path: PATHS.SOFAS }
+  ];
 };
 
 export const useSpecialOffers = () => {
-  const [offers, setOffers] = useState<OfferType[]>([]);
-  
-  useEffect(() => {
-    // Api
-    const mockOffers: OfferType[] = [
-      { id: '1', title: 'Уценка', path: '/discounts' },
-      { id: '2', title: 'Розыгрыш квартиры', path: '/apartment-giveaway' },
-      { id: '3', title: 'Кофе', path: '/coffee-promo' },
-      { id: '4', title: 'Велосипеды', path: '/bikes' },
-      { id: '5', title: 'Сделано в РБ', path: '/belarusian' },
-      { id: '6', title: 'Ветаптека', path: '/vet' },
-      { id: '7', title: 'Холодильники', path: '/fridges' },
-      { id: '8', title: 'Телевизоры', path: '/tv' },
-      { id: '9', title: 'Смартфоны', path: '/smartphones' },
-      { id: '10', title: 'Пылесосы', path: '/vacuum' },
-      { id: '11', title: 'Диваны', path: '/sofas' }
-    ];
-    
-    setOffers(mockOffers);
-  }, []);
+  const { data, isLoading, error } = useQuery<OfferType[]>({
+    queryKey: ['specialOffers'],
+    queryFn: fetchSpecialOffers,
+    staleTime: 5 * 60 * 1000,
+  });
 
-  return { offers };
+  return { 
+    offers: data || [], 
+    isLoading, 
+    error 
+  };
 };

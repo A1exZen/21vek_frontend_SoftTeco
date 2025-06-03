@@ -4,14 +4,24 @@
   max-width: mixins.rem(1440);
   display: flex;
   justify-content: space-between;
+  flex-wrap: wrap;
   padding: 20px mixins.rem(20);
   margin: 0 auto;
-}
+  gap: mixins.rem(16);
 
-.main-logo {
-  max-width: mixins.rem(160);
-}
+  .main-logo {
+    max-width: mixins.rem(160);
 
-.search-container {
-  width: 40%;
+    @media (max-width: 768px) {
+      max-width: mixins.rem(120);
+    }
+  }
+
+  .search-container {
+    width: 40%;
+
+    @media (max-width: 768px) {
+      max-width: mixins.rem(160);
+    }
+  }
 }

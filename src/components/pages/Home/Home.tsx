@@ -1,5 +1,11 @@
+import ProductSlider from '@/components/dummies/ProductSlider';
+
 const Home = () => {
-  return <div>Home</div>;
+  return (
+    <>
+      <ProductSlider />
+    </>
+  );
 };
 
 export default Home;
