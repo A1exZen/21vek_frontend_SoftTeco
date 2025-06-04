@@ -3,6 +3,7 @@ import Logo from '/src/assets/icons/main-logo.png';
 import { Input } from 'antd';
 import { SearchOutlined } from '@ant-design/icons';
 import Catalog from '@/assets/icons/catalog.svg';
+import Scales from '@/assets/icons/scales.svg';
 import Favorite from '@/assets/icons/heart.svg';
 import Account from '@/assets/icons/user.svg';
 import Basket from '@/assets/icons/basket.svg';
@@ -39,6 +40,10 @@ const UserControls = () => {
       <Button icon={<Account />} variant="bordered" color="third">
         Аккаунт
       </Button>
+
+      <Link to={PATHS.PRODUCT_COMPARISON}>
+        <Button icon={<Scales />} variant="bordered" color="third" />
+      </Link>
 
       <Link to={PATHS.BASKET}>
         <Button icon={<Basket />} variant="bordered" color="third">
