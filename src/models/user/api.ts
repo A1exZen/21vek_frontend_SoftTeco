@@ -1,4 +1,4 @@
 export type User = {
   id: number;
-  email: string;
+  mail: string;
 };

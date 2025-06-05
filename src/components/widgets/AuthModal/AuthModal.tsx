@@ -35,7 +35,7 @@ const AuthModal = ({ visible, onClose }: AuthModalProps) => {
     control,
   } = useForm<FormValues>({
     defaultValues: {
-      email: '',
+      mail: '',
       password: '',
     },
     mode: 'onSubmit',
@@ -87,7 +87,7 @@ const AuthModal = ({ visible, onClose }: AuthModalProps) => {
             {tAuth('email')}
           </label>
           <Controller
-            name="email"
+            name="mail"
             control={control}
             rules={{
               required: tAuth('emailRequired'),
@@ -100,11 +100,11 @@ const AuthModal = ({ visible, onClose }: AuthModalProps) => {
               <Input
                 {...field}
                 placeholder={tAuth('emailPlaceholder')}
-                status={errors.email ? 'error' : undefined}
+                status={errors.mail ? 'error' : undefined}
               />
             )}
           />
-          {errors.email && <FormErrorMessage message={errors.email.message!} />}
+          {errors.mail && <FormErrorMessage message={errors.mail.message!} />}
         </div>
 
         <div className={styles['auth-modal__field']}>
