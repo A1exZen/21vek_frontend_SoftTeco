@@ -1,1 +1,1 @@
-export { default } from './HeaderInfo.tsx';
+export { HeaderInfo } from './HeaderInfo.tsx';

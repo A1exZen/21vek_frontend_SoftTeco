@@ -18,7 +18,7 @@ import {
 } from '@components/widgets/Header/HeaderInfo/useUserLocation.ts';
 import { HEADER_NAV } from '@components/widgets/Header/HeaderInfo/constants.ts';
 
-const HeaderInfo = () => {
+export const HeaderInfo = () => {
   const { data: cityData, isLoading, isError } = useUserLocation();
   const { customerItems, phoneItems } = HEADER_NAV;
 
@@ -104,5 +104,3 @@ const HeaderInfo = () => {
     </div>
   );
 };
-
-export default HeaderInfo;

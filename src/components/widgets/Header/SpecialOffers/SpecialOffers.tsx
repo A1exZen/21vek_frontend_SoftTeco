@@ -6,7 +6,7 @@ import Label from '@/assets/icons/label.svg';
 import { PATHS } from '@/constants/path.config';
 import { useGetHeaderCategories } from '@hooks/useCategories.ts';
 
-const SpecialOffers = () => {
+export const SpecialOffers = () => {
   // const { offers, isLoading, error } = useSpecialOffers();
   const {data: { categories, } = { categories: [], actions: [] },  isLoading, error } = useGetHeaderCategories();
 
@@ -58,5 +58,3 @@ const SpecialOffers = () => {
     </div>
   );
 };
-
-export default SpecialOffers;
