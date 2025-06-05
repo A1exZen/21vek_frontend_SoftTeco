@@ -1,12 +1,12 @@
 @use '../../../../styles/mixins';
 
-.header-info-container {
+.header-info__container {
   max-width: mixins.rem(1440);
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
   padding: 20px mixins.rem(20);
-  margin: 0 auto;
+  margin: 0 20px;
   gap: mixins.rem(16);
 
   .main-logo {

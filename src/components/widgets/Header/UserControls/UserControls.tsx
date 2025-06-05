@@ -9,70 +9,47 @@ import Basket from '@/assets/icons/basket.svg';
 import { PATHS } from '@/constants/path.config';
 import { Link } from 'react-router-dom';
 import Button from '@/components/ui/Button';
-import { useRef, useState } from 'react';
-import ProductCatalog from '@components/widgets/ProductCatalog';
 
 const UserControls = () => {
-  const [isCatalogOpen, setIsCatalogOpen] = useState(false);
-  const buttonRef = useRef<HTMLButtonElement>(null);
-
-  const handleCatalogToggle = () => {
-    setIsCatalogOpen((prev) => !prev);
-  };
-
   return (
-    <>
-      <div className={styles['header-info-container']}>
+    <div className={styles['header-info__container']}>
+      <Link to={PATHS.HOME}>
         <div className={styles['logo-container']}>
           <img src={Logo} alt="Логотип" className={styles['main-logo']} />
         </div>
+      </Link>
 
-        <button
-          ref={buttonRef}
-          type="button"
-          className={`${styles.button_variant_bordered} ${
-            isCatalogOpen ? styles.button_color_gray : styles.button_color_third
-          }`}
-          onClick={handleCatalogToggle}
-        >
-          <span className={styles.icon}>
-            <Catalog />
-          </span>
-          Каталог товаров
-        </button>
+      <Button icon={<Catalog />} variant="bordered" color="third">
+        Каталог товаров
+      </Button>
 
-        <div className={styles['search-container']}>
-          <Input
-            size="large"
-            placeholder="Поиск товаров..."
-            prefix={<SearchOutlined />}
-            className={styles.searchInput}
-          />
-        </div>
-
-        <Link to={PATHS.FAVORITES}>
-          <Button icon={<Favorite />} variant="bordered" color="third">
-            Избранное
-          </Button>
-        </Link>
-
-        <Button icon={<Account />} variant="bordered" color="third">
-          Аккаунт
-        </Button>
-
-        <Link to={PATHS.BASKET}>
-          <Button icon={<Basket />} variant="bordered" color="third">
-            Корзина
-          </Button>
-        </Link>
+      <div className={styles['search-container']}>
+        <Input
+          size="large"
+          placeholder="Поиск товаров..."
+          prefix={<SearchOutlined />}
+          className={styles.searchInput}
+        />
       </div>
-      <ProductCatalog
-        isOpen={isCatalogOpen}
-        onToggle={setIsCatalogOpen}
-        toggleButtonRef={buttonRef}
-      />
-    </>
+
+      <Link to={PATHS.FAVORITES}>
+        <Button icon={<Favorite />} variant="bordered" color="third">
+          Избранное
+        </Button>
+      </Link>
+
+      <Button icon={<Account />} variant="bordered" color="third">
+        Аккаунт
+      </Button>
+
+      <Link to={PATHS.BASKET}>
+        <Button icon={<Basket />} variant="bordered" color="third">
+          Корзина
+        </Button>
+      </Link>
+    </div>
   );
 };
 
 export default UserControls;
+

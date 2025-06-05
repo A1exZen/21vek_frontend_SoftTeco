@@ -39,13 +39,30 @@ const HeaderInfo = () => {
     return <div className={styles.error}>Не удалось определить город</div>;
 
   return (
-    <div className={styles['header-info-container']}>
+    <div
+      className={cc(
+        styles['header-info__container'],
+        styles['header-info__text'],
+      )}
+    >
       <div className={styles['locality-block']}>
         <Location />
-        <div className={styles['locality-text']}>{city}</div>
+        <div className={styles['header-info__text']}>
+          {isLoading ? (
+            <span className={cc(styles.loading, styles['header-info__text'])}>
+              Определяем...
+            </span>
+          ) : isError ? (
+            <span className={cc(styles.error, styles['header-info__text'])}>
+              Город не определён
+            </span>
+          ) : (
+            cityData?.city || 'Unknown City'
+          )}
+        </div>
       </div>
 
-      <div className={styles['header-nav-container']}>
+      <div className={styles['header-nav__container']}>
         <nav className={styles['nav']}>
           <ul className={styles['nav-list']}>
             <li className={styles['nav-item']}>
@@ -95,9 +112,9 @@ const HeaderInfo = () => {
         </div>
       </div>
 
-      <div className={styles['working-time-block']}>
+      <div className={styles['working-time__block']}>
         <Divider type="vertical" />
-        <div className={styles['working-time-text']}>
+        <div className={styles['working-time__text']}>
           контакт-центр <br /> с 8.00 до 22.00
         </div>
       </div>

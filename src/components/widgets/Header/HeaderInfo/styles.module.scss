@@ -1,16 +1,16 @@
 @use '../../../../styles/mixins';
 
-.header-info-container {
+.header-info__container {
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
   align-items: center;
   max-width: mixins.rem(1440);
-  margin: 0 auto;
+  margin: 0 20px;
   padding: 0 mixins.rem(20);
 }
 
-.header-nav-container {
+.header-nav__container {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -63,7 +63,7 @@
   }
 }
 
-.header-info-text {
+.header-info__text {
   font-size: mixins.rem(16);
 
   @media (max-width: 768px) {
@@ -71,13 +71,13 @@
   }
 }
 
-.additionalBlock {
+.additional-block {
   display: flex;
   gap: mixins.rem(20);
   align-items: center;
 }
 
-.extraItem {
+.extra-item {
   padding: mixins.rem(8) mixins.rem(12);
   background: rgba(0,0,0,0.05);
   border-radius: mixins.rem(4);
@@ -120,15 +120,15 @@
   font-size: 0.8em;
 }
 
-.working-time-text {
-    min-width: 74px;
-    margin-left: 2px;
-    font-size: 10px;
-    line-height: 14px;
-    color: var(--light-gray);
+.working-time__text {
+  min-width: 74px;
+  margin-left: 2px;
+  font-size: 10px;
+  line-height: 14px;
+  color: var(--light-gray);
 }
 
-.working-time-block {
+.working-time__block {
   display: flex;
   align-items: center;
 }
