@@ -22,7 +22,7 @@ export const HEADER_NAV: IHeaderNavConfig = {
   phoneItems: [
     { title: '+375 25 502 10 21', href: 'tel:+375255021021' },
     { title: '+375 17 302 10 21', href: 'tel:+375173021021' },
-    { title: 'Telegram', href: 'https://t.me/sompndebody' },
+    { title: 'Telegram', href: 'https://t.me/lesha_zenchik' },
     { title: 'Почта', href: 'mailto:info@example.com' },
     {
       title: 'Заказать звонок',
