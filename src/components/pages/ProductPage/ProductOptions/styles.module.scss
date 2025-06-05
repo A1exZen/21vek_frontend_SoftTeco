@@ -1,0 +1,43 @@
+.product-options {
+	display: flex;
+	flex-direction: column;
+	gap: 1.5rem;
+}
+
+.product-options__group {
+	display: flex;
+	flex-direction: column;
+	gap: 0.5rem;
+}
+
+.product-options__label {
+	font-weight: 500;
+	font-size: 0.95rem;
+	color: #333;
+}
+
+.product-options__options {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.5rem;
+}
+
+.product-options__option {
+	padding: 0.5rem 1rem;
+	border: 1px solid #ccc;
+	background: #fff;
+	border-radius: 8px;
+	font-size: 0.9rem;
+	cursor: pointer;
+	transition: all 0.2s ease;
+
+	&:hover {
+		border-color: #888;
+	}
+}
+
+.product-options__option--active {
+	background: #f3f3f3;
+	border-color: #222;
+	font-weight: 600;
+}
