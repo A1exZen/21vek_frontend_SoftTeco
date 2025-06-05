@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import styles from './styles.module.scss';
 import { Link } from 'react-router-dom';
 import { QuantityButton } from '@components/ui/QuantityButton';
@@ -6,16 +5,15 @@ import { BasketItemType } from '@/types/BasketItemType.ts';
 
 interface BasketItemProps {
   item: BasketItemType;
+  onQuantityChange: (id: string, newQuantity: number) => void;
 }
 
-export const BasketItem = ({ item }: BasketItemProps) => {
-  const [quantity, setQuantity] = useState(item.quantity);
-
+export const BasketItem = ({ item, onQuantityChange }: BasketItemProps) => {
   const handleQuantityChange = (newQuantity: number) => {
-    setQuantity(newQuantity);
+    onQuantityChange(item.id, newQuantity);
   };
 
-  const totalPrice = item.price * quantity;
+  const totalPrice = item.price * item.quantity;
 
   return (
     <div className={styles.basket__item}>
@@ -39,7 +37,7 @@ export const BasketItem = ({ item }: BasketItemProps) => {
       </div>
       <div>
         <QuantityButton
-          initialQuantity={quantity}
+          initialQuantity={item.quantity}
           onChange={handleQuantityChange}
         />
       </div>
