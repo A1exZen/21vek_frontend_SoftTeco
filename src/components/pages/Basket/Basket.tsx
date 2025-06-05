@@ -1,24 +1,27 @@
-import { useState, useCallback } from 'react';
+import { useCallback } from 'react';
 import styles from './styles.module.scss';
 import { BasketItem } from '@components/widgets/BasketItem';
-import { BasketItemType } from '@/types/BasketItemType';
-import { basketItems as initialItems } from './constants';
+import { useAppDispatch, useAppSelector } from '@hooks/reduxHooks.ts';
+import { setBasketItems } from '@store/slices/basket.slice.ts';
 
 const Basket = () => {
-  const [items, setItems] = useState<BasketItemType[]>(initialItems);
+  const basketItems = useAppSelector((state) => state.basket.basketItems);
+  const dispatch = useAppDispatch();
 
   const handleQuantityChange = useCallback(
     (id: string, newQuantity: number) => {
-      setItems((prevItems) =>
-        prevItems.map((item) =>
-          item.id === id ? { ...item, quantity: newQuantity } : item,
+      dispatch(
+        setBasketItems(
+          basketItems.map((item) =>
+            item.id === id ? { ...item, quantity: newQuantity } : item,
+          ),
         ),
       );
     },
     [],
   );
 
-  const totalPrice = items.reduce((sum, item) => {
+  const totalPrice = basketItems.reduce((sum, item) => {
     return sum + item.price * item.quantity;
   }, 0);
 
@@ -35,7 +38,7 @@ const Basket = () => {
           <span>Доставка</span>
           <span>Стоимость</span>
         </div>
-        {items.map((item) => (
+        {basketItems.map((item) => (
           <BasketItem
             key={item.id}
             item={item}
