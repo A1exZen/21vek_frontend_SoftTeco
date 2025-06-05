@@ -1,4 +1,4 @@
-@use '../../../../styles/mixins/mixins';
+@use '../../../../styles/mixins';
 
 .header-info__container {
   display: flex;
@@ -79,7 +79,7 @@
 
 .extra-item {
   padding: mixins.rem(8) mixins.rem(12);
-  background: rgba(0, 0, 0, 0.05);
+  background: rgba(0,0,0,0.05);
   border-radius: mixins.rem(4);
 }
 

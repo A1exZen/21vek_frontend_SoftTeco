@@ -7,24 +7,26 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: 'solid' | 'outline' | 'link' | 'bordered';
   color?: 'first' | 'second' | 'third';
   className?: string;
-  maxWidth?: boolean;
+  maxWidth?: string;
   width?: string | number;
   icon?: ReactNode;
   to?: string;
   children: string | ReactNode;
+  onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
 const Button = (props: ButtonProps) => {
   const {
     className,
     variant = 'solid',
-    color,
+    color ='first',
     maxWidth,
     width,
     type = 'button',
     icon,
     to,
     children,
+    onClick,
     ...restProps
   } = props;
 
@@ -39,6 +41,7 @@ const Button = (props: ButtonProps) => {
         maxWidth && styles.maxWidth,
         className,
       )}
+      onClick={onClick}
       {...restProps}
     >
       {icon && <span className={styles.icon}>{icon}</span>}

@@ -1,5 +1,5 @@
 export const API_CONFIG = {
-  BASE_URL: 'http://locahost:8000/',
+  BASE_URL: 'http://localhost:8000/',
   ENDPOINTS: {
     AUTH: {
       LOGIN: 'auth/login',
@@ -7,5 +7,9 @@ export const API_CONFIG = {
       CHECK: 'auth/check',
       REFRESH: 'auth/refresh',
     },
+    CATEGORY:{
+      GET_HEADER_CAT: 'categories/headercategories',
+      GET_ALL: 'categories/all-cat',
+    }
   },
 };
