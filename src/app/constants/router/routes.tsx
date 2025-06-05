@@ -8,7 +8,7 @@ import MainLayout from '@/components/layouts/MainLayout';
 
 import Home from '@pages/Home/Home';
 const ErrorPage = lazy(() => import('@pages/Error'));
-import { Basket } from '@pages/Basket';
+const Basket = lazy(() => import('@pages/Basket'));
 
 export const routes: RouteObject[] = [
   {
@@ -16,7 +16,6 @@ export const routes: RouteObject[] = [
     element: <MainLayout />,
     children: [
       { index: true, element: <Home /> },
-
       { path: PATHS.BASKET, element: <Basket /> },
       { path: PATHS.NOT_FOUND, element: <ErrorPage /> },
       { path: PATHS.ALL, element: <ErrorPage /> },
