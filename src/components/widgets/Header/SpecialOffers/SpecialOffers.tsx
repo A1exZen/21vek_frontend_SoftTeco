@@ -1,13 +1,11 @@
 import { Link } from 'react-router-dom';
-// import { useSpecialOffers } from './useSpecialOffers';
 import styles from './styles.module.scss';
 import { Divider, Spin, Alert } from 'antd';
 import Label from '@/assets/icons/label.svg';
 import { PATHS } from '@/constants/path.config';
 import { useGetHeaderCategories } from '@hooks/useCategories.ts';
 
-const SpecialOffers = () => {
-  // const { offers, isLoading, error } = useSpecialOffers();
+export const SpecialOffers = () => {
   const {
     data: { categories } = { categories: [], actions: [] },
     isLoading,
@@ -63,4 +61,4 @@ const SpecialOffers = () => {
   );
 };
 
-export default SpecialOffers;
+

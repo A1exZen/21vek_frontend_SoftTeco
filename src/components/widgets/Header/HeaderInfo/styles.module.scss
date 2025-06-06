@@ -2,19 +2,18 @@
 
 .header-info__container {
   display: flex;
-  justify-content: space-between;
   flex-wrap: wrap;
+  justify-content: center;
   align-items: center;
-  max-width: mixins.rem(1440);
+  padding: 20px mixins.rem(20);
   margin: 0 20px;
-  padding: 0 mixins.rem(20);
+  gap: mixins.rem(16);
 }
 
 .header-nav__container {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: mixins.rem(16) 0;
 }
 
 .nav {
@@ -52,8 +51,6 @@
   font-weight: 500;
   transition: color 0.2s ease;
   padding-left: 5px;
-  font-size: mixins.rem(16);
-
   @media (max-width: 768px) {
     font-size: mixins.rem(12);
   }
