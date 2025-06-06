@@ -9,7 +9,7 @@ import Message from '@/assets/icons/message.svg';
 import Partpay from '@/assets/icons/part-pay.svg';
 import PhoneCall from '@/assets/icons/phone-call.svg';
 import Phone from '@/assets/icons/phone.svg';
-import A1 from '@/assets/icons/social-media/A1.svg';
+import A1 from '@/assets/icons/social-media/a1.svg';
 import Life from '@/assets/icons/social-media/life.svg';
 import Telegram from '@/assets/icons/social-media/telegram.svg';
 import Toolbox from '@/assets/icons/toolbox.svg';
