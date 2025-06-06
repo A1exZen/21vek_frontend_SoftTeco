@@ -13,16 +13,12 @@ import Phone from '@/assets/icons/phone.svg';
 import Mail from '@/assets/icons/mail.svg';
 import PhoneCall from '@/assets/icons/phone-call.svg';
 import Message from '@/assets/icons/message.svg';
-import {
-  useUserLocation
-} from '@components/widgets/Header/HeaderInfo/useUserLocation.ts';
+import { useUserLocation } from '@components/widgets/Header/HeaderInfo/useUserLocation.ts';
 import { HEADER_NAV } from '@components/widgets/Header/HeaderInfo/constants.ts';
 
 const HeaderInfo = () => {
   const { data: cityData, isLoading, isError } = useUserLocation();
   const { customerItems, phoneItems } = HEADER_NAV;
-
-  const city = cityData?.city || 'Минск';
 
   const phoneItemsWithIcons = [
     { ...phoneItems[0], icon: <Life /> },

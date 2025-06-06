@@ -8,7 +8,11 @@ import { useGetHeaderCategories } from '@hooks/useCategories.ts';
 
 const SpecialOffers = () => {
   // const { offers, isLoading, error } = useSpecialOffers();
-  const {data: { categories, } = { categories: [], actions: [] },  isLoading, error } = useGetHeaderCategories();
+  const {
+    data: { categories } = { categories: [], actions: [] },
+    isLoading,
+    error,
+  } = useGetHeaderCategories();
 
   const MainLink = () => (
     <div className={styles['main-link']}>
