@@ -71,3 +71,7 @@ export const checkToken = async (): Promise<void> => {
     throw new BaseError('Token check failed', { cause: err });
   }
 };
+
+export const logout = async(): Promise<void> => {
+  await $api.post(API_CONFIG.ENDPOINTS.AUTH.LOGOUT);
+}

@@ -6,10 +6,18 @@ export const API_CONFIG = {
       REGISTER: 'auth/register',
       CHECK: 'auth/check',
       REFRESH: 'auth/refresh',
+      LOGOUT: 'auth/logout',
     },
     CATEGORY:{
       GET_HEADER_CAT: 'categories/headercategories',
       GET_ALL: 'categories/all-cat',
-    }
+    },
+    PRODUCTS: {
+      GET_ALL: '/products',
+      GET_BY_ID: '/products',
+      GET_BRANDS: '/products/brands',
+      GET_PRICE_RANGE: '/products/price-range',
+      SEARCH: '/products/search'
+    },
   },
 };
