@@ -20,7 +20,7 @@ const useClickOutside = (
     return () => {
       document.removeEventListener('mousedown', handleClickOutside)
     }
-  }, [condition])
+  }, [condition, handleClickOutside])
 }
 
 export default useClickOutside

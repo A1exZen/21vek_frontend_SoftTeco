@@ -32,7 +32,7 @@ const AuthModal = () => {
 
   const onSubmit: SubmitHandler<LoginRequest> = (values: LoginRequest) => {
     if (isLogin) {
-      onSubmitLogin(values, {
+    onSubmitLogin(values, {
         onSuccess: () => {
           closeAuth();
         }

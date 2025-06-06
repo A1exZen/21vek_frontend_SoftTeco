@@ -12,13 +12,14 @@ import { useEffect, useRef, useState } from 'react';
 import ProductCatalog from '@components/widgets/ProductCatalog';
 import { Heart, LogOut, ShoppingCart, User, List } from 'lucide-react';
 import useClickOutside from '@hooks/useClickOutside';
+import AuthModal from '@components/widgets/AuthModal';
 
 export const UserControls = () => {
   const [isCatalogOpen, setIsCatalogOpen] = useState(false);
   const [isAccountOpen, setIsAccountOpen] = useState(false);
   const location = useLocation();
 
-  const buttonRef = useRef<HTMLButtonElement>(null);
+  const catalogButtonRef = useRef<HTMLButtonElement>(null);
   const accountButtonRef = useRef<HTMLButtonElement>(null);
   const dropdownRef = useRef<HTMLDivElement | null>(null);
 
@@ -36,22 +37,24 @@ export const UserControls = () => {
     setIsAccountOpen(false);
   };
 
-  useClickOutside(isAccountOpen, dropdownRef, closeAccountDropdown, [accountButtonRef]);
+  useClickOutside(isAccountOpen, dropdownRef, closeAccountDropdown, [
+    accountButtonRef,
+  ]);
 
   useEffect(() => {
     setIsAccountOpen(false);
     setIsCatalogOpen(false);
-  }, [location.pathname]);
+  }, [location]);
 
   return (
     <>
-      <div className={styles['header-info-container']}>
+      <div className={styles['header-info__container']}>
         <div className={styles['logo-container']}>
           <img src={Logo} alt="Логотип" className={styles['main-logo']} />
         </div>
 
         <button
-          ref={buttonRef}
+          ref={catalogButtonRef}
           type="button"
           className={`${styles.button_variant_bordered} ${
             isCatalogOpen ? styles.button_color_gray : styles.button_color_third
@@ -87,7 +90,7 @@ export const UserControls = () => {
             ref={accountButtonRef}
             type="button"
             className={`${styles.button_variant_bordered} ${
-              isCatalogOpen
+              isAccountOpen
                 ? styles.button_color_gray
                 : styles.button_color_third
             }`}
@@ -110,7 +113,12 @@ export const UserControls = () => {
               <div className={styles['account-dropdown__content']}>
                 {!isAuthenticated ? (
                   <div className={styles['account-dropdown__login-container']}>
-                   <Link className={styles['login-container__button']} to={"/?auth=login"}>Войти</Link>
+                    <Link
+                      className={styles['login-container__button']}
+                      to={'/?auth=login'}
+                    >
+                      Войти
+                    </Link>
                   </div>
                 ) : (
                   <>
@@ -119,7 +127,10 @@ export const UserControls = () => {
                       onClick={closeAccountDropdown}
                     >
                       <LogOut color={'#ff1f11'} size={20} />
-                      <span className={styles['account-dropdown__text']} style={{color:'#ff1f11'}}>
+                      <span
+                        className={styles['account-dropdown__text']}
+                        style={{ color: '#ff1f11' }}
+                      >
                         Выйти
                       </span>
                     </div>
@@ -184,10 +195,10 @@ export const UserControls = () => {
       </div>
       <ProductCatalog
         isOpen={isCatalogOpen}
-        onToggle={setIsCatalogOpen}
-        toggleButtonRef={buttonRef}
+        onToggle={handleCatalogToggle}
+        toggleButtonRef={catalogButtonRef}
       />
-      ;
+      <AuthModal />
     </>
   );
 };

@@ -1,28 +1,25 @@
-import { Link } from 'react-router-dom';
-import styles from './styles.module.scss';
 import DropdownMenu from '@/components/dummies/DropdownMenu';
 import { Divider } from 'antd';
+import { Link } from 'react-router-dom';
+import styles from './styles.module.scss';
 
 import Location from '@/assets/icons/location.svg';
-import Toolbox from '@/assets/icons/toolbox.svg';
+import Mail from '@/assets/icons/mail.svg';
+import Message from '@/assets/icons/message.svg';
 import Partpay from '@/assets/icons/part-pay.svg';
-import Telegram from '@/assets/icons/social-media/telegram.svg';
+import PhoneCall from '@/assets/icons/phone-call.svg';
+import Phone from '@/assets/icons/phone.svg';
 import A1 from '@/assets/icons/social-media/A1.svg';
 import Life from '@/assets/icons/social-media/life.svg';
-import Phone from '@/assets/icons/phone.svg';
-import Mail from '@/assets/icons/mail.svg';
-import PhoneCall from '@/assets/icons/phone-call.svg';
-import Message from '@/assets/icons/message.svg';
-import {
-  useUserLocation
-} from '@components/widgets/Header/HeaderInfo/useUserLocation.ts';
+import Telegram from '@/assets/icons/social-media/telegram.svg';
+import Toolbox from '@/assets/icons/toolbox.svg';
 import { HEADER_NAV } from '@components/widgets/Header/HeaderInfo/constants.ts';
+import { useUserLocation } from '@components/widgets/Header/HeaderInfo/useUserLocation.ts';
+import { cc } from '@/utils/combineClasses';
 
 export const HeaderInfo = () => {
   const { data: cityData, isLoading, isError } = useUserLocation();
   const { customerItems, phoneItems } = HEADER_NAV;
-
-  const city = cityData?.city || 'Минск';
 
   const phoneItemsWithIcons = [
     { ...phoneItems[0], icon: <Life /> },

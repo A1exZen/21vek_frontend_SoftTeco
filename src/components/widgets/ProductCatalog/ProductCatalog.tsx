@@ -12,7 +12,7 @@ import { SubcategoryGrid } from './SubcategoryGrid';
 
 interface ProductCatalogProps {
   isOpen: boolean;
-  onToggle: (value: boolean) => void;
+  onToggle?: (value?: boolean) => void;
   toggleButtonRef?: React.RefObject<HTMLButtonElement | null>;
 }
 
@@ -23,6 +23,7 @@ const ProductCatalog = ({
 }: ProductCatalogProps) => {
   const catalogRef = useRef<HTMLDivElement>(null);
   const location = useLocation();
+  const prevLocationRef = useRef(location.pathname);
 
   const topLevelCategories = useMemo(
     () => productCategories.filter((category) => category.idParent === null),
@@ -37,7 +38,9 @@ const ProductCatalog = ({
   }, []);
 
   const handleClose = useCallback(() => {
-    onToggle(false);
+    if (onToggle) {
+      onToggle(false);
+    }
     setActiveCategory(null);
   }, [onToggle]);
 
@@ -54,8 +57,9 @@ const ProductCatalog = ({
   );
 
   useEffect(() => {
-    if (isOpen) {
+    if (prevLocationRef.current !== location.pathname) {
       handleClose();
+      prevLocationRef.current = location.pathname;
     }
   }, [location.pathname, handleClose]);
 
@@ -80,6 +84,7 @@ const ProductCatalog = ({
         document.removeEventListener('mousedown', handleClickOutside);
     }
   }, [isOpen, handleClickOutside]);
+
   useEffect(() => {
     if (isOpen && topLevelCategories.length > 0) {
       setActiveCategory(topLevelCategories[0]);
