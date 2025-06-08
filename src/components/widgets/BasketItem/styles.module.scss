@@ -40,9 +40,14 @@
         }
       }
 
-      button {
+      .product__remove-button {
         font-size: 13px;
-        color: #c00;
+        color: red;
+      }
+
+      &:hover {
+        text-decoration: underline solid red 1px;
+        text-underline-offset: 2px;
       }
     }
 
