@@ -1,8 +1,9 @@
-import { ComplexValue, Product, ProductCharacteristicValue } from "./types";
-import { getBestValues } from "./ProductSort/ProductSort";
-import { ProductCard } from "./ProductCard/ProductCard";
+import { ComplexValue, Product, ProductCharacteristicValue } from "../types";
+import { getBestValues } from "../ProductSort/ProductSort";
+import { ProductCard } from "../ProductCard/ProductCard";
 import styles from './styles.module.scss';
 import React from "react";
+import Button from "@/components/ui/Button";
 
 const formatValue = (value: unknown): string => {
   if (value === null || value === undefined) return '-';
@@ -92,7 +93,7 @@ export const ProductComparisonTable = ({
           <th>Характеристика</th>
           {products.map(product => (
             <th key={product.id} className={styles["product-header"]}>
-              <div className={styles["product-wrapper"]}>
+              <div className={styles["product__wrapper"]}>
                 <ProductCard
                   product={{
                     ...product,
@@ -100,12 +101,13 @@ export const ProductComparisonTable = ({
                   }}
                   onAddToCart={onAddToCart}
                 />
-                <button
+                <Button 
+                  variant="link"
+                  className={styles.remove__button}
                   onClick={() => onRemoveRequest(product)}
-                  className={styles["remove-button"]}
                 >
-                  Убрать из сравнения
-                </button>
+                  Удалить из сравнений
+                </Button>
               </div>
             </th>
           ))}

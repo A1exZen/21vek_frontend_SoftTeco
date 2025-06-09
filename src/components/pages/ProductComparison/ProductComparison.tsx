@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Product } from "./types";
 import smartphones from './constants';
 import styles from './styles.module.scss';
-import { ProductComparisonTable } from './ProductComparisonTable';
+import { ProductComparisonTable } from './ProductComparisonTable/ProductComparisonTable';
 import { ConfirmationModal } from './ConfirmationModal'; // Новый компонент
 
 export const ProductComparison = () => {
