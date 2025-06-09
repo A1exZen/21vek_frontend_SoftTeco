@@ -6,6 +6,10 @@ type NumericValueInfo = {
   path: string;
 };
 
+const isSimCardsObject = (value: unknown): value is { count: number; format: string } => {
+  return typeof value === 'object' && value !== null && 'count' in value && 'format' in value;
+};
+
 const findAllNumericValues = (
   obj: ComplexValue,
   currentPath = ''
@@ -17,9 +21,15 @@ const findAllNumericValues = (
 
     if (typeof value === 'number') {
       result.push({
-        value: value,
+        value,
         displayValue: value,
         path
+      });
+    } else if (isSimCardsObject(value)) {
+      result.push({
+        value: value.count,
+        displayValue: value,
+        path: `${path}.count`
       });
     } else if (typeof value === 'object' && value !== null) {
       result.push(...findAllNumericValues(value, path));
@@ -39,17 +49,14 @@ const findAllNumericValues = (
 };
 
 const tryParseNumericString = (str: string): number | null => {
-  // Пытаемся извлечь число из строки разными способами
   const simpleNumber = parseFloat(str);
   if (!isNaN(simpleNumber)) return simpleNumber;
 
-  // Для разрешения экрана "1920×1080"
   if (str.includes('×')) {
     const [w, h] = str.split('×').map(Number);
     if (!isNaN(w) && !isNaN(h)) return w * h;
   }
 
-  // Для строк типа "500 ppi"
   const match = str.match(/\d+/);
   if (match) return parseFloat(match[0]);
 
@@ -62,7 +69,6 @@ export const getBestValues = (products: Product[]): Set<ProductCharacteristicVal
   const bestValues = new Set<ProductCharacteristicValue>();
   const numericValuesByPath: Record<string, NumericValueInfo[]> = {};
 
-  // Собираем все числовые значения из всех продуктов
   products.forEach(product => {
     const numericValues = findAllNumericValues(product.characteristics);
     
@@ -74,7 +80,6 @@ export const getBestValues = (products: Product[]): Set<ProductCharacteristicVal
     });
   });
 
-  // Для каждого пути находим максимальное значение
   Object.values(numericValuesByPath).forEach(values => {
     if (values.length === 0) return;
 

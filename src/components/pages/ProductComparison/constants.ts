@@ -1,9 +1,15 @@
 import { Product } from "./types";
+import comparisonImg1 from '@/assets/images/phones/apple-black.jpg'
 
 export const smartphones: Product[] = [
   {
     id: 1,
+    price: 15990,
+    rating: 4.5,
     category: "смартфоны",
+    image: comparisonImg1,
+    reviewsCount: 56,
+    inCart: false,
     name: "Смартфон Samsung Galaxy A06 4GB/128GB (черный)",
     characteristics: {
       mainCharacteristics: {
@@ -39,6 +45,11 @@ export const smartphones: Product[] = [
   },
   {
     id: 2,
+    price: 15990,
+    rating: 4.5,
+    reviewsCount: 56,
+    image: comparisonImg1,
+    inCart: false,
     category: "смартфоны",
     name: "Смартфон Apple iPhone 13 128GB (темная ночь)",
     characteristics: {
@@ -75,6 +86,11 @@ export const smartphones: Product[] = [
   },
   {
     id: 3,
+    price: 15990,
+    rating: 4.5,
+    reviewsCount: 56,
+    image: comparisonImg1,
+    inCart: false,
     category: "смартфоны",
     name: "Смартфон Honor X5b 4GB/64GB (Midnight Black)",
     characteristics: {

@@ -6,5 +6,10 @@ export interface Product {
   id: number;
   category: string;
   name: string;
+  price: number;
+  rating: number;
+  reviewsCount: number;
+  image: string;
+  inCart: boolean;
   characteristics: ComplexValue;
 }
