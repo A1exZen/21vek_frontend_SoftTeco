@@ -1,20 +1,31 @@
-import UndoNotification from '@/components/ui/UndoNotification/UndoNotification'; // обязательно подключи
-import { useState } from 'react';
-import { useCallback } from 'react';
+import UndoNotification from '@/components/ui/UndoNotification/UndoNotification';
+import { Link, useSearchParams } from 'react-router-dom';
+import { useState, useCallback, useEffect } from 'react';
 import styles from './styles.module.scss';
 import { BasketItem } from '@components/widgets/BasketItem';
 import { useAppDispatch, useAppSelector } from '@hooks/reduxHooks.ts';
 import { setBasketItems } from '@store/slices/basket.slice.ts';
 import { BasketItemType } from '@/types/BasketItemType.ts';
+import Button from '@components/ui/Button';
+import { CheckoutPage } from '@pages/CheckoutPage';
 
 const Basket = () => {
   const basketItems = useAppSelector((state) => state.basket.basketItems);
   const dispatch = useAppDispatch();
 
-  const [undoState, setUndoState] = useState<{
-    item: BasketItemType | null;
-    key: number;
-  }>({ item: null, key: 0 });
+  const [searchParams] = useSearchParams();
+  const action = searchParams.get('action');
+  useEffect(() => {
+    if (action === 'checkout') {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'auto';
+    }
+
+    return () => {
+      document.body.style.overflow = 'auto';
+    };
+  }, [action]);
 
   const handleQuantityChange = useCallback(
     (id: string, newQuantity: number) => {
@@ -29,17 +40,19 @@ const Basket = () => {
     [basketItems, dispatch],
   );
 
+  const [undoState, setUndoState] = useState<{
+    item: BasketItemType | null;
+    key: number;
+  }>({ item: null, key: 0 });
   const handleRemove = (id: string) => {
     const itemToRemove = basketItems.find((item) => item.id === id);
     if (!itemToRemove) return;
 
     setUndoState({ item: itemToRemove, key: Date.now() });
   };
-
   const handleUndo = () => {
     setUndoState({ item: null, key: 0 });
   };
-
   const handleRemoveConfirm = useCallback(() => {
     if (undoState.item) {
       dispatch(
@@ -84,11 +97,20 @@ const Basket = () => {
               />
             ))}
 
-            <div className={styles.basket__total}>
-              <span className={styles['basket__total-price']}>Итого</span>
-              <span className={styles['basket__total-price']}>
-                {totalPrice.toFixed(2).replace('.', ',')} р.
-              </span>
+            <div className={styles['basket__summary-container']}>
+              <div className={styles.basket__summary}>
+                <div className={styles['basket__summary-total']}>
+                  <span className={styles['basket__summary-amount']}>
+                    Итого
+                  </span>
+                  <div className={styles['basket__summary-amount']}>
+                    {totalPrice.toFixed(2).replace('.', ',')} р.
+                  </div>
+                </div>
+                <Link to={'?action=checkout'}>
+                  <Button>Оформить заказ</Button>
+                </Link>
+              </div>
             </div>
           </>
         )}
@@ -101,6 +123,8 @@ const Basket = () => {
             onComplete={handleRemoveConfirm}
           />
         )}
+
+        {action === 'checkout' && <CheckoutPage />}
       </div>
     </div>
   );

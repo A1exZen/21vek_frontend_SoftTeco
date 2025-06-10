@@ -35,18 +35,34 @@
       }
     }
 
-    .basket__total {
+    .basket__summary-container {
       padding: 48px 0;
       display: flex;
       justify-content: flex-end;
-      gap: 20px;
 
-      .basket__total-price {
-        font-size: 20px;
-        font-weight: 700;
+      .basket__summary {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+
+        button {
+          width: 100%;
+        }
+
+        .basket__summary-total {
+          display: flex;
+          gap: 20px;
+          padding-bottom: 16px;
+          border-bottom: 1px solid var(--gray-700);
+
+          .basket__summary-amount {
+            font-size: 20px;
+            font-weight: 700;
+          }
+        }
       }
-
     }
+
   }
 }
 
