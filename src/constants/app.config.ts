@@ -7,9 +7,12 @@ export const API_CONFIG = {
       CHECK: 'auth/check',
       REFRESH: 'auth/refresh',
     },
-    CATEGORY:{
+    CATEGORY: {
       GET_HEADER_CAT: 'categories/headercategories',
       GET_ALL: 'categories/all-cat',
-    }
+    },
+    USER: {
+      UPDATE: 'user/profile/update',
+    },
   },
 };

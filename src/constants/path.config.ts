@@ -26,6 +26,8 @@ export enum PATHS {
   SMARTPHONES = '/smartphones',
   VACUUM = '/vacuum',
   SOFAS = '/sofas',
-  
+
+  PROFILE = '/profile',
+
   ALL = '*',
 }

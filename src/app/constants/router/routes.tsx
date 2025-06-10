@@ -11,6 +11,7 @@ import { CategoryPage } from '@pages/CaterogyPage';
 import { ProductPage } from '@pages/ProductPage/ProductPage.tsx';
 
 const ErrorPage = lazy(() => import('@pages/Error'));
+const Profile = lazy(() => import('@pages/Profile'));
 
 export const routes: RouteObject[] = [
   {
@@ -18,15 +19,17 @@ export const routes: RouteObject[] = [
     element: <MainLayout />,
     children: [
       { index: true, element: <Home /> },
-      { path: PATHS.NOT_FOUND, element: <ErrorPage /> },
-      { path: PATHS.ALL, element: <ErrorPage /> },
       {
         path: '/:categoryUrl',
         element: <CategoryPage />,
-        children: [
-          { path: ':productId', element: <ProductPage /> },
-        ],
+        children: [{ path: ':productId', element: <ProductPage /> }],
       },
+      {
+        path: PATHS.PROFILE,
+        element: <Profile />,
+      },
+      { path: PATHS.NOT_FOUND, element: <ErrorPage /> },
+      { path: PATHS.ALL, element: <ErrorPage /> },
     ],
   },
 ];

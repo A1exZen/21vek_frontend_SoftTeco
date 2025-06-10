@@ -35,8 +35,12 @@ const authSlice = createSlice({
       Cookies.remove('refreshToken');
       state.user = null;
     },
+    setTypeUser: (state, action: PayloadAction<'user' | 'business'>) => {
+      state.user!.typeUser = action.payload;
+    },
   },
 });
 
-export const { setUser, remove, setLoading, setError } = authSlice.actions;
+export const { setUser, remove, setLoading, setError, setTypeUser } =
+  authSlice.actions;
 export default authSlice.reducer;

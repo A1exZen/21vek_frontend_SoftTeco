@@ -1,0 +1,29 @@
+.profile-link {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px;
+  border: 2px solid var(--gray-400);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease-out;
+  height: 96px;
+  width: 366px;
+
+  &:hover {
+    background-color: var(--gray-100);
+  }
+
+  .profile-link__description {
+    text-align: start;
+
+    .profile-link__title {
+      font-weight: 550;
+      margin-bottom: 5px;
+    }
+
+    .profile-link__label {
+      font-size: 13px;
+    }
+  }
+}
