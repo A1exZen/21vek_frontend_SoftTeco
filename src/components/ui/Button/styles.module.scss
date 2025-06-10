@@ -53,6 +53,21 @@
 	}
 }
 
+.button_variant_rounded {
+	@include base-button;
+	width: 40px;
+	height: 40px;
+	border-radius: 100%;
+	background: var(--white);
+	border: 1px solid var(--gray-300);
+	color: var(--gray-600);
+	padding: 0;
+
+	&:hover {
+		background: var(--gray-100) !important;
+	}
+}
+
 
 .button_color_first {
 	--text-color: var(--white);
@@ -73,6 +88,17 @@
 	&:hover{
 		border: none;
 		box-shadow: 0 2px 4px var(--gray-300),
+	}
+}
+
+.icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	margin-right: 8px;
+
+	&:only-child {
+		margin-right: 0;
 	}
 }
 
