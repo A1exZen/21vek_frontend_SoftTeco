@@ -20,8 +20,8 @@ export const ConfirmationModal = ({
   return (
     <div className={styles["modal-overlay"]}>
       <div className={styles["modal"]}>
-        <h3>{title}</h3>
-        <p>{message}</p>
+        <h3 className={styles["modal-title"]}>{title}</h3>
+        <p className={styles["modal-message"]}>{message}</p>
         <div className={styles["modal-actions"]}>
           <button 
             onClick={onCancel} 

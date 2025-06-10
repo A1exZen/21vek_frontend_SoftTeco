@@ -9,6 +9,16 @@ interface ProductCardProps {
   onAddToCart: (id: number) => void;
 }
 
+function getReviewsWord(count: number): string {
+  const lastDigit = count % 10;
+  const lastTwoDigits = count % 100;
+
+  if (lastTwoDigits >= 11 && lastTwoDigits <= 19) return 'отзывов';
+  if (lastDigit === 1) return 'отзыв';
+  if (lastDigit >= 2 && lastDigit <= 4) return 'отзыва';
+  return 'отзывов';
+}
+
 export const ProductCard = ({ product, onAddToCart }: ProductCardProps) => {
   return (
     <div className={styles.card}>
@@ -34,6 +44,13 @@ export const ProductCard = ({ product, onAddToCart }: ProductCardProps) => {
   <span className={styles.card__ratingValue}>
     ({product.rating.toFixed(1)})
   </span>
+</div>
+<div>
+  {product.reviewsCount > 0 && (
+    <span className={styles['card__reviews-count']}>
+      ({product.reviewsCount} {getReviewsWord(product.reviewsCount)})
+    </span>
+  )}
 </div>
         <Button 
           variant="solid"

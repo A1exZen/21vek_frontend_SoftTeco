@@ -1,9 +1,11 @@
 import { ComplexValue, Product, ProductCharacteristicValue } from "../types";
-import { getBestValues } from "../ProductSort/ProductSort";
+import { getComparisonData } from "../ProductSort/ProductSort";
 import { ProductCard } from "../ProductCard/ProductCard";
 import styles from './styles.module.scss';
 import React from "react";
 import Button from "@/components/ui/Button";
+import { useState, useMemo } from 'react';
+import { Checkbox } from "antd";
 
 const formatValue = (value: unknown): string => {
   if (value === null || value === undefined) return '-';
@@ -27,6 +29,7 @@ const getNestedValue = (obj: object, path: string): unknown => {
   }, obj);
 };
 
+
 interface ProductComparisonProps {
   products?: Product[];
   onRemoveRequest: (product: Product) => void;
@@ -40,8 +43,19 @@ export const ProductComparisonTable = ({
   productsInCart,
   onAddToCart,
 }: ProductComparisonProps) => {
-  const bestValues = getBestValues(products);
   const allPaths = new Set<string>();
+
+  const [showOnlyDifferences, setShowOnlyDifferences] = useState(false);
+
+const { bestValues, differentPaths } = useMemo(() => 
+  getComparisonData(products),
+  [products]
+);
+
+const shouldShowPath = (path: string) => {
+  return !showOnlyDifferences || differentPaths.has(path);
+};
+
 
   if (!products || products.length === 0) {
     return <div>Нет товаров для сравнения</div>;
@@ -87,70 +101,80 @@ export const ProductComparisonTable = ({
   });
 
   return (
-    <table>
-      <thead>
-        <tr>
-          <th>Характеристика</th>
-          {products.map(product => (
-            <th key={product.id} className={styles["product-header"]}>
-              <div className={styles["product__wrapper"]}>
-                <ProductCard
-                  product={{
-                    ...product,
-                    inCart: productsInCart.includes(product.id),
-                  }}
-                  onAddToCart={onAddToCart}
-                />
-                <Button 
-                  variant="link"
-                  className={styles.remove__button}
-                  onClick={() => onRemoveRequest(product)}
-                >
-                  Удалить из сравнений
-                </Button>
-              </div>
-            </th>
-          ))}
-        </tr>
-      </thead>
-      <tbody>
-        {Object.entries(groupedPaths).map(([parent, paths]) => (
-          <React.Fragment key={parent}>
+    <div className={styles["product-comparison-table"]}>
+      <table className={styles["product-comparison"]}>
+        <thead>
+          <tr>
+            <th className={styles["product-comparison-title"]}>
+  <Checkbox
+  checked={showOnlyDifferences}
+  onChange={(e) => setShowOnlyDifferences(e.target.checked)}
+>
+  Показать только<br />отличия
+</Checkbox>
+</th>
+            {products.map(product => (
+              <th key={product.id} className={styles["product-header"]}>
+                <div className={styles["product__wrapper"]}>
+                  <ProductCard
+                    product={{
+                      ...product,
+                      inCart: productsInCart.includes(product.id),
+                    }}
+                    onAddToCart={onAddToCart}
+                  />
+                  <Button 
+                    variant="link"
+                    className={styles.remove__button}
+                    onClick={() => onRemoveRequest(product)}
+                  >
+                    Удалить из сравнений
+                  </Button>
+                </div>
+              </th>
+            ))}
+          </tr>
+        </thead>
+        <tbody>
+          {Object.entries(groupedPaths).map(([parent, paths]) => (
+            <React.Fragment key={parent}>
             {parent && (
-              <tr className="group-header">
+              <tr className={styles["group-header"]}>
                 <td colSpan={products.length + 1}>
-                  <strong>{parent.split('.').pop()}</strong>
+                  <span className={styles["table-strong__title"]}>{parent.split('.').pop()}</span>
                 </td>
               </tr>
             )}
-            {paths.map(path => {
-              const displayName = path.split('.').pop() || path;
+              {paths.map(path => {
+                if (!shouldShowPath(path)) return null;
+                const displayName = path.split('.').pop() || path;
 
-              return (
-                <tr key={path}>
-                  <td>{displayName}</td>
-                  {products.map(product => {
-                    const value = product.characteristics
-                      ? getNestedValue(product.characteristics, path)
-                      : undefined;
-                    const displayValue = formatValue(value);
-                    const isBest = bestValues.has(value as ProductCharacteristicValue);
+                return (
+                  <tr key={path}>
+                    <td>{displayName}</td>
+                    {products.map(product => {
+                      const value = product.characteristics
+                        ? getNestedValue(product.characteristics, path)
+                        : undefined;
+                      const displayValue = formatValue(value);
+                      const isBest = bestValues.has(value as ProductCharacteristicValue);
 
-                    return (
-                      <td
-                        key={`${product.id}-${path}`}
-                        style={isBest ? { color: 'green', fontWeight: 'bold' } : {}}
-                      >
-                        {displayValue}
-                      </td>
-                    );
-                  })}
-                </tr>
-              );
-            })}
-          </React.Fragment>
-        ))}
-      </tbody>
-    </table>
+                      return (
+                        <td
+                          key={`${product.id}-${path}`}
+                          className={isBest ? styles["best-value"] : ""}
+                        >
+                          {displayValue}
+                        </td>
+                      );
+                    })}
+                  </tr>
+                );
+              })}
+            </React.Fragment>
+          ))}
+        </tbody>
+      </table>
+    </div>
   );
 };

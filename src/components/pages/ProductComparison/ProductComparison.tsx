@@ -4,6 +4,7 @@ import smartphones from './constants';
 import styles from './styles.module.scss';
 import { ProductComparisonTable } from './ProductComparisonTable/ProductComparisonTable';
 import { ConfirmationModal } from './ConfirmationModal'; // Новый компонент
+import Button from '@/components/ui/Button';
 
 export const ProductComparison = () => {
   const [selectedProducts, setSelectedProducts] = useState<Product[]>(smartphones);
@@ -22,6 +23,11 @@ export const ProductComparison = () => {
     setShowModal(true);
   };
 
+  const handleClearAll = () => {
+    setProductToDelete(null);
+    setShowModal(true);
+  };
+
   const confirmDelete = () => {
     if (productToDelete) {
       setSelectedProducts(prev =>
@@ -29,8 +35,12 @@ export const ProductComparison = () => {
       );
       setProductsInCart(prev =>
         prev.filter(id => id !== productToDelete.id)
-      );
-    }
+      )
+    } else {
+      // Очищаем весь список
+      setSelectedProducts([]);
+      setProductsInCart([]);
+      }
     setShowModal(false);
   };
 
@@ -40,11 +50,22 @@ export const ProductComparison = () => {
 
   return (
     <div className={styles["product-comparison"]}>
-      <h1>Сравнение смартфонов</h1>
+      <div className={styles["header-row"]}>
+        <h1 className={styles["product-title"]}>Сравнение товаров</h1>
+        {selectedProducts.length > 0 && (
+          <Button 
+            variant="link"
+            className={styles["clear-all__button"]}
+            onClick={handleClearAll}
+          >
+            Очистить список
+          </Button>
+        )}
+      </div>
 
       {selectedProducts.length > 0 ? (
         <div className={styles["comparison-section"]}>
-          <h2>Сравниваемые товары ({selectedProducts.length})</h2>
+          <h2 className={styles["product-text"]}>сравниваемые товары ({selectedProducts.length})</h2>
           <ProductComparisonTable
             products={selectedProducts}
             onRemoveRequest={handleRemoveRequest}
@@ -62,8 +83,12 @@ export const ProductComparison = () => {
         isOpen={showModal}
         onConfirm={confirmDelete}
         onCancel={cancelDelete}
-        title="Удаление товара"
-        message={`Вы уверены, что хотите убрать ${productToDelete?.name} из сравнения?`}
+        title={productToDelete ? "Удалить товар из сравнения" : "Вы хотите очистить список сравнения?"}
+        message={
+        productToDelete 
+          ? `Удалить товар ${productToDelete.name} из списка сравнения?`
+          : "Все товары из этого списка будут удалены"
+        }
       />
     </div>
   );
