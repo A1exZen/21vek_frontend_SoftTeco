@@ -72,6 +72,6 @@ export const checkToken = async (): Promise<void> => {
   }
 };
 
-export const logout = async(): Promise<void> => {
+export const logout = async (): Promise<void> => {
   await $api.post(API_CONFIG.ENDPOINTS.AUTH.LOGOUT);
-}
+};
