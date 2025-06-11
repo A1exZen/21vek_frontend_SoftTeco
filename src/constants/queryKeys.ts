@@ -7,6 +7,8 @@ export enum QueryKeys {
   CATEGORIES = 'categories',
   HEADER_CATEGORIES = 'headerCategories',
 
+  GET_ADDRESSES = 'get-addresses',
+
   PRODUCTS = 'products',
   PRODUCTS_INFINITE = 'products_infinite',
   PRODUCT = 'product',

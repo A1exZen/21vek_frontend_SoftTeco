@@ -8,9 +8,16 @@ export const API_CONFIG = {
       REFRESH: 'auth/refresh',
       LOGOUT: 'auth/logout',
     },
-    CATEGORY:{
+    CATEGORY: {
       GET_HEADER_CAT: 'categories/headercategories',
       GET_ALL: 'categories/all-cat',
+    },
+    USER: {
+      UPDATE: 'user/profile/update',
+      ADD_ADDRESS: 'user/add-address',
+      DELETE_ADDRESS: 'user/delete-address',
+      CHANGE_ADDRESS: 'user/change-address',
+      GET_ADDRESSES: '',
     },
     PRODUCTS: {
       GET_ALL: '/products',
