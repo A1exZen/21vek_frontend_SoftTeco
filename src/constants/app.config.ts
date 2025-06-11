@@ -14,6 +14,13 @@ export const API_CONFIG = {
       GET_HEADER_CAT: 'categories/header-categories',
       GET_ALL: 'categories/all-cat',
     },
+    USER: {
+      UPDATE: 'user/profile/update',
+      ADD_ADDRESS: 'user/add-address',
+      DELETE_ADDRESS: 'user/delete-address',
+      CHANGE_ADDRESS: 'user/change-address',
+      GET_ADDRESSES: '',
+    },
     PRODUCTS: {
       GET_ALL: '/products',
       GET_BY_ID: '/products',
