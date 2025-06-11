@@ -1,82 +1,63 @@
-import { ComplexValue, Product, ProductCharacteristicValue } from '../types';
-
-type NumericValueInfo = {
-  value: number;
-  displayValue: ProductCharacteristicValue;
-  path: string;
-};
-
-const isSimCardsObject = (value: unknown): value is { count: number; format: string } => {
-  return typeof value === 'object' && value !== null && 'count' in value && 'format' in value;
-};
+import { IProduct, ICharacteristicGroup, TNumericValueInfo } from '../types';
 
 const findAllNumericValues = (
-  obj: ComplexValue,
+  characteristics: ICharacteristicGroup[],
   currentPath = ''
-): NumericValueInfo[] => {
-  const result: NumericValueInfo[] = [];
+): TNumericValueInfo[] => {
+  const result: TNumericValueInfo[] = [];
 
-  for (const [key, value] of Object.entries(obj)) {
-    const path = currentPath ? `${currentPath}.${key}` : key;
-
-    if (typeof value === 'number') {
-      result.push({
-        value,
-        displayValue: value,
-        path
-      });
-    } else if (isSimCardsObject(value)) {
-      result.push({
-        value: value.count,
-        displayValue: value,
-        path: `${path}.count`
-      });
-    } else if (typeof value === 'object' && value !== null) {
-      result.push(...findAllNumericValues(value, path));
-    } else if (typeof value === 'string') {
-      const numericValue = tryParseNumericString(value);
+  characteristics.forEach(group => {
+    const groupPath = currentPath ? `${currentPath}.${group.name}` : group.name;
+    
+    group.characteristics.forEach(item => {
+      const fullPath = `${groupPath}.${item.name}`;
+      const numericValue = tryParseNumericString(item.description);
+      
       if (numericValue !== null) {
         result.push({
           value: numericValue,
-          displayValue: value,
-          path
+          displayValue: item.description,
+          path: fullPath
         });
       }
-    }
-  }
+    });
+  });
 
   return result;
 };
 
 const tryParseNumericString = (str: string): number | null => {
-  const simpleNumber = parseFloat(str);
-  if (!isNaN(simpleNumber)) return simpleNumber;
-
+  {/*For numbers*/}
+  if (/^-?\d+$/.test(str)) return parseInt(str, 10);
+  
+  {/*For numbers with parseFloat*/}
+  if (/^-?\d+\.\d+$/.test(str)) return parseFloat(str);
+  
+  {/*For lines containing dimensions ("1600×720")*/}
   if (str.includes('×')) {
     const [w, h] = str.split('×').map(Number);
     if (!isNaN(w) && !isNaN(h)) return w * h;
   }
-
+  
+  {/*For strings containing units of measurement ("4 Gb")*/}
   const match = str.match(/\d+/);
   if (match) return parseFloat(match[0]);
 
   return null;
 };
 
-
-export const getComparisonData = (products: Product[]) => {
+export const getComparisonData = (products: IProduct[]) => {
   if (products.length === 0) {
     return {
-      bestValues: new Set<ProductCharacteristicValue>(),
+      bestValues: new Set<string>(),
       differentPaths: new Set<string>()
     };
   }
 
-  const bestValues = new Set<ProductCharacteristicValue>();
+  const bestValues = new Set<string>();
   const differentPaths = new Set<string>();
-  const numericValuesByPath: Record<string, NumericValueInfo[]> = {};
+  const numericValuesByPath: Record<string, TNumericValueInfo[]> = {};
 
-  // Сначала собираем все числовые значения по путям
   products.forEach(product => {
     const numericValues = findAllNumericValues(product.characteristics);
     
@@ -88,35 +69,34 @@ export const getComparisonData = (products: Product[]) => {
     });
   });
 
-  // Затем для каждого пути определяем лучшие значения и различия
+  {/*For numerical*/}
   Object.entries(numericValuesByPath).forEach(([path, values]) => {
     if (values.length === 0) return;
 
-    // Проверяем, все ли значения одинаковые
     const firstValue = values[0].displayValue;
-    const allSame = values.every(v => JSON.stringify(v.displayValue) === JSON.stringify(firstValue));
+    const allSame = values.every(v => v.displayValue === firstValue);
     
     if (!allSame) {
       differentPaths.add(path);
-      
-      // Находим лучшее значение только если есть различия
+
       let best = values[0];
-      for (let i = 1; i < values.length; i++) {
-        if (values[i].value > best.value) {
-          best = values[i];
-        }
+      for (const v of values) {
+      if (v.value > best.value) {
+        best = v;
       }
+    }
+
       bestValues.add(best.displayValue);
     }
   });
 
-  // Теперь проверим нечисловые характеристики
+  {/*For literal*/}
   const allPaths = getAllCharacteristicsPaths(products);
   allPaths.forEach(path => {
-    if (!numericValuesByPath[path]) { // Если путь не был обработан как числовой
+    if (!numericValuesByPath[path]) {
       const firstValue = getCharacteristicValue(products[0], path);
       const hasDifferences = products.some(
-        product => JSON.stringify(getCharacteristicValue(product, path)) !== JSON.stringify(firstValue)
+        product => getCharacteristicValue(product, path) !== firstValue
       );
       
       if (hasDifferences) {
@@ -128,48 +108,29 @@ export const getComparisonData = (products: Product[]) => {
   return { bestValues, differentPaths };
 };
 
-// Вспомогательная функция для получения всех путей характеристик
-const getAllCharacteristicsPaths = (products: Product[]): Set<string> => {
+const getAllCharacteristicsPaths = (products: IProduct[]): Set<string> => {
   const paths = new Set<string>();
   
   products.forEach(product => {
-    if (!product.characteristics) return;
-
-    const stack: { obj: ComplexValue; path: string }[] = [
-      { obj: product.characteristics, path: '' }
-    ];
-
-    while (stack.length > 0) {
-      const { obj, path } = stack.pop()!;
-
-      for (const key in obj) {
-        if (!Object.prototype.hasOwnProperty.call(obj, key)) continue;
-
-        const currentPath = path ? `${path}.${key}` : key;
-        const value = obj[key];
-
-        if (typeof value !== 'object' || value === null || ('count' in value && 'format' in value)) {
-          paths.add(currentPath);
-        }
-
-        if (typeof value === 'object' && value !== null) {
-          stack.push({ obj: value, path: currentPath });
-        }
-      }
-    }
+    product.characteristics.forEach(group => {
+      const groupPath = group.name;
+      
+      group.characteristics.forEach(item => {
+        const fullPath = `${groupPath}.${item.name}`;
+        paths.add(fullPath);
+      });
+    });
   });
 
   return paths;
 };
 
-// Вспомогательная функция для получения значения характеристики
-const getCharacteristicValue = (product: Product, path: string): unknown => {
-  if (!product.characteristics) return undefined;
+const getCharacteristicValue = (product: IProduct, path: string): string | undefined => {
+  const [groupName, itemName] = path.split('.');
   
-  return path.split('.').reduce((acc: unknown, key) => {
-    if (acc !== null && typeof acc === 'object' && key in acc) {
-      return (acc as Record<string, unknown>)[key];
-    }
-    return undefined;
-  }, product.characteristics);
+  const group = product.characteristics.find(g => g.name === groupName);
+  if (!group) return undefined;
+  
+  const item = group.characteristics.find(i => i.name === itemName);
+  return item?.description;
 };

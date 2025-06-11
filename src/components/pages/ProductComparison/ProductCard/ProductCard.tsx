@@ -1,13 +1,9 @@
-import Button from "@/components/ui/Button";
-import { Product } from "../types";
+import { IProductCardProps } from "../types";
 import styles from './styles.module.scss';
-import { ShoppingCart, Check, Star } from 'lucide-react';
 import { cc } from "@/utils/combineClasses";
+import { ShoppingCart, Check, Star } from 'lucide-react';
+import Button from "@/components/ui/Button";
 
-interface ProductCardProps {
-  product: Product;
-  onAddToCart: (id: number) => void;
-}
 
 function getReviewsWord(count: number): string {
   const lastDigit = count % 10;
@@ -19,19 +15,19 @@ function getReviewsWord(count: number): string {
   return 'отзывов';
 }
 
-export const ProductCard = ({ product, onAddToCart }: ProductCardProps) => {
+export const ProductCard = ({ product, onAddToCart }: IProductCardProps) => {
   return (
     <div className={styles.card}>
       <div className={styles.card__image}>
         <img 
-          src={product.image} 
-          alt={product.name} 
+          src={product.img} 
+          alt={product.name_product} 
           className={styles.card__imageImg}
         />
       </div>
       <div className={styles.card__content}>
         <div className={styles.card__price}>{product.price.toLocaleString()} р.</div>
-        <h3 className={styles.card__title}>{product.name}</h3>
+        <h3 className={styles.card__title}>{product.name_product}</h3>
         <div className={styles.card__rating}>
   {[...Array(5)].map((_, i) => (
     <Star 
@@ -46,9 +42,9 @@ export const ProductCard = ({ product, onAddToCart }: ProductCardProps) => {
   </span>
 </div>
 <div>
-  {product.reviewsCount > 0 && (
+  {product.number_of_reviews > 0 && (
     <span className={styles['card__reviews-count']}>
-      ({product.reviewsCount} {getReviewsWord(product.reviewsCount)})
+      ({product.number_of_reviews} {getReviewsWord(product.number_of_reviews)})
     </span>
   )}
 </div>
@@ -56,13 +52,13 @@ export const ProductCard = ({ product, onAddToCart }: ProductCardProps) => {
           variant="solid"
           color="first"
           className={cc(
-          product.inCart ? styles['in-cart__button'] : styles.cart__button
+          product.in_cart ? styles['in-cart__button'] : styles.cart__button
         )}
-          onClick={() => onAddToCart(product.id)}
+          onClick={() => onAddToCart(product.id_product)}
         >       
-          {product.inCart ? <Check size={16} /> : <ShoppingCart size={16} color='white' />}
+          {product.in_cart ? <Check size={16} /> : <ShoppingCart size={16} color='white' />}
           <span className={styles.card__text}>
-            {product.inCart ? "В корзине" : "В корзину"}
+            {product.in_cart ? "В корзине" : "В корзину"}
           </span>
         </Button>
       </div>

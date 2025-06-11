@@ -1,12 +1,5 @@
 import styles from './styles.module.scss';
-
-interface ConfirmationModalProps {
-  isOpen: boolean;
-  onConfirm: () => void;
-  onCancel: () => void;
-  title: string;
-  message: string;
-}
+import { IConfirmationModalProps } from './types';
 
 export const ConfirmationModal = ({
   isOpen,
@@ -14,7 +7,7 @@ export const ConfirmationModal = ({
   onCancel,
   title,
   message
-}: ConfirmationModalProps) => {
+}: IConfirmationModalProps) => {
   if (!isOpen) return null;
 
   return (

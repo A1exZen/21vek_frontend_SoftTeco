@@ -1,15 +1,15 @@
 import { useState } from 'react';
-import { Product } from "./types";
+import { IProduct } from "./types";
 import smartphones from './constants';
 import styles from './styles.module.scss';
 import { ProductComparisonTable } from './ProductComparisonTable/ProductComparisonTable';
-import { ConfirmationModal } from './ConfirmationModal'; // Новый компонент
+import { ConfirmationModal } from './ConfirmationModal';
 import Button from '@/components/ui/Button';
 
 export const ProductComparison = () => {
-  const [selectedProducts, setSelectedProducts] = useState<Product[]>(smartphones);
+  const [selectedProducts, setSelectedProducts] = useState<IProduct[]>(smartphones);
   const [productsInCart, setProductsInCart] = useState<number[]>([]);
-  const [productToDelete, setProductToDelete] = useState<Product | null>(null);
+  const [productToDelete, setProductToDelete] = useState<IProduct | null>(null);
   const [showModal, setShowModal] = useState(false);
 
   const handleAddToCart = (id: number) => {
@@ -18,7 +18,7 @@ export const ProductComparison = () => {
     );
   };
 
-  const handleRemoveRequest = (product: Product) => {
+  const handleRemoveRequest = (product: IProduct) => {
     setProductToDelete(product);
     setShowModal(true);
   };
@@ -31,13 +31,12 @@ export const ProductComparison = () => {
   const confirmDelete = () => {
     if (productToDelete) {
       setSelectedProducts(prev =>
-        prev.filter(p => p.id !== productToDelete.id)
+        prev.filter(p => p.id_product !== productToDelete.id_product)
       );
       setProductsInCart(prev =>
-        prev.filter(id => id !== productToDelete.id)
+        prev.filter(id => id !== productToDelete.id_product)
       )
     } else {
-      // Очищаем весь список
       setSelectedProducts([]);
       setProductsInCart([]);
       }
@@ -86,7 +85,7 @@ export const ProductComparison = () => {
         title={productToDelete ? "Удалить товар из сравнения" : "Вы хотите очистить список сравнения?"}
         message={
         productToDelete 
-          ? `Удалить товар ${productToDelete.name} из списка сравнения?`
+          ? `Удалить товар ${productToDelete.name_product} из списка сравнения?`
           : "Все товары из этого списка будут удалены"
         }
       />

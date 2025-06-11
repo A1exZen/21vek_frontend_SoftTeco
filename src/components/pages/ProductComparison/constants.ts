@@ -1,129 +1,341 @@
-import { Product } from "./types";
-import comparisonImg1 from '@/assets/images/phones/apple-black.jpg'
+import { IProduct } from "./types";
+import Img1 from "@assets/images/phones/apple-black.jpg"
 
-export const smartphones: Product[] = [
+export const smartphones: IProduct[] = [
   {
-    id: 1,
-    price: 15990,
-    rating: 4.5,
-    category: "смартфоны",
-    image: comparisonImg1,
-    reviewsCount: 56,
-    inCart: false,
-    name: "Смартфон Samsung Galaxy A06 4GB/128GB (черный)",
-    characteristics: {
-      mainCharacteristics: {
-        type: "смартфон",
-        releaseYear: 2024,
-        condition: "новый",
-        screenDiagonal: 6.7,
-        simCards: {
-          count: 2,
-          format: "Nano-SIM"
-        }
-      },
-      os: {
-        name: "Android",
-        version: "Android 14"
-      },
-      screen: {
-        resolution: "1600×720",
-        pixelDensity: 262,
-        colors: "16 миллионов",
-        scratchProtection: "-"
-      },
-      processor: {
-        platform: "MediaTek",
-        cores: "8 (2+6)",
-        frequency: "2000 МГц"
-      },
-      memory: {
-        ram: "4 Гб",
-        storage: "128 Гб"
-      }
-    }
+  "id_product": 1,
+  "name_product": "Смартфон Samsung Galaxy A06 4GB/128GB (черный)",
+  "brand": "Samsung",
+  "price": 16990,
+  "quantity_in_stock": 0,
+  "rating": 4.5,
+  "number_of_reviews": 56,
+  "status": "в наличии",
+  "img": Img1,
+  "in_cart": false,
+  "category": {
+    "id_categories": 1,
+    "name_categories": "смартфоны",
+    "url": "smartphones"
   },
-  {
-    id: 2,
-    price: 15990,
-    rating: 4.5,
-    reviewsCount: 56,
-    image: comparisonImg1,
-    inCart: false,
-    category: "смартфоны",
-    name: "Смартфон Apple iPhone 13 128GB (темная ночь)",
-    characteristics: {
-      mainCharacteristics: {
-        type: "смартфон",
-        releaseYear: 2021,
-        condition: "-",
-        screenDiagonal: 6.1,
-        simCards: {
-          count: 1,
-          format: "Nano-SIM, eSIM"
+  "characteristics": [
+    {
+      "name": "Основные характеристики",
+      "characteristics": [
+        {
+          "name": "тип",
+          "description": "смартфон"
+        },
+        {
+          "name": "год релиза",
+          "description": "2024"
+        },
+        {
+          "name": "состояние",
+          "description": "новый"
+        },
+        {
+          "name": "диагональ экрана",
+          "description": "6.7"
+        },
+        {
+          "name": "Кол-во SIM-карт",
+          "description": "2"
+        },
+        {
+          "name": "Формат SIM-карты",
+          "description": "Nano-SIM"
         }
-      },
-      os: {
-        name: "Apple iOS",
-        version: "iOS 15"
-      },
-      screen: {
-        resolution: "2532×1170",
-        pixelDensity: 460,
-        colors: "16 миллионов",
-        scratchProtection: "есть"
-      },
-      processor: {
-        platform: "Apple",
-        cores: "6 (2+4)",
-        frequency: "3220 МГц"
-      },
-      memory: {
-        ram: "4 Гб",
-        storage: "128 Гб"
-      }
+      ]
+    },
+    {
+      "name": "Операционная система",
+      "characteristics": [
+        {
+          "name": "Операционная система",
+          "description": "Android"
+        },
+        {
+          "name": "Версия",
+          "description": "Android 14"
+        }
+      ]
+    },
+    {
+      "name": "Экран",
+      "characteristics": [
+        {
+          "name": "Разрешение",
+          "description": "1600×720"
+        },
+        {
+          "name": "Плотность пикселей",
+          "description": "262"
+        },
+        {
+          "name": "Количество цветов",
+          "description": "16 миллионов"
+        },
+        {
+          "name": "Защита от царапин",
+          "description": "-"
+        }
+      ]
+    },
+    {
+      "name": "Процессор",
+      "characteristics": [
+        {
+          "name": "Платформа",
+          "description": "MediaTek"
+        },
+        {
+          "name": "Количество ядер",
+          "description": "8 (2+6)"
+        },
+        {
+          "name": "Тактовая частота процессора",
+          "description": "2000 МГц"
+        }
+      ]
+    },
+    {
+      "name": "Память",
+      "characteristics": [
+        {
+          "name": "Оперативная память",
+          "description": "4 Гб"
+        },
+        {
+          "name": "Постоянная память",
+          "description": "128 Гб"
+        }
+      ]
     }
+  ]
+},
+  
+  {
+  "id_product": 2,
+  "name_product": "Смартфон Apple iPhone 13 128GB (темная ночь)",
+  "brand": "Apple",
+  "price": 15990,
+  "quantity_in_stock": 0,
+  "rating": 4.5,
+  "number_of_reviews": 56,
+  "img": Img1,
+  "in_cart": false,
+  "category": {
+    "id_categories": 2,
+    "name_categories": "смартфоны",
+    "url": "smartphones"
   },
-  {
-    id: 3,
-    price: 15990,
-    rating: 4.5,
-    reviewsCount: 56,
-    image: comparisonImg1,
-    inCart: false,
-    category: "смартфоны",
-    name: "Смартфон Honor X5b 4GB/64GB (Midnight Black)",
-    characteristics: {
-      mainCharacteristics: {
-        type: "смартфон",
-        releaseYear: 2024,
-        condition: "новый",
-        screenDiagonal: 6.56,
-        simCards: {
-          count: 2,
-          format: "Nano-SIM"
+  "characteristics": [
+    {
+      "name": "Основные характеристики",
+      "characteristics": [
+        {
+          "name": "тип",
+          "description": "смартфон"
+        },
+        {
+          "name": "год релиза",
+          "description": "2021"
+        },
+        {
+          "name": "состояние",
+          "description": "-"
+        },
+        {
+          "name": "диагональ экрана",
+          "description": "6.1"
+        },
+        {
+          "name": "Кол-во SIM-карт",
+          "description": "1"
+        },
+        {
+          "name": "Формат SIM-карты",
+          "description": "Nano-SIM, eSIM"
         }
-      },
-      os: {
-        name: "Android",
-        version: "Android 14"
-      },
-      screen: {
-        resolution: "1612×720",
-        pixelDensity: "-",
-        colors: "16,7 миллионов",
-        scratchProtection: "-"
-      },
-      processor: {
-        platform: "MediaTek",
-        cores: 8,
-        frequency: "2200 МГц"
-      },
-      memory: {
-        ram: "4 Гб",
-        storage: "64 Гб"
-      }
+      ]
+    },
+    {
+      "name": "Операционная система",
+      "characteristics": [
+        {
+          "name": "Операционная система",
+          "description": "Apple iOS"
+        },
+        {
+          "name": "Версия",
+          "description": "iOS 15"
+        }
+      ]
+    },
+    {
+      "name": "Экран",
+      "characteristics": [
+        {
+          "name": "Разрешение",
+          "description": "2532×1170"
+        },
+        {
+          "name": "Плотность пикселей",
+          "description": "460"
+        },
+        {
+          "name": "Количество цветов",
+          "description": "16 миллионов"
+        },
+        {
+          "name": "Защита от царапин",
+          "description": "есть"
+        }
+      ]
+    },
+    {
+      "name": "Процессор",
+      "characteristics": [
+        {
+          "name": "Платформа",
+          "description": "Apple"
+        },
+        {
+          "name": "Количество ядер",
+          "description": "6 (2+4)"
+        },
+        {
+          "name": "Тактовая частота процессора",
+          "description": "3220 МГц"
+        }
+      ]
+    },
+    {
+      "name": "Память",
+      "characteristics": [
+        {
+          "name": "Оперативная память",
+          "description": "4 Гб"
+        },
+        {
+          "name": "Постоянная память",
+          "description": "128 Гб"
+        }
+      ]
     }
+  ]
+},
+  {
+    "id_product": 3,
+    "name_product": "Смартфон Samsung Galaxy A06 4GB/128GB (черный)",
+    "brand": "Samsung",
+    "price": 15990,
+    "quantity_in_stock": 0,
+    "rating": 4.5,
+    "number_of_reviews": 56,
+    "img": Img1,
+    "in_cart": false,
+    "category": {
+      "id_categories": 3,
+      "name_categories": "смартфоны",
+      "url": "smartphones"
+    },
+    "characteristics": [
+    {
+      "name": "Основные характеристики",
+      "characteristics": [
+        {
+          "name": "тип",
+          "description": "смартфон"
+        },
+        {
+          "name": "год релиза",
+          "description": "2024"
+        },
+        {
+          "name": "состояние",
+          "description": "новый"
+        },
+        {
+          "name": "диагональ экрана",
+          "description": "6.56"
+        },
+        {
+          "name": "Кол-во SIM-карт",
+          "description": "2"
+        },
+        {
+          "name": "Формат SIM-карты",
+          "description": "Nano-SIM"
+        },
+      ]
+    },
+    {
+      "name": "Операционная система",
+      "characteristics": [
+        {
+          "name": "Операционная система",
+          "description": "Android"
+        },
+        {
+          "name": "Версия",
+          "description": "Android 14"
+        },
+      ]
+    },
+    {
+      "name": "Экран",
+      "characteristics": [
+        {
+          "name": "Разрешение",
+          "description": "1612×720"
+        },
+        {
+          "name": "Плотность пикселей",
+          "description": "-"
+        },
+        {
+          "name": "Количество цветов",
+          "description": "16,7 миллионов"
+        },
+        {
+          "name": "Защита от царапин",
+          "description": "-"
+        },
+      ]
+    },
+    {
+      "name": "Процессор",
+      "characteristics": [
+        {
+          "name": "Платформа",
+          "description": "MediaTek"
+        },
+        {
+          "name": "Тактовая частота процессора",
+          "description": "3220 МГц"
+        },
+        {
+          "name": "Количество ядер",
+          "description": "8"
+        },
+      ]
+    },
+    {
+      "name": "Память",
+      "characteristics": [
+        {
+          "name": "Оперативная память",
+          "description": "4 Гб"
+        },
+        {
+          "name": "Постоянная память",
+          "description": "64 Гб"
+        },
+      ]
+    }
+    ]
   }
 ];
 
