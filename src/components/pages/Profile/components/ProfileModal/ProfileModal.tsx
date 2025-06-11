@@ -1,7 +1,7 @@
 import styles from './styles.module.scss';
 import { GENDER, UserUpdateRequest } from '@/models/user/api';
 import { Modal } from 'antd';
-import { useForm, Controller } from 'react-hook-form';
+import { useForm, Controller, SubmitHandler } from 'react-hook-form';
 import { useAppSelector } from '@/hooks/reduxHooks';
 import { JSX } from 'react';
 
@@ -54,7 +54,9 @@ export const ProfileModal = ({
     mode: 'onChange',
   });
 
-  const updateSubmit = (data: UserUpdateRequest) => updateUser.mutate(data);
+  const updateSubmit: SubmitHandler<UserUpdateRequest> = (
+    data: UserUpdateRequest,
+  ) => updateUser.mutate(data);
 
   const formContent = (field: ContentKeys) => {
     const content: Record<ContentKeys, () => JSX.Element> = {

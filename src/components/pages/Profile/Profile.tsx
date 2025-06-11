@@ -9,10 +9,21 @@ import { ProfileInfo } from './components/ProfileInfo';
 
 import { useAppDispatch } from '@/hooks/reduxHooks';
 import { setTypeUser } from '@/store/slices/auth.slice';
+import { ProfileAddress } from './components/ProfileAddress';
+import { Addresses, UserType } from '@/models/user/api';
+import { Address } from './components/Address';
+import { useQuery } from '@tanstack/react-query';
+import { QueryKeys } from '@/constants';
+import { getAddresses } from '@/api/user';
 
 const Profile = () => {
   const [isBusiness, setBusiness] = useState<boolean>(false);
   const dispatch = useAppDispatch();
+
+  const { data: addressees } = useQuery<Addresses>({
+    queryKey: [QueryKeys.GET_ADDRESSES],
+    queryFn: async () => await getAddresses(),
+  });
 
   const changeAccountType = (value: boolean) => {
     setBusiness(value);
@@ -21,13 +32,13 @@ const Profile = () => {
         id: 'changeAccount',
         position: 'bottom-center',
       });
-      dispatch(setTypeUser('user'));
+      dispatch(setTypeUser(UserType.USER));
     } else {
       toast.success('Вы успешно переключились на бизнес-аккаунт', {
         id: 'changeAccount',
         position: 'bottom-center',
       });
-      dispatch(setTypeUser('business'));
+      dispatch(setTypeUser(UserType.BUSINESS));
     }
   };
 
@@ -64,6 +75,11 @@ const Profile = () => {
           </div>
         </div>
         <ProfileInfo />
+        <ProfileAddress />
+
+        {addressees?.map((address) => (
+          <Address key={address.id} address={address} />
+        ))}
       </div>
     </div>
   );

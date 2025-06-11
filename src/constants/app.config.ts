@@ -13,6 +13,10 @@ export const API_CONFIG = {
     },
     USER: {
       UPDATE: 'user/profile/update',
+      ADD_ADDRESS: 'user/add-address',
+      DELETE_ADDRESS: 'user/delete-address',
+      CHANGE_ADDRESS: 'user/change-address',
+      GET_ADDRESSES: '',
     },
   },
 };

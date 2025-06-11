@@ -4,5 +4,6 @@ export enum QueryKeys {
   USERS = 'users',
   USER_CITY = 'userCity',
   CATEGORIES = 'categories',
-  HEADER_CATEGORIES = 'headerCategories'
+  HEADER_CATEGORIES = 'headerCategories',
+  GET_ADDRESSES = 'get-addresses',
 }

@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { User } from '@/models/user/api';
+import { Address, User, UserType } from '@/models/user/api';
 import Cookies from 'js-cookie';
 
 type AuthState = {
@@ -35,8 +35,11 @@ const authSlice = createSlice({
       Cookies.remove('refreshToken');
       state.user = null;
     },
-    setTypeUser: (state, action: PayloadAction<'user' | 'business'>) => {
+    setTypeUser: (state, action: PayloadAction<UserType>) => {
       state.user!.typeUser = action.payload;
+    },
+    addAddress: (state, action: PayloadAction<Address>) => {
+      state.user!.address = [...(state.user!.address || []), action.payload];
     },
   },
 });
