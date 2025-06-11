@@ -1,34 +1,60 @@
 import styles from './styles.module.scss';
 import Logo from '/src/assets/icons/main-logo.png';
-import { Input } from 'antd';
+import { Avatar, Input } from 'antd';
 import { SearchOutlined } from '@ant-design/icons';
 import Catalog from '@/assets/icons/catalog.svg';
 import Favorite from '@/assets/icons/heart.svg';
-import Account from '@/assets/icons/user.svg';
 import Basket from '@/assets/icons/basket.svg';
 import { PATHS } from '@/constants/path.config';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import Button from '@/components/ui/Button';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import ProductCatalog from '@components/widgets/ProductCatalog';
+import { Heart, LogOut, ShoppingCart, User, List } from 'lucide-react';
+import useClickOutside from '@hooks/useClickOutside';
+import AuthModal from '@components/widgets/AuthModal';
 
-const UserControls = () => {
+export const UserControls = () => {
   const [isCatalogOpen, setIsCatalogOpen] = useState(false);
-  const buttonRef = useRef<HTMLButtonElement>(null);
+  const [isAccountOpen, setIsAccountOpen] = useState(false);
+  const location = useLocation();
+
+  const catalogButtonRef = useRef<HTMLButtonElement>(null);
+  const accountButtonRef = useRef<HTMLButtonElement>(null);
+  const dropdownRef = useRef<HTMLDivElement | null>(null);
+
+  const isAuthenticated = false;
 
   const handleCatalogToggle = () => {
     setIsCatalogOpen((prev) => !prev);
   };
 
+  const handleAccountToggle = () => {
+    setIsAccountOpen((prev) => !prev);
+  };
+
+  const closeAccountDropdown = () => {
+    setIsAccountOpen(false);
+  };
+
+  useClickOutside(isAccountOpen, dropdownRef, closeAccountDropdown, [
+    accountButtonRef,
+  ]);
+
+  useEffect(() => {
+    setIsAccountOpen(false);
+    setIsCatalogOpen(false);
+  }, [location]);
+
   return (
     <>
-      <div className={styles['header-info-container']}>
+      <div className={styles['header-info__container']}>
         <div className={styles['logo-container']}>
           <img src={Logo} alt="Логотип" className={styles['main-logo']} />
         </div>
 
         <button
-          ref={buttonRef}
+          ref={catalogButtonRef}
           type="button"
           className={`${styles.button_variant_bordered} ${
             isCatalogOpen ? styles.button_color_gray : styles.button_color_third
@@ -56,10 +82,111 @@ const UserControls = () => {
           </Button>
         </Link>
 
-        <Button icon={<Account />} variant="bordered" color="third">
-          Аккаунт
-        </Button>
+        <div
+          className={styles['account-container']}
+          style={{ position: 'relative' }}
+        >
+          <button
+            ref={accountButtonRef}
+            type="button"
+            className={`${styles.button_variant_bordered} ${
+              isAccountOpen
+                ? styles.button_color_gray
+                : styles.button_color_third
+            }`}
+            onClick={handleAccountToggle}
+          >
+            <span className={styles.icon}>
+              <User />
+            </span>
+            Аккаунт
+          </button>
 
+          {isAccountOpen && (
+            <div ref={dropdownRef} className={styles['account-dropdown']}>
+              <div className={styles['account-dropdown__header']}>
+                <Avatar
+                  size={'large'}
+                  icon={<User size={30} color={'#000000'} />}
+                />
+              </div>
+              <div className={styles['account-dropdown__content']}>
+                {!isAuthenticated ? (
+                  <div className={styles['account-dropdown__login-container']}>
+                    <Link
+                      className={styles['login-container__button']}
+                      to={'/?auth=login'}
+                    >
+                      Войти
+                    </Link>
+                  </div>
+                ) : (
+                  <>
+                    <div
+                      className={styles['account-dropdown__item']}
+                      onClick={closeAccountDropdown}
+                    >
+                      <LogOut color={'#ff1f11'} size={20} />
+                      <span
+                        className={styles['account-dropdown__text']}
+                        style={{ color: '#ff1f11' }}
+                      >
+                        Выйти
+                      </span>
+                    </div>
+                    <Link
+                      to={PATHS.PROFILE}
+                      className={styles['account-dropdown__link']}
+                    >
+                      <div className={styles['account-dropdown__item']}>
+                        <User size={20} />
+                        <span className={styles['account-dropdown__text']}>
+                          Личный кабинет
+                        </span>
+                      </div>
+                    </Link>
+                  </>
+                )}
+
+                <Link
+                  to={PATHS.FAVORITES}
+                  className={styles['account-dropdown__link']}
+                >
+                  <div className={styles['account-dropdown__item']}>
+                    <Heart size={20} />
+                    <span className={styles['account-dropdown__text']}>
+                      Избранное
+                    </span>
+                  </div>
+                </Link>
+
+                <Link
+                  to={PATHS.BASKET}
+                  className={styles['account-dropdown__link']}
+                >
+                  <div className={styles['account-dropdown__item']}>
+                    <ShoppingCart size={20} />
+                    <span className={styles['account-dropdown__text']}>
+                      Корзина
+                    </span>
+                  </div>
+                </Link>
+
+                <Link
+                  to={PATHS.COMPARE}
+                  className={styles['account-dropdown__link']}
+                >
+                  <div className={styles['account-dropdown__item']}>
+                    <List size={20} />
+                    <span className={styles['account-dropdown__text']}>
+                      Список сравнения
+                    </span>
+                  </div>
+                </Link>
+              </div>
+            </div>
+          )}
+        </div>
         <Link to={PATHS.BASKET}>
           <Button icon={<Basket />} variant="bordered" color="third">
             Корзина
@@ -68,9 +195,10 @@ const UserControls = () => {
       </div>
       <ProductCatalog
         isOpen={isCatalogOpen}
-        onToggle={setIsCatalogOpen}
-        toggleButtonRef={buttonRef}
+        onToggle={handleCatalogToggle}
+        toggleButtonRef={catalogButtonRef}
       />
+      <AuthModal />
     </>
   );
 };

@@ -31,7 +31,8 @@
 	border-radius: 10px;
 	background-color: transparent;
 	&:hover{
-		color: var(--primary-hover);
+		color: var(--secondary-hover);
+		background-color: transparent !important;
 	}
 }
 

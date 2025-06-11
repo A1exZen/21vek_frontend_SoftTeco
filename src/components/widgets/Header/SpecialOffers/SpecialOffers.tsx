@@ -1,14 +1,16 @@
 import { Link } from 'react-router-dom';
-// import { useSpecialOffers } from './useSpecialOffers';
 import styles from './styles.module.scss';
 import { Divider, Spin, Alert } from 'antd';
 import Label from '@/assets/icons/label.svg';
 import { PATHS } from '@/constants/path.config';
 import { useGetHeaderCategories } from '@hooks/useCategories.ts';
 
-const SpecialOffers = () => {
-  // const { offers, isLoading, error } = useSpecialOffers();
-  const {data: { categories, } = { categories: [], actions: [] },  isLoading, error } = useGetHeaderCategories();
+export const SpecialOffers = () => {
+  const {
+    data: { categories } = { categories: [], actions: [] },
+    isLoading,
+    error,
+  } = useGetHeaderCategories();
 
   const MainLink = () => (
     <div className={styles['main-link']}>
@@ -59,4 +61,4 @@ const SpecialOffers = () => {
   );
 };
 
-export default SpecialOffers;
+

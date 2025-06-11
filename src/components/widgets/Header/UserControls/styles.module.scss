@@ -1,12 +1,12 @@
 @use '../../../../styles/mixins';
 
-.header-info-container {
-  max-width: mixins.rem(1440);
+.header-info__container {
   display: flex;
-  justify-content: space-between;
   flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
   padding: 20px mixins.rem(20);
-  margin: 0 auto;
+  margin: 0 20px;
   gap: mixins.rem(16);
 
   .main-logo {
@@ -71,4 +71,111 @@
   display: flex;
   align-items: center;
   margin-right: 8px;
+}
+
+.account-container {
+  position: relative;
+}
+
+.account-dropdown {
+  position: absolute;
+  top: 110%;
+  right: 0;
+  background-color: white;
+  border: 1px solid var(--gray-300);
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  z-index: 1000;
+  overflow: hidden;
+  animation: slideDown 0.2s ease-out;
+
+  @keyframes slideDown {
+    from {
+      opacity: 0;
+      transform: translateY(-8px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .account-dropdown__login-container{
+    display: flex;
+    justify-content: center;
+    padding: 0 0 15px 0;
+    .login-container__button{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 2.5rem;
+      padding: 8px 16px;
+      border-radius: 5px;
+      width: auto;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      color: var(--white);
+      background-color: var(--secondary);
+      &:hover{
+        background-color: var(--secondary-hover);
+      }
+    }
+  }
+
+  .account-dropdown__header {
+    padding: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    font-weight: 600;
+  }
+
+  .account-dropdown__link {
+    display: block;
+
+    &:hover {
+      background-color: var(--primary-light);
+
+    }
+  }
+
+  .account-dropdown__item {
+    padding: 10px 10px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    color: var(--gray-700);
+    font-size: mixins.rem(14);
+    position: relative;
+
+    &:hover {
+      .account-dropdown__text {
+        color: var(--primary);
+      }
+      transform: translateX(3px);
+    }
+
+    &:active {
+      transform: translateX(2px);
+      background: var(--primary-100);
+    }
+
+    svg {
+      transition: all 0.15s ease;
+      color: var(--gray-500);
+      flex-shrink: 0;
+    }
+
+    .account-dropdown__text {
+      font-weight: 500;
+      white-space: nowrap;
+
+    }
+
+
+  }
+
 }

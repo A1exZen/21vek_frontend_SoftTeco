@@ -15,16 +15,16 @@ const ProductSlider = () => {
   const handleNext = () => carouselRef.current?.next();
 
   return (
-    <section className={styles.sliderSection}>
-      <div className={styles.carouselWrapper}>
+    <section className={styles.slider__section}>
+      <div className={styles.carousel__wrapper}>
         <button
           onClick={handlePrev}
-          className={cc(styles.arrowButton, styles.arrowLeft)}
+          className={cc(styles.arrow__button, styles['arrow-left'])}
         >
           <LeftOutlined />
         </button>
 
-        <div className={styles.slideContainer}>
+        <div className={styles.slide__container}>
           <Carousel
             ref={carouselRef}
             beforeChange={(_, newIndex) => setCurrentSlide(newIndex)}
@@ -34,8 +34,8 @@ const ProductSlider = () => {
           >
             {SLIDES.map((slide) => (
               <div key={slide.id}>
-                <div className={styles.slideContent}>
-                  <Link to={slide.path} className={styles.slideWrapper}>
+                <div className={styles.slide__content}>
+                  <Link to={slide.path} className={styles.slide__wrapper}>
                     <img src={slide.img} alt={slide.alt} />
                   </Link>
                 </div>
@@ -46,17 +46,17 @@ const ProductSlider = () => {
 
         <button
           onClick={handleNext}
-          className={cc(styles.arrowButton, styles.arrowRight)}
+          className={cc(styles.arrow__button, styles['arrow-right'])}
         >
           <RightOutlined />
         </button>
       </div>
 
-      <div className={styles.dotsContainer}>
+      <div className={styles.dots__container}>
         {SLIDES.map((_, index) => (
           <div
             key={index}
-            className={cc(styles.dot, currentSlide === index ? styles.activeDot : '')}
+            className={cc(styles.dot, currentSlide === index ? styles['active-dot'] : '')}
           />
         ))}
       </div>

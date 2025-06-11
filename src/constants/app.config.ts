@@ -1,11 +1,12 @@
 export const API_CONFIG = {
-  BASE_URL: 'http://localhost:8000/',
+  BASE_URL: 'http://178.120.81.153:8000/',
   ENDPOINTS: {
     AUTH: {
       LOGIN: 'auth/login',
       REGISTER: 'auth/register',
       CHECK: 'auth/check',
       REFRESH: 'auth/refresh',
+      LOGOUT: 'auth/logout',
     },
     CATEGORY: {
       GET_HEADER_CAT: 'categories/headercategories',
@@ -17,6 +18,13 @@ export const API_CONFIG = {
       DELETE_ADDRESS: 'user/delete-address',
       CHANGE_ADDRESS: 'user/change-address',
       GET_ADDRESSES: '',
+    },
+    PRODUCTS: {
+      GET_ALL: '/products',
+      GET_BY_ID: '/products',
+      GET_BRANDS: '/products/brands',
+      GET_PRICE_RANGE: '/products/price-range',
+      SEARCH: '/products/search'
     },
   },
 };
