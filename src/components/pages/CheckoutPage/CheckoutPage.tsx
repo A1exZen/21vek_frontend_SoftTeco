@@ -35,6 +35,7 @@ export const CheckoutPage = () => {
           />
         </Link>
         <Button
+          className={styles['checkout__close-button']}
           icon={<X size={22} color="var(--gray-600)" />}
           variant="rounded"
           onClick={handleClose}

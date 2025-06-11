@@ -27,12 +27,12 @@ export const BasketItem = ({
   return (
     <div className={styles.basket__item}>
       <div className={styles.product}>
-        <div className={styles.product__image}>
+        <div className={styles['product__image-container']}>
           <div>
             <img
               src={item.image}
               alt={item.name}
-              className={styles['product__image-container']}
+              className={styles.product__image}
             />
           </div>
           <button

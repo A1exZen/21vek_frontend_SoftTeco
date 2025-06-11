@@ -21,18 +21,40 @@
       width: 120px;
       height: auto;
     }
+
+    .checkout__close-button {
+      @media screen and (max-width: 768px) {
+        width: 36px;
+        height: 36px;
+
+        svg {
+          width: 18px;
+          height: 18px;
+        }
+      }
+    }
+
   }
 
   .checkout__content {
     display: flex;
     justify-content: center;
-    flex-grow: 1;
     align-items: center;
+    flex-grow: 1;
     padding-bottom: 104px;
+
+    @media screen and (max-width: 768px) {
+      padding: 0 20px;
+    }
 
     .checkout__image {
       width: auto;
       height: 400px;
+      object-fit: contain;
+
+      @media screen and (max-width: 1024px) {
+        display: none;
+      }
     }
 
     .checkout__delivery-data {

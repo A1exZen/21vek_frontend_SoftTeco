@@ -74,7 +74,12 @@ const Basket = () => {
     <div className={styles.basket__wrapper}>
       <div className={styles.basket__content}>
         {isBasketEmpty ? (
-          <div className={styles.basket__empty}>Ваша корзина пуста</div>
+          <div className={styles.basket__empty}>
+            <span>Корзина пуста</span>
+            <span>
+              Вы можете выбрать товары в каталоге или воспользоваться поиском.
+            </span>
+          </div>
         ) : (
           <>
             <div className={styles.basket__headline}>
@@ -83,7 +88,8 @@ const Basket = () => {
             </div>
             <div className={styles['basket__column-headers']}>
               <span>Товар</span>
-              <span>Количество</span>
+              <span className={styles['quantity-full']}>Количество</span>
+              <span className={styles['quantity-short']}>Кол-во</span>
               <span>Доставка</span>
               <span>Стоимость</span>
             </div>
