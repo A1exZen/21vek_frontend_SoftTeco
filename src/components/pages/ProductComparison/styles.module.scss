@@ -14,65 +14,67 @@
     padding-left: mixins.rem(12);
     padding-right: mixins.rem(12);
   }
-}
 
-.product-title {
-  font-size: mixins.rem(30);
-  font-weight: 400;
-}
-
-.category {
-  display: flex;
-}
-
-.categories-list {
-  margin-top: 40px;
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-}
-
-.category-item {
-  border-bottom: 1px solid #e0e0e0;
-  padding: 0 10px 15px 10px;
-  
-  &:last-child {
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(181, 179, 179, 0.1);
+  .product-title {
+    font-size: mixins.rem(30);
+    font-weight: 400;
   }
-}
 
-.category-link {
-  text-decoration: none;
-  color: inherit;
-  display: flex;
-  align-items: center;
-  transition: all 0.2s ease;
-  
-  &:hover {
-    opacity: 0.8;
+  .categories-list {
+    margin-top: 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+
+    .category-item {
+      border-bottom: 1px solid #e0e0e0;
+      padding: 0 10px 15px 10px;
+      
+      &:last-child {
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(181, 179, 179, 0.1);
+      }
+
+      .category-content {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 8px;
+
+        .category-link {
+          text-decoration: none;
+          color: inherit;
+          display: flex;
+          align-items: center;
+          transition: all 0.2s ease;
+          
+          &:hover {
+            opacity: 0.8;
+          }
+
+          .category-name {
+            font-size: 18px;
+            font-weight: 600;
+            padding-right: 10px;
+          }
+
+          .category-footer {
+            .product-count {
+              font-size: 12px;
+              color: #666;
+            }
+          }
+        }
+
+        .delete-icon {
+          cursor: pointer;
+          transition: color 0.2s ease;
+
+          &:hover {
+            color: var(--color-error);
+          }
+        }
+      }
+    }
   }
-}
-
-.category-content {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 8px;
-}
-
-.category-name {
-  font-size: 18px;
-  font-weight: 600;
-  padding-right: 10px;
-}
-
-.product-count {
-  font-size: 12px;
-  color: #666;
-}
-
-.cart-icon {
-  font-size: 16px;
-  margin-left: 10px;
 }
