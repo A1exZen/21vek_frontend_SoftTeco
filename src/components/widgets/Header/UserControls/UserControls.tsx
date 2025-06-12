@@ -13,6 +13,7 @@ import ProductCatalog from '@components/widgets/ProductCatalog';
 import { Heart, LogOut, ShoppingCart, User, List } from 'lucide-react';
 import useClickOutside from '@hooks/useClickOutside';
 import AuthModal from '@components/widgets/AuthModal';
+import { useAuthModal } from '@components/widgets/AuthModal/useAuthModal.ts';
 
 export const UserControls = () => {
   const [isCatalogOpen, setIsCatalogOpen] = useState(false);
@@ -22,6 +23,8 @@ export const UserControls = () => {
   const catalogButtonRef = useRef<HTMLButtonElement>(null);
   const accountButtonRef = useRef<HTMLButtonElement>(null);
   const dropdownRef = useRef<HTMLDivElement | null>(null);
+
+  const authModal = useAuthModal();
 
   const isAuthenticated = false;
 
@@ -49,9 +52,9 @@ export const UserControls = () => {
   return (
     <>
       <div className={styles['header-info__container']}>
-        <div className={styles['logo-container']}>
+        <Link to={'/'} className={styles['logo-container']}>
           <img src={Logo} alt="Логотип" className={styles['main-logo']} />
-        </div>
+        </Link>
 
         <button
           ref={catalogButtonRef}
@@ -113,12 +116,12 @@ export const UserControls = () => {
               <div className={styles['account-dropdown__content']}>
                 {!isAuthenticated ? (
                   <div className={styles['account-dropdown__login-container']}>
-                    <Link
+                    <button
                       className={styles['login-container__button']}
-                      to={'/?auth=login'}
+                      onClick={authModal.openLogin}
                     >
                       Войти
-                    </Link>
+                    </button>
                   </div>
                 ) : (
                   <>
@@ -198,7 +201,12 @@ export const UserControls = () => {
         onToggle={handleCatalogToggle}
         toggleButtonRef={catalogButtonRef}
       />
-      <AuthModal />
+      <AuthModal
+        isVisible={authModal.isVisible}
+        isLogin={authModal.isLogin}
+        onClose={authModal.closeAuth}
+        onToggleMode={authModal.toggleMode}
+      />
     </>
   );
 };

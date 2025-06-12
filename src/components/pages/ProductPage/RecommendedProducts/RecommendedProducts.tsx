@@ -23,9 +23,13 @@ type Product = {
   oldPrice: string;
 };
 
-export const RecommendedProducts = () => {
-  const swiperRef = useRef<SwiperType | null>(null);
+interface RecommendedProductsProps {
+  productBrand: string;
+}
 
+export const RecommendedProducts = ({productBrand}: RecommendedProductsProps) => {
+  const swiperRef = useRef<SwiperType | null>(null);
+  console.log(productBrand);
   const products: Product[] = [
     {
       id: 1,

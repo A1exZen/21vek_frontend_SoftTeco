@@ -1,15 +1,17 @@
 import { Link } from 'react-router-dom';
-// import { useSpecialOffers } from './useSpecialOffers';
 import styles from './styles.module.scss';
-import { Divider, Spin, Alert } from 'antd';
+import { Divider, Spin, Alert, Empty } from 'antd';
 import Label from '@/assets/icons/label.svg';
 import { PATHS } from '@/constants/path.config';
 import { useGetHeaderCategories } from '@hooks/useCategories.ts';
+import { HeaderCategory } from '@models/category/api.ts';
+
+interface OfferItemProps {
+  category: HeaderCategory;
+}
 
 export const SpecialOffers = () => {
-  // const { offers, isLoading, error } = useSpecialOffers();
-  const {data: { categories, } = { categories: [], actions: [] },  isLoading, error } = useGetHeaderCategories();
-
+  const { data, isLoading, isError } = useGetHeaderCategories();
   const MainLink = () => (
     <div className={styles['main-link']}>
       <Label />
@@ -18,9 +20,11 @@ export const SpecialOffers = () => {
     </div>
   );
 
-  const OfferItem = ({ title, path }: { title: string; path: string }) => (
+  const OfferItem = ({ category }: OfferItemProps) => (
     <li className={styles['offer-item']}>
-      <Link to={path}>{title}</Link>
+      <Link to={`/${category.url}`}>
+        {category.nameCategories}
+      </Link>
     </li>
   );
 
@@ -32,10 +36,25 @@ export const SpecialOffers = () => {
     );
   }
 
-  if (error) {
+  if (isError) {
     return (
       <div className={styles['background']}>
         <Alert message="Ошибка загрузки акций" type="error" showIcon />
+      </div>
+    );
+  }
+
+  const categories = data?.categories || [];
+  if (categories.length === 0) {
+    return (
+      <div className={styles['background']}>
+        <div className={styles.container}>
+          <MainLink />
+          <Empty
+            description="Нет доступных акций"
+            image={Empty.PRESENTED_IMAGE_SIMPLE}
+          />
+        </div>
       </div>
     );
   }
@@ -46,11 +65,10 @@ export const SpecialOffers = () => {
         <MainLink />
 
         <ul className={styles['offers-list']}>
-          {categories.map((offer) => (
+          {categories.map((category) => (
             <OfferItem
-              key={offer.idCategories}
-              title={offer.nameCategories}
-              path={'/'}
+              key={category.idCategories}
+              category={category}
             />
           ))}
         </ul>

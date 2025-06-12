@@ -1,13 +1,13 @@
 import React, {
   useCallback,
-  useState,
   useEffect,
-  useRef,
   useMemo,
+  useRef,
+  useState,
 } from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import { Category, productCategories } from './constants.ts';
 import styles from './styles.module.scss';
-import { productCategories, Category } from './constants.ts';
 import { SubcategoryGrid } from './SubcategoryGrid';
 
 interface ProductCatalogProps {
