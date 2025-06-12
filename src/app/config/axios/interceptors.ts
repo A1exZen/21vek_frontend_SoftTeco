@@ -13,14 +13,12 @@ interface Interceptors {
 
 export const interceptors: Interceptors = {
   onSuccess: (response: AxiosResponse) => {
-    console.log(response.data);
     if (
       response.data &&
       response.headers['content-type']?.includes('application/json')
     ) {
       response.data = camelizeKeys(response.data);
     }
-    console.log(response.data);
     return response.data ? response.data : response;
   },
   onError: async (error: AxiosError) => {

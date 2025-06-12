@@ -11,8 +11,6 @@ export const Address = ({ address }: AddressProps) => {
   const { deleteAddressMutation } = useAddress();
   const [isOpen, setOpen] = useState<boolean>(false);
 
-  //   const changeAddress = () => {};
-
   const deleteAddress = () => {
     toast(() => (
       <span className={styles['toast-delete']}>
@@ -21,13 +19,15 @@ export const Address = ({ address }: AddressProps) => {
         </p>
         <Button
           className={styles['address-delete__btn']}
-          onClick={() => deleteAddressMutation.mutate(address.id)}
+          onClick={() => deleteAddressMutation.mutate(address.idAdress)}
         >
           Да
         </Button>
       </span>
     ));
   };
+
+  console.log(address);
 
   return (
     <>

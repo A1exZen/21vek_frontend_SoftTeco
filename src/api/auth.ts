@@ -41,16 +41,11 @@ export const register = async (data: RegisterRequest): Promise<void> => {
 export const refreshToken = async (): Promise<void> => {
   try {
     const refreshToken = Cookies.get('refresh_token');
-    if (!refreshToken) {
-      console.info('Нету токенов');
-      return;
-    }
     await $api.get(API_CONFIG.ENDPOINTS.AUTH.REFRESH, {
       headers: {
         Authorization: `Bearer ${refreshToken}`,
       },
     });
-    return;
   } catch (error) {
     const err = ensureError(error);
     throw new BaseError('Error with refresh token', {

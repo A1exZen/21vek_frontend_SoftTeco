@@ -43,7 +43,9 @@ export const AddressModal = ({ isOpen, onClose }: AddressModalProps) => {
       return;
     }
     await addAddressMutation.mutate(data);
-    if (addAddressMutation.isSuccess) onClose();
+    if (addAddressMutation.isSuccess) {
+      onClose();
+    }
   };
 
   return (

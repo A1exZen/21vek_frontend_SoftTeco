@@ -9,7 +9,7 @@ export enum UserType {
 }
 
 export type Address = {
-  id: number;
+  idAdress: number;
   settlement: string;
   street: string;
   entrance: string;
@@ -19,7 +19,7 @@ export type Address = {
 };
 
 export type User = {
-  id: number;
+  idProfile: number;
   mail: string;
   name?: string;
   birthday?: string;

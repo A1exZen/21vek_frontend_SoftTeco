@@ -38,7 +38,7 @@ export const getAddresses = async (): Promise<AddressesResponse> => {
 
 export const addAddress = async (data: AddressRequest): Promise<void> => {
   try {
-    await $api.put<void, void, AddressRequest>(
+    await $api.post<void, void, AddressRequest>(
       API_CONFIG.ENDPOINTS.USER.ADD_ADDRESS,
       data,
     );
@@ -50,7 +50,7 @@ export const addAddress = async (data: AddressRequest): Promise<void> => {
 
 export const deleteAddress = async (idAddress: number): Promise<void> => {
   try {
-    await $api.put<void, void, void>(
+    await $api.delete<void, void, void>(
       `${API_CONFIG.ENDPOINTS.USER.DELETE_ADDRESS}/${idAddress}`,
     );
   } catch (error) {
@@ -64,7 +64,7 @@ export const changeAddress = async (
 ): Promise<AddressResponse> => {
   try {
     return await $api.put<AddressResponse, AddressResponse, AddressRequest>(
-      API_CONFIG.ENDPOINTS.USER.CHANGE_ADDRESS,
+      `${API_CONFIG.ENDPOINTS.USER.CHANGE_ADDRESS}/${data.idAdress}`,
       data,
     );
   } catch (error) {

@@ -18,9 +18,9 @@ export const API_CONFIG = {
     USER: {
       UPDATE: 'user/profile/update',
       ADD_ADDRESS: 'user/profile/address/add',
-      DELETE_ADDRESS: 'user/address/delete-address/',
-      CHANGE_ADDRESS: 'user/profile/address/change-address/',
-      GET_ADDRESSES: '',
+      DELETE_ADDRESS: 'user/profile/address',
+      CHANGE_ADDRESS: '/user/profile/address',
+      GET_ADDRESSES: 'user/profile/addresses',
     },
     PRODUCTS: {
       GET_ALL: '/products',
