@@ -13,7 +13,8 @@ export enum PATHS {
   PRODUCTS = '/products',
   FAVORITES = '/favorites',
   ACCOUNT = '/account',
-  PRODUCT_COMPARISON = '/product-comparison',
+  PRODUCT_COMPARISON = '/compare',
+  PRODUCT_COMPARISON_DATA = '/compare/:category',
   BASKET = '/basket',
 
   DISCOUNTS = '/discounts',

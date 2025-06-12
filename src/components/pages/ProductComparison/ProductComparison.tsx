@@ -1,45 +1,40 @@
+// components/ProductComparisonList.tsx
 import { useState } from 'react';
-import { IProduct } from "./types";
-import smartphones from './constants';
+import { IProduct, IProductComparisonListProps } from "./types";
+import { Link } from "react-router-dom";
+import { products } from './constants';
 import styles from './styles.module.scss';
-import { ProductComparisonTable } from './ProductComparisonTable/ProductComparisonTable';
-import { ConfirmationModal } from './ConfirmationModal';
-import Button from '@/components/ui/Button';
+import { Trash } from 'lucide-react';
+import { ConfirmationModal } from "./ConfirmationModal/ConfirmationModal";
 
-export const ProductComparison = () => {
-  const [selectedProducts, setSelectedProducts] = useState<IProduct[]>(smartphones);
-  const [productsInCart, setProductsInCart] = useState<number[]>([]);
-  const [productToDelete, setProductToDelete] = useState<IProduct | null>(null);
+function getProductCountText(count: number): string {
+  if (count % 10 === 1 && count % 100 !== 11) return 'товар';
+  if (count % 10 >= 2 && count % 10 <= 4 && (count % 100 < 10 || count % 100 >= 20)) return 'товара';
+  return 'товаров';
+}
+
+function capitalizeFirstLetter(str: string): string {
+  return str.charAt(0).toUpperCase() + str.slice(1);
+}
+
+const ProductComparisonComponent = ({ products: initialProducts = [] }: IProductComparisonListProps) => { 
+  const [products, setProducts] = useState<IProduct[]>(initialProducts);
   const [showModal, setShowModal] = useState(false);
+  const [categoryToDelete, setCategoryToDelete] = useState<number | null>(null);
 
-  const handleAddToCart = (id: number) => {
-    setProductsInCart(prev =>
-      prev.includes(id) ? prev.filter(item => item !== id) : [...prev, id]
-    );
-  };
-
-  const handleRemoveRequest = (product: IProduct) => {
-    setProductToDelete(product);
-    setShowModal(true);
-  };
-
-  const handleClearAll = () => {
-    setProductToDelete(null);
+  const handleDeleteClick = (categoryId: number) => {
+    setCategoryToDelete(categoryId);
     setShowModal(true);
   };
 
   const confirmDelete = () => {
-    if (productToDelete) {
-      setSelectedProducts(prev =>
-        prev.filter(p => p.id_product !== productToDelete.id_product)
+    if (categoryToDelete) {
+      setProducts(prevProducts => 
+        prevProducts.filter(product => 
+          product.category.id_categories !== categoryToDelete
+        )
       );
-      setProductsInCart(prev =>
-        prev.filter(id => id !== productToDelete.id_product)
-      )
-    } else {
-      setSelectedProducts([]);
-      setProductsInCart([]);
-      }
+    }
     setShowModal(false);
   };
 
@@ -47,48 +42,67 @@ export const ProductComparison = () => {
     setShowModal(false);
   };
 
+  // Группируем товары по категориям
+  const productsByCategory = products.reduce<Record<number, { 
+    category: { id_categories: number; name_categories: string; url: string }; 
+    products: IProduct[] 
+  }>>((acc, product) => {
+    if (!acc[product.category.id_categories]) {
+      acc[product.category.id_categories] = {
+        category: product.category,
+        products: []
+      };
+    }
+    acc[product.category.id_categories].products.push(product);
+    return acc;
+  }, {});
+
   return (
     <div className={styles["product-comparison"]}>
-      <div className={styles["header-row"]}>
-        <h1 className={styles["product-title"]}>Сравнение товаров</h1>
-        {selectedProducts.length > 0 && (
-          <Button 
-            variant="link"
-            className={styles["clear-all__button"]}
-            onClick={handleClearAll}
-          >
-            Очистить список
-          </Button>
-        )}
+      <h1 className={styles["product-title"]}>Списки сравнения</h1>
+      
+      <div className={styles["categories-list"]}>
+        {Object.values(productsByCategory).map(({ category, products: categoryProducts }) => (
+          <div key={category.id_categories} className={styles["category-item"]}>
+            <div className={styles["category-content"]}>
+              <div className={styles["category"]}>
+                <Link 
+                  to={`/compare/${category.url}`} 
+                  className={styles["category-link"]}
+                >
+                  <h2 className={styles["category-name"]}>{capitalizeFirstLetter(category.name_categories)}</h2>
+                  <div className={styles["category-footer"]}>
+                    <span className={styles["product-count"]}>
+                      {categoryProducts.length} {getProductCountText(categoryProducts.length)}
+                    </span>
+                  </div>
+                </Link>
+              </div>
+              <Trash 
+                size={16} 
+                color='gray'
+                onClick={() => handleDeleteClick(category.id_categories)}
+                className={styles["delete-icon"]}
+              />
+            </div>
+          </div>
+        ))}
       </div>
-
-      {selectedProducts.length > 0 ? (
-        <div className={styles["comparison-section"]}>
-          <h2 className={styles["product-text"]}>сравниваемые товары ({selectedProducts.length})</h2>
-          <ProductComparisonTable
-            products={selectedProducts}
-            onRemoveRequest={handleRemoveRequest}
-            productsInCart={productsInCart}
-            onAddToCart={handleAddToCart}
-          />
-        </div>
-      ) : (
-        <div className={styles["empty-message"]}>
-          Нет товаров для сравнения
-        </div>
-      )}
 
       <ConfirmationModal
         isOpen={showModal}
         onConfirm={confirmDelete}
         onCancel={cancelDelete}
-        title={productToDelete ? "Удалить товар из сравнения" : "Вы хотите очистить список сравнения?"}
-        message={
-        productToDelete 
-          ? `Удалить товар ${productToDelete.name_product} из списка сравнения?`
-          : "Все товары из этого списка будут удалены"
-        }
+        title="Вы хотите очистить список сравнения?"
+        message="Все товары из этого списка будут удалены"
       />
     </div>
   );
 };
+
+// Обёртка с данными
+export const ProductComparison = () => {
+  return <ProductComparisonComponent products={products} />;
+};
+
+export { ProductComparisonComponent };

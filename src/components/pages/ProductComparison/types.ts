@@ -7,6 +7,10 @@ export type TNumericValueInfo = {
   path: string;
 };
 
+export interface IProductComparisonListProps {
+  products?: IProduct[];
+}
+
 export interface IProductCardProps {
   product: IProduct;
   onAddToCart: (id: number) => void;

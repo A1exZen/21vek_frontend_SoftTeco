@@ -1,5 +1,5 @@
 import styles from './styles.module.scss';
-import { IConfirmationModalProps } from './types';
+import { IConfirmationModalProps } from '../types';
 
 export const ConfirmationModal = ({
   isOpen,

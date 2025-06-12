@@ -67,6 +67,8 @@ export const ProductComparisonTable = ({
               <Checkbox
                 checked={showOnlyDifferences}
                 onChange={(e) => setShowOnlyDifferences(e.target.checked)}
+                disabled={products.length <= 1} 
+                className={products.length <= 1 ? styles.disabledCheckbox : ''}
               >
                 Показать только<br />отличия
               </Checkbox>

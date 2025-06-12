@@ -4,7 +4,6 @@ import { cc } from "@/utils/combineClasses";
 import { ShoppingCart, Check, Star } from 'lucide-react';
 import Button from "@/components/ui/Button";
 
-
 function getReviewsWord(count: number): string {
   const lastDigit = count % 10;
   const lastTwoDigits = count % 100;

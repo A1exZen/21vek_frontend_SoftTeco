@@ -1,7 +1,7 @@
 import { IProduct } from "./types";
 import Img1 from "@assets/images/phones/apple-black.jpg"
 
-export const smartphones: IProduct[] = [
+export const products: IProduct[] = [
   {
   "id_product": 1,
   "name_product": "Смартфон Samsung Galaxy A06 4GB/128GB (черный)",
@@ -126,7 +126,7 @@ export const smartphones: IProduct[] = [
   "img": Img1,
   "in_cart": false,
   "category": {
-    "id_categories": 2,
+    "id_categories": 1,
     "name_categories": "смартфоны",
     "url": "smartphones"
   },
@@ -237,9 +237,9 @@ export const smartphones: IProduct[] = [
     "img": Img1,
     "in_cart": false,
     "category": {
-      "id_categories": 3,
-      "name_categories": "смартфоны",
-      "url": "smartphones"
+      "id_categories": 2,
+      "name_categories": "холодильники",
+      "url": "fridge"
     },
     "characteristics": [
     {
@@ -338,5 +338,3 @@ export const smartphones: IProduct[] = [
     ]
   }
 ];
-
-export default smartphones;
