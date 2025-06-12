@@ -3,13 +3,15 @@ export enum QueryKeys {
   USER = 'user',
   USERS = 'users',
   USER_CITY = 'userCity',
+  CURRENT_USER = 'currentUser',
 
   CATEGORIES = 'categories',
   HEADER_CATEGORIES = 'headerCategories',
+  CATEGORY = 'category',
 
-  PRODUCTS = 'products',
-  PRODUCTS_INFINITE = 'products_infinite',
-  PRODUCT = 'product',
+  PRODUCTS = 'allProduct',
+  FILTERED_PRODUCTS = 'filterProducts',
+  PRODUCT='product',
   BRANDS = 'brands',
-  PRICE_RANGE = 'price_range'
+  PRICE_RANGE='priceRange',
 }

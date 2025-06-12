@@ -1,21 +1,23 @@
 
-export interface Category {
+export interface HeaderCategory {
   idCategories: number;
   nameCategories: string;
   idParent: number | null;
-  products: Product[];
+  url: string;
 }
 
-export interface HeaderCategory{
-  idCategories: number;
-  nameCategories: string;
-  idParent: number | null;
-}
 export interface HeaderCategoryResponse {
   categories: HeaderCategory[];
   actions: string[];
 }
 
+export interface Category {
+  idCategories: number;
+  nameCategories: string;
+  idParent: number | null;
+  url: string;
+  products: Product[];
+}
 
 export interface Product {
   idProduct: number;
