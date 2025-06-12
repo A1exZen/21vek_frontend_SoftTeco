@@ -6,9 +6,10 @@ export const API_CONFIG = {
     AUTH: {
       LOGIN: 'auth/login',
       REGISTER: 'auth/register',
-      CHECK: 'auth/check',
+      CHECK: 'auth/check-token',
       REFRESH: 'auth/refresh',
       LOGOUT: 'auth/logout',
+      ME: 'auth/me',
     },
     CATEGORY: {
       GET_HEADER_CAT: 'categories/header-categories',
@@ -16,9 +17,9 @@ export const API_CONFIG = {
     },
     USER: {
       UPDATE: 'user/profile/update',
-      ADD_ADDRESS: 'user/add-address',
-      DELETE_ADDRESS: 'user/delete-address',
-      CHANGE_ADDRESS: 'user/change-address',
+      ADD_ADDRESS: 'user/profile/address/add',
+      DELETE_ADDRESS: 'user/address/delete-address/',
+      CHANGE_ADDRESS: 'user/profile/address/change-address/',
       GET_ADDRESSES: '',
     },
     PRODUCTS: {
@@ -31,7 +32,11 @@ export const API_CONFIG = {
   },
 };
 
-if (!import.meta.env.PROD) {
-  console.log('Текущий App Mode:', import.meta.env.MODE);
-  console.log('API Base URL:', API_CONFIG.BASE_URL);
-}
+console.log(
+  `%cТекущий App Mode: ${import.meta.env.MODE}`,
+  'color: white; font-weight: 900;',
+);
+console.info(
+  `%cAPI Base URL: ${API_CONFIG.BASE_URL}`,
+  'color: white; font-weight: 900;',
+);

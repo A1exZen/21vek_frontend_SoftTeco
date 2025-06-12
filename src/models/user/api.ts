@@ -39,9 +39,12 @@ export type UserUpdateRequest = Partial<Omit<User, 'id'>> & {
 
 export type UserUpdateResponse = Partial<User>;
 
-export type AddressRequest = Omit<Address, 'id'> & {
+export type AddressRequest = Address & {
   isMain?: boolean;
 };
+
+export type UserResponse = User;
+
 export type AddressResponse = Address;
 export type Addresses = Address[];
 export type AddressesResponse = Addresses;

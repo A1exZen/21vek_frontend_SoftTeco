@@ -31,8 +31,8 @@ const authSlice = createSlice({
       state.loading = false;
     },
     remove: (state) => {
-      Cookies.remove('accessToken');
-      Cookies.remove('refreshToken');
+      Cookies.remove('access_token');
+      Cookies.remove('refresh_token');
       state.user = null;
     },
     setTypeUser: (state, action: PayloadAction<UserType>) => {

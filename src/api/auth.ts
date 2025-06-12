@@ -5,9 +5,9 @@ import {
   LoginResponse,
   RegisterRequest,
 } from '@/models/auth/api';
-import { BaseError, ensureError, handleHttpError } from '@utils/ErrorHandler';
-import { HttpStatusCode } from '@/models/common';
+import { BaseError, ensureError } from '@utils/ErrorHandler';
 import Cookies from 'js-cookie';
+import { UserResponse } from '@/models/user/api';
 
 export const login = async (data: LoginRequest): Promise<LoginResponse> => {
   try {
@@ -40,10 +40,9 @@ export const register = async (data: RegisterRequest): Promise<void> => {
 
 export const refreshToken = async (): Promise<void> => {
   try {
-    const refreshToken = Cookies.get('refreshToken');
+    const refreshToken = Cookies.get('refresh_token');
     if (!refreshToken) {
       console.info('Нету токенов');
-      handleHttpError(HttpStatusCode.UNAUTHORIZED);
       return;
     }
     await $api.get(API_CONFIG.ENDPOINTS.AUTH.REFRESH, {
@@ -74,4 +73,13 @@ export const checkToken = async (): Promise<void> => {
 
 export const logout = async (): Promise<void> => {
   await $api.post(API_CONFIG.ENDPOINTS.AUTH.LOGOUT);
+};
+
+export const me = async (): Promise<UserResponse> => {
+  try {
+    return await $api.get(API_CONFIG.ENDPOINTS.AUTH.ME);
+  } catch (error) {
+    const err = ensureError(error);
+    throw new BaseError('me failed', { cause: err });
+  }
 };
