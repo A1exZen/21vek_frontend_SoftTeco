@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from "react";
+import { useState, useMemo } from "react";
 import { IProduct } from "../types";
 import { TProductCharacteristicValue, IProductComparisonProps } from "./types";
 import styles from './styles.module.scss';
@@ -20,7 +20,6 @@ const extractCharacteristicValue = (
   return item?.description;
 };
 
-
 export const ProductComparisonTable = ({
   products = [],
   onRemoveRequest,
@@ -29,20 +28,24 @@ export const ProductComparisonTable = ({
 }: IProductComparisonProps) => {
   const [showOnlyDifferences, setShowOnlyDifferences] = useState(false);
 
-  const allGroups = new Set<string>();
-  const allItems: Record<string, Set<string>> = {};
+  const { allGroups, allItems } = useMemo(() => {
+    const groups = new Set<string>();
+    const items: Record<string, Set<string>> = {};
 
-  products.forEach(product => {
-    product.characteristics.forEach(group => {
-      allGroups.add(group.name);
-      if (!allItems[group.name]) {
-        allItems[group.name] = new Set();
-      }
-      group.characteristics.forEach(item => {
-        allItems[group.name].add(item.name);
+    products.forEach(product => {
+      product.characteristics.forEach(group => {
+        groups.add(group.name);
+        if (!items[group.name]) {
+          items[group.name] = new Set();
+        }
+        group.characteristics.forEach(item => {
+          items[group.name].add(item.name);
+        });
       });
     });
-  });
+
+    return { allGroups: groups, allItems: items };
+  }, [products]);
 
   const { bestValues, differentPaths } = useMemo(
     () => getComparisonData(products),
@@ -55,8 +58,42 @@ export const ProductComparisonTable = ({
   };
 
   if (products.length === 0) {
-    return <div>Нет товаров для сравнения</div>;
+    return <div className={styles.empty}>Нет товаров для сравнения</div>;
   }
+
+  const renderCharacteristics = () => {
+    return Array.from(allGroups).map(group => [
+      <tr key={`group-${group}`} className={styles["group-header"]}>
+        <td colSpan={products.length + 1}>
+          <span className={styles["table-strong__title"]}>{group}</span>
+        </td>
+      </tr>,
+      
+      ...Array.from(allItems[group] || []).map(item => {
+        if (!shouldShowPath(group, item)) return null;
+        
+        return (
+          <tr key={`${group}-${item}`}>
+            <td>{item}</td>
+            {products.map(product => {
+              const value = extractCharacteristicValue(product, group, item);
+              const displayValue = formatValue(value);
+              const isBest = bestValues.has(String(value));
+
+              return (
+                <td
+                  key={`${product.idProduct}-${group}-${item}`}
+                  className={isBest ? styles["best-value"] : ""}
+                >
+                  {displayValue}
+                </td>
+              );
+            })}
+          </tr>
+        );
+      }).filter(Boolean)
+    ]);
+  };
 
   return (
     <div className={styles["product-comparison-table"]}>
@@ -74,12 +111,12 @@ export const ProductComparisonTable = ({
               </Checkbox>
             </th>
             {products.map(product => (
-              <th key={product.id_product} className={styles["product-header"]}>
+              <th key={product.idProduct} className={styles["product-header"]}>
                 <div className={styles["product__wrapper"]}>
                   <ProductCard
                     product={{
                       ...product,
-                      in_cart: productsInCart.includes(product.id_product),
+                      inCart: productsInCart.includes(product.idProduct),
                     }}
                     onAddToCart={onAddToCart}
                   />
@@ -96,40 +133,7 @@ export const ProductComparisonTable = ({
           </tr>
         </thead>
         <tbody>
-          {[...allGroups].map(group => (
-            <React.Fragment key={group}>
-              <tr className={styles["group-header"]}>
-                <td colSpan={products.length + 1}>
-                  <span className={styles["table-strong__title"]}>
-                    {group}
-                  </span>
-                </td>
-              </tr>
-              {[...(allItems[group] || [])].map(item => {
-                if (!shouldShowPath(group, item)) return null;
-
-                return (
-                  <tr key={`${group}.${item}`}>
-                    <td>{item}</td>
-                    {products.map(product => {
-                      const value = extractCharacteristicValue(product, group, item);
-                      const displayValue = formatValue(value);
-                      const isBest = bestValues.has(String(value));
-
-                      return (
-                        <td
-                          key={`${product.id_product}-${group}-${item}`}
-                          className={isBest ? styles["best-value"] : ""}
-                        >
-                          {displayValue}
-                        </td>
-                      );
-                    })}
-                  </tr>
-                );
-              })}
-            </React.Fragment>
-          ))}
+          {renderCharacteristics()}
         </tbody>
       </table>
     </div>

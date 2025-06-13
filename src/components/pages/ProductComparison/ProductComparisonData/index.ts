@@ -1,0 +1,1 @@
+export { ProductComparisonData } from './ProductComparisonData';

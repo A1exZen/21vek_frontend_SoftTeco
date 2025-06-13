@@ -1,5 +1,6 @@
 import styles from './styles.module.scss';
 import { IConfirmationModalProps } from '../types';
+import { useEffect } from 'react';
 
 export const ConfirmationModal = ({
   isOpen,
@@ -8,6 +9,18 @@ export const ConfirmationModal = ({
   title,
   message
 }: IConfirmationModalProps) => {
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [isOpen]);
+
   if (!isOpen) return null;
 
   return (

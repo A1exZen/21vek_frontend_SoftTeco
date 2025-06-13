@@ -8,9 +8,9 @@ import MainLayout from '@/components/layouts/MainLayout';
 
 import Home from '@components/pages/Home/Home';
 
-import { ProductComparison } from '@/components/pages/ProductComparison/ProductComparison';
-import { ProductComparisonData } from '@/components/pages/ProductComparison/ProductComparisonData/ProductComparisonData';
+import { ProductComparison } from '@/components/pages/ProductComparison';
 
+import { ProductComparisonData } from '@/components/pages/ProductComparison/ProductComparisonData/ProductComparisonData';
 
 const ErrorPage = lazy(() => import('@pages/Error'));
 

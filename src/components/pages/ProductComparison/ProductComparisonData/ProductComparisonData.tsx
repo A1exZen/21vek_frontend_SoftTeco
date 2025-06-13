@@ -7,27 +7,30 @@ import styles from './styles.module.scss';
 import { ProductComparisonTable } from '../ProductComparisonTable/ProductComparisonTable';
 import { ConfirmationModal } from '../ConfirmationModal/ConfirmationModal';
 import Button from '@/components/ui/Button';
+import { useConfirmationModal } from '../ConfirmationModal/useConfirmationModal';
 
 export const ProductComparisonData = () => {
   const { category } = useParams<{ category: string }>();
 
-  // Находим нужную категорию по url
   const categoryData = products.find(
     (product) => product.category.url === category
   )?.category;
 
-  const categoryId = categoryData?.id_categories;
-  const categoryName = categoryData?.name_categories ?? '';
+  const categoryId = categoryData?.idCategories;
+  const categoryName = categoryData?.nameCategories ?? '';
 
-  // Фильтрация по id_categories
   const filteredProducts = products.filter(
-    (product) => product.category.id_categories === categoryId
+    (product) => product.category.idCategories === categoryId
   );
 
   const [selectedProducts, setSelectedProducts] = useState<IProduct[]>(filteredProducts);
   const [productsInCart, setProductsInCart] = useState<number[]>([]);
-  const [productToDelete, setProductToDelete] = useState<IProduct | null>(null);
-  const [showModal, setShowModal] = useState(false);
+  const { 
+    isModalOpen: showModal, 
+    itemToDelete: productToDelete, 
+    openModal, 
+    closeModal 
+  } = useConfirmationModal<IProduct | null>();
 
   const handleAddToCart = (id: number) => {
     setProductsInCart(prev =>
@@ -36,32 +39,30 @@ export const ProductComparisonData = () => {
   };
 
   const handleRemoveRequest = (product: IProduct) => {
-    setProductToDelete(product);
-    setShowModal(true);
+    openModal(product);
   };
 
   const handleClearAll = () => {
-    setProductToDelete(null);
-    setShowModal(true);
+    openModal(null);
   };
 
   const confirmDelete = () => {
     if (productToDelete) {
-      setSelectedProducts(prev =>
-        prev.filter(p => p.id_product !== productToDelete.id_product)
+      setSelectedProducts(prev => 
+        prev.filter(p => p.idProduct !== productToDelete.idProduct)
       );
-      setProductsInCart(prev =>
-        prev.filter(id => id !== productToDelete.id_product)
+      setProductsInCart(prev => 
+        prev.filter(id => id !== productToDelete.idProduct)
       );
     } else {
       setSelectedProducts([]);
       setProductsInCart([]);
     }
-    setShowModal(false);
+    closeModal();
   };
 
   const cancelDelete = () => {
-    setShowModal(false);
+    closeModal();
   };
 
   return (
@@ -116,7 +117,7 @@ export const ProductComparisonData = () => {
           ? "Удалить товар из сравнения"
           : "Вы хотите очистить список сравнения?"}
         message={productToDelete
-          ? `Удалить товар ${productToDelete.name_product} из списка сравнения?`
+          ? `Удалить товар ${productToDelete.nameProduct} из списка сравнения?`
           : "Все товары из этого списка будут удалены"}
       />
     </div>

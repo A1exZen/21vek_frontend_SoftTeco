@@ -35,22 +35,33 @@ export interface ICharacteristicGroup {
 }
 
 export interface ICategory {
-  id_categories: number;
-  name_categories: string;
+  idCategories: number;
+  nameCategories: string;
   url: string;
 }
 
 export interface IProduct {
-  id_product: number;
-  name_product: string;
+  idProduct: number;
+  nameProduct: string;
   brand?: string;
   price: number;
-  quantity_in_stock: number;
+  quantityInStock: number;
   rating: number;
-  number_of_reviews: number;
+  numberOfReviews: number;
   status?: string;
   img: string;
-  in_cart: boolean;
+  inCart: boolean;
   category: ICategory;
   characteristics: ICharacteristicGroup[];
+}
+
+export interface IGroupedProducts {
+  [key: number]: {
+    category: {
+      idCategories: number;
+      nameCategories: string;
+      url: string;
+    };
+    products: IProduct[];
+  };
 }

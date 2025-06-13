@@ -3,19 +3,19 @@ import Img1 from "@assets/images/phones/apple-black.jpg"
 
 export const products: IProduct[] = [
   {
-  "id_product": 1,
-  "name_product": "Смартфон Samsung Galaxy A06 4GB/128GB (черный)",
+  "idProduct": 1,
+  "nameProduct": "Смартфон Samsung Galaxy A06 4GB/128GB (черный)",
   "brand": "Samsung",
   "price": 16990,
-  "quantity_in_stock": 0,
+  "quantityInStock": 0,
   "rating": 4.5,
-  "number_of_reviews": 56,
+  "numberOfReviews": 56,
   "status": "в наличии",
   "img": Img1,
-  "in_cart": false,
+  "inCart": false,
   "category": {
-    "id_categories": 1,
-    "name_categories": "смартфоны",
+    "idCategories": 1,
+    "nameCategories": "смартфоны",
     "url": "smartphones"
   },
   "characteristics": [
@@ -116,18 +116,18 @@ export const products: IProduct[] = [
 },
   
   {
-  "id_product": 2,
-  "name_product": "Смартфон Apple iPhone 13 128GB (темная ночь)",
+  "idProduct": 2,
+  "nameProduct": "Смартфон Apple iPhone 13 128GB (темная ночь)",
   "brand": "Apple",
   "price": 15990,
-  "quantity_in_stock": 0,
+  "quantityInStock": 0,
   "rating": 4.5,
-  "number_of_reviews": 56,
+  "numberOfReviews": 56,
   "img": Img1,
-  "in_cart": false,
+  "inCart": false,
   "category": {
-    "id_categories": 1,
-    "name_categories": "смартфоны",
+    "idCategories": 1,
+    "nameCategories": "смартфоны",
     "url": "smartphones"
   },
   "characteristics": [
@@ -227,18 +227,18 @@ export const products: IProduct[] = [
   ]
 },
   {
-    "id_product": 3,
-    "name_product": "Смартфон Samsung Galaxy A06 4GB/128GB (черный)",
+    "idProduct": 3,
+    "nameProduct": "Смартфон Samsung Galaxy A06 4GB/128GB (черный)",
     "brand": "Samsung",
     "price": 15990,
-    "quantity_in_stock": 0,
+    "quantityInStock": 0,
     "rating": 4.5,
-    "number_of_reviews": 56,
+    "numberOfReviews": 56,
     "img": Img1,
-    "in_cart": false,
+    "inCart": false,
     "category": {
-      "id_categories": 2,
-      "name_categories": "холодильники",
+      "idCategories": 2,
+      "nameCategories": "холодильники",
       "url": "fridge"
     },
     "characteristics": [

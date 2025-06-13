@@ -1,6 +1,7 @@
 import { IProductCardProps } from "../types";
 import styles from './styles.module.scss';
 import { cc } from "@/utils/combineClasses";
+import { Link } from 'react-router-dom';
 import { ShoppingCart, Check, Star } from 'lucide-react';
 import Button from "@/components/ui/Button";
 
@@ -20,13 +21,17 @@ export const ProductCard = ({ product, onAddToCart }: IProductCardProps) => {
       <div className={styles.card__image}>
         <img 
           src={product.img} 
-          alt={product.name_product} 
+          alt={product.nameProduct} 
           className={styles.card__imageImg}
         />
       </div>
       <div className={styles.card__content}>
         <div className={styles.card__price}>{product.price.toLocaleString()} р.</div>
-        <h3 className={styles.card__title}>{product.name_product}</h3>
+        <Link 
+          to={`/product/${product.idProduct}`} 
+        >
+          <h3 className={styles['card__title']}>{product.nameProduct}</h3>
+        </Link>
         <div className={styles.card__rating}>
   {[...Array(5)].map((_, i) => (
     <Star 
@@ -41,23 +46,26 @@ export const ProductCard = ({ product, onAddToCart }: IProductCardProps) => {
   </span>
 </div>
 <div>
-  {product.number_of_reviews > 0 && (
-    <span className={styles['card__reviews-count']}>
-      ({product.number_of_reviews} {getReviewsWord(product.number_of_reviews)})
-    </span>
+  {product.numberOfReviews > 0 && (
+    <Link 
+      to={`/product/${product.idProduct}/reviews`}
+      className={styles['card__reviews-count']}
+    >
+      ({product.numberOfReviews} {getReviewsWord(product.numberOfReviews)})
+    </Link>
   )}
 </div>
         <Button 
           variant="solid"
           color="first"
           className={cc(
-          product.in_cart ? styles['in-cart__button'] : styles.cart__button
+          product.inCart ? styles['in-cart__button'] : styles.cart__button
         )}
-          onClick={() => onAddToCart(product.id_product)}
+          onClick={() => onAddToCart(product.idProduct)}
         >       
-          {product.in_cart ? <Check size={16} /> : <ShoppingCart size={16} color='white' />}
+          {product.inCart ? <Check size={16} /> : <ShoppingCart size={16} color='white' />}
           <span className={styles.card__text}>
-            {product.in_cart ? "В корзине" : "В корзину"}
+            {product.inCart ? "В корзине" : "В корзину"}
           </span>
         </Button>
       </div>
