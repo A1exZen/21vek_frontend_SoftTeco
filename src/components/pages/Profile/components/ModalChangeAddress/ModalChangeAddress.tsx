@@ -28,17 +28,18 @@ export const ModalChangeAddress = ({
     },
   });
 
-  const { changeAddressMutation } = useAddress();
+  const { changeAddressMutation } = useAddress({ onSuccessCb: onClose });
 
   const onSubmit: SubmitHandler<AddressRequest> = (data: AddressRequest) => {
-    changeAddressMutation.mutate(data);
+    const dataToSend = { ...data, idAdress: address.idAdress };
+    changeAddressMutation.mutate(dataToSend);
     if (changeAddressMutation.isSuccess) onClose();
   };
 
   return (
     <Modal footer={null} open={isOpen} onCancel={onClose}>
       <form onSubmit={handleSubmit(onSubmit)} className={styles['form']}>
-        <h3 className={styles['form__title']}>Добавление адреса</h3>
+        <h3 className={styles['form__title']}>Изменение адреса</h3>
 
         <label htmlFor="settlement" className={styles['form__inp-label']}>
           Населенный пункт
@@ -130,7 +131,7 @@ export const ModalChangeAddress = ({
           color="first"
           variant="solid"
         >
-          {changeAddressMutation.isPending ? 'Добавление...' : 'Добавить'}
+          {changeAddressMutation.isPending ? 'Изменение...' : 'Изменить'}
         </Button>
       </form>
     </Modal>

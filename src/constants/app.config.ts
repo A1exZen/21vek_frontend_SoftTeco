@@ -1,30 +1,42 @@
 export const API_CONFIG = {
-  BASE_URL: 'https://178.120.81.153:8000/',
+  BASE_URL: import.meta.env.PROD
+    ? import.meta.env.VITE_API_PROD_BASE_URL
+    : import.meta.env.VITE_API_DEV_BASE_URL,
   ENDPOINTS: {
     AUTH: {
       LOGIN: 'auth/login',
       REGISTER: 'auth/register',
-      CHECK: 'auth/check',
+      CHECK: 'auth/check-token',
       REFRESH: 'auth/refresh',
       LOGOUT: 'auth/logout',
+      ME: 'auth/me',
     },
     CATEGORY: {
-      GET_HEADER_CAT: 'categories/headercategories',
+      GET_HEADER_CAT: 'categories/header-categories',
       GET_ALL: 'categories/all-cat',
     },
     USER: {
       UPDATE: 'user/profile/update',
-      ADD_ADDRESS: 'user/add-address',
-      DELETE_ADDRESS: 'user/delete-address',
-      CHANGE_ADDRESS: 'user/change-address',
-      GET_ADDRESSES: '',
+      ADD_ADDRESS: 'user/profile/address/add',
+      DELETE_ADDRESS: 'user/profile/address',
+      CHANGE_ADDRESS: '/user/profile/address',
+      GET_ADDRESSES: 'user/profile/addresses',
     },
     PRODUCTS: {
       GET_ALL: '/products',
       GET_BY_ID: '/products',
       GET_BRANDS: '/products/brands',
       GET_PRICE_RANGE: '/products/price-range',
-      SEARCH: '/products/search'
+      SEARCH: '/products/search',
     },
   },
 };
+
+console.log(
+  `%cТекущий App Mode: ${import.meta.env.MODE}`,
+  'color: white; font-weight: 900;',
+);
+console.info(
+  `%cAPI Base URL: ${API_CONFIG.BASE_URL}`,
+  'color: white; font-weight: 900;',
+);

@@ -11,8 +11,6 @@ export const Address = ({ address }: AddressProps) => {
   const { deleteAddressMutation } = useAddress();
   const [isOpen, setOpen] = useState<boolean>(false);
 
-  //   const changeAddress = () => {};
-
   const deleteAddress = () => {
     toast(() => (
       <span className={styles['toast-delete']}>
@@ -21,7 +19,7 @@ export const Address = ({ address }: AddressProps) => {
         </p>
         <Button
           className={styles['address-delete__btn']}
-          onClick={() => deleteAddressMutation.mutate(address.id)}
+          onClick={() => deleteAddressMutation.mutate(address.idAdress)}
         >
           Да
         </Button>
@@ -29,11 +27,16 @@ export const Address = ({ address }: AddressProps) => {
     ));
   };
 
+  console.log(address);
+
   return (
     <>
       <div className={styles['address']}>
         {address.isMain && <MapPinHouse />}
-        <div className={styles['address__description']}>
+        <div
+          className={styles['address__description']}
+          style={!address.isMain ? { marginLeft: '45px' } : {}}
+        >
           <p
             className={
               address.isMain
@@ -46,10 +49,11 @@ export const Address = ({ address }: AddressProps) => {
               : 'Дополнительные адреса'}
           </p>
           <p className={styles['address__address']}>
-            <span>г.{address.settlement},</span>
-            <span>ул.{address.street},</span>
-            <span>под.{address.entrance}</span>
-            <span>эт.{address.flor}</span>
+            <span>г. {address.settlement}, </span>
+            <span>ул. {address.street}, </span>
+            <span>под. {address.entrance}, </span>
+            <span>эт. {address.flor}, </span>
+            <span>кв/оф. {address.aptOffice}</span>
           </p>
         </div>
         <div className={styles['address__actions']}>

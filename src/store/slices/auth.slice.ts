@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { Address, User, UserType } from '@/models/user/api';
+import { User, UserType } from '@/models/user/api';
 import Cookies from 'js-cookie';
 
 type AuthState = {
@@ -22,6 +22,7 @@ const authSlice = createSlice({
       state.user = action.payload;
       state.loading = false;
       state.error = null;
+      console.log('Redux', state.user);
     },
     setLoading: (state, action: PayloadAction<boolean>) => {
       state.loading = action.payload;
@@ -31,15 +32,12 @@ const authSlice = createSlice({
       state.loading = false;
     },
     remove: (state) => {
-      Cookies.remove('accessToken');
-      Cookies.remove('refreshToken');
+      Cookies.remove('access_token');
+      Cookies.remove('refresh_token');
       state.user = null;
     },
     setTypeUser: (state, action: PayloadAction<UserType>) => {
       state.user!.typeUser = action.payload;
-    },
-    addAddress: (state, action: PayloadAction<Address>) => {
-      state.user!.address = [...(state.user!.address || []), action.payload];
     },
   },
 });

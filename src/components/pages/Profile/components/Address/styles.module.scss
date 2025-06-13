@@ -5,11 +5,14 @@
   display: flex;
   justify-content: space-between;
   padding: 16px 20px;
+  gap: 20px;
 
   .address__description {
+    flex-grow: 1;
     .address__type {
       font-size: 13px;
       color: var(--light-gray);
+      margin-bottom: 5px;
 
       &_main {
         color: var(--color-dark);

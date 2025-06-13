@@ -9,7 +9,7 @@ export enum UserType {
 }
 
 export type Address = {
-  id: number;
+  idAdress: number;
   settlement: string;
   street: string;
   entrance: string;
@@ -19,7 +19,7 @@ export type Address = {
 };
 
 export type User = {
-  id: number;
+  idProfile: number;
   mail: string;
   name?: string;
   birthday?: string;
@@ -39,9 +39,12 @@ export type UserUpdateRequest = Partial<Omit<User, 'id'>> & {
 
 export type UserUpdateResponse = Partial<User>;
 
-export type AddressRequest = Omit<Address, 'id'> & {
+export type AddressRequest = Address & {
   isMain?: boolean;
 };
+
+export type UserResponse = User;
+
 export type AddressResponse = Address;
 export type Addresses = Address[];
 export type AddressesResponse = Addresses;

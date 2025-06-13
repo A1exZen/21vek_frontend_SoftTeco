@@ -14,7 +14,6 @@ export enum PATHS {
   FAVORITES = '/favorites',
   ACCOUNT = '/account',
   BASKET = '/basket',
-  PROFILE = '/profile',
   COMPARE = '/compare',
   ORDERS = '/orders',
 

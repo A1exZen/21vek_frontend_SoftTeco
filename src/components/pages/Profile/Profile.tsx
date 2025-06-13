@@ -15,14 +15,19 @@ import { Address } from './components/Address';
 import { useQuery } from '@tanstack/react-query';
 import { QueryKeys } from '@/constants';
 import { getAddresses } from '@/api/user';
+import { useAuthCheck } from '@/hooks/useAuthCheck';
+import { getMs } from '@/utils/helpers/getMs';
 
 const Profile = () => {
   const [isBusiness, setBusiness] = useState<boolean>(false);
   const dispatch = useAppDispatch();
 
+  useAuthCheck();
+
   const { data: addressees } = useQuery<Addresses>({
     queryKey: [QueryKeys.GET_ADDRESSES],
     queryFn: async () => await getAddresses(),
+    staleTime: getMs('min', 3),
   });
 
   const changeAccountType = (value: boolean) => {
@@ -78,7 +83,7 @@ const Profile = () => {
         <ProfileAddress />
 
         {addressees?.map((address) => (
-          <Address key={address.id} address={address} />
+          <Address key={address.idAdress} address={address} />
         ))}
       </div>
     </div>

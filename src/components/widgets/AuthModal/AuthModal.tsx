@@ -6,7 +6,7 @@ import Regexs from '@constants/regexes.ts';
 import styles from './styles.module.scss';
 import Button from '@components/ui/Button';
 import FormErrorMessage from '@components/ui/FormErrorMessage/FormErrorMessage.tsx';
-import { useLogin, useRegister } from '@hooks/useAuth.ts';
+import { useAuth } from '@/hooks/useAuth';
 import { useAuthModal } from './useAuthModal';
 
 type FormValues = LoginRequest;
@@ -14,6 +14,7 @@ type FormValues = LoginRequest;
 const AuthModal = () => {
   const { t: tAuth } = useTranslation('auth');
   const { isVisible, isLogin, closeAuth, toggleMode } = useAuthModal();
+  const { loginMutation, registerMutation } = useAuth();
 
   const {
     handleSubmit,
@@ -27,23 +28,10 @@ const AuthModal = () => {
     mode: 'onSubmit',
   });
 
-  const { mutate: onSubmitLogin } = useLogin();
-  const { mutate: onSubmitRegister } = useRegister();
-
-  const onSubmit: SubmitHandler<LoginRequest> = (values: LoginRequest) => {
-    if (isLogin) {
-    onSubmitLogin(values, {
-        onSuccess: () => {
-          closeAuth();
-        }
-      });
-    } else {
-      onSubmitRegister(values, {
-        onSuccess: () => {
-          closeAuth();
-        }
-      });
-    }
+  const onSubmit: SubmitHandler<LoginRequest> = (data: LoginRequest) => {
+    if (isLogin) loginMutation.mutate(data);
+    else registerMutation.mutate(data);
+    closeAuth();
   };
 
   return (

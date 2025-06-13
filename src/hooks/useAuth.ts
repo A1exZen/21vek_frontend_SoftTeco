@@ -1,6 +1,5 @@
 import { login, logout, register } from '@/api/auth';
 import { useMutation } from '@tanstack/react-query';
-// import { useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
 import {
   LoginRequest,
@@ -10,26 +9,29 @@ import {
 import { remove, setUser } from '@/store/slices/auth.slice';
 import { useAppDispatch } from '@/hooks/reduxHooks';
 import { useNavigate } from 'react-router-dom';
+import { User } from '@/models/user/api';
 
-export const useRegister = () => {
-  return useMutation({
+export const useAuth = () => {
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+
+  const registerMutation = useMutation({
     mutationFn: async (data: RegisterRequest): Promise<void> =>
       await register(data),
     onSuccess: () => {
-      toast.success("Регистрация прошла успешно! Пожалуйста, войдите.");
+      toast.success('Регистрация прошла успешно! Пожалуйста, войдите.');
     },
     onError: (error: Error) => {
       toast.error(error.message);
     },
   });
-};
 
-export const useLogin = () => {
-  const dispatch = useAppDispatch();
+  const loginMutation = useMutation({
+    mutationFn: async (data: LoginRequest): Promise<LoginResponse> =>
+      await login(data),
+    onSuccess: (data: User) => {
+      console.log(data);
 
-  return useMutation({
-    mutationFn: async (data: LoginRequest): Promise<LoginResponse> => await login(data),
-    onSuccess: (data) => {
       toast.success(`Добро пожаловать!`);
       dispatch(setUser(data));
     },
@@ -37,21 +39,18 @@ export const useLogin = () => {
       toast.error(error.message);
     },
   });
-};
 
-export const useLogout = () => {
-  const navigate = useNavigate();
-  const dispatch = useAppDispatch();
-
-  return useMutation({
+  const logoutMutation = useMutation({
     mutationFn: async (): Promise<void> => await logout(),
     onSuccess: () => {
       dispatch(remove());
-      toast.success("Вы успешно вышли из системы.");
-      navigate("/");
+      toast.success('Вы успешно вышли из системы.');
+      navigate('/');
     },
     onError: (error: Error) => {
-      toast.error("Ошибка при выходе: " + error.message);
+      toast.error('Ошибка при выходе: ' + error.message);
     },
   });
+
+  return { registerMutation, loginMutation, logoutMutation };
 };
