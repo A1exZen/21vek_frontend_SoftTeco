@@ -1,11 +1,11 @@
 import styles from './styles.module.scss';
 import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import Button from '@components/ui/Button';
-import { X } from 'lucide-react';
+import { Store, Truck, X } from 'lucide-react';
 import Logo from '@assets/icons/main-logo.png';
 import { PATHS } from '@/constants';
 import checkoutImage from '@images/checkout-image.png';
-import { Input, Select } from 'antd';
+import { Input } from 'antd';
 const { TextArea } = Input;
 import { useAppSelector } from '@hooks/reduxHooks';
 
@@ -50,20 +50,18 @@ export const CheckoutPage = () => {
           <div className={styles.checkout__form}>
             <div className={styles['checkout__form-block']}>
               <label className={styles.checkout__text}>Способ доставки</label>
-              <Select
-                defaultValue="pickup"
-                options={[
-                  {
-                    value: 'courier',
-                    label: 'Курьером',
-                  },
-                  {
-                    value: 'pickup',
-                    label: 'Самовывоз',
-                  },
-                ]}
-                className={styles.checkout__select}
-              ></Select>
+              <div className={styles['checkout__delivery-buttons']}>
+                <button>
+                  <Store />
+                  <span>Самовывоз</span>
+                  <span>Бесплатно</span>
+                </button>
+                <button>
+                  <Truck />
+                  <span>Курьером</span>
+                  <span>Бесплатно</span>
+                </button>
+              </div>
             </div>
             <div className={styles['checkout__form-block']}>
               <label className={styles.checkout__text}>Телефон для связи</label>
@@ -94,3 +92,46 @@ export const CheckoutPage = () => {
     </div>
   );
 };
+
+{
+  /*<Select*/
+}
+{
+  /*  defaultValue="pickup"*/
+}
+{
+  /*  options={[*/
+}
+{
+  /*    {*/
+}
+{
+  /*      value: 'courier',*/
+}
+{
+  /*      label: 'Курьером',*/
+}
+{
+  /*    },*/
+}
+{
+  /*    {*/
+}
+{
+  /*      value: 'pickup',*/
+}
+{
+  /*      label: 'Самовывоз',*/
+}
+{
+  /*    },*/
+}
+{
+  /*  ]}*/
+}
+{
+  /*  className={styles.checkout__select}*/
+}
+{
+  /*></Select>*/
+}
