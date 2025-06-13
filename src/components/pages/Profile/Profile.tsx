@@ -16,6 +16,7 @@ import { useQuery } from '@tanstack/react-query';
 import { QueryKeys } from '@/constants';
 import { getAddresses } from '@/api/user';
 import { useAuthCheck } from '@/hooks/useAuthCheck';
+import { getMs } from '@/utils/helpers/getMs';
 
 const Profile = () => {
   const [isBusiness, setBusiness] = useState<boolean>(false);
@@ -26,6 +27,7 @@ const Profile = () => {
   const { data: addressees } = useQuery<Addresses>({
     queryKey: [QueryKeys.GET_ADDRESSES],
     queryFn: async () => await getAddresses(),
+    staleTime: getMs('min', 3),
   });
 
   const changeAccountType = (value: boolean) => {

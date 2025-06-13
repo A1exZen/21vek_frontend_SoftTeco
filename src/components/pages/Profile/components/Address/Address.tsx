@@ -33,7 +33,10 @@ export const Address = ({ address }: AddressProps) => {
     <>
       <div className={styles['address']}>
         {address.isMain && <MapPinHouse />}
-        <div className={styles['address__description']}>
+        <div
+          className={styles['address__description']}
+          style={!address.isMain ? { marginLeft: '45px' } : {}}
+        >
           <p
             className={
               address.isMain
@@ -46,10 +49,11 @@ export const Address = ({ address }: AddressProps) => {
               : 'Дополнительные адреса'}
           </p>
           <p className={styles['address__address']}>
-            <span>г.{address.settlement},</span>
-            <span>ул.{address.street},</span>
-            <span>под.{address.entrance}</span>
-            <span>эт.{address.flor}</span>
+            <span>г. {address.settlement}, </span>
+            <span>ул. {address.street}, </span>
+            <span>под. {address.entrance}, </span>
+            <span>эт. {address.flor}, </span>
+            <span>кв/оф. {address.aptOffice}</span>
           </p>
         </div>
         <div className={styles['address__actions']}>

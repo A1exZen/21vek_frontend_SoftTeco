@@ -30,7 +30,7 @@ const AuthModal = () => {
 
   const onSubmit: SubmitHandler<LoginRequest> = (data: LoginRequest) => {
     if (isLogin) loginMutation.mutate(data);
-    registerMutation.mutate(data);
+    else registerMutation.mutate(data);
     closeAuth();
   };
 

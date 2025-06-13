@@ -28,15 +28,12 @@ export const ModalChangeAddress = ({
     },
   });
 
-  const { changeAddressMutation } = useAddress();
+  const { changeAddressMutation } = useAddress({ onSuccessCb: onClose });
 
   const onSubmit: SubmitHandler<AddressRequest> = (data: AddressRequest) => {
     const dataToSend = { ...data, idAdress: address.idAdress };
-    console.log(dataToSend);
     changeAddressMutation.mutate(dataToSend);
-    if (changeAddressMutation.isSuccess) {
-      onClose();
-    }
+    if (changeAddressMutation.isSuccess) onClose();
   };
 
   return (
