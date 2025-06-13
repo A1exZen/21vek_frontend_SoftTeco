@@ -67,8 +67,8 @@ export const ProductComparisonData = () => {
 
   return (
     <div className={styles["product-comparison"]}>
-      <div className={styles["header-row"]}>
-        <h1 className={styles["product-title"]}>
+      <div className={styles["header__row"]}>
+        <h1 className={styles["product__title"]}>
           Сравнение товаров {categoryName && `- ${categoryName}`}
         </h1>
         {selectedProducts.length > 0 && (
@@ -83,8 +83,8 @@ export const ProductComparisonData = () => {
       </div>
 
       {selectedProducts.length > 0 ? (
-        <div className={styles["comparison-section"]}>
-          <h2 className={styles["product-text"]}>
+        <div className={styles["comparison__section"]}>
+          <h2 className={styles["product__text"]}>
             сравниваемые товары ({selectedProducts.length})
           </h2>
           <ProductComparisonTable
@@ -95,13 +95,13 @@ export const ProductComparisonData = () => {
           />
         </div>
       ) : (
-        <div className={styles["empty-state"]}>
-            <ListX size={28} color="#ccc" className={styles["empty-icon"]} />
-            <p className={styles["empty-text"]}>У вас нет товаров в этом списке сравнения</p>
+        <div className={styles["empty__state"]}>
+            <ListX size={28} color="#ccc" className={styles["empty__icon"]} />
+            <p className={styles["empty__text"]}>У вас нет товаров в этом списке сравнения</p>
             <Link to="/compare">
               <Button
               variant="link"
-              className={styles.back__button}
+              className={styles["back__button"]}
             >
               Вернуться к спискам сравнения
             </Button>

@@ -1,4 +1,4 @@
-.product-comparison-table {
+.product-comparison__table {
   width: 100%;
   overflow-x: auto;
   background: white;
@@ -21,7 +21,7 @@
       font-weight: 600;
       vertical-align: top;
 
-      &.product-header {
+      &.product__header {
         padding: 6px;
 
         .product__wrapper {
@@ -40,7 +40,7 @@
         }
       }
 
-      &.product-comparison-title {
+      &.product-comparison__title {
         vertical-align: bottom;
         padding-bottom: 10px;
         font-weight: 400;
@@ -51,12 +51,12 @@
       }
     }
 
-    .group-header td {
+    .group__header td {
       background-color: #ffffff;
       font-size: 15px;
       padding: 8px 15px;
 
-      .table-strong__title {
+      .table__strong-title {
         display: flex;
         justify-content: center;
         font-weight: 600;

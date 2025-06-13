@@ -17,22 +17,22 @@ function getReviewsWord(count: number): string {
 
 export const ProductCard = ({ product, onAddToCart }: IProductCardProps) => {
   return (
-    <div className={styles.card}>
-      <div className={styles.card__image}>
+    <div className={styles['card']}>
+      <div className={styles['card__image']}>
         <img 
           src={product.img} 
           alt={product.nameProduct} 
-          className={styles.card__imageImg}
+          className={styles['card__image-img']}
         />
       </div>
-      <div className={styles.card__content}>
-        <div className={styles.card__price}>{product.price.toLocaleString()} р.</div>
+      <div className={styles['card__content']}>
+        <div className={styles['card__price']}>{product.price.toLocaleString()} р.</div>
         <Link 
           to={`/product/${product.idProduct}`} 
         >
           <h3 className={styles['card__title']}>{product.nameProduct}</h3>
         </Link>
-        <div className={styles.card__rating}>
+        <div className={styles['card__rating']}>
   {[...Array(5)].map((_, i) => (
     <Star 
       key={i}
@@ -41,7 +41,7 @@ export const ProductCard = ({ product, onAddToCart }: IProductCardProps) => {
       color="#FFD700"
     />
   ))}
-  <span className={styles.card__ratingValue}>
+  <span className={styles['card__rating-value']}>
     ({product.rating.toFixed(1)})
   </span>
 </div>
@@ -64,7 +64,7 @@ export const ProductCard = ({ product, onAddToCart }: IProductCardProps) => {
           onClick={() => onAddToCart(product.idProduct)}
         >       
           {product.inCart ? <Check size={16} /> : <ShoppingCart size={16} color='white' />}
-          <span className={styles.card__text}>
+          <span className={styles['card__text']}>
             {product.inCart ? "В корзине" : "В корзину"}
           </span>
         </Button>

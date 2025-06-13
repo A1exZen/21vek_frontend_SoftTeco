@@ -68,18 +68,18 @@ export const ProductComparisonList = ({ products: initialProducts = [] }: IProdu
     category: { idCategories: number; nameCategories: string; url: string },
     categoryProducts: IProduct[]
   ) => (
-    <div key={category.idCategories} className={styles["category-item"]}>
-      <div className={styles["category-content"]}>
+    <div key={category.idCategories} className={styles["category__item"]}>
+      <div className={styles["category__content"]}>
         <div className={styles["category"]}>
           <Link 
             to={`/compare/${category.url}`} 
-            className={styles["category-link"]}
+            className={styles["category__link"]}
           >
-            <h2 className={styles["category-name"]}>
+            <h2 className={styles["category__name"]}>
               {capitalizeFirstLetter(category.nameCategories)}
             </h2>
-            <div className={styles["category-footer"]}>
-              <span className={styles["product-count"]}>
+            <div className={styles["category-__footer"]}>
+              <span className={styles["product__count"]}>
                 {categoryProducts.length} {getProductCountText(categoryProducts.length)}
               </span>
             </div>
@@ -89,17 +89,17 @@ export const ProductComparisonList = ({ products: initialProducts = [] }: IProdu
           size={16} 
           color='gray'
           onClick={() => handleDeleteClick(category.idCategories)}
-          className={styles["delete-icon"]}
+          className={styles["delete__icon"]}
         />
       </div>
     </div>
   );
 
   return (
-    <div className={styles["product-comparison"]}>
-      <h1 className={styles["product-title"]}>Списки сравнения</h1>
+    <div className={styles["product__comparison"]}>
+      <h1 className={styles["product__title"]}>Списки сравнения</h1>
       
-      <div className={styles["categories-list"]}>
+      <div className={styles["categories__list"]}>
         {Object.values(productsByCategory).map(({ category, products }) => 
           renderCategoryItem(category, products)
         )}

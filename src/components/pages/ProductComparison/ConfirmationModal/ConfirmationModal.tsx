@@ -24,20 +24,20 @@ export const ConfirmationModal = ({
   if (!isOpen) return null;
 
   return (
-    <div className={styles["modal-overlay"]}>
+    <div className={styles["modal__overlay"]}>
       <div className={styles["modal"]}>
-        <h3 className={styles["modal-title"]}>{title}</h3>
-        <p className={styles["modal-message"]}>{message}</p>
-        <div className={styles["modal-actions"]}>
+        <h3 className={styles["modal__title"]}>{title}</h3>
+        <p className={styles["modal__message"]}>{message}</p>
+        <div className={styles["modal__actions"]}>
           <button 
             onClick={onCancel} 
-            className={styles["cancel-button"]}
+            className={styles["cancel__button"]}
           >
             Отмена
           </button>
           <button 
             onClick={onConfirm} 
-            className={styles["confirm-button"]}
+            className={styles["confirm__button"]}
           >
             Удалить
           </button>

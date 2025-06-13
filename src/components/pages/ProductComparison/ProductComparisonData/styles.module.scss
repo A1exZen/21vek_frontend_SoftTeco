@@ -12,12 +12,12 @@
     padding-left: mixins.rem(12);
   }
 
-  .header-row {
+  .header__row {
     display: flex;
     align-items: center;
     justify-content: space-between;
 
-    .product-title {
+    .product__title {
       font-size: mixins.rem(30);
       font-weight: 400;
     }
@@ -28,16 +28,16 @@
     }
   }
 
-  .comparison-section {
+  .comparison__section {
     margin-top: 20px;
 
-    .product-text {
+    .product__text {
       font-size: mixins.rem(15);
       font-weight: 400;
     }
   }
 
-  .empty-state {
+  .empty__state {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -45,11 +45,11 @@
     margin-top: 60px;
     padding-right: 80px;
 
-    .empty-icon {
+    .empty__icon {
       padding-bottom: 10px;
     }
 
-    .empty-text {
+    .empty__text {
       font-size: 14px;
       font-weight: 400;
       color: #a4aab0;

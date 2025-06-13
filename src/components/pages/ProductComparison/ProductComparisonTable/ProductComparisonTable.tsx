@@ -58,14 +58,14 @@ export const ProductComparisonTable = ({
   };
 
   if (products.length === 0) {
-    return <div className={styles.empty}>Нет товаров для сравнения</div>;
+    return <div className={styles["empty"]}>Нет товаров для сравнения</div>;
   }
 
   const renderCharacteristics = () => {
     return Array.from(allGroups).map(group => [
-      <tr key={`group-${group}`} className={styles["group-header"]}>
+      <tr key={`group-${group}`} className={styles["group__header"]}>
         <td colSpan={products.length + 1}>
-          <span className={styles["table-strong__title"]}>{group}</span>
+          <span className={styles["table__strong-title"]}>{group}</span>
         </td>
       </tr>,
       
@@ -96,11 +96,11 @@ export const ProductComparisonTable = ({
   };
 
   return (
-    <div className={styles["product-comparison-table"]}>
+    <div className={styles["product-comparison__table"]}>
       <table className={styles["product-comparison"]}>
         <thead>
           <tr>
-            <th className={styles["product-comparison-title"]}>
+            <th className={styles["product-comparison__title"]}>
               <Checkbox
                 checked={showOnlyDifferences}
                 onChange={(e) => setShowOnlyDifferences(e.target.checked)}
@@ -111,7 +111,7 @@ export const ProductComparisonTable = ({
               </Checkbox>
             </th>
             {products.map(product => (
-              <th key={product.idProduct} className={styles["product-header"]}>
+              <th key={product.idProduct} className={styles["product__header"]}>
                 <div className={styles["product__wrapper"]}>
                   <ProductCard
                     product={{
@@ -122,7 +122,7 @@ export const ProductComparisonTable = ({
                   />
                   <Button
                     variant="link"
-                    className={styles.remove__button}
+                    className={styles["remove__button"]}
                     onClick={() => onRemoveRequest(product)}
                   >
                     Удалить из сравнений

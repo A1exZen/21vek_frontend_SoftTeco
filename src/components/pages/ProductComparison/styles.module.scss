@@ -1,6 +1,6 @@
 @use '../../../styles/mixins/mixins';
 
-.product-comparison {
+.product__comparison {
   padding-top: mixins.rem(30);
   padding-left: mixins.rem(106);
   padding-right: mixins.rem(106);
@@ -15,18 +15,18 @@
     padding-right: mixins.rem(12);
   }
 
-  .product-title {
+  .product__title {
     font-size: mixins.rem(30);
     font-weight: 400;
   }
 
-  .categories-list {
+  .categories__list {
     margin-top: 40px;
     display: flex;
     flex-direction: column;
     gap: 15px;
 
-    .category-item {
+    .category__item {
       border-bottom: 1px solid #e0e0e0;
       padding: 0 10px 15px 10px;
       
@@ -35,13 +35,13 @@
         box-shadow: 0 2px 4px rgba(181, 179, 179, 0.1);
       }
 
-      .category-content {
+      .category__content {
         display: flex;
         justify-content: space-between;
         align-items: center;
         gap: 8px;
 
-        .category-link {
+        .category__link {
           text-decoration: none;
           color: inherit;
           display: flex;
@@ -52,21 +52,21 @@
             opacity: 0.8;
           }
 
-          .category-name {
+          .category__name {
             font-size: 18px;
             font-weight: 600;
             padding-right: 10px;
           }
 
-          .category-footer {
-            .product-count {
+          .category__footer {
+            .product__count {
               font-size: 12px;
               color: #666;
             }
           }
         }
 
-        .delete-icon {
+        .delete__icon {
           cursor: pointer;
           transition: color 0.2s ease;
 
