@@ -34,7 +34,7 @@
       "@ui/*": ["src/components/ui/"],
 
       "@assets/*": ["src/assets/*"],
-      "@icons": ["src/assets/icons/*"],
+      "@icons/*": ["src/assets/icons/*"],
       "@images/*": ["src/assets/images/*"],
       "@audio/*": ["src/assets/audio/*"],
       "@video/*": ["src/assets/video/*"],

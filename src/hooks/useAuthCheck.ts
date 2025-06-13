@@ -1,22 +1,23 @@
-import { API_CONFIG, QueryKeys } from '@/constants';
-import { $api } from '@/app/config/axios/api';
 import { useQuery } from '@tanstack/react-query';
-import { ensureError, BaseError } from '@/utils/ErrorHandler';
+import { QueryKeys } from '@/constants';
+import { me } from '@/api/auth';
+import { useAppDispatch } from './reduxHooks';
+import { setUser } from '@/store/slices/auth.slice';
+import { User } from '@/models/user/api';
 
 export const useAuthCheck = () => {
-  useQuery({
+  const dispatch = useAppDispatch();
+
+  const { data: user, isSuccess } = useQuery<User>({
     queryKey: [QueryKeys.CHECK_AUTH],
-    queryFn: async (): Promise<void> => {
-      try {
-        await $api.get(API_CONFIG.ENDPOINTS.AUTH.CHECK);
-      } catch (error) {
-        const err = ensureError(error);
-        throw new BaseError('Error with check auth', {
-          cause: err,
-          context: { endpoint: API_CONFIG.ENDPOINTS.AUTH.CHECK },
-        });
-      }
-    },
+    queryFn: async () => await me(),
     retry: false,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
+    staleTime: Infinity,
   });
+
+  if (isSuccess) {
+    dispatch(setUser(user));
+  }
 };

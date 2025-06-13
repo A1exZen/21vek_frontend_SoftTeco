@@ -1,0 +1,44 @@
+.profile {
+  .profile__heading {
+    font-weight: 500;
+    margin-bottom: 24px;
+  }
+
+  .profile__change-account,
+  .change-account {
+    margin-bottom: 70px;
+    .change-account__heading {
+      margin-bottom: 5px;
+    }
+
+    .change-account__label {
+      margin-bottom: 20px;
+    }
+
+    .change-account__links {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+
+      .change-account__user_active {
+        border-color: #4e5aca;
+
+        svg {
+          circle {
+            fill: #4e5aca;
+          }
+        }
+      }
+
+      .change-account__business_active {
+        border-color: var(--swiper-theme-color);
+
+        svg {
+          circle {
+            fill: var(--swiper-theme-color);
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,45 @@
+.profile-info {
+  .profile-info__heading {
+    margin-bottom: 20px;
+  }
+
+  .profile-info__data {
+    .profile-info__upd-btn {
+      cursor: pointer;
+    }
+    .profile-info__data-item {
+      border-top: 1px solid var(--gray-200);
+
+      &:last-child {
+        border-bottom: 1px solid var(--gray-200);
+      }
+
+      display: flex;
+      justify-content: space-between;
+      gap: 25px;
+
+      padding: 16px 20px;
+
+      max-width: 800px;
+      min-width: 300px;
+
+      .profile-info__item-info {
+        flex-grow: 1;
+        text-align: start;
+
+        .profile-info__label {
+          margin-bottom: 5px;
+          font-size: 13px;
+          color: var(--button-disabled-color);
+        }
+        .profile-info__user-info {
+          font-style: 14px;
+
+          &_null {
+            color: var(--button-disabled-color);
+          }
+        }
+      }
+    }
+  }
+}

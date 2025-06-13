@@ -1,1 +1,1 @@
-export { default } from './SpecialOffers.tsx';
+export { SpecialOffers } from './SpecialOffers.tsx';
