@@ -1,17 +1,60 @@
 import { useState } from 'react';
 import styles from './styles.module.scss';
 import { Star } from 'lucide-react';
-import { IProduct } from '@pages/ProductPage/ProductOptions/types.ts';
+import { Product } from '@models/product/api.ts';
 
 interface ProductTabsProps {
-  product: IProduct;
+  product: Product;
 }
 
-const tabs = ['Описание', 'Отзывы', 'Вопросы'];
+const tabs = ['Отзывы', 'Описание', 'Вопросы'];
 
-export const ProductTabs = ({product}: ProductTabsProps) => {
-  const [active, setActive] = useState('Описание');
-  console.log(product);
+interface RatingDistribution {
+  score: number;
+  count: number;
+  percentage: number;
+}
+
+const calculateRatingDistribution = (
+  totalReviews: number,
+  averageRating: number,
+): RatingDistribution[] => {
+  if (totalReviews === 0) {
+    return Array.from({ length: 5 }, (_, i) => ({
+      score: 5 - i,
+      count: 0,
+      percentage: 0,
+    }));
+  }
+
+  const distribution: RatingDistribution[] = Array.from(
+    { length: 5 },
+    (_, i) => {
+      const score = 5 - i;
+      let count = 0;
+      if (score === Math.round(averageRating)) {
+        count = totalReviews;
+      }
+      return {
+        score,
+        count,
+        percentage: (count / totalReviews) * 100,
+      };
+    },
+  );
+
+  return distribution;
+};
+
+export const ProductTabs = ({ product }: ProductTabsProps) => {
+  const [active, setActive] = useState('Отзывы');
+
+  const { numberOfReviews, rating } = product;
+  const ratingDistribution = calculateRatingDistribution(
+    numberOfReviews as number,
+    rating,
+  );
+  const formattedRating = rating.toFixed(1);
 
   return (
     <div className={styles['product-tabs']}>
@@ -29,101 +72,65 @@ export const ProductTabs = ({product}: ProductTabsProps) => {
         ))}
       </div>
       <div className={styles['product-tabs__content']}>
-        {active === 'Описание' && (
-          <p>
-            Это пример описания товара iPhone 14 128 ГБ. Современный смартфон с
-            ярким OLED-дисплеем и мощным процессором A15 Bionic.
-          </p>
-        )}
         {active === 'Отзывы' && (
-          <div className={styles['reviews-section']}>
+          <div
+            className={styles['reviews-section']}
+            role="region"
+            aria-label="Отзывы о продукте"
+          >
             <div className={styles['reviews-left']}>
-              <div className={styles['average-rating']}>
-                <span className={styles['rating-score']}>5</span>
-                <div className={styles['rating-stars']}>
-                  <Star fill="#ffca28" color="#ffca28" />
-                  <Star fill="#ffca28" color="#ffca28" />
-                  <Star fill="#ffca28" color="#ffca28" />
-                  <Star fill="#ffca28" color="#ffca28" />
-                  <Star fill="#ffca28" color="#ffca28" />
+              <div
+                className={styles['average-rating']}
+                aria-label={`Средний рейтинг ${formattedRating} из 5`}
+              >
+                <span className={styles['rating-score']}>
+                  {formattedRating}
+                </span>
+                <div className={styles['rating-stars']} aria-hidden="true">
+                  {Array.from({ length: 5 }, (_, i) => (
+                    <Star
+                      key={i}
+                      fill={i < Math.round(rating) ? '#ffca28' : '#e0e0e0'}
+                      color={i < Math.round(rating) ? '#ffca28' : '#e0e0e0'}
+                    />
+                  ))}
                 </div>
                 <div className={styles['total-reviews']}>
-                  <span>104 отзыва</span>
+                  <span>{numberOfReviews} отзывов</span>
                 </div>
               </div>
-              <button className={styles['leave-review-button']}>
+              <button
+                className={styles['leave-review-button']}
+                aria-label="Оставить отзыв о продукте"
+              >
                 Оставить отзыв
               </button>
             </div>
             <div className={styles['reviews-right']}>
-              <div className={styles['rating']}>
-                <span className={styles['rating-score']}>5</span>
-                <div className={styles['rating-stars']}>
-                  <Star fill="#ffca28" color="#ffca28" />
+              {ratingDistribution.map(({ score, count, percentage }) => (
+                <div
+                  key={score}
+                  className={styles['rating']}
+                  aria-label={`Рейтинг ${score} звёзд`}
+                >
+                  <span className={styles['rating-score']}>{score}</span>
+                  <div className={styles['rating-stars']} aria-hidden="true">
+                    <Star fill="#ffca28" color="#ffca28" />
+                  </div>
+                  <div className={styles['rating-bar']}>
+                    <div
+                      className={styles['rating-bar-fill']}
+                      style={{ width: `${percentage}%` }}
+                      aria-label={`Процент отзывов с рейтингом ${score}: ${percentage}%`}
+                    />
+                  </div>
+                  <span className={styles['rating-count']}>{count}</span>
                 </div>
-                <div className={styles['rating-bar']}>
-                  <div
-                    className={styles['rating-bar-fill']}
-                    style={{ width: '100%' }}
-                  ></div>
-                </div>
-                <span className={styles['rating-count']}>100</span>
-              </div>
-              <div className={styles['rating']}>
-                <span className={styles['rating-score']}>4</span>
-                <div className={styles['rating-stars']}>
-                  <Star fill="#ffca28" color="#ffca28" />
-                </div>
-                <div className={styles['rating-bar']}>
-                  <div
-                    className={styles['rating-bar-fill']}
-                    style={{ width: '4%' }}
-                  ></div>
-                </div>
-                <span className={styles['rating-count']}>4</span>
-              </div>
-              <div className={styles['rating']}>
-                <span className={styles['rating-score']}>3</span>
-                <div className={styles['rating-stars']}>
-                  <Star fill="#ffca28" color="#ffca28" />
-                </div>
-                <div className={styles['rating-bar']}>
-                  <div
-                    className={styles['rating-bar-fill']}
-                    style={{ width: '0%' }}
-                  ></div>
-                </div>
-                <span className={styles['rating-count']}>0</span>
-              </div>
-              <div className={styles['rating']}>
-                <span className={styles['rating-score']}>2</span>
-                <div className={styles['rating-stars']}>
-                  <Star fill="#ffca28" color="#ffca28" />
-                </div>
-                <div className={styles['rating-bar']}>
-                  <div
-                    className={styles['rating-bar-fill']}
-                    style={{ width: '0%' }}
-                  ></div>
-                </div>
-                <span className={styles['rating-count']}>0</span>
-              </div>
-              <div className={styles['rating']}>
-                <span className={styles['rating-score']}>1</span>
-                <div className={styles['rating-stars']}>
-                  <Star fill="#ffca28" color="#ffca28" />
-                </div>
-                <div className={styles['rating-bar']}>
-                  <div
-                    className={styles['rating-bar-fill']}
-                    style={{ width: '0%' }}
-                  ></div>
-                </div>
-                <span className={styles['rating-count']}>0</span>
-              </div>
+              ))}
             </div>
           </div>
         )}
+        {active === 'Описание' && <p>Описание товара</p>}
         {active === 'Вопросы' && <p>Вы можете задать вопрос о товаре.</p>}
       </div>
     </div>

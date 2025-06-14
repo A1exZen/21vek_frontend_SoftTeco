@@ -1,5 +1,9 @@
 import { $api } from '@/app/config/axios/api';
-import { Category, HeaderCategoryResponse } from '@models/category/api.ts';
+import {
+  Category,
+  HeaderCategoryResponse,
+  ResponseGetAllCategories
+} from '@models/category/api.ts';
 // import { API_CONFIG } from '@/constants';
 import { AxiosError } from 'axios';
 import { ResponseError } from '@utils/ErrorHandler';
@@ -7,9 +11,9 @@ import { API_CONFIG } from '@/constants';
 
 export const getAllCategories = async (
   sort: number = 0,
-): Promise<Category[]> => {
+): Promise<ResponseGetAllCategories> => {
   try {
-    return await $api.get<Category[], Category[]>(
+    return await $api.get<ResponseGetAllCategories, ResponseGetAllCategories>(
       `${API_CONFIG.ENDPOINTS.CATEGORY.GET_ALL}/${sort}`,
     );
   } catch (error) {
@@ -23,9 +27,9 @@ export const getAllCategories = async (
 
 export const getCategoryByUrl = async (
   url: string,
-): Promise<Category[]> => {
+): Promise<Category> => {
   try {
-    return await $api.get<Category[], Category[]>(
+    return await $api.get<Category, Category>(
       `${API_CONFIG.ENDPOINTS.CATEGORY.GET_BY_URL}/${url}`,
     );
   } catch (error) {

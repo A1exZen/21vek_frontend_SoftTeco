@@ -80,7 +80,7 @@ export const useProducts = (
     ? filteredProductsQuery.isFetching
     : allProductsQuery.isFetching;
 
-  const hasMore = data ? data.data.length < data.pagination.total : false;
+  const hasMore = data ? data.pagination.page !== data.pagination.total : false;
 
   return {
     data: data?.data || [],
@@ -97,11 +97,10 @@ export const useProducts = (
   };
 };
 
-export const useGetProduct = (id: number, enabled: boolean = true) => {
+export const useGetProduct = (id: number) => {
   return useQuery<Product, Error>({
     queryKey: [QueryKeys.PRODUCT, id],
     queryFn: () => getProductById(id),
-    enabled: enabled && !!id,
   });
 };
 

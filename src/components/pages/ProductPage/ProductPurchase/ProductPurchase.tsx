@@ -1,10 +1,10 @@
 import styles from './styles.module.scss';
 import { Heart, Star } from 'lucide-react';
-import { IProduct } from '@pages/ProductPage/ProductOptions/types.ts';
 import { useState } from 'react';
+import { Product } from '@models/product/api.ts';
 
 interface ProductGalleryProps {
-  product: IProduct;
+  product: Product;
 }
 
 export const ProductPurchase = ({ product }: ProductGalleryProps) => {

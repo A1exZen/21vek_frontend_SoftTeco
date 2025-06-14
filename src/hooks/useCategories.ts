@@ -5,10 +5,14 @@ import {
   getCategoryByUrl,
   getHeaderCategories
 } from '@/api/category.ts';
-import { Category, HeaderCategoryResponse } from '@models/category/api.ts';
+import {
+  Category,
+  HeaderCategoryResponse,
+  ResponseGetAllCategories
+} from '@models/category/api.ts';
 
 export const useGetAllCategories = (sort: number = 0) => {
-  return useQuery<Category[], Error>({
+  return useQuery<ResponseGetAllCategories, Error>({
     queryKey: [QueryKeys.CATEGORIES, sort],
     queryFn: () => getAllCategories(sort),
     staleTime: 5 * 60 * 1000,
@@ -24,8 +28,8 @@ export const useGetHeaderCategories = () => {
   });
 };
 
-export const useGetCategory = (url: string) => {
-  return useQuery<Category[], Error>({
+export const useGetCategoryByUrl = (url: string) => {
+  return useQuery<Category, Error>({
     queryKey: [QueryKeys.CATEGORY, url],
     queryFn: () => getCategoryByUrl(url),
   });

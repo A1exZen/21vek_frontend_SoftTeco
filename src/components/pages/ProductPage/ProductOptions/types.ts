@@ -39,15 +39,15 @@ export interface ICategory {
 export interface IProduct {
   idProduct: number;
   nameProduct: string;
-  brand?: string;
+  brand: string;
   price: number;
   quantityInStock: number;
   rating: number;
   numberOfReviews: number;
   discount: number;
-  status?: string;
+  status: string;
   img: string;
   inCart?: boolean;
   category: ICategory;
-  characteristics: ICharacteristicGroup[];
+  characteristics?: ICharacteristicGroup[];
 }

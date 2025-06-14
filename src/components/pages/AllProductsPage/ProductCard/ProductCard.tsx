@@ -1,11 +1,10 @@
-import React from 'react';
 import styles from './styles.module.scss';
 import { Heart, Scale, ShoppingCart, Star } from 'lucide-react';
 import { Tooltip } from 'antd';
 import { Product } from '@models/product/api.ts';
 import { Link } from 'react-router-dom';
 
-export const ProductCard: React.FC<{ product: Product }> = ({ product }) => {
+export const ProductCard = ({ product }: { product: Product }) => {
   const hasDiscount = product.discount != null && product.discount > 0;
   const oldPrice = product.discount
     ? Math.round(product.price / (1 - product.discount / 100))
