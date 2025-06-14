@@ -1,9 +1,10 @@
 import { CloseOutlined } from '@ant-design/icons';
 import { InputNumber, Slider } from 'antd';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import styles from './styles.module.scss';
 import { useDebounce } from '@/hooks/useDebounce';
 import { useGetBrands } from '@hooks/useProducts.ts';
+import Button from '@components/ui/Button';
 
 interface Filter {
   brand?: string;
@@ -28,8 +29,17 @@ export const FilterCard: React.FC<FilterCardProps> = ({
 }) => {
   const [localFilter, setLocalFilter] = useState<Filter>(currentFilter);
   const debouncedFilter = useDebounce(localFilter, 1000);
+  const [showAllBrands, setShowAllBrands] = useState(false);
 
   const { data: brands } = useGetBrands();
+
+  const visibleBrands = useMemo(() => {
+    return showAllBrands ? brands : brands?.slice(0, 4);
+  }, [brands, showAllBrands]);
+
+  const hasHiddenBrands = useMemo(() => {
+    return brands && brands.length > 4;
+  }, [brands]);
 
   useEffect(() => {
     onFilterChange(debouncedFilter);
@@ -61,6 +71,10 @@ export const FilterCard: React.FC<FilterCardProps> = ({
       min_price: value[0],
       max_price: value[1],
     }));
+  };
+
+  const toggleShowAllBrands = () => {
+    setShowAllBrands((prev) => !prev);
   };
 
   return (
@@ -147,20 +161,29 @@ export const FilterCard: React.FC<FilterCardProps> = ({
         </div>
 
         <div className={styles['filters__section']}>
-          <h3 className={styles['filters__title']}>Производители</h3>
+          <div className={styles['filters__section-header']}>
+            <h3 className={styles['filters__title']}>Производители</h3>
+            {hasHiddenBrands && (
+              <Button
+                variant={'link'}
+                onClick={toggleShowAllBrands}
+                className={styles['filters__show-all']}
+              >
+                {showAllBrands ? 'Свернуть' : 'Показать все'}
+              </Button>
+            )}
+          </div>
           <div className={styles['filters__checkbox-group']}>
-            {brands?.map((brand) => (
-                <label key={brand} className={styles['filters__checkbox']}>
-                  <input
-                    type="checkbox"
-                    checked={localFilter.brand === brand}
-                    onChange={() => handleBrandChange(brand)}
-                  />
-                  <span className={styles['filters__checkbox-text']}>
-                    {brand}
-                  </span>
-                </label>
-              ))}
+            {visibleBrands?.map((brand) => (
+              <label key={brand} className={styles['filters__checkbox']}>
+                <input
+                  type="checkbox"
+                  checked={localFilter.brand === brand}
+                  onChange={() => handleBrandChange(brand)}
+                />
+                <span className={styles['filters__checkbox-text']}>{brand}</span>
+              </label>
+            ))}
           </div>
         </div>
       </div>

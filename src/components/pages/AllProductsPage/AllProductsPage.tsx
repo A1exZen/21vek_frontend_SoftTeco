@@ -13,8 +13,8 @@ const SEARCH_PARAM_POPULAR = 'popular';
 const SEARCH_PARAM_MIN_PRICE = 'min_price';
 const SEARCH_PARAM_MAX_PRICE = 'max_price';
 
-const INITIAL_PAGE_SIZE = 1;
-const LOAD_MORE_INCREMENT = 10;
+const INITIAL_PAGE_SIZE = 12;
+const LOAD_MORE_INCREMENT = 12;
 
 type FilterType = {
   brand?: string;
@@ -28,7 +28,6 @@ export const AllProductsPage = () => {
   const [isFiltersOpen, setIsFiltersOpen] = useState(false);
   const [searchParams, setSearchParams] = useSearchParams();
   const [pageSize, setPageSize] = useState(INITIAL_PAGE_SIZE);
-  console.log(searchParams);
 
   const [filter, setFilter] = useState<{
     brand?: string;

@@ -79,11 +79,9 @@ export const filterProducts = async (
 
 export const getProductById = async (id: number): Promise<Product> => {
   try {
-    const response = await $api.get<Product>(
+    return await $api.get<Product, Product>(
       `${API_CONFIG.ENDPOINTS.PRODUCTS.GET_BY_ID}/${id}`,
     );
-    console.log('Продукт получен:', response.data);
-    return response.data;
   } catch (error) {
     const axiosError = error as AxiosError<ResponseError>;
     console.error('Ошибка получения продукта:', axiosError);
@@ -103,29 +101,6 @@ export const getBrands = async (): Promise<string[]> => {
     console.error('Ошибка получения брендов:', axiosError);
     throw new Error(
       axiosError.response?.data?.message || 'Ошибка при получении брендов',
-    );
-  }
-};
-
-export const getPriceRange = async (
-  categoryId?: number,
-): Promise<{
-  min: number;
-  max: number;
-}> => {
-  try {
-    const params = categoryId ? `?categoryId=${categoryId}` : '';
-    const response = await $api.get<{ min: number; max: number }>(
-      `${API_CONFIG.ENDPOINTS.PRODUCTS.GET_PRICE_RANGE}${params}`,
-    );
-    console.log('Диапазон цен получен:', response.data);
-    return response.data;
-  } catch (error) {
-    const axiosError = error as AxiosError<ResponseError>;
-    console.error('Ошибка получения диапазона цен:', axiosError);
-    throw new Error(
-      axiosError.response?.data?.message ||
-        'Ошибка при получении диапазона цен',
     );
   }
 };
