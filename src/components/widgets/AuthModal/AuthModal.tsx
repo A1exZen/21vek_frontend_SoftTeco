@@ -7,18 +7,30 @@ import styles from './styles.module.scss';
 import Button from '@components/ui/Button';
 import FormErrorMessage from '@components/ui/FormErrorMessage/FormErrorMessage.tsx';
 import { useLogin, useRegister } from '@hooks/useAuth.ts';
-import { useAuthModal } from './useAuthModal';
+import { useEffect } from 'react';
 
 type FormValues = LoginRequest;
 
-const AuthModal = () => {
+interface AuthModalProps {
+  isVisible: boolean;
+  isLogin: boolean;
+  onClose: () => void;
+  onToggleMode: () => void;
+}
+
+const AuthModal = ({
+  isVisible,
+  isLogin,
+  onClose,
+  onToggleMode,
+}: AuthModalProps) => {
   const { t: tAuth } = useTranslation('auth');
-  const { isVisible, isLogin, closeAuth, toggleMode } = useAuthModal();
 
   const {
     handleSubmit,
     formState: { errors },
     control,
+    reset,
   } = useForm<FormValues>({
     defaultValues: {
       mail: '',
@@ -30,18 +42,30 @@ const AuthModal = () => {
   const { mutate: onSubmitLogin } = useLogin();
   const { mutate: onSubmitRegister } = useRegister();
 
+  useEffect(() => {
+    if (!isVisible) {
+      reset();
+    }
+  }, [isVisible, reset]);
+
   const onSubmit: SubmitHandler<LoginRequest> = (values: LoginRequest) => {
     if (isLogin) {
-    onSubmitLogin(values, {
+      onSubmitLogin(values, {
         onSuccess: () => {
-          closeAuth();
-        }
+          onClose();
+        },
+        onError: (error) => {
+          console.error('Login error:', error);
+        },
       });
     } else {
       onSubmitRegister(values, {
         onSuccess: () => {
-          closeAuth();
-        }
+          onClose();
+        },
+        onError: (error) => {
+          console.error('Register error:', error);
+        },
       });
     }
   };
@@ -54,7 +78,7 @@ const AuthModal = () => {
           {isLogin ? tAuth('login') : tAuth('register')}
         </div>
       }
-      onCancel={closeAuth}
+      onCancel={onClose}
       footer={null}
       destroyOnClose={true}
     >
@@ -122,7 +146,7 @@ const AuthModal = () => {
           <Button type="submit" color="first" variant="solid">
             {isLogin ? tAuth('login') : tAuth('register')}
           </Button>
-          <Button type="button" variant="link" onClick={toggleMode}>
+          <Button type="button" variant="link" onClick={onToggleMode}>
             {isLogin ? tAuth('goToRegister') : tAuth('goToLogin')}
           </Button>
         </Space>

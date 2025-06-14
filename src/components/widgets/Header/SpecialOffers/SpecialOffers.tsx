@@ -44,7 +44,7 @@ export const SpecialOffers = () => {
     );
   }
 
-  const categories = data?.categories || [];
+  const categories = data?.categories.slice(0,5) || [];
   if (categories.length === 0) {
     return (
       <div className={styles['background']}>

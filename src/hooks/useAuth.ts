@@ -1,6 +1,5 @@
 import { login, logout, register } from '@/api/auth';
 import { useMutation } from '@tanstack/react-query';
-// import { useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
 import {
   LoginRequest,
@@ -38,6 +37,21 @@ export const useLogin = () => {
     },
   });
 };
+
+// export const useAuthCheck = () => {
+//   useQuery({
+//     queryKey: [QueryKeys.CHECK_AUTH],
+//     queryFn: async (): Promise<void> => {
+//       try {
+//         await $api.get(API_CONFIG.ENDPOINTS.AUTH.CHECK);
+//       } catch (error: AxiosError) {
+//         toast.error("Вы не авторизированы!");
+//       }
+//     },
+//     retry: false,
+//   });
+// };
+
 
 export const useLogout = () => {
   const navigate = useNavigate();

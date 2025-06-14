@@ -17,6 +17,19 @@
 		margin-bottom: 15px;
 	}
 
+	.no-subcategories{
+		display: flex;
+		align-items: center;
+		gap: 8px;
+		color: var(--gray-700);
+		padding: 6px 12px;
+		font-weight: 500;
+		font-size: 1.2rem;
+		svg{
+			width: 30px;
+		}
+	}
+
 	.category__subcategory-container {
 
 		.category__subcategory-list {
@@ -47,8 +60,11 @@
 				color: var(--secondary-hover);
 			}
 		}
-
 	}
-
+	.products__grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+		gap: 20px;
+	}
 
 }

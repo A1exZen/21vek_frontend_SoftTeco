@@ -1,29 +1,30 @@
 import {
-  Category,
   productCategories,
 } from '@components/widgets/ProductCatalog/constants.ts';
 import styles from '@components/widgets/ProductCatalog/styles.module.scss';
 import { Link } from 'react-router-dom';
 import { SubcategoryItems } from './SubcategoryItems';
 import { useMemo } from 'react';
+import { CategoryWithoutProducts } from '@models/category/api.ts';
+import Sad from '@assets/icons/sad.svg';
 
 export const SubcategoryGrid = ({
   activeCategory,
 }: {
-  activeCategory: Category;
+  activeCategory: CategoryWithoutProducts;
 }) => {
   const subcategories = useMemo(
     () =>
       productCategories.filter(
-        (category) => category.idParent === activeCategory.id,
+        (category) => Number(category.idParent) === Number(activeCategory.idCategories),
       ),
-    [activeCategory.id],
+    [activeCategory.idCategories],
   );
   if (subcategories.length === 0) {
     return (
       <div className={styles['product-catalog__subcategories-grid']}>
         <p className={styles['product-catalog__no-subcategories']}>
-          Категорий не найдено!🙁
+          Категорий не найдено! <Sad/>
         </p>
       </div>
     );

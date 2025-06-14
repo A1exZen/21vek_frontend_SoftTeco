@@ -218,9 +218,15 @@
 		}
 
 		.product-catalog__no-subcategories{
+			display: flex;
+			align-items: center;
+			gap: 8px;
 			color: var(--gray-700);
 			font-size: 1.1rem;
 			padding: 6px 12px;
+			svg{
+				width: 30px;
+			}
 		}
 	}
 }

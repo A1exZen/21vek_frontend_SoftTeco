@@ -6,9 +6,10 @@ import React, {
   useState,
 } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Category, productCategories } from './constants.ts';
 import styles from './styles.module.scss';
 import { SubcategoryGrid } from './SubcategoryGrid';
+import { useGetAllCategories } from '@hooks/useCategories.ts';
+import { CategoryWithoutProducts } from '@models/category/api.ts';
 
 interface ProductCatalogProps {
   isOpen: boolean;
@@ -25,17 +26,41 @@ const ProductCatalog = ({
   const location = useLocation();
   const prevLocationRef = useRef(location.pathname);
 
-  const topLevelCategories = useMemo(
-    () => productCategories.filter((category) => category.idParent === null),
+  const { data: productCategories } = useGetAllCategories();
+
+
+  const topLevelCategories = useMemo(() => {
+    const categories =
+      productCategories?.filter((category) => category.idParent === null) ?? [];
+
+    const categoriesWithSubcategoriesInfo = categories.map((category) => ({
+      category,
+      hasSubcategories:
+        productCategories?.some(
+          (subcategory) => subcategory.idParent === category.idCategories,
+        ) ?? false,
+    }));
+
+    return categoriesWithSubcategoriesInfo
+      .sort((a, b) => {
+        if (a.hasSubcategories && !b.hasSubcategories) return -1;
+        if (!a.hasSubcategories && b.hasSubcategories) return 1;
+        return 0;
+      })
+      .map((item) => item.category);
+  }, [productCategories]);
+
+  const [activeCategory, setActiveCategory] =
+    useState<CategoryWithoutProducts | null>(
+      () => topLevelCategories[0] || null,
+    );
+
+  const handleCategoryHover = useCallback(
+    (category: CategoryWithoutProducts) => {
+      setActiveCategory(category);
+    },
     [],
   );
-  const [activeCategory, setActiveCategory] = useState<Category | null>(
-    () => topLevelCategories[0] || null,
-  );
-
-  const handleCategoryHover = useCallback((category: Category) => {
-    setActiveCategory(category);
-  }, []);
 
   const handleClose = useCallback(() => {
     if (onToggle) {
@@ -45,7 +70,7 @@ const ProductCatalog = ({
   }, [onToggle]);
 
   const handleCategoryKeyDown = useCallback(
-    (event: React.KeyboardEvent, category: Category) => {
+    (event: React.KeyboardEvent, category: CategoryWithoutProducts) => {
       if (event.key === 'Enter' || event.key === ' ') {
         event.preventDefault();
         handleCategoryHover(category);
@@ -104,9 +129,9 @@ const ProductCatalog = ({
             <ul className={styles['product-catalog__category-list']}>
               {topLevelCategories.map((category) => (
                 <li
-                  key={category.name}
+                  key={category.nameCategories}
                   className={`${styles['product-catalog__main-category']} ${
-                    activeCategory?.name === category.name
+                    activeCategory?.nameCategories === category.nameCategories
                       ? styles['product-catalog__main-category--active']
                       : ''
                   }`}
@@ -118,7 +143,7 @@ const ProductCatalog = ({
                     onKeyDown={(e) => handleCategoryKeyDown(e, category)}
                     onFocus={() => handleCategoryHover(category)}
                   >
-                    {category.name}
+                    {category.nameCategories}
                   </Link>
                 </li>
               ))}
@@ -129,7 +154,7 @@ const ProductCatalog = ({
               <h2
                 className={styles['product-catalog__subcategory-title-header']}
               >
-                {activeCategory.name}
+                {activeCategory.nameCategories}
               </h2>
             )}
             <div className={styles['product-catalog__subcategories']}>
