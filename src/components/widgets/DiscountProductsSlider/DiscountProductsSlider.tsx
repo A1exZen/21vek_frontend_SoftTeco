@@ -2,6 +2,8 @@ import Banner from '@/assets/images/discount_banner.jpg';
 import { useFilterProducts } from '@/hooks/useProducts';
 import { ShoppingCart } from 'lucide-react';
 import styles from './styles.module.scss';
+import { Link } from 'react-router-dom';
+import { Spin } from 'antd';
 
 export const DiscountProductsSlider = () => {
   const {
@@ -15,7 +17,7 @@ export const DiscountProductsSlider = () => {
   }
 
   if (isLoading) {
-    console.log('loading');
+    return <Spin />;
   }
 
   return (
@@ -28,15 +30,17 @@ export const DiscountProductsSlider = () => {
           <h2 className={styles['discount__title']}>Акции</h2>
         </div>
         <div className={styles['products-grid']}>
-          {products ? (
+          {products &&
             products.data.map((product) => (
-              <div className={styles['product-card']}>
+              <div key={product.idProduct} className={styles['product-card']}>
                 <div className={styles['product-card__image-container']}>
-                  <img
-                    src={product.img}
-                    alt={product.nameProduct}
-                    className={styles['product-card__image']}
-                  />
+                  <Link to={`/product/${product.idProduct}`}>
+                    <img
+                      src={product.img}
+                      alt={product.nameProduct}
+                      className={styles['product-card__image']}
+                    />
+                  </Link>
                   {product.discount != null && product.discount > 0 && (
                     <span className={styles['product-card__discount']}>
                       -{product.discount}%
@@ -68,10 +72,7 @@ export const DiscountProductsSlider = () => {
                   </button>
                 </div>
               </div>
-            ))
-          ) : (
-            <p>Нет продуктов</p>
-          )}
+            ))}
         </div>
       </div>
     </section>

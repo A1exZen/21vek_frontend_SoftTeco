@@ -16,6 +16,7 @@ import 'swiper/css/pagination';
 import { Navigation, Pagination } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import styles from './styles.module.scss';
+import { Link } from 'react-router-dom';
 
 export const PopularProductsSlider = () => {
   const swiperRef = useRef<SwiperType | null>(null);
@@ -82,16 +83,18 @@ export const PopularProductsSlider = () => {
           }}
           className={styles['products-swiper']}
         >
-          {products ? (
+          {products &&
             products.data.map((product) => (
               <SwiperSlide key={product.idProduct}>
                 <div className={styles['product-card']}>
                   <div className={styles['product-card__image-container']}>
-                    <img
-                      src={product.img}
-                      alt={product.nameProduct}
-                      className={styles['product-card__image']}
-                    />
+                    <Link to={`/product/${product.idProduct}`}>
+                      <img
+                        src={product.img}
+                        alt={product.nameProduct}
+                        className={styles['product-card__image']}
+                      />
+                    </Link>
                     {product.discount != null && product.discount > 0 && (
                       <span className={styles['product-card__discount']}>
                         -{product.discount}%
@@ -133,7 +136,7 @@ export const PopularProductsSlider = () => {
                         <span className={styles['product-card__price-old']}>
                           {Math.round(
                             product.price / (1 - product.discount / 100),
-                          )}{' '}
+                          )}
                           p.
                         </span>
                       ) : null}
@@ -145,10 +148,7 @@ export const PopularProductsSlider = () => {
                   </div>
                 </div>
               </SwiperSlide>
-            ))
-          ) : (
-            <div>Нет продуктов...(</div>
-          )}
+            ))}
         </Swiper>
         <div className={styles['swiper-pagination']}></div>
       </div>

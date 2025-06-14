@@ -6,11 +6,24 @@ export interface Product {
   discount?: number;
   quantityInStock: number;
   rating: number;
-  numberOfReviews: number;
+  numberOfReviews?: number;
   status: string;
   img: string;
-  category: Category;
+  inCart?: boolean;
+  characteristics?: CharacteristicGroup[];
+  category?: Category;
 }
+
+export interface CharacteristicItem {
+  name: string;
+  count: string;
+}
+
+export interface CharacteristicGroup {
+  name: string;
+  characteristics: CharacteristicItem[];
+}
+
 export interface Category {
   idCategories: number;
   nameCategories: string;

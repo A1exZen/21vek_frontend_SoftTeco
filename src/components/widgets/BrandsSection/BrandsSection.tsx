@@ -1,20 +1,24 @@
 import styles from './styles.module.scss';
 
-import Xiaomi from '@/assets/icons/brands/xiaomi.svg'
-
+import { useGetBrands } from '@hooks/useProducts.ts';
+import { Link } from 'react-router-dom';
+import { useMemo } from 'react';
 
 export const BrandsSection = () => {
+  const { data: brands } = useGetBrands();
+  const displayedBrands = useMemo(() => brands?.slice(0, 6) || [], [brands]);
+
   return (
     <section className={styles['brands-container']}>
+      <Link to={`/products`} className={styles['brands__card-large']}>
+        <div>Все товары</div>
+      </Link>
+      {displayedBrands.map((brand) => (
+        <Link key={brand} to={`/products?brand=${encodeURIComponent(brand)}`} className={styles['brands__card']}>
+          <div>{brand}</div>
+        </Link>
+      ))}
 
-      <div className={styles['brands__card-large']}><Xiaomi/><span>Xiaomi</span></div>
-      <div className={styles['brands__card']}><Xiaomi/> <div>Xiaomi</div></div>
-      <div className={styles['brands__card']}><Xiaomi/> <span>Xiaomi</span></div>
-      <div className={styles['brands__card']}><Xiaomi/> <span>Xiaomi</span></div>
-      <div className={styles['brands__card']}><Xiaomi/> <span>Xiaomi</span></div>
-      <div className={styles['brands__card']}><Xiaomi/> <span>Xiaomi</span></div>
-      <div className={styles['brands__card']}><Xiaomi/> <span>Xiaomi</span></div>
-      <div className={styles['brands__card-wide']}><Xiaomi/> <span>Xiaomi</span></div>
     </section>
   );
 };
