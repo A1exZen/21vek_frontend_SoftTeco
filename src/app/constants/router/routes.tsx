@@ -10,10 +10,10 @@ import Home from '@components/pages/Home/Home';
 import FavoritesPage from '@/components/pages/FavoritesPage/FavoritesPage';
 import { CategoryPage } from '@pages/CaterogyPage';
 import { ProductPage } from '@pages/ProductPage/ProductPage.tsx';
+import { AllProductsPage } from '@pages/AllProductsPage';
 const ErrorPage = lazy(() => import('@pages/Error'));
 const Profile = lazy(() => import('@pages/Profile'));
 const Basket = lazy(() => import('@pages/Basket'));
-
 
 
 export const routes: RouteObject[] = [
@@ -23,13 +23,20 @@ export const routes: RouteObject[] = [
     children: [
       { index: true, element: <Home /> },
       { path: PATHS.FAVORITES, element: <FavoritesPage /> },
+      { path: PATHS.PRODUCTS, element: <AllProductsPage /> },
       { path: PATHS.BASKET, element: <Basket /> },
       { path: PATHS.NOT_FOUND, element: <ErrorPage /> },
       { path: PATHS.ALL, element: <ErrorPage /> },
       {
         path: '/:categoryUrl',
         element: <CategoryPage />,
-        children: [{ path: ':productId', element: <ProductPage /> }],
+        children: [
+          { path: ':productId', element: <ProductPage /> },
+        ],
+      },
+      {
+        path: '/product/:idProduct',
+        element: <ProductPage />,
       },
       {
         path: PATHS.PROFILE,

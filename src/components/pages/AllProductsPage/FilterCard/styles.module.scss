@@ -120,6 +120,21 @@
 				text-decoration: underline;
 			}
 		}
+
+		.filters__show-all {
+			color: var(--secondary);
+			cursor: pointer;
+			font-size: 0.9rem;
+			padding: 5px 0;
+			text-align: left;
+			transition: all 0.2s ease;
+			margin-bottom: 0.1rem;
+
+			&:hover {
+				text-decoration: underline;
+				color: var(--secondary-hover);
+			}
+		}
 	}
 }
 

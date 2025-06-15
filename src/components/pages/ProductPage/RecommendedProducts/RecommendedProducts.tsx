@@ -1,111 +1,42 @@
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination } from 'swiper/modules';
-import { Heart, Star, ChevronLeft, ChevronRight } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Heart, Star, ChevronLeft, ChevronRight, Scale } from 'lucide-react';
+import { Link, useParams } from 'react-router-dom';
 import { useRef } from 'react';
 import type { Swiper as SwiperType } from 'swiper';
-import 'swiper/css'
-import 'swiper/css/pagination'
-import 'swiper/css/navigation'
+import 'swiper/css';
+import 'swiper/css/pagination';
+import 'swiper/css/navigation';
 
 import styles from './styles.module.scss';
+import { useFilterProducts } from '@hooks/useProducts.ts';
+import { Spin, Tooltip } from 'antd';
+import { Product } from '@models/product/api.ts';
 
-type Product = {
-  id: number;
-  img: string;
-  price: string;
-  monthlyPayment: string;
-  rating: string;
-  title: string;
-  color?: string;
-  delivery: string[];
-  discount: string;
-  oldPrice: string;
-};
+import Sad from '@assets/icons/sad.svg';
 
-export const RecommendedProducts = () => {
+interface RecommendedProductsProps {
+  productBrand: string;
+}
+
+export const RecommendedProducts = ({
+  productBrand,
+}: RecommendedProductsProps) => {
+  const { idProduct } = useParams<{ idProduct: string }>();
   const swiperRef = useRef<SwiperType | null>(null);
+  const { data: prod, isLoading } = useFilterProducts({
+    brand: productBrand,
+    size: 7,
+    page: 0,
+  });
 
-  const products: Product[] = [
-    {
-      id: 1,
-      img: 'https://cdn21vek.by/imgproxy/preview_b/plain/img/galleries/7116/374/iphone13128gbmlpg3_apple_637f118109394.jpeg',
-      price: '1 899,00',
-      monthlyPayment: '57.69 р./месяц',
-      rating: "4.3",
-      title: 'Смартфон восстановленный Apple iPhone 13 ZS6GB Flip Грейд B (Miknight)',
-      delivery: ['Кульсром – Завтра', 'Самоканал – Завтра'],
-      discount: '14.5',
-      oldPrice: '1200,21',
-    },
-    {
-      id: 2,
-      img: 'https://cdn21vek.by/imgproxy/preview_b/plain/img/galleries/7116/374/iphone13128gbmlpg3_apple_637f118109394.jpeg',
-      price: '1 899,00',
-      monthlyPayment: '57.69 р./месяц',
-      rating: "4.3",
-      title: 'Смартфон восстановленный Apple iPhone 13 ZS6GB Flip Грейд B (синий)',
-      delivery: ['Кульсром – Завтра', 'Самоканал – Завтра'],
-      discount: '14.5',
-      oldPrice: '1200,21',
-    },
-    {
-      id: 3,
-      img: 'https://cdn21vek.by/imgproxy/preview_b/plain/img/galleries/7116/374/iphone13128gbmlpg3_apple_637f118109394.jpeg',
-      price: '2 699,00',
-      monthlyPayment: '61.99 р./месяц',
-      rating: "4.3",
-      title: 'Смартфон Apple iPhone 15 ZS6GB (черный)',
-      delivery: ['Кульсром – Завтра', 'Самоканал – Завтра'],
-      discount: '14.5',
-      oldPrice: '1200,21',
-    },
-    {
-      id: 4,
-      img: 'https://cdn21vek.by/imgproxy/preview_b/plain/img/galleries/7116/374/iphone13128gbmlpg3_apple_637f118109394.jpeg',
-      price: '2 299,00',
-      monthlyPayment: '60.84 р./месяц',
-      rating: "4.3",
-      title: 'Смартфон восстановленный Apple iPhone 14 ZS6GB Flip Грейд B (фиолетовый)',
-      delivery: ['Кульсром – Завтра', 'Самоканал – Завтра'],
-      discount: '14.5',
-      oldPrice: '1200,21',
-    },
-    {
-      id: 5,
-      img: 'https://cdn21vek.by/imgproxy/preview_b/plain/img/galleries/7116/374/iphone13128gbmlpg3_apple_637f118109394.jpeg',
-      price: '2 299,00',
-      monthlyPayment: '60.84 р./месяц',
-      rating: "4.3",
-      title: 'Смартфон восстановленный Apple iPhone 14 ZS6GB Flip Грейд B (розовый)',
-      delivery: ['Кульсром – Завтра', 'Самоканал – Завтра'],
-      discount: '14.5',
-      oldPrice: '1200,21',
-    },
-    {
-      id: 6,
-      img: 'https://cdn21vek.by/imgproxy/preview_b/plain/img/galleries/7116/374/iphone13128gbmlpg3_apple_637f118109394.jpeg',
-      price: '2 299,00',
-      monthlyPayment: '60.84 р./месяц',
-      rating: "4.3",
-      title: 'Смартфон восстановленный Apple iPhone 14 ZS6GB Flip Грейд B (белый)',
-      delivery: ['Кульсром – Завтра', 'Самоканал – Завтра'],
-      discount: '14.5',
-      oldPrice: '1200,21',
-    },
-    {
-      id: 7,
-      img: 'https://cdn21vek.by/imgproxy/preview_b/plain/img/galleries/7116/374/iphone13128gbmlpg3_apple_637f118109394.jpeg',
-      price: '2 299,00',
-      monthlyPayment: '60.84 р./месяц',
-      rating: "4.3",
-      title: 'Смартфон восстановленный Apple iPhone 14 ZS6GB Flip Грейд B (золотой)',
-      delivery: ['Кульсром – Завтра', 'Самоканал – Завтра'],
-      discount: '14.5',
-      oldPrice: '1200,21',
-    },
-  ];
+  const products = prod?.data.filter(
+    (product: Product) => product.idProduct !== Number(idProduct),
+  );
 
+  if (isLoading) {
+    return <Spin />;
+  }
   return (
     <section className={styles['recommended']}>
       <div className={styles['recommended__header']}>
@@ -158,51 +89,77 @@ export const RecommendedProducts = () => {
           }}
           className={styles['products-swiper']}
         >
-          {products.map((product) => (
-            <SwiperSlide key={product.id}>
-              <article className={styles['product']}>
-                <div className={styles['product__content']}>
-                  <Link to="/" className={styles['product__img-link']}>
-                    <img
-                      alt={`Изображение товара: ${product.title}`}
-                      src={product.img}
-                      className={styles['product__img']}
-                      loading="lazy"
-                    />
-                  </Link>
-
-                  <div className={styles['product__price-section']}>
-                    <div className={styles['product__price-wrapper']}>
-                      <span className={styles['product__price']}>
-                        {product.price} p.
-                      </span>
+          { products && products.length > 0 ? (
+            products.map((product) => (
+              <SwiperSlide key={product.idProduct}>
+                <div className={styles['product']}>
+                  <div className={styles['product__image-container']}>
+                    <Link to={`/product/${product.idProduct}`}>
+                      <img
+                        src={product.img}
+                        alt={product.nameProduct}
+                        className={styles['product__image']}
+                      />
+                    </Link>
+                    {product.discount != null && product.discount > 0 && (
                       <span className={styles['product__discount']}>
-                        {product.discount}%
+                        -{product.discount}%
                       </span>
-                    </div>
-                    <div className={styles['product__old-price']}>
-                      {product.oldPrice} p.
-                    </div>
+                    )}
+                    <Tooltip title="Добавить в сравнение">
+                      <button className={styles['product__scale']}>
+                        <Scale size={20} />
+                      </button>
+                    </Tooltip>
+                    <Tooltip title="Добавить в избранное">
+                      <button className={styles['product__favorite']}>
+                        <Heart size={20} />
+                      </button>
+                    </Tooltip>
                   </div>
 
-                  <div className={styles['product__title']}>{product.title}</div>
+                  <div className={styles['product__content']}>
+                    <div className={styles['product__rating']}>
+                      <Star size={14} color={'#ffa726'} fill={'#ffa726'} />
+                      <span className={styles['product__rating-value']}>
+                        {product.rating}
+                      </span>
 
-                  <div className={styles['product__rating']}>
-                    <Star color="#f3c623" fill="#f3c623" size={16} />
-                    <span>4.8</span>
+                      <span className={styles['product__rating-count']}>
+                        ({product.numberOfReviews})
+                      </span>
+                    </div>
+
+                    <h3 className={styles['product__title']}>
+                      {product.nameProduct}
+                    </h3>
+
+                    <div className={styles['product__price']}>
+                      <span className={styles['product__price-current']}>
+                        {product.price} р.
+                      </span>
+                      {product.discount && product.discount > 0 ? (
+                        <span className={styles['product__price-old']}>
+                          {Math.round(
+                            product.price / (1 - product.discount / 100),
+                          )}
+                          p.
+                        </span>
+                      ) : null}
+                    </div>
+
+                    <button className={styles['product__buy-btn']}>
+                      В корзину
+                    </button>
                   </div>
                 </div>
-
-                <button className={styles['product__button']}>В корзину</button>
-
-                <button
-                  className={styles['product__badge']}
-                >
-                  <Heart size={20} color={'#cbcbcb'} />
-                </button>
-              </article>
-            </SwiperSlide>
-          ))}
+              </SwiperSlide>
+            ))
+          ) : (
+            <div className={styles['no-recommendations']}>
+              Рекомендаций нет! <Sad />
+            </div>
+          )}
         </Swiper>
         <div className={styles['swiper-pagination']}></div>
       </div>

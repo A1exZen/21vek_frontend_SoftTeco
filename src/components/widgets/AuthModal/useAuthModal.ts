@@ -1,44 +1,33 @@
-// hooks/useAuthModal.ts
-import { useSearchParams } from 'react-router-dom';
-import { useCallback } from 'react';
+import { useState, useCallback } from 'react';
+
+type AuthMode = 'login' | 'register';
 
 export const useAuthModal = () => {
-  const [searchParams, setSearchParams] = useSearchParams();
-
-  const authType = searchParams.get('auth');
-  const isVisible = authType === 'login' || authType === 'register';
-  const isLogin = authType === 'login';
-  const isRegister = authType === 'register';
+  const [isVisible, setIsVisible] = useState(false);
+  const [mode, setMode] = useState<AuthMode>('login');
 
   const openLogin = useCallback(() => {
-    const newSearchParams = new URLSearchParams(searchParams);
-    newSearchParams.set('auth', 'login');
-    setSearchParams(newSearchParams);
-  }, [searchParams, setSearchParams]);
+    setMode('login');
+    setIsVisible(true);
+  }, []);
 
   const openRegister = useCallback(() => {
-    const newSearchParams = new URLSearchParams(searchParams);
-    newSearchParams.set('auth', 'register');
-    setSearchParams(newSearchParams);
-  }, [searchParams, setSearchParams]);
+    setMode('register');
+    setIsVisible(true);
+  }, []);
 
   const closeAuth = useCallback(() => {
-    const newSearchParams = new URLSearchParams(searchParams);
-    newSearchParams.delete('auth');
-    setSearchParams(newSearchParams);
-  }, [searchParams, setSearchParams]);
+    setIsVisible(false);
+  }, []);
 
   const toggleMode = useCallback(() => {
-    const newSearchParams = new URLSearchParams(searchParams);
-    newSearchParams.set('auth', isLogin ? 'register' : 'login');
-    setSearchParams(newSearchParams);
-  }, [searchParams, setSearchParams, isLogin]);
+    setMode(prev => prev === 'login' ? 'register' : 'login');
+  }, []);
 
   return {
-    authType,
     isVisible,
-    isLogin,
-    isRegister,
+    isLogin: mode === 'login',
+    isRegister: mode === 'register',
     openLogin,
     openRegister,
     closeAuth,

@@ -8,10 +8,23 @@ import Button from '@components/ui/Button';
 import FormErrorMessage from '@components/ui/FormErrorMessage/FormErrorMessage.tsx';
 import { useAuth } from '@/hooks/useAuth';
 import { useAuthModal } from './useAuthModal';
+import { useEffect } from 'react';
 
 type FormValues = LoginRequest;
 
-const AuthModal = () => {
+interface AuthModalProps {
+  isVisible: boolean;
+  isLogin: boolean;
+  onClose: () => void;
+  onToggleMode: () => void;
+}
+
+const AuthModal = ({
+  isVisible,
+  isLogin,
+  onClose,
+  onToggleMode,
+}: AuthModalProps) => {
   const { t: tAuth } = useTranslation('auth');
   const { isVisible, isLogin, closeAuth, toggleMode } = useAuthModal();
   const { loginMutation, registerMutation } = useAuth();
@@ -20,6 +33,7 @@ const AuthModal = () => {
     handleSubmit,
     formState: { errors },
     control,
+    reset,
   } = useForm<FormValues>({
     defaultValues: {
       mail: '',
@@ -27,6 +41,12 @@ const AuthModal = () => {
     },
     mode: 'onSubmit',
   });
+
+  useEffect(() => {
+    if (!isVisible) {
+      reset();
+    }
+  }, [isVisible, reset]);
 
   const onSubmit: SubmitHandler<LoginRequest> = (data: LoginRequest) => {
     if (isLogin) loginMutation.mutate(data);
@@ -42,7 +62,7 @@ const AuthModal = () => {
           {isLogin ? tAuth('login') : tAuth('register')}
         </div>
       }
-      onCancel={closeAuth}
+      onCancel={onClose}
       footer={null}
       destroyOnClose={true}
     >
@@ -110,7 +130,7 @@ const AuthModal = () => {
           <Button type="submit" color="first" variant="solid">
             {isLogin ? tAuth('login') : tAuth('register')}
           </Button>
-          <Button type="button" variant="link" onClick={toggleMode}>
+          <Button type="button" variant="link" onClick={onToggleMode}>
             {isLogin ? tAuth('goToRegister') : tAuth('goToLogin')}
           </Button>
         </Space>

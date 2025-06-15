@@ -11,9 +11,10 @@ export const API_CONFIG = {
       LOGOUT: 'auth/logout',
       ME: 'auth/me',
     },
-    CATEGORY: {
+    CATEGORY:{
       GET_HEADER_CAT: 'categories/header-categories',
       GET_ALL: 'categories/all-cat',
+      GET_BY_URL: 'categories/one-cat',
     },
     USER: {
       UPDATE: 'user/profile/update',
@@ -23,11 +24,12 @@ export const API_CONFIG = {
       GET_ADDRESSES: 'user/profile/addresses',
     },
     PRODUCTS: {
-      GET_ALL: '/products',
-      GET_BY_ID: '/products',
-      GET_BRANDS: '/products/brands',
-      GET_PRICE_RANGE: '/products/price-range',
-      SEARCH: '/products/search',
+      GET_ALL: 'products/all-product',
+      GET_BY_ID: 'products/one-product',
+      GET_BRANDS: 'brand/all-brand',
+      GET_PRICE_RANGE: 'products/price-range',
+      SEARCH: 'products/search',
+      FILTER: 'products/filter-product',
     },
   },
 };

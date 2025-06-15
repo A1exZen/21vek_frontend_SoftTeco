@@ -3,7 +3,6 @@
 	border-radius: 12px;
 	padding: 1.2rem;
 	width: 100%;
-	max-width: 320px;
 	display: flex;
 	flex-direction: column;
 	gap: 1rem;
@@ -20,32 +19,46 @@
 .product-purchase__reviews {
 	color: #888;
 	font-size: 0.85rem;
+	display: flex;
+}
+
+.product-purchase__discount {
+	background: var(--primary);
+	color: white;
+	padding: 4px 4px;
+	border-radius: 4px;
+	font-size: 1rem;
+	font-weight: 600;
 }
 
 .product-purchase__price-section {
 	display: flex;
-	align-items: baseline;
+	align-items: center;
 	gap: 0.5rem;
 	flex-wrap: wrap;
 	margin-bottom: 1rem;
+
+	.product-purchase__price-section-2 {
+		display: flex;
+		align-items: center;
+		width: 100%;
+		gap: 0.5rem;
+		flex-wrap: wrap;
+	}
+
+	.product-purchase__price {
+		font-size: 1.8rem;
+		font-weight: bold;
+		color: #222;
+	}
+
+	.product-purchase__price-old {
+		font-size: 1rem;
+		color: var(--gray-700);
+		text-decoration: line-through;
+	}
 }
 
-.product-purchase__price {
-	font-size: 1.8rem;
-	font-weight: bold;
-	color: #222;
-}
-
-.product-purchase__old-price {
-	color: #aaa;
-	text-decoration: line-through;
-}
-
-.product-purchase__discount {
-	font-size: 0.9rem;
-	color: #f03e6b;
-	font-weight: 600;
-}
 
 .product-purchase__buttons-section {
 	display: flex;
@@ -83,3 +96,4 @@
 		background: #fff0f4;
 	}
 }
+

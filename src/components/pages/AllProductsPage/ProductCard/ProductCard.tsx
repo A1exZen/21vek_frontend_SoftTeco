@@ -1,30 +1,27 @@
-import React from 'react';
 import styles from './styles.module.scss';
 import { Heart, Scale, ShoppingCart, Star } from 'lucide-react';
 import { Tooltip } from 'antd';
+import { Product } from '@models/product/api.ts';
+import { Link } from 'react-router-dom';
 
-interface Product {
-  id: number;
-  name: string;
-  price: number;
-  oldPrice?: number;
-  rating: number;
-  reviewsCount: number;
-  image: string;
-  discount?: number;
-  brand: string;
-}
+export const ProductCard = ({ product }: { product: Product }) => {
+  const hasDiscount = product.discount != null && product.discount > 0;
+  const oldPrice = product.discount
+    ? Math.round(product.price / (1 - product.discount / 100))
+    : null;
 
-export const ProductCard: React.FC<{ product: Product }> = ({ product }) => {
   return (
     <div className={styles['product-card']}>
       <div className={styles['product-card__image-container']}>
-        <img
-          src={product.image}
-          alt={product.name}
-          className={styles['product-card__image']}
-        />
-        {product.discount && (
+        <Link to={`/product/${product.idProduct}`} >
+          <img
+            src={product.img}
+            alt={product.nameProduct}
+            className={styles['product-card__image']}
+            loading="lazy"
+          />
+        </Link>
+        {hasDiscount && (
           <span className={styles['product-card__discount']}>
             -{product.discount}%
           </span>
@@ -35,10 +32,10 @@ export const ProductCard: React.FC<{ product: Product }> = ({ product }) => {
           </button>
         </Tooltip>
         <Tooltip title="Добавить в избранное">
-        <button className={styles['product-card__favorite']}>
-          <Heart size={20} />
-        </button>
-      </Tooltip>
+          <button className={styles['product-card__favorite']}>
+            <Heart size={20} />
+          </button>
+        </Tooltip>
       </div>
 
       <div className={styles['product-card__content']}>
@@ -47,20 +44,21 @@ export const ProductCard: React.FC<{ product: Product }> = ({ product }) => {
           <span className={styles['product-card__rating-value']}>
             {product.rating}
           </span>
+
           <span className={styles['product-card__rating-count']}>
-            ({product.reviewsCount})
+            ({product.numberOfReviews})
           </span>
         </div>
 
-        <h3 className={styles['product-card__title']}>{product.name}</h3>
+        <h3 className={styles['product-card__title']}>{product.nameProduct}</h3>
 
         <div className={styles['product-card__price']}>
           <span className={styles['product-card__price-current']}>
-            {product.price}.00 р.
+            {product.price} р.
           </span>
-          {product.oldPrice && (
+          {oldPrice && (
             <span className={styles['product-card__price-old']}>
-              {product.oldPrice}.00 р.
+              {oldPrice} р.
             </span>
           )}
         </div>

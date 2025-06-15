@@ -1,59 +1,27 @@
-import React from 'react';
 import styles from './styles.module.scss';
+import { Product } from '@models/product/api.ts';
 
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-expect-error
-const OptionGroup = ({ title, options, selected, onSelect }) => (
-  <div className={styles['product-options__group']}>
-    <div className={styles['product-options__label']}>{title}</div>
-    <div className={styles['product-options__options']}>
-      {options.map((option: never) => (
-        <button
-          key={option}
-          className={`${styles['product-options__option']} ${
-            selected === option ? styles['product-options__option--active'] : ''
-          }`}
-          onClick={() => onSelect(option)}
-        >
-          {option}
-        </button>
-      ))}
-    </div>
-  </div>
-);
+interface ProductOptionsProps {
+  product: Product;
+}
 
-export const ProductOptions = () => {
-  const [condition, setCondition] = React.useState('новый');
-  const [sim, setSim] = React.useState('1');
-  const [memory, setMemory] = React.useState('128 ГБ');
-  const [color, setColor] = React.useState('синий');
-
+export const ProductOptions = ({ product }: ProductOptionsProps) => {
+  console.log(product);
   return (
     <div className={styles['product-options']}>
-      <OptionGroup
-        title="Состояние"
-        options={['новый', 'отличное (А)', 'хорошее (В)']}
-        selected={condition}
-        onSelect={setCondition}
-      />
-      <OptionGroup
-        title="Кол-во SIM-карт"
-        options={['1', '2']}
-        selected={sim}
-        onSelect={setSim}
-      />
-      <OptionGroup
-        title="Постоянная память"
-        options={['128 ГБ', '256 ГБ']}
-        selected={memory}
-        onSelect={setMemory}
-      />
-      <OptionGroup
-        title="Цвет"
-        options={['желтый', 'звездный', 'звездный свет', 'красный', 'полуночный', 'синий', 'фиолетовый']}
-        selected={color}
-        onSelect={setColor}
-      />
+      {product.characteristics?.slice(0,1).map(group => (
+        <div key={group.name} className={styles['product-options__group']}>
+          <h3 className={styles['product-options__group-title']}>{group.name}</h3>
+          <div className={styles['product-options__table']}>
+            {group.characteristics.map(spec => (
+              <div className={styles['product-options__row']} key={spec.name}>
+                <div className={styles['product-options__label']}>{spec.name}</div>
+                <div className={styles['product-options__value']}>{spec.count}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      ))}
     </div>
   );
 };
