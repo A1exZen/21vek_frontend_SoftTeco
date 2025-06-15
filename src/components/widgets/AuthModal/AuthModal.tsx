@@ -6,7 +6,8 @@ import Regexs from '@constants/regexes.ts';
 import styles from './styles.module.scss';
 import Button from '@components/ui/Button';
 import FormErrorMessage from '@components/ui/FormErrorMessage/FormErrorMessage.tsx';
-import { useLogin, useRegister } from '@hooks/useAuth.ts';
+import { useAuth } from '@/hooks/useAuth';
+import { useAuthModal } from './useAuthModal';
 import { useEffect } from 'react';
 
 type FormValues = LoginRequest;
@@ -25,6 +26,8 @@ const AuthModal = ({
   onToggleMode,
 }: AuthModalProps) => {
   const { t: tAuth } = useTranslation('auth');
+  const { isVisible, isLogin, closeAuth, toggleMode } = useAuthModal();
+  const { loginMutation, registerMutation } = useAuth();
 
   const {
     handleSubmit,
@@ -39,35 +42,16 @@ const AuthModal = ({
     mode: 'onSubmit',
   });
 
-  const { mutate: onSubmitLogin } = useLogin();
-  const { mutate: onSubmitRegister } = useRegister();
-
   useEffect(() => {
     if (!isVisible) {
       reset();
     }
   }, [isVisible, reset]);
 
-  const onSubmit: SubmitHandler<LoginRequest> = (values: LoginRequest) => {
-    if (isLogin) {
-      onSubmitLogin(values, {
-        onSuccess: () => {
-          onClose();
-        },
-        onError: (error) => {
-          console.error('Login error:', error);
-        },
-      });
-    } else {
-      onSubmitRegister(values, {
-        onSuccess: () => {
-          onClose();
-        },
-        onError: (error) => {
-          console.error('Register error:', error);
-        },
-      });
-    }
+  const onSubmit: SubmitHandler<LoginRequest> = (data: LoginRequest) => {
+    if (isLogin) loginMutation.mutate(data);
+    else registerMutation.mutate(data);
+    closeAuth();
   };
 
   return (

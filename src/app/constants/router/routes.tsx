@@ -12,6 +12,7 @@ import { CategoryPage } from '@pages/CaterogyPage';
 import { ProductPage } from '@pages/ProductPage/ProductPage.tsx';
 import { AllProductsPage } from '@pages/AllProductsPage';
 const ErrorPage = lazy(() => import('@pages/Error'));
+const Profile = lazy(() => import('@pages/Profile'));
 const Basket = lazy(() => import('@pages/Basket'));
 
 
@@ -37,6 +38,12 @@ export const routes: RouteObject[] = [
         path: '/product/:idProduct',
         element: <ProductPage />,
       },
+      {
+        path: PATHS.PROFILE,
+        element: <Profile />,
+      },
+      { path: PATHS.NOT_FOUND, element: <ErrorPage /> },
+      { path: PATHS.ALL, element: <ErrorPage /> },
     ],
   },
 ];

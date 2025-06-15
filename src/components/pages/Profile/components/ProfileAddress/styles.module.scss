@@ -1,0 +1,32 @@
+.profile-address {
+  display: flex;
+  justify-content: space-between;
+  max-width: 800px;
+  min-width: 300px;
+  border-bottom: 1px solid var(--gray-200);
+  padding: 16px 20px;
+
+  .profile-address__headings {
+    .profile-address__title {
+      margin-bottom: 10px;
+      font-size: 18px;
+    }
+    .profile-address__label {
+      font-size: 14px;
+    }
+  }
+
+  .profile-address__btn {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    gap: 5px;
+    background-color: var(--blue-300);
+    color: var(--blue-500);
+    padding: 10px 15px;
+
+    &:hover {
+      background-color: var(--blue-400);
+    }
+  }
+}

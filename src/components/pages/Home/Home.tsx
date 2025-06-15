@@ -1,13 +1,12 @@
 import { BrandsSection } from '@components/widgets/BrandsSection';
 import { PopularProductsSlider } from '@components/widgets/PopularProductsSlider';
 import { DiscountProductsSlider } from '@components/widgets/DiscountProductsSlider';
+import ProductSlider from '@dummies/ProductSlider';
 
 const Home = () => {
-  // useAuthCheck()
   return (
     <>
-      {/*<ProductSlider />*/}
-      {/*<AllProductsPage/>*/}
+      <ProductSlider />
       <BrandsSection />
       <PopularProductsSlider />
       <DiscountProductsSlider />
