@@ -1,3 +1,4 @@
+{/*This is where the table is created*/}
 import { useState, useMemo } from "react";
 import { IProduct } from "../types";
 import { TProductCharacteristicValue, IProductComparisonProps } from "./types";
@@ -10,13 +11,16 @@ import { Checkbox } from "antd";
 const formatValue = (value: TProductCharacteristicValue | undefined): string =>
   value === undefined ? "-" : String(value);
 
+{/*Function to extract the value of a specific characteristic from a product*/}
 const extractCharacteristicValue = (
   product: IProduct,
   groupName: string,
   charName: string
 ): TProductCharacteristicValue | undefined => {
   const group = product.characteristics.find(group => group.name === groupName);
+  {/*Find a group of characteristics by name*/}
   const item = group?.characteristics.find(char => char.name === charName);
+  {/*In the found group, we look for a specific characteristic by name*/}
   return item?.description;
 };
 
@@ -32,6 +36,7 @@ export const ProductComparisonTable = ({
     const groups = new Set<string>();
     const items: Record<string, Set<string>> = {};
 
+    {/*Create new Set or add group.characteristics*/}
     products.forEach(product => {
       product.characteristics.forEach(group => {
         groups.add(group.name);
@@ -68,7 +73,8 @@ export const ProductComparisonTable = ({
           <span className={styles["table__strong-title"]}>{group}</span>
         </td>
       </tr>,
-      
+
+      //The list group.characteristics
       ...Array.from(allItems[group] || []).map(item => {
         if (!shouldShowPath(group, item)) return null;
         
@@ -91,7 +97,7 @@ export const ProductComparisonTable = ({
             })}
           </tr>
         );
-      }).filter(Boolean)
+      }).filter(Boolean) //filter Null
     ]);
   };
 

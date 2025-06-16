@@ -1,5 +1,11 @@
 import { IProduct, ICharacteristicGroup, TNumericValueInfo } from '../types';
 
+/**
+ * Находит все числовые значения в характеристиках продукта
+ * @param characteristics - массив групп характеристик
+ * @param currentPath - текущий путь (используется для рекурсии)
+ * @returns Массив объектов с числовыми значениями и их метаданными
+ */
 const findAllNumericValues = (
   characteristics: ICharacteristicGroup[],
   currentPath = ''
@@ -26,6 +32,8 @@ const findAllNumericValues = (
   return result;
 };
 
+
+{/*Convert string to number*/}
 const tryParseNumericString = (str: string): number | null => {
   {/*For numbers*/}
   if (/^-?\d+$/.test(str)) return parseInt(str, 10);
@@ -46,6 +54,7 @@ const tryParseNumericString = (str: string): number | null => {
   return null;
 };
 
+{/*Product comparison feature*/}
 export const getComparisonData = (products: IProduct[]) => {
   if (products.length === 0) {
     return {
@@ -108,6 +117,11 @@ export const getComparisonData = (products: IProduct[]) => {
   return { bestValues, differentPaths };
 };
 
+/**
+* Gets all possible feature paths for all products
+* @param products - array of products
+* @returns Set of all feature paths
+*/
 const getAllCharacteristicsPaths = (products: IProduct[]): Set<string> => {
   const paths = new Set<string>();
   
@@ -125,6 +139,8 @@ const getAllCharacteristicsPaths = (products: IProduct[]): Set<string> => {
   return paths;
 };
 
+
+{/*Gets the value of a characteristic by path*/}
 const getCharacteristicValue = (product: IProduct, path: string): string | undefined => {
   const [groupName, itemName] = path.split('.');
   

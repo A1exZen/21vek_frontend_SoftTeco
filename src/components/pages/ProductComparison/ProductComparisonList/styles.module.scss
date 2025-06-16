@@ -1,4 +1,4 @@
-@use '../../../styles/mixins/mixins';
+@use '../../../../styles/mixins/mixins';
 
 .product__comparison {
   padding-top: mixins.rem(30);
@@ -77,4 +77,23 @@
       }
     }
   }
+}
+
+.empty__state {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin: 60px 0;
+    padding-right: 80px;
+
+    .empty__icon {
+      padding-bottom: 10px;
+    }
+
+    .empty__text {
+      font-size: 14px;
+      font-weight: 400;
+      color: #a4aab0;
+    }
 }

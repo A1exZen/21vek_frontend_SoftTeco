@@ -5,11 +5,14 @@ export const useConfirmationModal = <T,>() => {
   const [itemToDelete, setItemToDelete] = useState<T | null>(null);
 
   const openModal = (item: T | null) => {
+    {/*To cover the background*/}
+    document.body.classList.add('modal-open');
     setItemToDelete(item);
     setIsModalOpen(true);
   };
 
   const closeModal = () => {
+    document.body.classList.remove('modal-open');
     setIsModalOpen(false);
     setItemToDelete(null);
   };

@@ -1,3 +1,6 @@
+{/*here the assembly of the header, 
+  table, modal window for products that 
+  are already selected by category takes place*/}
 import { useState } from 'react';
 import { ListX } from 'lucide-react';
 import { Link, useParams } from 'react-router-dom';
@@ -10,6 +13,7 @@ import Button from '@/components/ui/Button';
 import { useConfirmationModal } from '../ConfirmationModal/useConfirmationModal';
 
 export const ProductComparisonData = () => {
+  {/*Get the parameter by url*/}
   const { category } = useParams<{ category: string }>();
 
   const categoryData = products.find(
@@ -19,12 +23,14 @@ export const ProductComparisonData = () => {
   const categoryId = categoryData?.idCategories;
   const categoryName = categoryData?.nameCategories ?? '';
 
+  {/*Filter products by category*/}
   const filteredProducts = products.filter(
     (product) => product.category.idCategories === categoryId
   );
 
   const [selectedProducts, setSelectedProducts] = useState<IProduct[]>(filteredProducts);
   const [productsInCart, setProductsInCart] = useState<number[]>([]);
+
   const { 
     isModalOpen: showModal, 
     itemToDelete: productToDelete, 
@@ -32,6 +38,7 @@ export const ProductComparisonData = () => {
     closeModal 
   } = useConfirmationModal<IProduct | null>();
 
+  {/*Add/remove items from the basket*/}
   const handleAddToCart = (id: number) => {
     setProductsInCart(prev =>
       prev.includes(id) ? prev.filter(item => item !== id) : [...prev, id]
@@ -48,6 +55,7 @@ export const ProductComparisonData = () => {
 
   const confirmDelete = () => {
     if (productToDelete) {
+      {/*Delete a specific product */}
       setSelectedProducts(prev => 
         prev.filter(p => p.idProduct !== productToDelete.idProduct)
       );
@@ -55,6 +63,7 @@ export const ProductComparisonData = () => {
         prev.filter(id => id !== productToDelete.idProduct)
       );
     } else {
+    {/*Clear the list*/}
       setSelectedProducts([]);
       setProductsInCart([]);
     }
