@@ -1,0 +1,99 @@
+@use '../../../../styles/mixins/mixins';
+
+.product__comparison {
+  padding-top: mixins.rem(30);
+  padding-left: mixins.rem(106);
+  padding-right: mixins.rem(106);
+
+  @media (max-width: 768px) {
+    padding-left: mixins.rem(24);
+    padding-right: mixins.rem(24);
+  }
+  
+  @media (max-width: 480px) {
+    padding-left: mixins.rem(12);
+    padding-right: mixins.rem(12);
+  }
+
+  .product__title {
+    font-size: mixins.rem(30);
+    font-weight: 400;
+  }
+
+  .categories__list {
+    margin-top: 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+
+    .category__item {
+      border-bottom: 1px solid #e0e0e0;
+      padding: 0 10px 15px 10px;
+      
+      &:last-child {
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(181, 179, 179, 0.1);
+      }
+
+      .category__content {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 8px;
+
+        .category__link {
+          text-decoration: none;
+          color: inherit;
+          display: flex;
+          align-items: center;
+          transition: all 0.2s ease;
+          
+          &:hover {
+            opacity: 0.8;
+          }
+
+          .category__name {
+            font-size: 18px;
+            font-weight: 600;
+            padding-right: 10px;
+          }
+
+          .category__footer {
+            .product__count {
+              font-size: 12px;
+              color: #666;
+            }
+          }
+        }
+
+        .delete__icon {
+          cursor: pointer;
+          transition: color 0.2s ease;
+
+          &:hover {
+            color: var(--color-error);
+          }
+        }
+      }
+    }
+  }
+}
+
+.empty__state {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin: 60px 0;
+    padding-right: 80px;
+
+    .empty__icon {
+      padding-bottom: 10px;
+    }
+
+    .empty__text {
+      font-size: 14px;
+      font-weight: 400;
+      color: #a4aab0;
+    }
+}
