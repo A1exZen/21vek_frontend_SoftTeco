@@ -11,6 +11,7 @@ import { ProductComparisonTable } from '../ProductComparisonTable/ProductCompari
 import { ConfirmationModal } from '../ConfirmationModal/ConfirmationModal';
 import Button from '@/components/ui/Button';
 import { useConfirmationModal } from '../ConfirmationModal/useConfirmationModal';
+import { PATHS } from '@/constants';
 
 export const ProductComparisonData = () => {
   {/*Get the parameter by url*/}
@@ -107,7 +108,7 @@ export const ProductComparisonData = () => {
         <div className={styles["empty__state"]}>
             <ListX size={28} color="#ccc" className={styles["empty__icon"]} />
             <p className={styles["empty__text"]}>У вас нет товаров в этом списке сравнения</p>
-            <Link to="/compare">
+            <Link to={PATHS.COMPARE}>
               <Button
               variant="link"
               className={styles["back__button"]}

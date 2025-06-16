@@ -1,131 +1,85 @@
+import DropdownMenu from '@/components/dummies/DropdownMenu';
 import { Link } from 'react-router-dom';
 import styles from './styles.module.scss';
-import DropdownMenu from '@/components/dummies/DropdownMenu';
-import { Divider } from 'antd';
-import { useUserLocation } from '@/components/widgets/Header/HeaderInfo/useUserLocation';
-import { HEADER_NAV } from './constants';
 
 import Location from '@/assets/icons/location.svg';
-import Toolbox from '@/assets/icons/toolbox.svg';
-import PartPay from '@/assets/icons/part-pay.svg';
-import Telegram from '@/assets/icons/social-media/telegram.svg';
-import Telegram1 from '@/assets/icons/social-media/telegram1.svg';
-import A1 from '@/assets/icons/social-media/A1.svg';
-import Life from '@/assets/icons/social-media/life.svg';
-import Phone from '@/assets/icons/phone.svg';
 import Mail from '@/assets/icons/mail.svg';
-import PhoneCall from '@/assets/icons/phone-call.svg';
 import Message from '@/assets/icons/message.svg';
-import { cc } from '@/utils/combineClasses';
+import Partpay from '@/assets/icons/part-pay.svg';
+import PhoneCall from '@/assets/icons/phone-call.svg';
+import Phone from '@/assets/icons/phone.svg';
+import A1 from '@/assets/icons/social-media/a1.svg';
+import Life from '@/assets/icons/social-media/life.svg';
+import Telegram from '@/assets/icons/social-media/telegram.svg';
+import Toolbox from '@/assets/icons/toolbox.svg';
+import { HEADER_NAV } from '@components/widgets/Header/HeaderInfo/constants.ts';
+import { useUserLocation } from '@components/widgets/Header/HeaderInfo/useUserLocation.ts';
 
-const HeaderInfo = () => {
+export const HeaderInfo = () => {
   const { data: cityData, isLoading, isError } = useUserLocation();
   const { customerItems, phoneItems } = HEADER_NAV;
 
   const phoneItemsWithIcons = [
     { ...phoneItems[0], icon: <Life /> },
     { ...phoneItems[1], icon: <Phone /> },
-    { ...phoneItems[2], icon: <Telegram1 /> },
+    { ...phoneItems[2], icon: <Telegram /> },
     { ...phoneItems[3], icon: <Mail /> },
     { ...phoneItems[4], icon: <PhoneCall /> },
     { ...phoneItems[5], icon: <Message /> },
   ];
 
   return (
-    <div
-      className={cc(
-        styles['header-info-container'],
-        styles['header-info-text'],
-      )}
-    >
-      <div className={styles['locality-block']}>
-        <Location />
-        <div className={styles['header-info-text']}>
-          {isLoading ? (
-            <span className={cc(styles.loading, styles['header-info-text'])}>
-              Определяем...
-            </span>
-          ) : isError ? (
-            <span className={cc(styles.error, styles['header-info-text'])}>
-              Город не определён
-            </span>
-          ) : (
-            cityData?.city || 'Unknown City'
-          )}
-        </div>
-      </div>
+    <div className={styles['header-info']}>
+      <div className="container">
+        <div className={styles['header-info__content']}>
+          <div className={styles['header-info__locality']}>
+            <Location />
+            {isLoading
+              ? 'Определяем...'
+              : cityData?.city || 'Неизвестный город'}
+            {isError && 'Город не определен'}
+          </div>
 
-      <div className={styles['header-nav-container']}>
-        <nav className={styles['nav']}>
-          <ul className={styles['nav-list']}>
-            <li className={styles['nav-item']}>
-              <Toolbox />
-              <Link
-                to={HEADER_NAV.navItems[1].path}
-                className={styles['nav-link']}
-              >
-                {HEADER_NAV.navItems[1].title}
+          <nav className={styles['header-info__nav']}>
+            <div className={styles['header-info__nav-list']}>
+              <Link to="/" className={styles['header-info__nav-link']}>
+                <Toolbox />
+                Для бизнеса
               </Link>
-            </li>
-            <li className={styles['nav-item']}>
-              <PartPay />
-              <Link
-                to={HEADER_NAV.navItems[0].path}
-                className={styles['nav-link']}
-              >
-                {HEADER_NAV.navItems[0].title}
+              <Link to="/" className={styles['header-info__nav-link']}>
+                <Partpay />
+                Оплата частями
               </Link>
-            </li>
-            <li className={styles['nav-item']}>
-              <DropdownMenu
-                title={HEADER_NAV.navItems[2].title}
-                items={customerItems}
-              />
-            </li>
-          </ul>
-        </nav>
-      </div>
+              <DropdownMenu title="Покупателям" items={customerItems} />
+            </div>
 
-      <div className={styles['contacts-block']}>
-        <div className={styles['contacts-content']}>
-          <div className={styles['link-container']}>
-            <Telegram />
-            <span className={styles['telegram-link']}>
-              <a href={HEADER_NAV.phoneItems[2].href} target="_blank" rel="tg">
-                {HEADER_NAV.phoneItems[2].title}
+            <div className={styles['header-info__contacts']}>
+              <a
+                href="https://t.me/lesha_zenchik"
+                target="_blank"
+                rel="noopener noreferrer"
+                className={styles['header-info__contact']}
+              >
+                <Telegram />
+                Telegram
               </a>
-            </span>
-          </div>
-          <div className={styles['link-container']}>
-            <A1 />
-            <span className={styles['main-phone']}>
-              <a href={HEADER_NAV.phoneItems[1].href}>
-                {HEADER_NAV.phoneItems[1].title}
+              <a
+                href="tel:+375296330631"
+                className={styles['header-info__contact']}
+              >
+                <A1 />
+                +375 29 633 0631
               </a>
-            </span>
-          </div>
-          <div className={styles['link-container']}>
-            <A1 />
-            <span className={styles['main-phone']}>
-              <a href="tel:+375293021021">+375 29 302 10 21</a>
-            </span>
-          </div>
-          <div className={styles['link-container']}>
-            <div className={styles['more-contacts']}>
+
               <DropdownMenu title="Еще" items={phoneItemsWithIcons} />
             </div>
-          </div>
-        </div>
-      </div>
+          </nav>
 
-      <div className={styles['working-time-block']}>
-        <Divider type="vertical" />
-        <div className={styles['working-time-text']}>
-          контакт-центр <br /> с 8.00 до 22.00
+          <p className={styles['header-info__working-time']}>
+            контакт-центр <br /> с 8.00 до 22.00
+          </p>
         </div>
       </div>
     </div>
   );
 };
-
-export default HeaderInfo;

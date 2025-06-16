@@ -7,6 +7,12 @@
   font-family: Inter, sans-serif;
 }
 
+.container {
+  margin: auto;
+  max-width: 1150px;
+  padding: 0 25px;
+}
+
 body.modal-open {
   overflow: hidden;
   height: 100vh;

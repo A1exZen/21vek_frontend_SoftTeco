@@ -1,1 +1,1 @@
-export { default } from './UserControls.tsx';
+export { UserControls } from './UserControls.tsx';

@@ -1,0 +1,35 @@
+.product-tabs {
+	background: #fff;
+	padding: 1.5rem;
+	border-radius: 12px;
+	box-shadow: 0 0 4px rgba(0, 0, 0, 0.05);
+	display: flex;
+	flex-direction: column;
+	gap: 1rem;
+}
+
+.product-tabs__list {
+	display: flex;
+	gap: 1rem;
+	flex-wrap: wrap;
+}
+
+.product-tabs__tab {
+	padding: 0.5rem 1rem;
+	font-size: 0.95rem;
+	border: 1px solid #ccc;
+	background: #f5f5f5;
+	border-radius: 8px;
+	cursor: pointer;
+}
+
+.product-tabs__tab--active {
+	background: #f03e6b;
+	color: white;
+	border-color: #f03e6b;
+}
+
+.product-tabs__content {
+	font-size: 0.95rem;
+	color: #444;
+}
