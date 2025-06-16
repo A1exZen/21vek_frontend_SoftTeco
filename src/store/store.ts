@@ -1,8 +1,12 @@
 import { configureStore, combineReducers } from '@reduxjs/toolkit';
 
 import authReducer from './slices/auth.slice';
+import basketReducer from './slices/basket.slice';
 
-const rootReducer = combineReducers({ auth: authReducer });
+const rootReducer = combineReducers({
+  auth: authReducer,
+  basket: basketReducer,
+});
 
 const store = configureStore({
   reducer: rootReducer,

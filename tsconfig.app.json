@@ -51,7 +51,10 @@
 
       "@store/*": ["src/store/*"],
 
-      "@utils/*": ["src/utils/*"]
+      "@utils/*": ["src/utils/*"],
+
+      "ymaps3": ["node_modules/@yandex/ymaps3-types/index.d.ts"]
+
     }
   },
   "include": ["src"]

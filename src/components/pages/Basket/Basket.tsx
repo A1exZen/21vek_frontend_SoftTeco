@@ -1,53 +1,136 @@
-import { useState, useCallback } from 'react';
+import UndoNotification from '@/components/ui/UndoNotification/UndoNotification';
+import { Link, useSearchParams } from 'react-router-dom';
+import { useState, useCallback, useEffect } from 'react';
 import styles from './styles.module.scss';
 import { BasketItem } from '@components/widgets/BasketItem';
-import { BasketItemType } from '@/types/BasketItemType';
-import { basketItems as initialItems } from './constants';
+import { useAppDispatch, useAppSelector } from '@hooks/reduxHooks.ts';
+import { setBasketItems } from '@store/slices/basket.slice.ts';
+import { BasketItemType } from '@/types/BasketItemType.ts';
+import Button from '@components/ui/Button';
+import { CheckoutPage } from '@pages/CheckoutPage';
 
 const Basket = () => {
-  const [items, setItems] = useState<BasketItemType[]>(initialItems);
+  const basketItems = useAppSelector((state) => state.basket.basketItems);
+  const dispatch = useAppDispatch();
+
+  const [searchParams] = useSearchParams();
+  const action = searchParams.get('action');
+  useEffect(() => {
+    if (action === 'checkout') {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'auto';
+    }
+
+    return () => {
+      document.body.style.overflow = 'auto';
+    };
+  }, [action]);
 
   const handleQuantityChange = useCallback(
     (id: string, newQuantity: number) => {
-      setItems((prevItems) =>
-        prevItems.map((item) =>
-          item.id === id ? { ...item, quantity: newQuantity } : item,
+      dispatch(
+        setBasketItems(
+          basketItems.map((item) =>
+            item.id === id ? { ...item, quantity: newQuantity } : item,
+          ),
         ),
       );
     },
-    [],
+    [basketItems, dispatch],
   );
 
-  const totalPrice = items.reduce((sum, item) => {
+  const [undoState, setUndoState] = useState<{
+    item: BasketItemType | null;
+    key: number;
+  }>({ item: null, key: 0 });
+  const handleRemove = (id: string) => {
+    const itemToRemove = basketItems.find((item) => item.id === id);
+    if (!itemToRemove) return;
+
+    setUndoState({ item: itemToRemove, key: Date.now() });
+  };
+  const handleUndo = () => {
+    setUndoState({ item: null, key: 0 });
+  };
+  const handleRemoveConfirm = useCallback(() => {
+    if (undoState.item) {
+      dispatch(
+        setBasketItems(
+          basketItems.filter((item) => item.id !== undoState.item?.id),
+        ),
+      );
+    }
+    setUndoState({ item: null, key: 0 });
+  }, [undoState.item, basketItems, dispatch]);
+
+  const totalPrice = basketItems.reduce((sum, item) => {
     return sum + item.price * item.quantity;
   }, 0);
+
+  const isBasketEmpty = basketItems.length === 0;
 
   return (
     <div className={styles.basket__wrapper}>
       <div className={styles.basket__content}>
-        <div className={styles.basket__headline}>
-          <h2>Оформление заказа</h2>
-          <h3>Список товаров</h3>
-        </div>
-        <div className={styles['basket__column-headers']}>
-          <span>Товар</span>
-          <span>Количество</span>
-          <span>Доставка</span>
-          <span>Стоимость</span>
-        </div>
-        {items.map((item) => (
-          <BasketItem
-            key={item.id}
-            item={item}
-            onQuantityChange={handleQuantityChange}
+        {isBasketEmpty ? (
+          <div className={styles.basket__empty}>
+            <span>Корзина пуста</span>
+            <span>
+              Вы можете выбрать товары в каталоге или воспользоваться поиском.
+            </span>
+          </div>
+        ) : (
+          <>
+            <div className={styles.basket__headline}>
+              <h2>Оформление заказа</h2>
+              <h3>Список товаров</h3>
+            </div>
+            <div className={styles['basket__column-headers']}>
+              <span>Товар</span>
+              <span className={styles['quantity-full']}>Количество</span>
+              <span className={styles['quantity-short']}>Кол-во</span>
+              <span>Доставка</span>
+              <span>Стоимость</span>
+            </div>
+
+            {basketItems.map((item) => (
+              <BasketItem
+                key={item.id}
+                item={item}
+                onQuantityChange={handleQuantityChange}
+                onRemove={handleRemove}
+              />
+            ))}
+
+            <div className={styles['basket__summary-container']}>
+              <div className={styles.basket__summary}>
+                <div className={styles['basket__summary-total']}>
+                  <span className={styles['basket__summary-amount']}>
+                    Итого
+                  </span>
+                  <div className={styles['basket__summary-amount']}>
+                    {totalPrice.toFixed(2).replace('.', ',')} р.
+                  </div>
+                </div>
+                <Link to={'?action=checkout'}>
+                  <Button>Оформить заказ</Button>
+                </Link>
+              </div>
+            </div>
+          </>
+        )}
+
+        {undoState.item && (
+          <UndoNotification
+            key={undoState.key}
+            message={`Товар "${undoState.item.name}" удален`}
+            onUndo={handleUndo}
+            onComplete={handleRemoveConfirm}
           />
-        ))}
-        <div className={styles.basket__total}>
-          <span className={styles['basket__total-price']}>Итого</span>
-          <span className={styles['basket__total-price']}>
-            {totalPrice.toFixed(2).replace('.', ',')} р.
-          </span>
-        </div>
+        )}
+
+        {action === 'checkout' && <CheckoutPage />}
       </div>
     </div>
   );

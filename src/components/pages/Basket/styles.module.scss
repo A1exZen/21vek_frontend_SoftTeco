@@ -5,10 +5,30 @@
   flex-direction: column;
   align-items: center;
 
+  @media screen and (max-width: 1440px) {
+    width: 100%;
+  }
+
   .basket__content {
     margin-top: 48px;
     width: 1090px;
     color: var(--color-dark);
+
+    @media screen and (max-width: 1440px) {
+      width: 100%;
+    }
+
+    .basket__empty {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      align-items: center;
+      justify-content: center;
+
+      > span:first-of-type {
+        font-size: 18px;
+      }
+    }
 
     .basket__headline {
       display: flex;
@@ -28,20 +48,82 @@
       span{
         color: var(--black-400);
       }
-    }
 
-    .basket__total {
-      padding: 48px 0;
-      display: flex;
-      justify-content: flex-end;
-      gap: 20px;
-
-      .basket__total-price {
-        font-size: 20px;
-        font-weight: 700;
+      .quantity-short {
+        display: none;
       }
 
+      @media screen and (max-width: 1024px) {
+        gap: 10px;
+      }
+
+      @media screen and (max-width: 768px) {
+        grid-template-columns: 2fr repeat(2, 1fr);
+        padding: 20px 0 12px;
+
+        span:nth-child(4) {
+          display: none;
+        }
+      }
+
+      @media screen and (max-width: 500px) {
+        font-size: 14px;
+
+        .quantity-full {
+          display: none;
+        }
+
+        .quantity-short {
+          display: block;
+        }
+      }
     }
+
+    .basket__summary-container {
+      padding: 48px 0;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+
+      .basket__summary {
+        display: flex;
+        justify-content: center;
+        gap: 32px;
+
+        @media screen and (max-width: 768px) {
+          width: 100%;
+          padding: 0 20px;
+          flex-direction: column;
+        }
+
+        button {
+          padding: 22px 32px;
+
+          @media screen and (max-width: 768px) {
+            width: 100%;
+          }
+        }
+
+        .basket__summary-total {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          gap: 16px;
+
+          @media screen and (max-width: 768px) {
+            justify-content: space-between;
+            padding-bottom: 16px;
+            border-bottom: 1px solid var(--gray-700);
+          }
+
+          .basket__summary-amount {
+            font-size: 20px;
+            font-weight: 700;
+          }
+        }
+      }
+    }
+
   }
 }
 
