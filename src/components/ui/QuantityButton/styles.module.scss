@@ -13,6 +13,11 @@
   background: #eeeeee;
   border-radius: 100%;
 
+  @media screen and (max-width: 768px) {
+    width: 28px;
+    height: 28px;
+  }
+
   &:hover:not(:disabled) {
     background: #d6d6d6;
     cursor: pointer;
@@ -27,5 +32,10 @@
 .quantity {
   width: 45px;
   text-align: center;
+
+  @media screen and (max-width: 768px) {
+    width: 24px;
+    font-size: 14px;
+  }
 }
 

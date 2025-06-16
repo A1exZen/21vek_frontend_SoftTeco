@@ -6,7 +6,6 @@ import {
   RegisterRequest,
 } from '@/models/auth/api';
 import { BaseError, ensureError } from '@utils/ErrorHandler';
-import Cookies from 'js-cookie';
 import { UserResponse } from '@/models/user/api';
 
 export const login = async (data: LoginRequest): Promise<LoginResponse> => {
@@ -40,11 +39,9 @@ export const register = async (data: RegisterRequest): Promise<void> => {
 
 export const refreshToken = async (): Promise<void> => {
   try {
-    const refreshToken = Cookies.get('refresh_token');
+    if (!refreshToken) return;
     await $api.get(API_CONFIG.ENDPOINTS.AUTH.REFRESH, {
-      headers: {
-        Authorization: `Bearer ${refreshToken}`,
-      },
+      _isRefreshRequest: true,
     });
   } catch (error) {
     const err = ensureError(error);

@@ -4,14 +4,14 @@ import styles from './styles.module.scss';
 import * as React from 'react';
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: 'solid' | 'outline' | 'link' | 'bordered';
+  variant?: 'solid' | 'outline' | 'link' | 'bordered' | 'rounded';
   color?: 'first' | 'second' | 'third';
   className?: string;
   maxWidth?: string;
   width?: string | number;
   icon?: ReactNode;
   to?: string;
-  children: string | ReactNode;
+  children?: string | ReactNode;
   onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
@@ -19,7 +19,7 @@ const Button = (props: ButtonProps) => {
   const {
     className,
     variant = 'solid',
-    color ='first',
+    color = 'first',
     maxWidth,
     width,
     type = 'button',

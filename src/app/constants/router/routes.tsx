@@ -7,6 +7,10 @@ import { lazy } from 'react';
 import MainLayout from '@/components/layouts/MainLayout';
 
 import Home from '@components/pages/Home/Home';
+import { ProductComparison } from '@/components/pages/ProductComparison';
+
+import { ProductComparisonData } from '@/components/pages/ProductComparison/ProductComparisonData/ProductComparisonData';
+
 import FavoritesPage from '@/components/pages/FavoritesPage/FavoritesPage';
 import { CategoryPage } from '@pages/CaterogyPage';
 import { ProductPage } from '@pages/ProductPage/ProductPage.tsx';
@@ -22,6 +26,8 @@ export const routes: RouteObject[] = [
     element: <MainLayout />,
     children: [
       { index: true, element: <Home /> },
+      { path: PATHS.PRODUCT_COMPARISON, element: <ProductComparison />},
+      { path: PATHS.PRODUCT_COMPARISON_DATA, element: <ProductComparisonData/>},
       { path: PATHS.FAVORITES, element: <FavoritesPage /> },
       { path: PATHS.PRODUCTS, element: <AllProductsPage /> },
       { path: PATHS.BASKET, element: <Basket /> },
