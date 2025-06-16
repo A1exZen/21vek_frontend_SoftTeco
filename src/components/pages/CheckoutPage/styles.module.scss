@@ -4,12 +4,11 @@
   left: 0;
   width: 100vw;
   height: 100vh;
-  background: red;
   z-index: 1000;
   background: var(--white);
-  overflow: hidden;
   display: flex;
   flex-direction: column;
+  overflow: auto;
 
   .checkout__header {
     display: flex;
@@ -89,7 +88,7 @@
             display: flex;
             gap: 8px;
 
-            button {
+            .checkout__delivery-button {
               display: flex;
               flex-direction: column;
               justify-content: center;
@@ -100,6 +99,10 @@
               border: 1px solid #e6e8eb;
               border-radius: 6px;
               font-size: 13px;
+
+              &:hover {
+                background: var(--gray-100);
+              }
 
               svg {
                 width: 20px;

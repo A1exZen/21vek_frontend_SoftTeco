@@ -7,7 +7,9 @@ import { PATHS } from '@/constants';
 import checkoutImage from '@images/checkout-image.png';
 import { Input } from 'antd';
 const { TextArea } = Input;
-import { useAppSelector } from '@hooks/reduxHooks';
+import { useAppDispatch, useAppSelector } from '@hooks/reduxHooks';
+import { setModalOpen } from '@store/slices/basket.slice.ts';
+import { CheckoutPickupModal } from '@pages/CheckoutPage/CheckoutPickupModal';
 
 export const CheckoutPage = () => {
   const navigate = useNavigate();
@@ -23,6 +25,8 @@ export const CheckoutPage = () => {
     (sum, item) => sum + item.price * item.quantity,
     0,
   );
+
+  const dispatch = useAppDispatch();
 
   return (
     <div className={styles.checkout}>
@@ -51,12 +55,15 @@ export const CheckoutPage = () => {
             <div className={styles['checkout__form-block']}>
               <label className={styles.checkout__text}>Способ доставки</label>
               <div className={styles['checkout__delivery-buttons']}>
-                <button>
+                <button
+                  className={styles['checkout__delivery-button']}
+                  onClick={() => dispatch(setModalOpen(true))}
+                >
                   <Store />
                   <span>Самовывоз</span>
                   <span>Бесплатно</span>
                 </button>
-                <button>
+                <button className={styles['checkout__delivery-button']}>
                   <Truck />
                   <span>Курьером</span>
                   <span>Бесплатно</span>
@@ -88,50 +95,8 @@ export const CheckoutPage = () => {
             <Button onClick={handleClose}>Заказать</Button>
           </div>
         </div>
+        <CheckoutPickupModal />
       </div>
     </div>
   );
 };
-
-{
-  /*<Select*/
-}
-{
-  /*  defaultValue="pickup"*/
-}
-{
-  /*  options={[*/
-}
-{
-  /*    {*/
-}
-{
-  /*      value: 'courier',*/
-}
-{
-  /*      label: 'Курьером',*/
-}
-{
-  /*    },*/
-}
-{
-  /*    {*/
-}
-{
-  /*      value: 'pickup',*/
-}
-{
-  /*      label: 'Самовывоз',*/
-}
-{
-  /*    },*/
-}
-{
-  /*  ]}*/
-}
-{
-  /*  className={styles.checkout__select}*/
-}
-{
-  /*></Select>*/
-}

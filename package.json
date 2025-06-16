@@ -16,6 +16,7 @@
     "@tanstack/react-query": "^5.74.4",
     "@types/humps": "^2.0.6",
     "@types/js-cookie": "^3.0.6",
+    "@yandex/ymaps3-types": "^1.0.16731241",
     "antd": "^5.24.8",
     "axios": "^1.8.4",
     "framer-motion": "^12.7.4",
