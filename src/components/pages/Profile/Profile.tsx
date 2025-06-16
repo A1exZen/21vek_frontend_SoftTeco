@@ -17,6 +17,7 @@ import { QueryKeys } from '@/constants';
 import { getAddresses } from '@/api/user';
 import { useAuthCheck } from '@/hooks/useAuthCheck';
 import { getMs } from '@/utils/helpers/getMs';
+import { AccountSidebar } from '@components/widgets/AccountSidebar';
 
 const Profile = () => {
   const [isBusiness, setBusiness] = useState<boolean>(false);
@@ -49,6 +50,7 @@ const Profile = () => {
 
   return (
     <div className="container">
+      <AccountSidebar/>
       <div className={styles['profile']}>
         <h2 className={styles['profile__heading']}>Настройка профиля</h2>
         <div

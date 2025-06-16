@@ -7,7 +7,6 @@ import styles from './styles.module.scss';
 import Button from '@components/ui/Button';
 import FormErrorMessage from '@components/ui/FormErrorMessage/FormErrorMessage.tsx';
 import { useAuth } from '@/hooks/useAuth';
-import { useAuthModal } from './useAuthModal';
 import { useEffect } from 'react';
 
 type FormValues = LoginRequest;
@@ -26,7 +25,7 @@ const AuthModal = ({
   onToggleMode,
 }: AuthModalProps) => {
   const { t: tAuth } = useTranslation('auth');
-  const { isVisible, isLogin, closeAuth, toggleMode } = useAuthModal();
+  // const { isVisible, isLogin, closeAuth, toggleMode } = useAuthModal();
   const { loginMutation, registerMutation } = useAuth();
 
   const {
@@ -51,7 +50,7 @@ const AuthModal = ({
   const onSubmit: SubmitHandler<LoginRequest> = (data: LoginRequest) => {
     if (isLogin) loginMutation.mutate(data);
     else registerMutation.mutate(data);
-    closeAuth();
+    onClose()
   };
 
   return (

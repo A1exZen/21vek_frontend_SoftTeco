@@ -14,6 +14,8 @@ import { Heart, LogOut, ShoppingCart, User, List } from 'lucide-react';
 import useClickOutside from '@hooks/useClickOutside';
 import AuthModal from '@components/widgets/AuthModal';
 import { useAuthModal } from '@components/widgets/AuthModal/useAuthModal.ts';
+import { useAppSelector } from '@/hooks/reduxHooks';
+import { useAuth } from '@hooks/useAuth.ts';
 
 export const UserControls = () => {
   const [isCatalogOpen, setIsCatalogOpen] = useState(false);
@@ -26,7 +28,8 @@ export const UserControls = () => {
 
   const authModal = useAuthModal();
 
-  const isAuthenticated = false;
+  const { user } = useAppSelector((state) => state.auth);
+  const { logoutMutation } = useAuth();
 
   const handleCatalogToggle = () => {
     setIsCatalogOpen((prev) => !prev);
@@ -38,6 +41,11 @@ export const UserControls = () => {
 
   const closeAccountDropdown = () => {
     setIsAccountOpen(false);
+  };
+
+  const handleLogout = () => {
+    logoutMutation.mutate();
+    closeAccountDropdown();
   };
 
   useClickOutside(isAccountOpen, dropdownRef, closeAccountDropdown, [
@@ -114,7 +122,7 @@ export const UserControls = () => {
                 />
               </div>
               <div className={styles['account-dropdown__content']}>
-                {!isAuthenticated ? (
+                {!user ? (
                   <div className={styles['account-dropdown__login-container']}>
                     <button
                       className={styles['login-container__button']}
@@ -127,7 +135,7 @@ export const UserControls = () => {
                   <>
                     <div
                       className={styles['account-dropdown__item']}
-                      onClick={closeAccountDropdown}
+                      onClick={handleLogout}
                     >
                       <LogOut color={'#ff1f11'} size={20} />
                       <span
