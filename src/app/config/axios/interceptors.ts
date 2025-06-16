@@ -51,14 +51,11 @@ export const interceptors: Interceptors = {
       throw new BaseError('Non axios error', { cause: err });
     }
 
-    const originalRequest = err.config as InternalAxiosRequestConfig & {
-      _isRetry?: boolean;
-      _isRefreshRequest?: boolean;
-    };
+    const originalRequest = err.config;
     const statusCode = err.response?.status;
 
     if (statusCode === HttpStatusCode.UNAUTHORIZED) {
-      if (originalRequest._isRefreshRequest) {
+      if (originalRequest && originalRequest._isRefreshRequest) {
         isRefreshing = false;
         processQueue(err);
         toast.error('Сессия истекла. Пожалуйста, войдите снова.');
@@ -70,7 +67,7 @@ export const interceptors: Interceptors = {
         );
       }
 
-      if (!originalRequest._isRetry) {
+      if (originalRequest && !originalRequest._isRetry) {
         originalRequest._isRetry = true;
 
         if (isRefreshing) {
