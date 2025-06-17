@@ -10,7 +10,22 @@ import CarouselPic5 from '@/assets/images/business_carousel_pic5.jpg'
 import CarouselPic6 from '@/assets/images/business_carousel_pic6.jpg'
 import CarouselPic7 from '@/assets/images/business_carousel_pic7.jpg'
 
+import FactoryImg from '@/assets/images/business_factory.jpg'
+import HotelImg from '@/assets/images/business_hotel.jpg'
+import TradeImg from '@/assets/images/business_trade.jpg'
+import OfficeImg from '@/assets/images/business_office.jpg'
+import RestaurantImg from '@/assets/images/business_restaurant.jpg'
+import ConstructionImg from '@/assets/images/business_construction.jpg'
+
+import ListIcon from '@/assets/images/business_notebook_icon.png'
+import FolderIcon from '@/assets/images/business_folder_icon.png'
+import ChatIcon from '@/assets/images/business_chat_icon.png'
+
+import CalcIcon from '@/assets/images/business_calculate_icon.png'
+
+
 import { Carousel } from 'antd';
+
 
 export const BusinessPage = () => {
 
@@ -23,6 +38,22 @@ export const BusinessPage = () => {
     CarouselPic6,
     CarouselPic7,
   ];
+
+  const businessCategories = [
+    { title: "Производство", image: FactoryImg },
+    { title: "Торговля", image: TradeImg },
+    { title: "Гостиницы", image: HotelImg },
+    { title: "Офис", image: OfficeImg },
+    { title: "Строительство", image: ConstructionImg },
+    { title: "Кафе и рестораны", image: RestaurantImg },
+  ];
+
+  const benefits = [
+    {title: "Все цены с НДС", image: ListIcon, description: "Прозрачность и отсутствие скрытых платежей — вы видите итоговую стоимость сразу. Чем больше объем закупок, тем ниже цена"},
+    {title: "Электронный документооборот", image: FolderIcon, description: "Быстрое оформление и обмен документами без бумажной волокиты. Закрывающие документы в соответствии с законодательством"},
+    {title: "Гарантированный сервис", image: ChatIcon, description: "Надежность и качество обслуживания, закрепленные договором. Доступны замена, возврат и ремонт товара"},
+    {title: "Отсрочка платежа", image: CalcIcon, description: "Возобновляемая отсрочка платежа до 90 дней с гибкими условиями погашения для каждого клиента"},
+  ]
   return (
     <div className={styles.business}>
       <div className={styles.business__topsection}>
@@ -48,12 +79,12 @@ export const BusinessPage = () => {
       </div>
       <div className={styles.business__carouselWrapper}>
         <div className={styles.business__carousel}>
-          <Carousel autoplay effect="fade" className={styles.business__carouselContainer}>
+          <Carousel autoplay effect="fade" className={styles.business__carouselContainer} arrows={true} >
             {carouselImages.map((img, index) => (
-              <div key={index} className={styles.business__carouselItem}>
+              <div key={index} className={styles.business__carouselItem}> 
                 <img 
                   src={img} 
-                  alt={`Promo ${index + 1}`} 
+                  alt={`Предложение ${index + 1}`} 
                   className={styles.business__carouselImage}
                 />
                     
@@ -65,7 +96,45 @@ export const BusinessPage = () => {
 
       <div className={styles.business__cooperation}>
         <h2 className={styles.business__h2}>Сотрудничаем с бизнесом любого размера</h2>
+
+       
+        <div className={styles.business__categoriesGrid}>
+          {businessCategories.map((category, index) => (
+            <div key={index} className={styles.business__categoryCard}>
+              <img 
+                src={category.image} 
+                alt={category.title} 
+                className={styles.business__categoryImage}
+              />
+              <p className={styles.business__categoryTitle}>
+                {category.title}
+              </p>
+            </div>
+          ))}
+        </div>
+        <button className={styles.business__button}>Покупать для бизнеса</button>
       </div>
+      <div className={styles.business__benefits}>
+      <h2 className={styles.business__h2}>Почему с нами удобно</h2>
+
+      <div className={styles.business__benefitsGrid}>
+        {benefits.map((benefit, index) => (
+          <div key={index} className={styles.business__benefitCard}>
+            <img
+              src={benefit.image}
+              alt={benefit.title}
+              className={styles.business__benefitImage}
+            />
+            <p className={styles.business__benefitTitle}>
+              {benefit.title}
+            </p>
+            <p className={styles.business__benefitDescription}>
+              {benefit.description}
+            </p>
+          </div>
+        ))}
+      </div>
+    </div>
       
     </div>
   );
