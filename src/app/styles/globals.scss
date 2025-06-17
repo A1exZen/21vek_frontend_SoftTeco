@@ -8,12 +8,16 @@
 }
 
 .container {
-  margin: auto;
+  margin: 1rem auto;
   max-width: 1150px;
   padding: 0 25px;
   display: flex;
-  gap: 1rem;
-  justify-content: center;
+  gap: 3rem;
+  justify-content: space-between;
+
+  @media (max-width: 856px) {
+    flex-direction: column;
+  }
 }
 
 body.modal-open {

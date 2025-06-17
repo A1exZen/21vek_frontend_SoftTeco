@@ -10,11 +10,28 @@ import { RecommendedProducts } from '@pages/ProductPage/RecommendedProducts';
 import { ProductOptions } from '@pages/ProductPage/ProductOptions';
 import { useGetProduct } from '@hooks/useProducts.ts';
 import { useParams } from 'react-router-dom';
-
+import { useAddToViewHistory } from '@hooks/useViewHistory.ts';
+import { useEffect, useRef } from 'react';
 export const ProductPage = () => {
   const { idProduct } = useParams<{ idProduct: string }>();
   const productId = idProduct ? parseInt(idProduct, 10) : undefined;
   const { data: product } = useGetProduct(productId!);
+  const { mutateAsync: addToViewHistory } = useAddToViewHistory();
+  const hasAddedToHistory = useRef(false);
+
+  useEffect(() => {
+    if (productId && !hasAddedToHistory.current) {
+      hasAddedToHistory.current = true;
+      addToViewHistory(productId)
+        .catch((error: Error) => {
+          console.error('Error adding to view history:', error);
+          toast.error('Ошибка при добавлении в историю просмотров');
+        });
+    }
+    return () => {
+      hasAddedToHistory.current = false;
+    };
+  }, [productId, addToViewHistory]);
 
   const copyToClipboard = async (text: string) => {
     try {
@@ -33,7 +50,7 @@ export const ProductPage = () => {
   return (
     <div className={styles['product-page']}>
       <div className={styles['product-page__header']}>
-        <Breadcrumbs />
+        <Breadcrumbs product={product} />
         <div className={styles['container-title']}>
           <h1 className={styles['product-title']}>{product.nameProduct}</h1>
           <button
