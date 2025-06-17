@@ -1,0 +1,79 @@
+.business {
+  .business__wrapper {
+    position: relative;
+    width: 100vw;
+    height: 100vh; // Full viewport height
+    // min-height: 700px; // Minimum height
+    // max-height: 900px;
+    overflow: hidden; 
+  }
+
+  .business__background {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    transform: scale(1.6);
+    
+    .business__background_image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      
+      
+    }
+  }
+
+  .business__content {
+    position: relative;
+    z-index: 2;
+    padding: 60px; // Adjust based on your design
+    color: #000; // Adjust text color as needed
+    max-width: 40%; // Adjust based on your design
+  }
+
+  .business__logo {
+    margin-bottom: 30px;
+    
+    img {
+      max-width: 40%;
+      height: auto;
+    }
+  }
+
+  .business__features {
+    list-style-type: none;
+    padding: 0;
+    margin-bottom: 30px;
+    font-size: 16px; // Adjust based on your design
+    line-height: 1.5;
+  }
+
+  .business__featureItem {
+    margin-bottom: 10px;
+    position: relative;
+    padding-left: 20px;
+    
+    &:before {
+      content: "•";
+      position: absolute;
+      left: 0;
+    }
+  }
+
+  .business__button {
+    background-color: #ff3366; 
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    font-size: 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s;
+    
+    &:hover {
+      background-color: darken(#ff3366, 10%);
+    }
+  }
+}
