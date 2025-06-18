@@ -15,7 +15,7 @@ export const SpecialOffers = () => {
   const MainLink = () => (
     <div className={styles['main-link']}>
       <Label />
-      <Link to={PATHS.PRODUCTS}>Все акции</Link>
+      <Link to={PATHS.PRODUCTS}>Все товары</Link>
       <Divider type="vertical" />
     </div>
   );

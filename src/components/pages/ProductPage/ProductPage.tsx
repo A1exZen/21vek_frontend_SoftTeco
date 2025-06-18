@@ -25,7 +25,6 @@ export const ProductPage = () => {
       addToViewHistory(productId)
         .catch((error: Error) => {
           console.error('Error adding to view history:', error);
-          toast.error('Ошибка при добавлении в историю просмотров');
         });
     }
     return () => {

@@ -29,7 +29,7 @@ export const API_CONFIG = {
       GET_BY_ID: 'products/one-product',
       GET_BRANDS: 'brand/all-brand',
       GET_PRICE_RANGE: 'products/price-range',
-      SEARCH: 'products/search',
+      SEARCH: 'products/serch',
       FILTER: 'products/filter-product',
     },
   },
