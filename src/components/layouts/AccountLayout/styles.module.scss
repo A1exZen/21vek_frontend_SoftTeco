@@ -1,43 +1,16 @@
 .account-dropdown {
 	border-radius: 12px;
+	border: 1px solid var(--gray-200);
+padding: 1rem 0.5rem;
 
-	.account-dropdown__login-container{
-		display: flex;
-		justify-content: center;
-		padding: 0 0 15px 0;
-		.login-container__button{
-			display: flex;
-			justify-content: center;
-			align-items: center;
-			height: 2.5rem;
-			padding: 8px 16px;
-			border-radius: 5px;
-			width: auto;
-			cursor: pointer;
-			transition: all 0.3s ease;
-			color: var(--white);
-			background-color: var(--secondary);
-			&:hover{
-				background-color: var(--secondary-hover);
-			}
-		}
-	}
-
-	.account-dropdown__header {
-		padding: 15px;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		gap: 12px;
-		font-weight: 600;
-	}
-
+	max-height: fit-content;
 	.account-dropdown__link {
 		display: block;
+		border-radius: 6px;
+		padding: 0 0.2rem;
 
 		&:hover {
 			background-color: var(--primary-light);
-
 		}
 	}
 

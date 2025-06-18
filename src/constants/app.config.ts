@@ -11,7 +11,7 @@ export const API_CONFIG = {
       LOGOUT: 'auth/logout',
       ME: 'auth/me',
     },
-    CATEGORY:{
+    CATEGORY: {
       GET_HEADER_CAT: 'categories/header-categories',
       GET_ALL: 'categories/all-cat',
       GET_BY_URL: 'categories/one-cat',
@@ -22,6 +22,7 @@ export const API_CONFIG = {
       DELETE_ADDRESS: 'user/profile/address',
       CHANGE_ADDRESS: '/user/profile/address',
       GET_ADDRESSES: 'user/profile/addresses',
+      ACTIONS: 'user/actions',
     },
     PRODUCTS: {
       GET_ALL: 'products/all-product',

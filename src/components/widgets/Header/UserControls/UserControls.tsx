@@ -8,16 +8,20 @@ import Basket from '@/assets/icons/basket.svg';
 import { PATHS } from '@/constants/path.config';
 import { Link, useLocation } from 'react-router-dom';
 import Button from '@/components/ui/Button';
-import { useEffect, useRef, useState } from 'react';
+import { ChangeEvent, useEffect, useRef, useState } from 'react';
 import ProductCatalog from '@components/widgets/ProductCatalog';
-import { Heart, LogOut, ShoppingCart, User, List } from 'lucide-react';
+import { Heart, LogOut, ShoppingCart, User, List, Eye } from 'lucide-react';
 import useClickOutside from '@hooks/useClickOutside';
 import AuthModal from '@components/widgets/AuthModal';
 import { useAuthModal } from '@components/widgets/AuthModal/useAuthModal.ts';
 import { useAppSelector } from '@/hooks/reduxHooks';
 import { useAuth } from '@hooks/useAuth.ts';
+import debounce from 'lodash/debounce';
+import { useSearchProducts } from '@hooks/useProducts.ts';
+// import { SearchRes } from '@components/widgets/Header/UserControls/SearchRes/SearchRes.tsx';
 
 export const UserControls = () => {
+  const [searchTerm, setSearchTerm] = useState('');
   const [isCatalogOpen, setIsCatalogOpen] = useState(false);
   const [isAccountOpen, setIsAccountOpen] = useState(false);
   const location = useLocation();
@@ -31,9 +35,26 @@ export const UserControls = () => {
   const { user } = useAppSelector((state) => state.auth);
   const { logoutMutation } = useAuth();
 
+  const {
+    data: searchResults,
+  } = useSearchProducts(searchTerm);
+
+  const handleSearch = debounce((value: string) => {
+    setSearchTerm(value);
+  }, 300);
   const handleCatalogToggle = () => {
     setIsCatalogOpen((prev) => !prev);
   };
+
+  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+    handleSearch(e.target.value);
+  };
+
+  useEffect(() => {
+    return () => {
+      handleSearch.cancel();
+    };
+  }, [handleSearch]);
 
   const handleAccountToggle = () => {
     setIsAccountOpen((prev) => !prev);
@@ -84,7 +105,21 @@ export const UserControls = () => {
             placeholder="Поиск товаров..."
             prefix={<SearchOutlined />}
             className={styles.searchInput}
+            onChange={handleInputChange}
           />
+          <div>Products</div>
+          {searchResults && (
+            <div className={styles['search-results']}>
+              {searchResults.categories.map(
+                (category: { nameProduct: string; url: string }) => (
+                  <div key={category.url}>{category.nameProduct}</div>
+                ),
+              )}
+              {searchResults.products.length > 0 && (
+                <div>Products: {searchResults.products.length} found</div>
+              )}
+            </div>
+          )}
         </div>
 
         <Link to={PATHS.FAVORITES}>
@@ -172,6 +207,18 @@ export const UserControls = () => {
                 </Link>
 
                 <Link
+                  to={PATHS.VIEW_HISTORY}
+                  className={styles['account-dropdown__link']}
+                >
+                  <div className={styles['account-dropdown__item']}>
+                    <Eye size={20} />
+                    <span className={styles['account-dropdown__text']}>
+                      Просмотренные
+                    </span>
+                  </div>
+                </Link>
+
+                <Link
                   to={PATHS.BASKET}
                   className={styles['account-dropdown__link']}
                 >
@@ -209,6 +256,15 @@ export const UserControls = () => {
         onToggle={handleCatalogToggle}
         toggleButtonRef={catalogButtonRef}
       />
+      {/*{!isError && (*/}
+      {/*  <SearchRes*/}
+      {/*    isOpen={isCatalogOpen}*/}
+      {/*    onToggle={handleCatalogToggle}*/}
+      {/*    toggleButtonRef={catalogButtonRef}*/}
+      {/*    data={searchResults}*/}
+      {/*  />*/}
+      {/*)}*/}
+
       <AuthModal
         isVisible={authModal.isVisible}
         isLogin={authModal.isLogin}
@@ -218,5 +274,3 @@ export const UserControls = () => {
     </>
   );
 };
-
-export default UserControls;

@@ -7,7 +7,6 @@ import { useAppDispatch, useAppSelector } from '@hooks/reduxHooks.ts';
 import { setBasketItems } from '@store/slices/basket.slice.ts';
 import { BasketItemType } from '@/types/BasketItemType.ts';
 import Button from '@components/ui/Button';
-import { CheckoutPage } from '@pages/CheckoutPage';
 
 const Basket = () => {
   const basketItems = useAppSelector((state) => state.basket.basketItems);
@@ -130,7 +129,7 @@ const Basket = () => {
           />
         )}
 
-        {action === 'checkout' && <CheckoutPage />}
+        {/*{action === 'checkout' && <CheckoutPage />}*/}
       </div>
     </div>
   );
