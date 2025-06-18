@@ -2,6 +2,7 @@ import styles from './styles.module.scss';
 import { Heart, Star } from 'lucide-react';
 import { useState } from 'react';
 import { Product } from '@models/product/api.ts';
+import { useAddBasketItem } from '@hooks/useBasket.ts';
 
 interface ProductGalleryProps {
   product: Product;
@@ -10,14 +11,16 @@ interface ProductGalleryProps {
 export const ProductPurchase = ({ product }: ProductGalleryProps) => {
   const [inCart, setInCart] = useState(product.inCart);
 
+  const { mutate: addToBasket } = useAddBasketItem();
+
   const hasDiscount = product.discount != null && product.discount > 0;
   const oldPrice = product.discount
     ? Math.round(product.price / (1 - product.discount / 100))
     : null;
 
-  const handleAddToCart = () => {
+  const handleAddToCart = (idProduct: number) => {
     setInCart(true);
-    // api call
+    addToBasket(idProduct);
     console.log(`Добавлен в корзину: ${product.idProduct}`);
   };
 
@@ -52,7 +55,7 @@ export const ProductPurchase = ({ product }: ProductGalleryProps) => {
       <div className={styles['product-purchase__buttons-section']}>
         <button
           className={styles['product-purchase__cart-btn']}
-          onClick={handleAddToCart}
+          onClick={() => handleAddToCart(product.idProduct)}
           disabled={inCart}
         >
           {inCart ? 'В корзине' : 'Добавить в корзину'}
