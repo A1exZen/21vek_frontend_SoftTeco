@@ -23,6 +23,17 @@ import ChatIcon from '@/assets/images/business_chat_icon.png'
 
 import CalcIcon from '@/assets/images/business_calculate_icon.png'
 
+import ElectronicsImg from '@/assets/images/business_electronics.jpg'
+import ComputersImg from '@/assets/images/business_computers.jpg'
+import FurnitureImg from '@/assets/images/business_furniture.jpg'
+import StationeryImg from '@/assets/images/business_stationery.jpg'
+import ToolsImg from '@/assets/images/business_tools.jpg'
+import WarehouseImg from '@/assets/images/business_warehouse.jpg'
+import AppliancesImg from '@/assets/images/business_appliances.jpg'
+import GiftsImg from '@/assets/images/business_gifts.jpg'
+
+import GiftCardImg from '@/assets/images/business_giftcard.jpg'
+
 
 import { Carousel } from 'antd';
 
@@ -54,6 +65,17 @@ export const BusinessPage = () => {
     {title: "Гарантированный сервис", image: ChatIcon, description: "Надежность и качество обслуживания, закрепленные договором. Доступны замена, возврат и ремонт товара"},
     {title: "Отсрочка платежа", image: CalcIcon, description: "Возобновляемая отсрочка платежа до 90 дней с гибкими условиями погашения для каждого клиента"},
   ]
+
+  const products = [
+  { title: "Электроника", image: ElectronicsImg },
+  { title: "Компьютеры и периферия", image: ComputersImg },
+  { title: "Офисная мебель", image: FurnitureImg },
+  { title: "Канцтовары", image: StationeryImg },
+  { title: "Складское и торговое оборудование", image: WarehouseImg },
+  { title: "Профессиональный инструмент", image: ToolsImg },
+  { title: "Бытовая техника", image: AppliancesImg },
+  { title: "Наградная и подарочная продукция", image: GiftsImg },
+  ];
   return (
     <div className={styles.business}>
       <div className={styles.business__topsection}>
@@ -114,27 +136,96 @@ export const BusinessPage = () => {
         </div>
         <button className={styles.business__button}>Покупать для бизнеса</button>
       </div>
+      
       <div className={styles.business__benefits}>
-      <h2 className={styles.business__h2}>Почему с нами удобно</h2>
+        <h2 className={styles.business__h2}>Почему с нами удобно?</h2>
 
-      <div className={styles.business__benefitsGrid}>
-        {benefits.map((benefit, index) => (
-          <div key={index} className={styles.business__benefitCard}>
-            <img
-              src={benefit.image}
-              alt={benefit.title}
-              className={styles.business__benefitImage}
-            />
-            <p className={styles.business__benefitTitle}>
-              {benefit.title}
-            </p>
-            <p className={styles.business__benefitDescription}>
-              {benefit.description}
-            </p>
-          </div>
-        ))}
+        <div className={styles.business__benefitsGrid}>
+          {benefits.map((benefit, index) => (
+            <div key={index} className={styles.business__benefitCard}>
+              <img
+                src={benefit.image}
+                alt={benefit.title}
+                className={styles.business__benefitImage}
+              />
+              <p className={styles.business__benefitTitle}>
+                {benefit.title}
+              </p>
+              <p className={styles.business__benefitDescription}>
+                {benefit.description}
+              </p>
+            </div>
+          ))}
+        </div>
+
       </div>
-    </div>
+
+      <div className={styles.business__allProducts}>
+        <h2 className={styles.business__h2}>Найдите все необходимое</h2>
+        <p className={styles.business__subtitle}>
+          более 1 000 000 товаров для бизнеса
+        </p>
+
+        <div className={styles.business__productsGrid}>
+          {products.map((prod, i) => (
+            <div key={i} className={styles.business__productCard}>
+              <p className={styles.business__productTitle}>{prod.title}</p>
+              <img
+                src={prod.image}
+                alt={prod.title}
+                className={styles.business__productImage}
+              />
+            </div>
+          ))}
+        </div>
+
+        <button className={styles.business__buttonOutline}>
+          Все категории
+        </button>
+      </div>
+
+      <div className={styles.business__giftSection}>
+        <div className={styles.business__giftImage}>
+          <img
+            src={GiftCardImg}
+            alt="Подарочные сертификаты"
+          />
+        </div>
+
+        <div className={styles.business__giftContent}>
+            <h2 className={styles.business__h2}>
+              Ищете универсальный подарок?
+            </h2>
+            <p className={styles.business__giftText}>
+              Подарочный сертификат – это выгодное сочетание универсальности и индивидуальности в подарок для ваших партнёров и сотрудников
+            </p>
+            <p className={styles.business__giftSubtitle}>
+              Сертификаты подойдут:
+            </p>
+            <ul className={styles.business__giftList}>
+              <li>• для поздравления с праздниками: Новый год, 8 марта, 23 февраля</li>
+              <li>• для важных событий: профессиональные праздники, день рождения компании</li>
+              <li>• для партнёров и клиентов: благодарность за сотрудничество, поздравление с запуском проекта и просто для проявления внимания</li>
+              <li>• для мотивации: на дни рождения коллег, за достижения в работе, на корпоративные мероприятия</li>
+            </ul>
+
+            <div className={styles.business__giftButtons}>
+              <button className={styles.business__button}>
+                Бумажные сертификаты
+              </button>
+              <button className={styles.business__button}>
+                Электронные сертификаты
+              </button>
+            </div>
+        </div>
+      </div>
+      <div>
+        <h2 className={styles.business__h2}>Как покупать товары в качестве юрлица</h2>
+        <p className={styles.business__subtitle}>
+          Оформляйте и контролируйте заказы в личном кабинете
+        </p>
+      </div>
+    
       
     </div>
   );

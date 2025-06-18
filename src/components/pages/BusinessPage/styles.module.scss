@@ -73,8 +73,24 @@
     transition: background-color 0.3s;
     
     &:hover {
-      background-color: darken(#ff3366, 10%);
+      background-color: #dc2351;
     }
+  }
+
+  .business__buttonOutline {
+      background: transparent;
+      border: 1px solid #007bff;
+      color: #007bff;
+      padding: 12px 24px;
+      font-size: 16px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: background-color 0.2s;
+
+      &:hover {
+        background: rgba(0, 123, 255, 0.1);
+      }
   }
 
   .business__topSection {
@@ -208,11 +224,100 @@
       }
     }
   
-}
+  }
 
+  .business__allProducts{
+    padding: 60px 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+    text-align: center;
+
+    .business__productsGrid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 30px;
+      margin-bottom: 40px;
+
+     
+    }
+
+    .business__productCard {
+      background: #f7f8fa;
+      border-radius: 8px;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      transition: transform 0.2s;
+
+      &:hover {
+       transform: translateY(-4px);
+      }
+    }
+
+    .business__productTitle {
+        margin: 0 0 16px;
+        font-size: 18px;
+        font-weight: 600;
+        color: #111;
+        text-align: center;
+      }
+
+    .business__productImage {
+      width: 100%;
+      height: auto;
+      object-fit: contain;
+    }
+  }
+
+  .business__giftSection {
+    display: flex;
+    align-items: center;
+    gap: 60px;
+    padding: 80px 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+
+    .business__giftText {
+        margin-bottom: 24px;
+        font-size: 16px;
+        line-height: 1.6;
+        color: #333;
+    }
+
+    .business__giftSubtitle {
+        margin: 0 0 16px;
+        font-weight: 600;
+        color: #111;
+    }
+
+    .business__giftList {
+        list-style: disc;
+        padding-left: 20px;
+        margin: 0 0 32px;
+
+        li {
+          margin-bottom: 12px;
+          font-size: 14px;
+          line-height: 1.5;
+          color: #555;
+        }
+    }
+
+    .business__giftButtons {
+        display: flex;
+        gap: 20px;
+    }
+
+  }
   .business__h2{
     text-align: center;
     margin-bottom: 40px;
+  }
+  .business__subtitle {
+      margin: 0 0 40px;
+      color: #555;
+      font-size: 16px;
   }
 
 }
