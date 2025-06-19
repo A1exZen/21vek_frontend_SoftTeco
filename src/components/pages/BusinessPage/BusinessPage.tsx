@@ -1,4 +1,4 @@
-//import Background from '@/assets/images/business_background.jpg';
+import Background from '@/assets/images/business_background.jpg';
 import Logo from '@/assets/images/business_page_logo.png';
 import styles from './styles.module.scss';
 
@@ -42,6 +42,11 @@ import Step4 from '@/assets/images/business_step4.jpg'
 import LogisticsImg from '@/assets/images/business_logistics.jpg'
 import DeliveryImg from '@/assets/images/business_delivery.jpg'
 import PurchaseImg from '@/assets/images/business_purchase.jpg'
+
+import SupportImg from '@/assets/images/business__support.jpg'
+import CalendarIcon from '@/assets/icons/calendar.svg';
+import PhoneIcon    from '@/assets/icons/phone.svg';
+import MailIcon     from '@/assets/icons/mail.svg';
 
 
 import { Carousel, Collapse, CollapseProps } from 'antd';
@@ -116,7 +121,10 @@ export const BusinessPage = () => {
     {
       key: '2',
       label: 'Какие условия оплаты доступны юридическим лицам?',
-      children: <p></p>,
+      children: <p>100% предоплата в течение 3-х банковских дней с даты выставления счета.
+        Отсрочка платежа предоставляется юридическим лицам и ИП для приобретения товаров для собственного потребления. 21vek.by предоставляет возможность гибкого выбора способа оплаты: единовременно или с оплатой частями, а также выбор сроков и размера ежемесячных платежей в зависимости от финансовых возможностей. Для оформления отсрочки оставьте комментарий к заказу с указанием желаемого срока отсрочки и с вами свяжутся наши менеджеры для оформления Договора.
+        Корпоративной банковской картой онлайн — моментальный способ оплаты картой Visa, MasterCard или Белкарт, эмитированных банками РБ. Для всех типов карт используется перенаправление в систему Webpay. Доступ к данным карты осуществляется по протоколу безопасной передачи данных TLS, а для осуществления аутентификации держателя карточки используются методы Verified by Visa, MasterCard Securecode, Белкарт ИнтернетПароль.
+        Возможно согласование индивидуальных условий оплаты с учетом истории сотрудничества.</p>,
     },
     {
       key: '3',
@@ -138,10 +146,10 @@ export const BusinessPage = () => {
 
   return (
     <div className={styles.business}>
-      <div className={styles.business__topsection}>
-        {/* <div className={styles.business__background}>
+      <div className={styles.business__topЫection}>
+         <div className={styles.business__background}>
           <img src={Background} alt="Background" className={styles.business__backgroundimage} />
-        </div> */}
+        </div> 
         
         <div className={styles.business__content}>
           <div className={styles.business__logo}>
@@ -161,7 +169,7 @@ export const BusinessPage = () => {
       </div>
       <div className={styles.business__carouselWrapper}>
         <div className={styles.business__carousel}>
-          <Carousel autoplay effect="fade" className={styles.business__carouselContainer} arrows={true} >
+          <Carousel autoplay effect="fade" arrows={true} >
             {carouselImages.map((img, index) => (
               <div key={index} className={styles.business__carouselItem}> 
                 <img 
@@ -345,6 +353,54 @@ export const BusinessPage = () => {
         <button className={styles.business__button}>
           Покупать для бизнеса
         </button>
+      </div>
+
+      <div className={styles.business__contactSection}>
+        <div className={styles.business__contactImage}>
+          <img
+            src={SupportImg}
+            alt="Свяжитесь с нами"
+          />
+        </div>
+        <div className={styles.business__contactContent}>
+          <h2 className={styles.business__h2}>
+            Остались вопросы? Свяжитесь с нами!
+          </h2>
+          <ul className={styles.business__contactList}>
+            <li className={styles.business__contactItem}>
+              <img
+                src={CalendarIcon}
+                alt=""
+                className={styles.business__contactIcon}
+              />
+              График работы: пн – пт с 9:00 до 18:00
+            </li>
+            <li className={styles.business__contactItem}>
+              <img
+                src={PhoneIcon}
+                alt=""
+                className={styles.business__contactIcon}
+              />
+              +375 (17) 302 10 21, +375 (29) 302 10 21, +375 (25) 502 10 21
+            </li>
+            <li className={styles.business__contactItem}>
+              <img
+                src={MailIcon}
+                alt=""
+                className={styles.business__contactIcon}
+              />
+              <a href="mailto:beznal@21vek.by" className={styles.business__contactLink}>
+                beznal@21vek.by
+              </a>
+            </li>
+
+          </ul>
+          <button className={styles.business__buttonOutline}>
+            Отправить заявку
+          </button>
+        </div>
+
+
       </div>
       
     </div>
