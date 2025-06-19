@@ -34,8 +34,17 @@ import GiftsImg from '@/assets/images/business_gifts.jpg'
 
 import GiftCardImg from '@/assets/images/business_giftcard.jpg'
 
+import Step1 from '@/assets/images/business_step1.jpg'
+import Step2 from '@/assets/images/business_step2.jpg'
+import Step3 from '@/assets/images/business_step3.jpg'
+import Step4 from '@/assets/images/business_step4.jpg'
 
-import { Carousel } from 'antd';
+import LogisticsImg from '@/assets/images/business_logistics.jpg'
+import DeliveryImg from '@/assets/images/business_delivery.jpg'
+import PurchaseImg from '@/assets/images/business_purchase.jpg'
+
+
+import { Carousel, Collapse, CollapseProps } from 'antd';
 
 
 export const BusinessPage = () => {
@@ -76,6 +85,57 @@ export const BusinessPage = () => {
   { title: "Бытовая техника", image: AppliancesImg },
   { title: "Наградная и подарочная продукция", image: GiftsImg },
   ];
+
+
+  const steps = [
+    {title: "Выбирайте товары на сайте 21vek.by", image: Step1, number: 1},
+    {title: "Получайте счет и оплачивайте его", image: Step3, number: 3, button: "Подробнее"},
+    {title: "Оформляйте и контролируйте заказы в личном кабинете", image: Step2, number: 2},
+    
+    {title: "Согласовываем время доставки и привозим заказ", image: Step4, number: 4},
+  ]
+
+  const abilities = [
+    {title: "Широкая сеть сервисов по всей стране", image: LogisticsImg},
+    {title: "Дополнительно оказываем транспортные услуги", image: DeliveryImg},
+    {title: "Приобретение товаров с целью розничной торговли", image: PurchaseImg},
+  ]
+
+  const collapseItems: CollapseProps['items'] =[
+    {
+      key: '1',
+      label: 'Как получить счет?',
+      children: <p>Оформить заказ через корзину сайта
+                  Для этого необходимо войти в ваш аккаунт, добавить в корзину нужные вам товары, выбрать способ доставки (самовывоз или доставка курьером) и ввести контактный номер телефона, выбрать вариант оплаты — оплата для юридических лиц. Заполнить реквизиты организации (УНП, юридическое название, юридический адрес, расчетный счет IBAN, БИК, банк) и нажать кнопку «Подтвердить заказ».
+                  Ожидайте счет на электронную почту, которую вы указали в вашем личном кабинете.
+
+                  Написать письмо на почту beznal@21vek.by
+                  Для получения счета укажите в письме необходимые вам товары (наименование и/или код товара, либо ссылку на него) и их количество. Укажите желаемый способ доставки (самовывоз или доставка курьером), адрес доставки или пункта выдачи и контактный номер телефона для связи.
+                  Ожидайте счет на электронную почту.</p>,
+    },
+    {
+      key: '2',
+      label: 'Какие условия оплаты доступны юридическим лицам?',
+      children: <p></p>,
+    },
+    {
+      key: '3',
+      label: 'Как получить договор?',
+      children: <p>Наш счет является договором.
+      В случае необходимости заключения договора иного формата сообщите об этом при оформлении заказа.</p>,
+    },
+    {
+      key: '4',
+      label: 'Можно ли заключить договор с оплатой через органы государственного казначейства?',
+      children: <p>В случае необходимости заключения договора с оплатой через органы государственного казначейства, cообщите об этом при оформлении заказа, указав источник финансирования и орган государственного казначейства, с которого будет осуществляться оплата.</p>,
+    },
+    {
+      key: '5',
+      label: 'Вопросы по гарантии и замене',
+      children: <p>Если у Вас возникли вопросы по гарантийному случаю, замене/возврату товара с производственными недостатками либо товара надлежащего качества, заполните онлайн-форму и ожидайте обратной связи от отдела по работе с рекламациями.</p>,
+    },
+  ]
+
   return (
     <div className={styles.business}>
       <div className={styles.business__topsection}>
@@ -219,13 +279,73 @@ export const BusinessPage = () => {
             </div>
         </div>
       </div>
-      <div>
+      <div className={styles.business__steps}>
         <h2 className={styles.business__h2}>Как покупать товары в качестве юрлица</h2>
         <p className={styles.business__subtitle}>
           Оформляйте и контролируйте заказы в личном кабинете
         </p>
+        <div className={styles.business__stepsGrid}>
+          {steps.map((step, idx) => (
+            <div key={idx} className={styles.business__stepCard}>
+              {/* картинка на задний план */}
+              <div className={styles.business__stepBg}>
+                <img src={step.image} alt={step.title} />
+              </div>
+
+              {/*блок с номером/текстом/кнопкой поверх */}
+              <div className={styles.business__stepInfo}>
+                <div className={styles.business__stepNumber}>
+                  {step.number}
+                </div>
+                <p className={styles.business__stepTitle}>
+                  {step.title}
+                </p>
+                {step.button && (
+                  <button className={styles.business__stepBtnOutline}>
+                    {step.button}
+                  </button>
+                )}
+              </div>
+            </div>
+          ))}
+        </div>
+        <button className={styles.business__button}>
+            Покупать для бизнеса
+        </button>
       </div>
     
+      <div className={styles.business_collapse}>
+        <h2 className={styles.business__h2}>Полезная информация</h2>
+        <Collapse items={collapseItems} size='large' bordered={false} className={styles.business__collapseItem}/>
+        
+      </div>
+
+      <div className={styles.business__abilities}>
+        <h2 className={styles.business__h2}>Еще больше возможностей с 21vek для вашего бизнеса</h2>
+        <div className={styles.business__abilitiesGrid}>
+          {abilities.map((ability, idx) => (
+            <div key={idx} className={styles.business__abilityCard}>
+              {/* картинка на задний план */}
+              <div className={styles.business__abilityBg}>
+                <img src={ability.image} alt={ability.title} />
+              </div>
+
+              {/*блок текстом поверх */}
+              <div className={styles.business__abilityInfo}>
+                
+                <p className={styles.business__abilityTitle}>
+                  {ability.title}
+                </p>
+               
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <button className={styles.business__button}>
+          Покупать для бизнеса
+        </button>
+      </div>
       
     </div>
   );
