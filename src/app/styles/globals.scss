@@ -8,12 +8,46 @@
 }
 
 .container {
-  margin: auto;
+  margin: 1rem auto;
   max-width: 1150px;
   padding: 0 25px;
   display: flex;
-  gap: 1rem;
+  gap: 3rem;
+  justify-content: space-between;
+
+  @media (max-width: 856px) {
+    flex-direction: column;
+  }
+}
+
+.in-cart-btn, .cart-btn {
+  width: 100%;
+  padding: 12px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
   justify-content: center;
+  gap: 8px;
+}
+
+.cart-btn{
+  color: white;
+  background: var(--primary);
+  &:hover {
+    background: var(--primary-hover);
+  }
+}
+
+.in-cart-btn {
+  color: var(--primary);
+  background: var(--primary-light);
+
+  &:hover {
+    background: var();
+  }
 }
 
 body.modal-open {

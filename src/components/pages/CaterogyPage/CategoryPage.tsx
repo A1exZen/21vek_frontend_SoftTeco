@@ -8,6 +8,7 @@ import {
 import { Spin } from 'antd';
 import { ProductCard } from '@pages/AllProductsPage/ProductCard';
 import Sad from '@assets/icons/sad.svg';
+import { Breadcrumbs } from '@/components/widgets/Breadcrumbs';
 
 export const CategoryPage = () => {
   const { categoryUrl } = useParams<{ categoryUrl: string }>();
@@ -49,6 +50,7 @@ export const CategoryPage = () => {
   }
   return (
     <section className={styles['category__container']}>
+      {category && <Breadcrumbs category={category} />}
       <h1 className={styles['category__title']}>
         {category?.nameCategories || 'Категория'}
       </h1>

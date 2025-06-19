@@ -77,7 +77,7 @@ const Basket = () => {
           </>
         )}
 
-        {action === 'checkout' && <CheckoutPage />}
+        {action === 'checkout' && <CheckoutPage price={totalPrice} />}
       </div>
     </div>
   );

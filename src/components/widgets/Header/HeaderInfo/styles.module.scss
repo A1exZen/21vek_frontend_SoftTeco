@@ -6,6 +6,7 @@
 
   .header-info__content {
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-between;
 
     .header-info__locality {
@@ -15,6 +16,7 @@
 
     .header-info__nav {
       display: flex;
+      flex-wrap: wrap;
       justify-content: space-evenly;
       align-items: center;
       gap: 24px;

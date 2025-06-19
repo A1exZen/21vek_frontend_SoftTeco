@@ -30,7 +30,7 @@ export const getCategoryByUrl = async (
 ): Promise<Category> => {
   try {
     return await $api.get<Category, Category>(
-      `${API_CONFIG.ENDPOINTS.CATEGORY.GET_BY_URL}/${url}`,
+      `${API_CONFIG.ENDPOINTS.CATEGORY.GET_BY_URL}?url=${url}`,
     );
   } catch (error) {
     const axiosError = error as AxiosError<ResponseError>;

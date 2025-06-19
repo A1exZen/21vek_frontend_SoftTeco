@@ -2,11 +2,14 @@ import {
   filterProducts,
   getAllProducts,
   getBrands,
-  getProductById,
-  PaginatedResponse,
+  getProductById, searchProducts
 } from '@/api/product.ts';
 import { QueryKeys } from '@/constants';
-import { Product } from '@/models/product/api';
+import {
+  PaginatedResponse,
+  Product,
+  SearchResponse
+} from '@/models/product/api';
 import { useQuery } from '@tanstack/react-query';
 
 export const useGetAllProducts = (
@@ -110,11 +113,14 @@ export const useGetBrands = () => {
     queryFn: getBrands,
   });
 };
-//
-// export const useGetPriceRange = (categoryId?: number) => {
-//   return useQuery<{ min: number; max: number }, Error>({
-//     queryKey: [QueryKeys.PRICE_RANGE, categoryId],
-//     queryFn: () => getPriceRange(categoryId),
-//     staleTime: 15 * 60 * 1000
-//   });
-// };
+
+export const useSearchProducts = (letters: string) => {
+  return useQuery<SearchResponse, Error>({
+    queryKey: [QueryKeys.SEARCH_PRODUCTS, letters],
+    queryFn: () => searchProducts(letters),
+    enabled: !!letters,
+    staleTime: 5 * 60 * 1000,
+  });
+};
+
+

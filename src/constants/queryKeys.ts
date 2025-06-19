@@ -4,6 +4,8 @@ export enum QueryKeys {
   USERS = 'users',
   USER_CITY = 'userCity',
   CURRENT_USER = 'currentUser',
+  VIEW_HISTORY = 'viewHistory',
+  SEARCH_PRODUCTS = 'search',
 
   CATEGORIES = 'categories',
   HEADER_CATEGORIES = 'headerCategories',
