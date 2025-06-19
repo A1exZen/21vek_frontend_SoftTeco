@@ -6,7 +6,7 @@
     top: 10; left: 0; right: 0; bottom: 0;
     
     
-    .business__backgroundimage {
+    .business__background-image {
       width: 100%;
       height: 100%;
       object-fit: cover;
@@ -18,14 +18,7 @@
   }
 
 
-  .business__topSection {
-    position: relative;
-    height: 70vh; // Высота первой секции
-    min-height: 600px; // Минимальная высота
-    overflow: hidden;
-    
-  }
-  .business__content {
+  .business__preview {
     position: relative;
     z-index: 2;
     padding: 60px; 
@@ -49,7 +42,7 @@
       font-size: 16px; 
       line-height: 1.5;
 
-      .business__featureItem {
+      .business__feature-item {
         margin-bottom: 10px;
         position: relative;
         padding-left: 20px;
@@ -85,7 +78,7 @@
     }
   }
 
-  .business__buttonOutline {
+  .business__button-outline {
       background: transparent;
       border: 1px solid #007bff;
       color: #007bff;
@@ -102,7 +95,7 @@
   }
 
   
-  .business__carouselWrapper {
+  .business__carousel-wrapper {
     width: 100%;
     height: 30vh; // Высота карусели
     min-height: 300px; // Минимальная высота
@@ -129,14 +122,14 @@
   text-align: center;
 
     
-    .business__categoriesGrid {
+    .business__categories-grid {
       display: grid;
       /* ровно 3 колонки */
       grid-template-columns: repeat(3, 1fr);
       gap: 30px;
       margin-bottom: 40px;
 
-      .business__categoryCard {
+      .business__category-card {
         background: #fff;
         border-radius: 8px;
         overflow: hidden;
@@ -147,7 +140,7 @@
         align-items: center;
         height: auto;
         
-        .business__categoryImage {
+        .business__category-image {
           width: 100%;
           height: auto;
         
@@ -155,7 +148,7 @@
           margin-bottom: 12px;
         }
 
-        .business__categoryTitle {
+        .business__category-title {
           margin-bottom: 5;
           font-size: 18px;
           font-weight: 600;
@@ -178,13 +171,13 @@
 
   
 
-    .business__benefitsGrid {
+    .business__benefits-grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
       gap: 30px;
       margin-bottom: 40px;
 
-      .business__benefitCard {
+      .business__benefit-card {
         background: #fff;
         border: 1px solid #f0f0f0;
         border-radius: 8px;
@@ -194,14 +187,14 @@
         align-items: center;
         
         
-        .business__benefitImage {
+        .business__benefit-image {
           width: 72px;
           height: 72px;
           object-fit: contain;
           margin-bottom: 16px;
         }
 
-        .business__benefitTitle {
+        .business__benefit-title {
           margin: 0;
           font-size: 18px;
           font-weight: 600;
@@ -210,7 +203,7 @@
           margin-bottom: 12px;
         }
 
-        .business__benefitDescription {
+        .business__benefit-description {
           margin: 0;
           font-size: 14px;
           line-height: 1.6;
@@ -224,19 +217,19 @@
   
   }
 
-  .business__allProducts{
+  .business__all-products{
     padding: 60px 20px;
     max-width: 1200px;
     margin: 0 auto;
     text-align: center;
 
-    .business__productsGrid {
+    .business__products-grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
       gap: 30px;
       margin-bottom: 40px;
 
-     .business__productCard {
+     .business__product-card {
         background: #f7f8fa;
         border-radius: 8px;
         padding: 20px;
@@ -249,7 +242,7 @@
         transform: translateY(-4px);
         }
 
-        .business__productTitle {
+        .business__product-title {
           margin: 0 0 16px;
           font-size: 18px;
           font-weight: 600;
@@ -257,7 +250,7 @@
           text-align: center;
         }
 
-        .business__productImage {
+        .business__product-image {
           width: 100%;
           height: auto;
           object-fit: contain;
@@ -268,7 +261,7 @@
     
   }
 
-  .business__giftSection {
+  .business__gift-section {
     display: flex;
     align-items: center;
     gap: 60px;
@@ -276,20 +269,20 @@
     max-width: 1200px;
     margin: 0 auto;
 
-    .business__giftText {
+    .business__gift-text {
         margin-bottom: 24px;
         font-size: 16px;
         line-height: 1.6;
         color: #333;
     }
 
-    .business__giftSubtitle {
+    .business__gift-subtitle {
         margin: 0 0 16px;
         font-weight: 600;
         color: #111;
     }
 
-    .business__giftList {
+    .business__gift-list {
         list-style: disc;
         padding-left: 20px;
         margin: 0 0 32px;
@@ -302,7 +295,7 @@
         }
     }
 
-    .business__giftButtons {
+    .business__gift-buttons {
         display: flex;
         gap: 20px;
     }
@@ -315,18 +308,18 @@
     margin: auto;
     text-align: center;
 
-    .business__stepsGrid {
+    .business__steps-grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
       gap: 30px;
       margin-bottom: 40px;
 
-      .business__stepCard{
+      .business__step-card{
       position: relative;
       border-radius: 8px;
       overflow: hidden;
       height: 260px;
-        .business__stepBg {
+        .business__step-bg {
           position: absolute;
           top: 0; left: 0; right: 0; bottom: 0;
           img {
@@ -337,18 +330,18 @@
           }
         }
 
-        .business__stepInfo{
+        .business__step-info{
           position: absolute;
           top: 0; left: 0; right: 0; bottom: 0;
           z-index: 1;
-          /* Выравнивание контента по макету */
+         
           display: flex;
           flex-direction: column;
           justify-content: center;
           padding: 30px;
           color: #fff;
 
-          .business__stepNumber{
+          .business__step-number{
             width: 40px;
             height: 40px;
             border: 1px solid rgba(255, 255, 255, 0.7);
@@ -361,7 +354,7 @@
             position: absolute;
           }
 
-          .business__stepTitle{
+          .business__step-title{
             margin-top: 40px;
             font-size: 18px;
             font-weight: 600;
@@ -370,7 +363,7 @@
             color: #fff;
           }
 
-          .business__stepBtnOutline{
+          .business__step-btn-outline{
             
             margin: 10px 30px;
             padding: 10px 20px;
@@ -402,14 +395,14 @@
     margin: 0 auto;
     text-align: center;
 
-    .business__abilitiesGrid{
+    .business__abilities-grid{
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 30px;
       margin-bottom: 40px;
 
 
-      .business__abilityCard {
+      .business__ability-card {
         position: relative;
         border-radius: 8px;
         overflow: hidden;
@@ -422,7 +415,7 @@
         }
 
 
-        .business__abilityBg {
+        .business__ability-bg {
           position: absolute;
           top: 0; right: 0; bottom: 0; left: 0;
 
@@ -434,7 +427,7 @@
           }
         }
 
-        .business__abilityInfo {
+        .business__ability-info {
           position: absolute;
           top: 0; right: 0; bottom: 0; left: 0;
           z-index: 1;
@@ -445,7 +438,7 @@
           text-align: center;
 
 
-          .business__abilityTitle {
+          .business__ability-title {
             margin-bottom: 240px;
             color: #fff;
             font-size: 18px;
@@ -459,13 +452,13 @@
   }
 
   .business__collapse{
-    .business__collapseItem{
+    .business__collapse-item{
       font-weight: 600;
       font-size: 16px;
     }
   }
 
-  .business__contactSection{
+  .business__contact-section{
     display: flex;
     align-items: center;
     gap: 60px;
@@ -473,7 +466,7 @@
     max-width: 1200px;
     margin: 0 auto;
 
-    .business__contactImage {
+    .business__contact-image {
       flex: 1;
 
       img {
@@ -484,29 +477,29 @@
       }
     }
 
-    .business__contactContent{
+    .business__contact-content{
       flex: 1;
       text-align: left;
 
-      .business__contactList {
+      .business__contact-list {
         list-style: none;
         padding: 0;
         margin: 0 0 40px;
 
-        .business__contactItem{
+        .business__contact-item{
           display: flex;
           align-items: center;
           margin-bottom: 16px;
           font-size: 16px;
           color: #333;
 
-          .business__contactIcon {
+          .business__contact-icon {
             width: 24px;
             height: 24px;
             margin-right: 12px;
           }
 
-          .business__contactLink{
+          .business__contact-link{
             color: inherit;
             text-decoration: underline;
           }

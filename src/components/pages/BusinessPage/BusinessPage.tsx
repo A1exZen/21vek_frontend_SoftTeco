@@ -146,32 +146,32 @@ export const BusinessPage = () => {
 
   return (
     <div className={styles.business}>
-      <div className={styles.business__topЫection}>
-         <div className={styles.business__background}>
-          <img src={Background} alt="Background" className={styles.business__backgroundimage} />
-        </div> 
-        
-        <div className={styles.business__content}>
-          <div className={styles.business__logo}>
-            <img src={Logo}  alt="21vek.by БИЗНЕС" />
-          </div>
-          
-          <ul className={styles.business__features}>
-            <li className={styles.business__featureItem} >Более <strong>1 200 000 товаров</strong> в наличии</li>
-            <li className={styles.business__featureItem}>Прямой поставщик более <strong>3 000 наименований</strong> товаров</li>
-            <li className={styles.business__featureItem}>Доставка в <strong>любую точку Беларуси</strong></li>
-            <li className={styles.business__featureItem}><strong>130+ пунктов самовывоза</strong> по стране</li>
-          </ul>
-          
-          <button className={styles.business__button}>Покупать для бизнеса</button>
+      
+       <div className={styles['business__background']}>
+        <img src={Background} alt="Background" className={styles['business__background-image']} />
+      </div> 
+      
+      <div className={styles.business__preview}>
+        <div className={styles.business__logo}>
+          <img src={Logo}  alt="21vek.by БИЗНЕС" />
         </div>
-
+        
+        <ul className={styles.business__features}>
+          <li className={styles['business__feature-item']} >Более <strong>1 200 000 товаров</strong> в наличии</li>
+          <li className={styles['business__feature-item']}>Прямой поставщик более <strong>3 000 наименований</strong> товаров</li>
+          <li className={styles['business__feature-item']}>Доставка в <strong>любую точку Беларуси</strong></li>
+          <li className={styles['business__feature-item']}><strong>130+ пунктов самовывоза</strong> по стране</li>
+        </ul>
+        
+        <button className={styles.business__button}>Покупать для бизнеса</button>
       </div>
-      <div className={styles.business__carouselWrapper}>
+
+      
+      <div className={styles['business__carousel-wrapper']}>
         <div className={styles.business__carousel}>
           <Carousel autoplay effect="fade" arrows={true} >
             {carouselImages.map((img, index) => (
-              <div key={index} className={styles.business__carouselItem}> 
+              <div key={index} > 
                 <img 
                   src={img} 
                   alt={`Предложение ${index + 1}`} 
@@ -188,15 +188,15 @@ export const BusinessPage = () => {
         <h2 className={styles.business__h2}>Сотрудничаем с бизнесом любого размера</h2>
 
        
-        <div className={styles.business__categoriesGrid}>
+        <div className={styles['business__categories-grid']}>
           {businessCategories.map((category, index) => (
-            <div key={index} className={styles.business__categoryCard}>
+            <div key={index} className={styles['business__category-card']}>
               <img 
                 src={category.image} 
                 alt={category.title} 
-                className={styles.business__categoryImage}
+                className={styles['business__category-image']}
               />
-              <p className={styles.business__categoryTitle}>
+              <p className={styles['business__category-title']}>
                 {category.title}
               </p>
             </div>
@@ -208,18 +208,18 @@ export const BusinessPage = () => {
       <div className={styles.business__benefits}>
         <h2 className={styles.business__h2}>Почему с нами удобно?</h2>
 
-        <div className={styles.business__benefitsGrid}>
+        <div className={styles['business__benefits-grid']}>
           {benefits.map((benefit, index) => (
-            <div key={index} className={styles.business__benefitCard}>
+            <div key={index} className={styles['business__benefit-card']}>
               <img
                 src={benefit.image}
                 alt={benefit.title}
-                className={styles.business__benefitImage}
+                className={styles['business__benefit-image']}
               />
-              <p className={styles.business__benefitTitle}>
+              <p className={styles['business__benefit-title']}>
                 {benefit.title}
               </p>
-              <p className={styles.business__benefitDescription}>
+              <p className={styles['business__benefit-description']}>
                 {benefit.description}
               </p>
             </div>
@@ -228,56 +228,56 @@ export const BusinessPage = () => {
 
       </div>
 
-      <div className={styles.business__allProducts}>
+      <div className={styles['business__all-products']}>
         <h2 className={styles.business__h2}>Найдите все необходимое</h2>
         <p className={styles.business__subtitle}>
           более 1 000 000 товаров для бизнеса
         </p>
 
-        <div className={styles.business__productsGrid}>
+        <div className={styles['business__products-grid']}>
           {products.map((prod, i) => (
-            <div key={i} className={styles.business__productCard}>
+            <div key={i} className={styles['business__product-card']}>
               <p className={styles.business__productTitle}>{prod.title}</p>
               <img
                 src={prod.image}
                 alt={prod.title}
-                className={styles.business__productImage}
+                className={styles['business__product-image']}
               />
             </div>
           ))}
         </div>
 
-        <button className={styles.business__buttonOutline}>
+        <button className={styles['business__button-outline']}>
           Все категории
         </button>
       </div>
 
-      <div className={styles.business__giftSection}>
-        <div className={styles.business__giftImage}>
+      <div className={styles['business__gift-section']}>
+        <div className={styles['business__gift-image']}>
           <img
             src={GiftCardImg}
             alt="Подарочные сертификаты"
           />
         </div>
 
-        <div className={styles.business__giftContent}>
+        <div className={styles['business__gift-content']}>
             <h2 className={styles.business__h2}>
               Ищете универсальный подарок?
             </h2>
-            <p className={styles.business__giftText}>
+            <p className={styles['business__gift-text']}>
               Подарочный сертификат – это выгодное сочетание универсальности и индивидуальности в подарок для ваших партнёров и сотрудников
             </p>
-            <p className={styles.business__giftSubtitle}>
+            <p className={styles['business__gift-subtitle']}>
               Сертификаты подойдут:
             </p>
-            <ul className={styles.business__giftList}>
+            <ul className={styles['business__gift-list']}>
               <li>• для поздравления с праздниками: Новый год, 8 марта, 23 февраля</li>
               <li>• для важных событий: профессиональные праздники, день рождения компании</li>
               <li>• для партнёров и клиентов: благодарность за сотрудничество, поздравление с запуском проекта и просто для проявления внимания</li>
               <li>• для мотивации: на дни рождения коллег, за достижения в работе, на корпоративные мероприятия</li>
             </ul>
 
-            <div className={styles.business__giftButtons}>
+            <div className={styles['business__gift-buttons']}>
               <button className={styles.business__button}>
                 Бумажные сертификаты
               </button>
@@ -292,24 +292,24 @@ export const BusinessPage = () => {
         <p className={styles.business__subtitle}>
           Оформляйте и контролируйте заказы в личном кабинете
         </p>
-        <div className={styles.business__stepsGrid}>
+        <div className={styles['business__steps-grid']}>
           {steps.map((step, idx) => (
-            <div key={idx} className={styles.business__stepCard}>
+            <div key={idx} className={styles['business__step-card']}>
               {/* картинка на задний план */}
-              <div className={styles.business__stepBg}>
+              <div className={styles['business__step-bg']}>
                 <img src={step.image} alt={step.title} />
               </div>
 
               {/*блок с номером/текстом/кнопкой поверх */}
-              <div className={styles.business__stepInfo}>
-                <div className={styles.business__stepNumber}>
+              <div className={styles['business__step-info']}>
+                <div className={styles['business__step-number']}>
                   {step.number}
                 </div>
-                <p className={styles.business__stepTitle}>
+                <p className={styles['business__step-title']}>
                   {step.title}
                 </p>
                 {step.button && (
-                  <button className={styles.business__stepBtnOutline}>
+                  <button className={styles['business__step-btn-outline']}>
                     {step.button}
                   </button>
                 )}
@@ -324,24 +324,24 @@ export const BusinessPage = () => {
     
       <div className={styles.business_collapse}>
         <h2 className={styles.business__h2}>Полезная информация</h2>
-        <Collapse items={collapseItems} size='large' bordered={false} className={styles.business__collapseItem}/>
+        <Collapse items={collapseItems} size='large' bordered={false} className={styles['business__collapse-item']}/>
         
       </div>
 
       <div className={styles.business__abilities}>
         <h2 className={styles.business__h2}>Еще больше возможностей с 21vek для вашего бизнеса</h2>
-        <div className={styles.business__abilitiesGrid}>
+        <div className={styles['business__abilities-grid']}>
           {abilities.map((ability, idx) => (
-            <div key={idx} className={styles.business__abilityCard}>
+            <div key={idx} className={styles['business__ability-card']}>
               {/* картинка на задний план */}
-              <div className={styles.business__abilityBg}>
+              <div className={styles['business__ability-bg']}>
                 <img src={ability.image} alt={ability.title} />
               </div>
 
               {/*блок текстом поверх */}
-              <div className={styles.business__abilityInfo}>
+              <div className={styles['business__ability-info']}>
                 
-                <p className={styles.business__abilityTitle}>
+                <p className={styles['business__ability-title']}>
                   {ability.title}
                 </p>
                
@@ -355,47 +355,47 @@ export const BusinessPage = () => {
         </button>
       </div>
 
-      <div className={styles.business__contactSection}>
-        <div className={styles.business__contactImage}>
+      <div className={styles['business__contact-section']}>
+        <div className={styles['business__contact-image']}>
           <img
             src={SupportImg}
             alt="Свяжитесь с нами"
           />
         </div>
-        <div className={styles.business__contactContent}>
+        <div className={styles['business__contact-content']}>
           <h2 className={styles.business__h2}>
             Остались вопросы? Свяжитесь с нами!
           </h2>
-          <ul className={styles.business__contactList}>
-            <li className={styles.business__contactItem}>
+          <ul className={styles['business__contact-list']}>
+            <li className={styles['business__contact-item']}>
               <img
                 src={CalendarIcon}
                 alt=""
-                className={styles.business__contactIcon}
+                className={styles['business__contact-icon']}
               />
               График работы: пн – пт с 9:00 до 18:00
             </li>
-            <li className={styles.business__contactItem}>
+            <li className={styles['business__contact-item']}>
               <img
                 src={PhoneIcon}
                 alt=""
-                className={styles.business__contactIcon}
+                className={styles['business__contact-icon']}
               />
               +375 (17) 302 10 21, +375 (29) 302 10 21, +375 (25) 502 10 21
             </li>
-            <li className={styles.business__contactItem}>
+            <li className={styles['business__contact-item']}>
               <img
                 src={MailIcon}
                 alt=""
-                className={styles.business__contactIcon}
+                className={styles['business__contact-icon']}
               />
-              <a href="mailto:beznal@21vek.by" className={styles.business__contactLink}>
+              <a href="mailto:beznal@21vek.by" className={styles['business__contact-link']}>
                 beznal@21vek.by
               </a>
             </li>
 
           </ul>
-          <button className={styles.business__buttonOutline}>
+          <button className={styles['business__button-outline']}>
             Отправить заявку
           </button>
         </div>
