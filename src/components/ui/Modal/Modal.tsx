@@ -33,9 +33,13 @@ export const Modal: FC<ModalProps> = ({
     };
   }, [open, openChangedAction]);
 
+  const closeModal = () => {
+    openChangedAction(false);
+  };
+
   const handleOverlayClick = (e: React.MouseEvent) => {
     if (e.target === e.currentTarget) {
-      openChangedAction(false);
+      closeModal();
     }
   };
 
@@ -54,7 +58,7 @@ export const Modal: FC<ModalProps> = ({
             <Button
               icon={<X size={22} color="var(--gray-600)" />}
               variant="rounded"
-              onClick={() => openChangedAction(false)}
+              onClick={closeModal}
               className={styles['modal__close-button']}
             />
             {children}

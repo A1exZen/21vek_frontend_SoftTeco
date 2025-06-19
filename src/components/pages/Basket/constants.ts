@@ -1,23 +1,23 @@
-import { BasketItemType } from '@/types/BasketItemType.ts';
 import iphone from '@images/iphone.jpg';
+import { BasketItemType } from '@models/basket/api.ts';
 
-export const basketItems: BasketItemType[] = [
+export const basketItemsMock: BasketItemType[] = [
   {
-    id: Math.random().toString(36).slice(2, 10),
+    id: 123,
     image: iphone,
     name: 'Смартфон Apple iPhone 15 Pro 256GB',
     quantity: 1,
     price: 4399.0,
   },
   {
-    id: Math.random().toString(36).slice(2, 10),
+    id: 456,
     image: iphone,
     name: 'Смартфон Apple iPhone 15 Pro 256GB',
     quantity: 1,
     price: 4399.0,
   },
   {
-    id: Math.random().toString(36).slice(2, 10),
+    id: 789,
     image: iphone,
     name: 'Смартфон Apple iPhone 15 Pro 256GB',
     quantity: 1,

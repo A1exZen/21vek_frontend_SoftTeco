@@ -1,67 +1,84 @@
 import styles from './styles.module.scss';
 import { Link } from 'react-router-dom';
 import { QuantityButton } from '@components/ui/QuantityButton';
-import { BasketItemType } from '@/types/BasketItemType.ts';
+import { BasketItemType } from '@models/basket/api';
+import { useDeleteBasketItem, useEditQuantity } from '@hooks/useBasket';
+import { useCallback, useState } from 'react';
+import UndoNotification from '@components/ui/UndoNotification/UndoNotification';
 
 interface BasketItemProps {
   item: BasketItemType;
-  onQuantityChange: (id: string, newQuantity: number) => void;
-  onRemove: (id: string) => void;
 }
 
-export const BasketItem = ({
-  item,
-  onQuantityChange,
-  onRemove,
-}: BasketItemProps) => {
-  const handleQuantityChange = (newQuantity: number) => {
-    onQuantityChange(item.id, newQuantity);
-  };
+export const BasketItem = ({ item }: BasketItemProps) => {
+  const { mutate: deleteItem } = useDeleteBasketItem(item.id);
+  const { mutate: editQuantity } = useEditQuantity(item.id);
 
-  const handleRemoveClick = () => {
-    onRemove(item.id);
+  const [isRemoving, setIsRemoving] = useState(false);
+  const handleRemove = () => {
+    setIsRemoving(true);
+  };
+  const handleUndo = () => {
+    setIsRemoving(false);
+  };
+  const handleRemoveConfirm = useCallback(() => {
+    if (isRemoving) {
+      deleteItem();
+      setIsRemoving(false);
+    }
+  }, [isRemoving, deleteItem]);
+
+  const handleQuantityChange = (newQuantity: number) => {
+    editQuantity(newQuantity);
   };
 
   const totalPrice = item.price * item.quantity;
 
   return (
-    <div className={styles.basket__item}>
-      <div className={styles.product}>
-        <div className={styles['product__image-container']}>
-          <div>
+    <>
+      <div className={styles.basket__item}>
+        <div className={styles.product}>
+          <div className={styles['product__image-container']}>
             <img
-              src={item.image}
+              src={item.img}
               alt={item.name}
               className={styles.product__image}
             />
+            <button
+              onClick={handleRemove}
+              className={styles['product__remove-button']}
+            >
+              удалить
+            </button>
           </div>
-          <button
-            onClick={handleRemoveClick}
-            className={styles['product__remove-button']}
-          >
-            удалить
-          </button>
+          <div className={styles.product__info}>
+            <Link to="#" className={styles.product__link}>
+              {item.name}
+            </Link>
+            <span className={styles.product__code}>код {item.id}</span>
+          </div>
         </div>
-        <div className={styles.product__info}>
-          <Link to="#" className={styles.product__link}>
-            {item.name}
-          </Link>
-          <span className={styles.product__code}>код {item.id}</span>
+        <div className={styles.quantity}>
+          <QuantityButton
+            quantity={item.quantity}
+            onChange={handleQuantityChange}
+          />
+        </div>
+        <div className={styles.delivery}>
+          <span>Курьером: сегодня</span>
+          <span>Самовывоз: сегодня</span>
+        </div>
+        <div className={styles.price}>
+          <span>{totalPrice.toFixed(2).replace('.', ',')} р.</span>
         </div>
       </div>
-      <div>
-        <QuantityButton
-          initialQuantity={item.quantity}
-          onChange={handleQuantityChange}
+      {isRemoving && (
+        <UndoNotification
+          message={`Товар "${item.name}" удален`}
+          onUndo={handleUndo}
+          onComplete={handleRemoveConfirm}
         />
-      </div>
-      <div className={styles.delivery}>
-        <span>Курьером: сегодня</span>
-        <span>Самовывоз: сегодня</span>
-      </div>
-      <div className={styles.price}>
-        <span>{totalPrice.toFixed(2).replace('.', ',')} р.</span>
-      </div>
-    </div>
+      )}
+    </>
   );
 };

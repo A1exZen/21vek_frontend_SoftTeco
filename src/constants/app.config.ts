@@ -32,6 +32,12 @@ export const API_CONFIG = {
       SEARCH: 'products/serch',
       FILTER: 'products/filter-product',
     },
+    BASKET: {
+      GET_ALL: 'basket/all-product-bask',
+      ADD_ITEM: 'basket/basket-prod',
+      DELETE_ITEM: 'basket/del-basket-prod',
+      EDIT_QUANTITY: 'basket/redact-product-bask',
+    },
   },
 };
 
