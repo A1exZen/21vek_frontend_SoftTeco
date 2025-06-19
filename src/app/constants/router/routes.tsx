@@ -26,7 +26,7 @@ export const routes: RouteObject[] = [
     element: <MainLayout />,
     children: [
       { index: true, element: <Home /> },
-      { path: PATHS.PRODUCT_COMPARISON, element: <ProductComparison />},
+      { path: PATHS.COMPARE, element: <ProductComparison />},
       { path: PATHS.PRODUCT_COMPARISON_DATA, element: <ProductComparisonData/>},
       { path: PATHS.FAVORITES, element: <FavoritesPage /> },
       { path: PATHS.PRODUCTS, element: <AllProductsPage /> },

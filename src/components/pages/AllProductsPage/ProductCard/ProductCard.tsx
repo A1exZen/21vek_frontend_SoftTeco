@@ -1,14 +1,24 @@
 import styles from './styles.module.scss';
-import { Heart, Scale, ShoppingCart, Star } from 'lucide-react';
+import { Heart, LoaderCircle, Scale, ShoppingCart, Star } from 'lucide-react';
 import { Tooltip } from 'antd';
 import { Product } from '@models/product/api.ts';
 import { Link } from 'react-router-dom';
+import { useAddToFavorites } from '../../../../hooks/useFavorites/useAddToFavorites';
 
 export const ProductCard = ({ product }: { product: Product }) => {
   const hasDiscount = product.discount != null && product.discount > 0;
   const oldPrice = product.discount
     ? Math.round(product.price / (1 - product.discount / 100))
     : null;
+
+  const { mutate: addToFavorite, isPending } = useAddToFavorites();
+
+  const handleAddToFavorite = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    console.log('Клик по избранному, productId:', product.idProduct);
+    addToFavorite(product.idProduct);
+  };
 
   return (
     <div className={styles['product-card']}>
@@ -32,8 +42,16 @@ export const ProductCard = ({ product }: { product: Product }) => {
           </button>
         </Tooltip>
         <Tooltip title="Добавить в избранное">
-          <button className={styles['product-card__favorite']}>
-            <Heart size={20} />
+          <button
+            className={styles['product-card__favorite']}
+            onClick={handleAddToFavorite}
+            disabled={isPending}
+          >
+            {isPending ? (
+              <LoaderCircle size="small" />
+            ) : (
+              <Heart size={20} />
+            )}
           </button>
         </Tooltip>
       </div>

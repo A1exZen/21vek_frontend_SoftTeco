@@ -31,6 +31,9 @@ export const API_CONFIG = {
       SEARCH: 'products/search',
       FILTER: 'products/filter-product',
     },
+    USER_ACTIONS: {
+      ACTIONS: '/user/actions',
+    }
   },
 };
 

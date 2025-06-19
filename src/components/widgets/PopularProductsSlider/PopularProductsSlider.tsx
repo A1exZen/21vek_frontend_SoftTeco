@@ -8,7 +8,7 @@ import {
   ShoppingCart,
   Star,
 } from 'lucide-react';
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import type { Swiper as SwiperType } from 'swiper';
 import 'swiper/css';
 import 'swiper/css/navigation';
@@ -17,9 +17,12 @@ import { Navigation, Pagination } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import styles from './styles.module.scss';
 import { Link } from 'react-router-dom';
+import { useAddToFavorites } from '@/hooks/useFavorites/useAddToFavorites';
 
 export const PopularProductsSlider = () => {
   const swiperRef = useRef<SwiperType | null>(null);
+  const [favorites, setFavorites] = useState<number[]>([]);
+  const { mutate: addToFavorite, isPending } = useAddToFavorites();
 
   const {
     data: products,
@@ -106,8 +109,28 @@ export const PopularProductsSlider = () => {
                       </button>
                     </Tooltip>
                     <Tooltip title="Добавить в избранное">
-                      <button className={styles['product-card__favorite']}>
-                        <Heart size={20} />
+                      <button
+                        className={styles['product-card__favorite']}
+                        onClick={(e) => {
+                          e.preventDefault();
+                          e.stopPropagation();
+                          addToFavorite(product.idProduct, {
+                            onSuccess: () => {
+                            setFavorites(prev => 
+                            prev.includes(product.idProduct) 
+                            ? prev.filter(id => id !== product.idProduct) 
+                            : [...prev, product.idProduct]
+                        );
+        }
+      });
+                        }}
+                        disabled={isPending}
+                      >
+                        <Heart 
+      size={20} 
+      color={favorites.includes(product.idProduct) ? '#ff4d4f' : '#000'} 
+      fill={favorites.includes(product.idProduct) ? '#ff4d4f' : 'none'} 
+    />
                       </button>
                     </Tooltip>
                   </div>

@@ -16,4 +16,6 @@ export enum QueryKeys {
   PRODUCT='product',
   BRANDS = 'brands',
   PRICE_RANGE='priceRange',
+
+  FAVORITE = 'favorite',
 }

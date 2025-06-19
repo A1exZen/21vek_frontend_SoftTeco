@@ -14,6 +14,7 @@ import { Spin, Tooltip } from 'antd';
 import { Product } from '@models/product/api.ts';
 
 import Sad from '@assets/icons/sad.svg';
+import { useAddToFavorites } from '@/hooks/useFavorites/useAddToFavorites';
 
 interface RecommendedProductsProps {
   productBrand: string;
@@ -29,6 +30,10 @@ export const RecommendedProducts = ({
     size: 7,
     page: 0,
   });
+
+    const { mutate: addToFavorite, isPending } = useAddToFavorites();
+
+
 
   const products = prod?.data.filter(
     (product: Product) => product.idProduct !== Number(idProduct),
@@ -112,10 +117,18 @@ export const RecommendedProducts = ({
                       </button>
                     </Tooltip>
                     <Tooltip title="Добавить в избранное">
-                      <button className={styles['product__favorite']}>
-                        <Heart size={20} />
-                      </button>
-                    </Tooltip>
+  <button
+    className={styles['product__favorite']}
+    onClick={(e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      addToFavorite(product.idProduct);
+    }}
+    disabled={isPending}
+  >
+    <Heart size={20} />
+  </button>
+</Tooltip>
                   </div>
 
                   <div className={styles['product__content']}>
