@@ -20,6 +20,36 @@
   }
 }
 
+.in-cart-btn, .cart-btn {
+  width: 100%;
+  padding: 12px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.cart-btn{
+  color: white;
+  background: var(--primary);
+  &:hover {
+    background: var(--primary-hover);
+  }
+}
+
+.in-cart-btn {
+  color: var(--primary);
+  background: var(--primary-light);
+
+  &:hover {
+    background: var();
+  }
+}
+
 body.modal-open {
   overflow: hidden;
   height: 100vh;

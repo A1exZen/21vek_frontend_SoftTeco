@@ -32,8 +32,6 @@ export const BasketItem = ({ item }: BasketItemProps) => {
     editQuantity(newQuantity);
   };
 
-  const totalPrice = item.price * item.quantity;
-
   return (
     <>
       <div className={styles.basket__item}>
@@ -52,7 +50,7 @@ export const BasketItem = ({ item }: BasketItemProps) => {
             </button>
           </div>
           <div className={styles.product__info}>
-            <Link to="#" className={styles.product__link}>
+            <Link to={`/product/${item.id}`} className={styles.product__link}>
               {item.name}
             </Link>
             <span className={styles.product__code}>код {item.id}</span>
@@ -69,7 +67,7 @@ export const BasketItem = ({ item }: BasketItemProps) => {
           <span>Самовывоз: сегодня</span>
         </div>
         <div className={styles.price}>
-          <span>{totalPrice.toFixed(2).replace('.', ',')} р.</span>
+          <span>{item.price.toFixed(2).replace('.', ',')} р.</span>
         </div>
       </div>
       {isRemoving && (
