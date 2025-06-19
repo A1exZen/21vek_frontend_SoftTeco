@@ -1,6 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { BasketItemType } from '@/types/BasketItemType.ts';
-import { basketItems } from '@pages/Basket/constants.ts';
+import { BasketItemType } from '@models/basket/api';
 
 interface InitialState {
   basketItems: BasketItemType[];
@@ -9,7 +8,7 @@ interface InitialState {
 }
 
 const initialState: InitialState = {
-  basketItems: basketItems,
+  basketItems: [],
   isModalOpen: false,
   isDrawerOpen: false,
 };
@@ -21,6 +20,12 @@ const basketSlice = createSlice({
     setBasketItems: (state, action: PayloadAction<BasketItemType[]>) => {
       state.basketItems = action.payload;
     },
+    setBasketItem: (state, action: PayloadAction<BasketItemType>) => {
+      state.basketItems.push(action.payload);
+    },
+    removeBasketItem: (state, action: PayloadAction<BasketItemType>) => {
+      state.basketItems.splice(state.basketItems.indexOf(action.payload), 1);
+    },
     setModalOpen: (state, action: PayloadAction<boolean>) => {
       state.isModalOpen = action.payload;
     },
@@ -30,6 +35,11 @@ const basketSlice = createSlice({
   },
 });
 
-export const { setBasketItems, setModalOpen, setDrawerOpen } =
-  basketSlice.actions;
+export const {
+  setBasketItems,
+  setBasketItem,
+  removeBasketItem,
+  setModalOpen,
+  setDrawerOpen,
+} = basketSlice.actions;
 export default basketSlice.reducer;

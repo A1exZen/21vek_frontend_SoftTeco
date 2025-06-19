@@ -8,8 +8,9 @@ import checkoutImage from '@images/checkout-image.png';
 import { Input } from 'antd';
 const { TextArea } = Input;
 import { useAppDispatch, useAppSelector } from '@hooks/reduxHooks';
-import { setModalOpen } from '@store/slices/basket.slice.ts';
+import { setDrawerOpen, setModalOpen } from '@store/slices/basket.slice.ts';
 import { CheckoutPickupModal } from '@pages/CheckoutPage/CheckoutPickupModal';
+import { DeliveryPointDrawer } from '@pages/CheckoutPage/DeliveryPointDrawer';
 
 export const CheckoutPage = () => {
   const navigate = useNavigate();
@@ -63,7 +64,10 @@ export const CheckoutPage = () => {
                   <span>Самовывоз</span>
                   <span>Бесплатно</span>
                 </button>
-                <button className={styles['checkout__delivery-button']}>
+                <button
+                  className={styles['checkout__delivery-button']}
+                  onClick={() => dispatch(setDrawerOpen(true))}
+                >
                   <Truck />
                   <span>Курьером</span>
                   <span>Бесплатно</span>
@@ -96,6 +100,7 @@ export const CheckoutPage = () => {
           </div>
         </div>
         <CheckoutPickupModal />
+        <DeliveryPointDrawer />
       </div>
     </div>
   );

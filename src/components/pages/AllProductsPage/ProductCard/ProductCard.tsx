@@ -3,6 +3,7 @@ import { Heart, Scale, ShoppingCart, Star } from 'lucide-react';
 import { Tooltip } from 'antd';
 import { Product } from '@models/product/api.ts';
 import { Link } from 'react-router-dom';
+import { useAddBasketItem } from '@hooks/useBasket.ts';
 
 export const ProductCard = ({ product }: { product: Product }) => {
   const hasDiscount = product.discount != null && product.discount > 0;
@@ -10,10 +11,16 @@ export const ProductCard = ({ product }: { product: Product }) => {
     ? Math.round(product.price / (1 - product.discount / 100))
     : null;
 
+  const { mutate: addToBasket } = useAddBasketItem();
+
+  const handleAddToCart = (idProduct: number) => {
+    addToBasket(idProduct);
+  };
+
   return (
     <div className={styles['product-card']}>
       <div className={styles['product-card__image-container']}>
-        <Link to={`/product/${product.idProduct}`} >
+        <Link to={`/product/${product.idProduct}`}>
           <img
             src={product.img}
             alt={product.nameProduct}
@@ -63,7 +70,10 @@ export const ProductCard = ({ product }: { product: Product }) => {
           )}
         </div>
 
-        <button className={styles['product-card__buy-btn']}>
+        <button
+          className={styles['product-card__buy-btn']}
+          onClick={() => handleAddToCart(product.idProduct)}
+        >
           <ShoppingCart size={16} />В корзину
         </button>
       </div>

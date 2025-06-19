@@ -11,7 +11,7 @@ export const API_CONFIG = {
       LOGOUT: 'auth/logout',
       ME: 'auth/me',
     },
-    CATEGORY:{
+    CATEGORY: {
       GET_HEADER_CAT: 'categories/header-categories',
       GET_ALL: 'categories/all-cat',
       GET_BY_URL: 'categories/one-cat',
@@ -30,6 +30,12 @@ export const API_CONFIG = {
       GET_PRICE_RANGE: 'products/price-range',
       SEARCH: 'products/search',
       FILTER: 'products/filter-product',
+    },
+    BASKET: {
+      GET_ALL: 'basket/all-product-bask',
+      ADD_ITEM: 'basket/basket-prod',
+      DELETE_ITEM: 'basket/del-basket-prod',
+      EDIT_QUANTITY: 'basket/redact-product-bask',
     },
   },
 };

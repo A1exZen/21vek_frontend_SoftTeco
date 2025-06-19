@@ -1,32 +1,18 @@
-import { useState } from 'react';
 import styles from './styles.module.scss';
 import { Minus, Plus } from 'lucide-react';
 
 interface QuantityButtonProps {
-  initialQuantity: number;
-  onChange?: (quantity: number) => void;
+  quantity: number;
+  onChange: (quantity: number) => void;
 }
 
-export const QuantityButton = ({
-  initialQuantity,
-  onChange,
-}: QuantityButtonProps) => {
-  const [quantity, setQuantity] = useState(initialQuantity);
-
+export const QuantityButton = ({ quantity, onChange }: QuantityButtonProps) => {
   const decrease = () => {
-    setQuantity((prev) => {
-      const newQuantity = prev - 1;
-      onChange?.(newQuantity);
-      return newQuantity;
-    });
+    onChange(quantity - 1);
   };
 
   const increase = () => {
-    setQuantity((prev) => {
-      const newQuantity = prev + 1;
-      onChange?.(newQuantity);
-      return newQuantity;
-    });
+    onChange(quantity + 1);
   };
 
   return (

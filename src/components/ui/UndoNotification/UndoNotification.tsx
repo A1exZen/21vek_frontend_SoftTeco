@@ -10,60 +10,48 @@ interface UndoNotificationProps {
 }
 
 const UndoNotification = ({
-  message = "Товар удален",
-  undoText = "Отменить",
+  message = 'Товар удален',
+  undoText = 'Отменить',
   duration = 3000,
   onUndo,
-  onComplete
+  onComplete,
 }: UndoNotificationProps) => {
-  const [progress, setProgress] = useState(100);
   const [show, setShow] = useState(true);
 
   const handleComplete = useCallback(() => {
     setShow(false);
-    setTimeout(() => onComplete(), 0);
+    onComplete();
   }, [onComplete]);
 
-  const handleUndo = useCallback(() => {
+  const handleUndoClick = useCallback(() => {
     setShow(false);
-    setTimeout(() => onUndo(), 0);
+    onUndo();
   }, [onUndo]);
 
   useEffect(() => {
     if (!show) return;
 
-    const step = 100 / (duration / 30);
-    const interval = setInterval(() => {
-      setProgress(prev => {
-        if (prev <= 0) {
-          clearInterval(interval);
-          handleComplete();
-          return 0;
-        }
-        return prev - step;
-      });
-    }, 30);
+    const timer = setTimeout(() => {
+      handleComplete();
+    }, duration);
 
-    return () => clearInterval(interval);
+    return () => clearTimeout(timer);
   }, [duration, handleComplete, show]);
 
-  if (!show) return;
+  if (!show) return null;
 
   return (
     <div className={styles.notification}>
       <div className={styles.content}>
         <span>{message}</span>
-        <button 
-          onClick={handleUndo}
-          className={styles.undo__button}
-        >
+        <button onClick={handleUndoClick} className={styles.undo__button}>
           {undoText}
         </button>
       </div>
-      <div 
+      <div
         className={styles['progress-bar']}
-        style={{ width: `${progress}%` }}
-      />
+        style={{ animationDuration: `${duration}ms` }}
+      ></div>
     </div>
   );
 };
