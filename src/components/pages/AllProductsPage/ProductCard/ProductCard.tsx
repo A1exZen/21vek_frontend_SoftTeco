@@ -6,13 +6,14 @@ import { Link } from 'react-router-dom';
 import { useAddToFavorites } from '@/hooks/useFavorites/useAddToFavorites';
 import { useRemoveFavorites } from '@/hooks/useFavorites/useRemoveFavorites';
 import { useGetFavorites } from '@/hooks/useFavorites/useGetFavorites';
+import { useAddBasketItem } from '@hooks/useBasket.ts';
 
 export const ProductCard = ({ product }: { product: Product }) => {
   const hasDiscount = product.discount != null && product.discount > 0;
   const oldPrice = product.discount
     ? Math.round(product.price / (1 - product.discount / 100))
     : null;
- 
+
   const { data: favorites = [] } = useGetFavorites();
   const isFavorite = favorites.some(fav => fav.idProduct === product.idProduct);
   const { mutate: addToFavorites } = useAddToFavorites();
@@ -24,12 +25,18 @@ export const ProductCard = ({ product }: { product: Product }) => {
     } else {
       addToFavorites(product.idProduct);
     }
+
+  console.log(product);
+  const { mutate: addToBasket } = useAddBasketItem();
+
+  const handleAddToCart = (idProduct: number) => {
+    addToBasket(idProduct);
   };
 
   return (
     <div className={styles['product-card']}>
       <div className={styles['product-card__image-container']}>
-        <Link to={`/product/${product.idProduct}`} >
+        <Link to={`/product/${product.idProduct}`}>
           <img
             src={product.img}
             alt={product.nameProduct}
@@ -87,8 +94,11 @@ export const ProductCard = ({ product }: { product: Product }) => {
           )}
         </div>
 
-        <button className={styles['product-card__buy-btn']}>
-          <ShoppingCart size={16} />В корзину
+        <button
+          className={product.inCart ? 'in-cart-btn' : 'cart-btn'}
+          onClick={() => handleAddToCart(product.idProduct)}
+        >
+          <ShoppingCart size={16} /> {product.inCart ? 'В корзине' : 'В'}
         </button>
       </div>
     </div>

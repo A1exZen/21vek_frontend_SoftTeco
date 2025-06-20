@@ -6,6 +6,7 @@ export enum PATHS {
   BUSINESS = '/business',
   CUSTOMERS = '/customers',
   DELIVERY = '/delivery',
+  VIEW_HISTORY = '/view-history',
   RETURNS = '/returns',
   HELP = '/help',
   CONTACTS = '/contacts',

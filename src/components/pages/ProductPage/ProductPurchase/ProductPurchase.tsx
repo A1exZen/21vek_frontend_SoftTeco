@@ -1,17 +1,18 @@
 import styles from './styles.module.scss';
 import { Heart, Star } from 'lucide-react';
-import { useState } from 'react';
 import { Product } from '@models/product/api.ts';
 import { useAddToFavorites } from '@/hooks/useFavorites/useAddToFavorites';
 import { useRemoveFavorites } from '@/hooks/useFavorites/useRemoveFavorites';
 import { useGetFavorites } from '@/hooks/useFavorites/useGetFavorites';
+import { useAddBasketItem } from '@hooks/useBasket.ts';
 
 interface ProductGalleryProps {
   product: Product;
 }
 
 export const ProductPurchase = ({ product }: ProductGalleryProps) => {
-  const [inCart, setInCart] = useState(product.inCart);
+  const { mutate: addToBasket } = useAddBasketItem();
+  console.log("In cart", product.inCart);
 
   const hasDiscount = product.discount != null && product.discount > 0;
   const oldPrice = product.discount
@@ -32,9 +33,8 @@ export const ProductPurchase = ({ product }: ProductGalleryProps) => {
     }
   }
 
-  const handleAddToCart = () => {
-    setInCart(true);
-    // api call
+  const handleAddToCart = (idProduct: number) => {
+    addToBasket(idProduct);
     console.log(`Добавлен в корзину: ${product.idProduct}`);
   };
 
@@ -68,11 +68,11 @@ export const ProductPurchase = ({ product }: ProductGalleryProps) => {
 
       <div className={styles['product-purchase__buttons-section']}>
         <button
-          className={styles['product-purchase__cart-btn']}
-          onClick={handleAddToCart}
-          disabled={inCart}
+          className={!product.inCart ? 'in-cart-btn' : 'cart-btn'}
+          onClick={() => handleAddToCart(product.idProduct)}
+          disabled={product.inCart}
         >
-          {inCart ? 'В корзине' : 'Добавить в корзину'}
+          {!product.inCart ? 'В корзине' : 'Добавить в корзину'}
         </button>
         <button 
           className={styles['product-purchase__favorite-btn']}

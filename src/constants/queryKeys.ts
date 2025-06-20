@@ -4,6 +4,8 @@ export enum QueryKeys {
   USERS = 'users',
   USER_CITY = 'userCity',
   CURRENT_USER = 'currentUser',
+  VIEW_HISTORY = 'viewHistory',
+  SEARCH_PRODUCTS = 'search',
 
   CATEGORIES = 'categories',
   HEADER_CATEGORIES = 'headerCategories',
@@ -13,9 +15,11 @@ export enum QueryKeys {
 
   PRODUCTS = 'allProduct',
   FILTERED_PRODUCTS = 'filterProducts',
-  PRODUCT='product',
+  PRODUCT = 'product',
   BRANDS = 'brands',
+
   PRICE_RANGE='priceRange',
 
   FAVORITE = 'favorite',
+  BASKET = 'basket',
 }

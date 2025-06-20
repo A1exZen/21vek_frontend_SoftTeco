@@ -25,7 +25,6 @@ const AuthModal = ({
   onToggleMode,
 }: AuthModalProps) => {
   const { t: tAuth } = useTranslation('auth');
-  // const { isVisible, isLogin, closeAuth, toggleMode } = useAuthModal();
   const { loginMutation, registerMutation } = useAuth();
 
   const {
@@ -48,9 +47,13 @@ const AuthModal = ({
   }, [isVisible, reset]);
 
   const onSubmit: SubmitHandler<LoginRequest> = (data: LoginRequest) => {
-    if (isLogin) loginMutation.mutate(data);
-    else registerMutation.mutate(data);
-    onClose()
+    if (isLogin) {
+      loginMutation.mutate(data);
+      onClose();
+    } else {
+      registerMutation.mutate(data);
+      onToggleMode();
+    }
   };
 
   return (

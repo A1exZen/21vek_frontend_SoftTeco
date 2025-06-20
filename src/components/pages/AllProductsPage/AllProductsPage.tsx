@@ -6,6 +6,7 @@ import { useCallback, useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { ProductCard } from './ProductCard';
 import styles from './styles.module.scss';
+import Sad from '@icons/sad.svg';
 
 const SEARCH_PARAM_BRAND = 'brand';
 const SEARCH_PARAM_PRICE_FILTER = 'price_filtr';
@@ -123,8 +124,9 @@ export const AllProductsPage = () => {
         <main className={styles['products__list']}>
           <div className={styles['products__grid']}>
             {error ? (
-              <div className={styles['products__error']}>
-                Ошибка при загрузке продуктов: {error.message}
+              <div className={'not-found-sad'}>
+                Ничего не найдено!
+                <Sad />
               </div>
             ) : isLoading || isFetching ? (
               <Spin size="large" />

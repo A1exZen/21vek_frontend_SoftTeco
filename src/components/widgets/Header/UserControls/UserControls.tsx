@@ -1,7 +1,6 @@
 import styles from './styles.module.scss';
 import Logo from '/src/assets/icons/main-logo.png';
-import { Avatar, Input } from 'antd';
-import { SearchOutlined } from '@ant-design/icons';
+import { Avatar } from 'antd';
 import Catalog from '@/assets/icons/catalog.svg';
 import Favorite from '@/assets/icons/heart.svg';
 import Basket from '@/assets/icons/basket.svg';
@@ -10,12 +9,13 @@ import { Link, useLocation } from 'react-router-dom';
 import Button from '@/components/ui/Button';
 import { useEffect, useRef, useState } from 'react';
 import ProductCatalog from '@components/widgets/ProductCatalog';
-import { Heart, LogOut, ShoppingCart, User, List } from 'lucide-react';
+import { Heart, LogOut, ShoppingCart, User, List, Eye } from 'lucide-react';
 import useClickOutside from '@hooks/useClickOutside';
 import AuthModal from '@components/widgets/AuthModal';
 import { useAuthModal } from '@components/widgets/AuthModal/useAuthModal.ts';
 import { useAppSelector } from '@/hooks/reduxHooks';
 import { useAuth } from '@hooks/useAuth.ts';
+import { Search } from '@components/widgets/Header/UserControls/Search';
 
 export const UserControls = () => {
   const [isCatalogOpen, setIsCatalogOpen] = useState(false);
@@ -24,10 +24,9 @@ export const UserControls = () => {
 
   const catalogButtonRef = useRef<HTMLButtonElement>(null);
   const accountButtonRef = useRef<HTMLButtonElement>(null);
-  const dropdownRef = useRef<HTMLDivElement | null>(null);
+  const dropdownRef = useRef<HTMLDivElement>(null);
 
   const authModal = useAuthModal();
-
   const { user } = useAppSelector((state) => state.auth);
   const { logoutMutation } = useAuth();
 
@@ -79,14 +78,8 @@ export const UserControls = () => {
         </button>
 
         <div className={styles['search-container']}>
-          <Input
-            size="large"
-            placeholder="Поиск товаров..."
-            prefix={<SearchOutlined />}
-            className={styles.searchInput}
-          />
+          <Search />
         </div>
-
         <Link to={PATHS.FAVORITES}>
           <Button icon={<Favorite />} variant="bordered" color="third">
             Избранное
@@ -156,9 +149,19 @@ export const UserControls = () => {
                         </span>
                       </div>
                     </Link>
+                    <Link
+                      to={PATHS.VIEW_HISTORY}
+                      className={styles['account-dropdown__link']}
+                    >
+                      <div className={styles['account-dropdown__item']}>
+                        <Eye size={20} />
+                        <span className={styles['account-dropdown__text']}>
+                      Просмотренные
+                    </span>
+                      </div>
+                    </Link>
                   </>
                 )}
-
                 <Link
                   to={PATHS.FAVORITES}
                   className={styles['account-dropdown__link']}
@@ -182,7 +185,6 @@ export const UserControls = () => {
                     </span>
                   </div>
                 </Link>
-
                 <Link
                   to={PATHS.COMPARE}
                   className={styles['account-dropdown__link']}
@@ -218,5 +220,3 @@ export const UserControls = () => {
     </>
   );
 };
-
-export default UserControls;

@@ -11,7 +11,7 @@ export const API_CONFIG = {
       LOGOUT: 'auth/logout',
       ME: 'auth/me',
     },
-    CATEGORY:{
+    CATEGORY: {
       GET_HEADER_CAT: 'categories/header-categories',
       GET_ALL: 'categories/all-cat',
       GET_BY_URL: 'categories/one-cat',
@@ -22,18 +22,25 @@ export const API_CONFIG = {
       DELETE_ADDRESS: 'user/profile/address',
       CHANGE_ADDRESS: '/user/profile/address',
       GET_ADDRESSES: 'user/profile/addresses',
+      ACTIONS: 'user/actions',
     },
     PRODUCTS: {
       GET_ALL: 'products/all-product',
       GET_BY_ID: 'products/one-product',
       GET_BRANDS: 'brand/all-brand',
       GET_PRICE_RANGE: 'products/price-range',
-      SEARCH: 'products/search',
+      SEARCH: 'products/serch',
       FILTER: 'products/filter-product',
     },
     USER_ACTIONS: {
       ACTIONS: '/user/actions',
-    }
+    },
+    BASKET: {
+      GET_ALL: 'basket/all-product-bask',
+      ADD_ITEM: 'basket/basket-prod',
+      DELETE_ITEM: 'basket/del-basket-prod',
+      EDIT_QUANTITY: 'basket/redact-product-bask',
+    },
   },
 };
 

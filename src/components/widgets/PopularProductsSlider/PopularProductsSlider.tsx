@@ -1,13 +1,6 @@
 import { useFilterProducts } from '@/hooks/useProducts';
-import { Spin, Tooltip } from 'antd';
-import {
-  ChevronLeft,
-  ChevronRight,
-  Heart,
-  Scale,
-  ShoppingCart,
-  Star,
-} from 'lucide-react';
+import { Spin } from 'antd';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { useRef } from 'react';
 import type { Swiper as SwiperType } from 'swiper';
 import 'swiper/css';
@@ -21,6 +14,7 @@ import { useAddToFavorites } from '@/hooks/useFavorites/useAddToFavorites';
 import { useRemoveFavorites } from '@/hooks/useFavorites/useRemoveFavorites';
 import { Product } from '@/models/product/api';
 import { useGetFavorites } from '@/hooks/useFavorites/useGetFavorites';
+import { ProductCard } from '@pages/AllProductsPage/ProductCard';
 
 export const PopularProductsSlider = () => {
   const swiperRef = useRef<SwiperType | null>(null);
