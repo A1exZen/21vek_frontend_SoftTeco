@@ -10,7 +10,7 @@ export const ProductCard = ({ product }: { product: Product }) => {
   const oldPrice = product.discount
     ? Math.round(product.price / (1 - product.discount / 100))
     : null;
-
+  console.log(product);
   const { mutate: addToBasket } = useAddBasketItem();
 
   const handleAddToCart = (idProduct: number) => {
@@ -71,10 +71,10 @@ export const ProductCard = ({ product }: { product: Product }) => {
         </div>
 
         <button
-          className={styles['product-card__buy-btn']}
+          className={product.inCart ? 'in-cart-btn' : 'cart-btn'}
           onClick={() => handleAddToCart(product.idProduct)}
         >
-          <ShoppingCart size={16} />В корзину
+          <ShoppingCart size={16} /> {product.inCart ? 'В корзине' : 'В'}
         </button>
       </div>
     </div>

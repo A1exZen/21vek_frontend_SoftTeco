@@ -83,7 +83,7 @@ export const useProducts = (
     ? filteredProductsQuery.isFetching
     : allProductsQuery.isFetching;
 
-  const hasMore = data ? data.pagination.page !== data.pagination.total : false;
+  const hasMore = data?.pagination ? data.pagination.page !== data.pagination.total : false;
 
   return {
     data: data?.data || [],
@@ -95,8 +95,8 @@ export const useProducts = (
     refetch: hasActiveFilters
       ? filteredProductsQuery.refetch
       : allProductsQuery.refetch,
-    total: data?.pagination.total || 0,
-    currentCount: data?.data.length || 0,
+    total: data?.pagination?.total || 0,
+    currentCount: data?.data?.length || 0,
   };
 };
 
@@ -111,6 +111,7 @@ export const useGetBrands = () => {
   return useQuery<string[], Error>({
     queryKey: [QueryKeys.BRANDS],
     queryFn: getBrands,
+    initialData: []
   });
 };
 

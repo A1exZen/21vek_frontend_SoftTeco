@@ -10,6 +10,7 @@ export interface Product {
   status: string;
   img: string;
   inCart?: boolean;
+  inFav?: boolean;
   characteristics?: CharacteristicGroup[];
   category?: Category;
 }

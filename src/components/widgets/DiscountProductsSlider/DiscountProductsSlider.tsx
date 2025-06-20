@@ -37,8 +37,7 @@ export const DiscountProductsSlider = () => {
           <h2 className={styles['discount__title']}>Акции</h2>
         </div>
         <div className={styles['products-grid']}>
-          {products &&
-            products.data.map((product) => (
+          {products?.data?.map((product) => (
               <div key={product.idProduct} className={styles['product-card']}>
                 <div className={styles['product-card__image-container']}>
                   <Link to={`/product/${product.idProduct}`}>

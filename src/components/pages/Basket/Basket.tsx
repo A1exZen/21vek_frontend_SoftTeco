@@ -5,10 +5,11 @@ import { BasketItem } from '@components/widgets/BasketItem';
 import Button from '@components/ui/Button';
 import { CheckoutPage } from '@pages/CheckoutPage';
 import { useGetAllBasketItems } from '@hooks/useBasket';
-import { basketItemsMock } from '@pages/Basket/constants.ts';
 
 const Basket = () => {
-  const { data: basketItems = basketItemsMock } = useGetAllBasketItems();
+  const { data: basketData } = useGetAllBasketItems();
+
+  const basketItems = Array.isArray(basketData) ? basketData : [];
 
   const [searchParams] = useSearchParams();
   const action = searchParams.get('action');

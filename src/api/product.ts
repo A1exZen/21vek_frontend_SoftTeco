@@ -3,12 +3,11 @@ import { API_CONFIG } from '@/constants';
 import {
   FilterParams,
   PaginatedResponse,
-  Product, SearchResponse
+  Product,
+  SearchResponse,
 } from '@models/product/api.ts';
-import { ResponseError } from '@utils/ErrorHandler';
+import { BaseError, ResponseError } from '@utils/ErrorHandler';
 import { AxiosError } from 'axios';
-
-
 
 export const getAllProducts = async (
   params: { sort?: number; page?: number; size?: number } = {},
@@ -54,11 +53,8 @@ export const filterProducts = async (
       `${API_CONFIG.ENDPOINTS.PRODUCTS.FILTER}?${queryParams.toString()}`,
     );
   } catch (error) {
-    const axiosError = error as AxiosError<ResponseError>;
-    console.error('Ошибка запроса:', axiosError);
-    throw new Error(
-      axiosError.response?.data?.message || 'Ошибка при фильтрации продуктов',
-    );
+    console.error('Ошибка запроса:', error);
+    throw new BaseError('Ошибка при фильтрации продуктов');
   }
 };
 
@@ -90,7 +86,9 @@ export const getBrands = async (): Promise<string[]> => {
   }
 };
 
-export const searchProducts = async (litters: string): Promise<SearchResponse> => {
+export const searchProducts = async (
+  litters: string,
+): Promise<SearchResponse> => {
   try {
     const queryParams = new URLSearchParams();
     queryParams.append('litters', litters);
@@ -106,5 +104,3 @@ export const searchProducts = async (litters: string): Promise<SearchResponse> =
     );
   }
 };
-
-

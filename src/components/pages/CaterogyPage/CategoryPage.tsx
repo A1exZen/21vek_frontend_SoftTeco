@@ -17,16 +17,19 @@ export const CategoryPage = () => {
     error: productsError,
     isLoading: isProductsLoading,
   } = useGetCategoryByUrl(categoryUrl!);
+
   const {
     data: categories,
     isLoading: isCategoriesLoading,
     error: categoriesError,
   } = useGetAllCategories();
 
-  const category = categories?.find((cat) => cat.url === categoryUrl);
-  const subCategories = categories?.filter(
+  const category = Array.isArray(categories)
+    ? categories.find((cat) => cat.url === categoryUrl)
+    : undefined;
+  const subCategories = Array.isArray(categories) ? categories?.filter(
     (cat) => cat.idParent === category?.idCategories,
-  );
+  ) : undefined;
 
   const isLoading = isCategoriesLoading || isProductsLoading;
   const error = categoriesError || productsError;

@@ -44,9 +44,26 @@
 .in-cart-btn {
   color: var(--primary);
   background: var(--primary-light);
-
   &:hover {
     background: var();
+  }
+  &:disabled {
+    cursor: not-allowed;
+  }
+}
+
+.not-found-sad{
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  color: var(--gray-700);
+  width: fit-content;
+  padding: 6px 12px;
+  font-weight: 500;
+  font-size: 1.2rem;
+  white-space: nowrap;
+  svg{
+    width: 30px;
   }
 }
 
