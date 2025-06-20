@@ -9,13 +9,15 @@ export const ViewHistory = () => {
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>Error: {error.message}</div>;
 
+  const products = Array.isArray(viewedProducts) ? viewedProducts : [];
+
   return (
     <div className={styles['history-container']}>
       <h2 className={styles['history-title']}>Просмотренные товары</h2>
       <Divider type="horizontal" />
-      {viewedProducts && viewedProducts.length > 0 ? (
+      {products && products?.length > 0 ? (
         <ul className={styles['products-grid']}>
-          {viewedProducts.map((product) => (
+          {products?.map((product) => (
             <ProductCard key={product.idProduct} product={product} />
           ))}
         </ul>

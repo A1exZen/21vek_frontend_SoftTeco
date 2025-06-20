@@ -9,9 +9,7 @@ import 'swiper/css/pagination';
 import { Navigation, Pagination } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import styles from './styles.module.scss';
-import {
-  ProductCardPopular
-} from './ProductCardPopular';
+import { ProductCard } from '@pages/AllProductsPage/ProductCard';
 
 export const PopularProductsSlider = () => {
   const swiperRef = useRef<SwiperType | null>(null);
@@ -78,12 +76,11 @@ export const PopularProductsSlider = () => {
           }}
           className={styles['products-swiper']}
         >
-          {products &&
-            products.data.map((product) => (
-              <SwiperSlide key={product.idProduct}>
-                <ProductCardPopular product={product} />
-              </SwiperSlide>
-            ))}
+          {products?.data?.map((product) => (
+            <SwiperSlide key={product.idProduct}>
+              <ProductCard product={product} />
+            </SwiperSlide>
+          ))}
         </Swiper>
         <div className={styles['swiper-pagination']}></div>
       </div>

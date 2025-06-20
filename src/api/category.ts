@@ -6,7 +6,7 @@ import {
 } from '@models/category/api.ts';
 // import { API_CONFIG } from '@/constants';
 import { AxiosError } from 'axios';
-import { ResponseError } from '@utils/ErrorHandler';
+import { BaseError, ensureError, ResponseError } from '@utils/ErrorHandler';
 import { API_CONFIG } from '@/constants';
 
 export const getAllCategories = async (
@@ -17,11 +17,8 @@ export const getAllCategories = async (
       `${API_CONFIG.ENDPOINTS.CATEGORY.GET_ALL}/${sort}`,
     );
   } catch (error) {
-    const axiosError = error as AxiosError<ResponseError>;
-    console.error('Ошибка запроса:', axiosError);
-    throw new Error(
-      axiosError.response?.data?.message || 'Ошибка при получении категорий',
-    );
+    const err = ensureError(error);
+    throw new BaseError('Error', { cause: err });
   }
 };
 

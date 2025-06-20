@@ -11,7 +11,8 @@ export const useGetViewHistory = () => {
   return useQuery<ViewedProduct[], Error>({
     queryKey: [QueryKeys.VIEW_HISTORY],
     queryFn: getViewHistory,
-    staleTime: 0
+    staleTime: 0,
+    initialData: []
   });
 };
 

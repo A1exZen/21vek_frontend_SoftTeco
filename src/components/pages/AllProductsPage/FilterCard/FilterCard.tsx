@@ -34,6 +34,7 @@ export const FilterCard: React.FC<FilterCardProps> = ({
   const { data: brands } = useGetBrands();
 
   const visibleBrands = useMemo(() => {
+    if (!Array.isArray(brands)) return [];
     return showAllBrands ? brands : brands?.slice(0, 4);
   }, [brands, showAllBrands]);
 

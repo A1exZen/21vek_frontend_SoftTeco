@@ -1,4 +1,11 @@
-import { ChangeEvent, memo, useCallback, useEffect, useRef, useState } from 'react';
+import {
+  ChangeEvent,
+  memo,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
 import { Input } from 'antd';
 import { SearchOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
@@ -20,18 +27,25 @@ export const Search = memo(({ className }: SearchProps) => {
   const { data: searchResults, isFetching } = useSearchProducts(searchTerm);
 
   const handleSearch = useCallback(
-    debounce((value: string) => {
-      setSearchTerm(value);
-      setIsSearchOpen(!!value);
-    }, 300, { leading: false, trailing: true }),
-    []
+    debounce(
+      (value: string) => {
+        setSearchTerm(value);
+        setIsSearchOpen(!!value);
+      },
+      300,
+      { leading: false, trailing: true },
+    ),
+    [],
   );
 
-  const handleInputChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
-    setInputValue(value);
-    handleSearch(value);
-  }, [handleSearch]);
+  const handleInputChange = useCallback(
+    (e: ChangeEvent<HTMLInputElement>) => {
+      const value = e.target.value;
+      setInputValue(value);
+      handleSearch(value);
+    },
+    [handleSearch],
+  );
 
   const handleClear = useCallback(() => {
     setInputValue('');
@@ -53,8 +67,14 @@ export const Search = memo(({ className }: SearchProps) => {
     };
   }, [handleSearch]);
 
+  const categories = searchResults?.categories || [];
+  const products = searchResults?.products || [];
+
   return (
-    <div className={`${styles['search-container']} ${className || ''}`} ref={searchResultsRef}>
+    <div
+      className={`${styles['search-container']} ${className || ''}`}
+      ref={searchResultsRef}
+    >
       <Input
         size="large"
         placeholder="Поиск товаров..."
@@ -66,11 +86,11 @@ export const Search = memo(({ className }: SearchProps) => {
       />
       {isSearchOpen && !isFetching && searchResults && (
         <div className={styles['search-results']}>
-          {searchResults.categories.length > 0 && (
+          {categories.length > 0 && (
             <div className={styles['search-section']}>
               <h4 className={styles['search-section__title']}>Категории</h4>
               <div className={styles['search-section__items']}>
-                {searchResults.categories.map((category) => (
+                {searchResults?.categories?.map((category) => (
                   <Link
                     to={`/${category.url}`}
                     key={category.url}
@@ -83,7 +103,7 @@ export const Search = memo(({ className }: SearchProps) => {
               </div>
             </div>
           )}
-          {searchResults.products.length > 0 && (
+          {products.length > 0 && (
             <div className={styles['search-section']}>
               <h4 className={styles['search-section__title']}>Товары</h4>
               <div className={styles['search-section__items']}>

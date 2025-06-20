@@ -28,6 +28,7 @@ const Profile = () => {
     queryKey: [QueryKeys.GET_ADDRESSES],
     queryFn: async () => await getAddresses(),
     staleTime: getMs('min', 3),
+    initialData: []
   });
 
   const changeAccountType = (value: boolean) => {
@@ -81,7 +82,6 @@ const Profile = () => {
         </div>
         <ProfileInfo />
         <ProfileAddress />
-
         {addressees?.map((address) => (
           <Address key={address.idAdress} address={address} />
         ))}

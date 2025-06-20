@@ -22,6 +22,7 @@ export const useAddBasketItem = () => {
     mutationFn: (idProduct: number) => addBasketItem(idProduct),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: [QueryKeys.BASKET] });
+      queryClient.invalidateQueries({ queryKey: [QueryKeys.PRODUCT] });
     },
     onError: () => toast.error('Не удалось обновить данные'),
   });
