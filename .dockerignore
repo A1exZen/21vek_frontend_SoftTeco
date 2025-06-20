@@ -3,4 +3,3 @@ dist
 .git
 .idea
 *.log
-*.env*
