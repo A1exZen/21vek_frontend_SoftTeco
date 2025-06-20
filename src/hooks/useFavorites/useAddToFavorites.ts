@@ -1,0 +1,21 @@
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { addToFavorites } from '../../api/favorites';
+import toast from 'react-hot-toast';
+import { QueryKeys } from '@/constants';
+
+export const useAddToFavorites = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: addToFavorites,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: [QueryKeys.FAVORITE] });
+      toast.success('Товар добавлен в избранное');
+    },
+    onError: (error: Error) => {
+      toast.error('Ошибка при добавлении в избранное');
+      console.error(error.message);
+    },
+  });
+};
+

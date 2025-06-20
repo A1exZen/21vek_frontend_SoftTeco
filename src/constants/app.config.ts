@@ -32,6 +32,9 @@ export const API_CONFIG = {
       SEARCH: 'products/serch',
       FILTER: 'products/filter-product',
     },
+    USER_ACTIONS: {
+      ACTIONS: '/user/actions',
+    },
     BASKET: {
       GET_ALL: 'basket/all-product-bask',
       ADD_ITEM: 'basket/basket-prod',
