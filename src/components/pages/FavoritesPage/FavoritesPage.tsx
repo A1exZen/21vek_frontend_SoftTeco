@@ -37,18 +37,18 @@ const FavoritesPage = () => {
       ) : (
         <div className={styles.favorites__list}>
           {favorites.map((item) => (
-            <div key={item.actionId} className={styles.card}>
+            <div key={item.idProduct} className={styles.card}>
               <div className={styles.card__content}>
-                <div className={styles.image__container}>
-                  <img 
-                    src={item.img} 
+                <Link to={`/product/${item.idProduct}`} className={styles.image__container} >
+                  <img
+                    src={item.img}
                     alt={item.nameProduct}
                     className={styles.product__image}
+                    loading="lazy"
                   />
-                </div>
-
+                </Link>
                 <div className={styles.info__container}>
-                  <Link to={`/product/${item.actionId}`} className={styles.product__link}>
+                  <Link to={`/product/${item.idProduct}`} className={styles.product__link} >
                     {item.nameProduct}
                   </Link>
 
