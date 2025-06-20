@@ -9,7 +9,8 @@ export interface Product {
   numberOfReviews?: number;
   status: string;
   img: string;
-  inCart?: boolean;
+  inCart: boolean;
+  inFav: boolean;
   characteristics?: CharacteristicGroup[];
   category?: Category;
 }

@@ -1,23 +1,29 @@
 import styles from './styles.module.scss';
-import { Heart, LoaderCircle, Scale, ShoppingCart, Star } from 'lucide-react';
+import { Heart, Scale, ShoppingCart, Star } from 'lucide-react';
 import { Tooltip } from 'antd';
 import { Product } from '@models/product/api.ts';
 import { Link } from 'react-router-dom';
-import { useAddToFavorites } from '../../../../hooks/useFavorites/useAddToFavorites';
+import { useAddToFavorites } from '@/hooks/useFavorites/useAddToFavorites';
+import { useRemoveFavorites } from '@/hooks/useFavorites/useRemoveFavorites';
+import { useGetFavorites } from '@/hooks/useFavorites/useGetFavorites';
 
 export const ProductCard = ({ product }: { product: Product }) => {
   const hasDiscount = product.discount != null && product.discount > 0;
   const oldPrice = product.discount
     ? Math.round(product.price / (1 - product.discount / 100))
     : null;
+ 
+  const { data: favorites = [] } = useGetFavorites();
+  const isFavorite = favorites.some(fav => fav.idProduct === product.idProduct);
+  const { mutate: addToFavorites } = useAddToFavorites();
+  const { mutate: removeFromFavorite } = useRemoveFavorites();
 
-  const { mutate: addToFavorite, isPending } = useAddToFavorites();
-
-  const handleAddToFavorite = (e: React.MouseEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
-    console.log('Клик по избранному, productId:', product.idProduct);
-    addToFavorite(product.idProduct);
+  const handleToggleFavorite = () => {
+    if (isFavorite) {
+      removeFromFavorite(product.idProduct);
+    } else {
+      addToFavorites(product.idProduct);
+    }
   };
 
   return (
@@ -41,17 +47,17 @@ export const ProductCard = ({ product }: { product: Product }) => {
             <Scale size={20} />
           </button>
         </Tooltip>
-        <Tooltip title="Добавить в избранное">
+        <Tooltip title={isFavorite ? "Удалить из избранного" : "Добавить в избранное"}>
           <button
             className={styles['product-card__favorite']}
-            onClick={handleAddToFavorite}
-            disabled={isPending}
+            onClick={handleToggleFavorite}
+          
           >
-            {isPending ? (
-              <LoaderCircle size="small" />
-            ) : (
-              <Heart size={20} />
-            )}
+            <Heart 
+              size={20} 
+              color={isFavorite ? '#ff4d4f' : '#000'} 
+              fill={isFavorite ? '#ff4d4f' : 'none'}
+            />
           </button>
         </Tooltip>
       </div>

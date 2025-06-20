@@ -2,7 +2,7 @@ import { $api } from '@app/config/axios/api';
 import { API_CONFIG } from '@/constants';
 import { AxiosError } from 'axios';
 import { BaseError, ensureError, ResponseError } from '@utils/ErrorHandler';
-import { IFavoriteItem } from '@/models/favorite/favorite';
+import { IFavoriteItem } from '@/models/favorite/api';
 
 
 export const addToFavorites = async (productId: number): Promise<void> => {
@@ -41,3 +41,19 @@ export const removeFavorites = async (idProduct: number): Promise<void> => {
     throw new BaseError('failed to delete favorite item', { cause: err });
   }
 };
+
+
+// export const getFavoriteItem = async (idProduct: number): Promise<boolean> => {
+//   try {
+//     const { data } = await $api.get<{inFav: boolean}>(
+//       `${API_CONFIG.ENDPOINTS.PRODUCTS.GET_BY_ID}/${idProduct}`
+//     );
+//     return data.inFav;
+//   } catch (error) {
+//     const axiosError = error as AxiosError<ResponseError>;
+//     console.error('Ошибка проверки товара в избранных:', axiosError);
+//     throw new Error(
+//       axiosError.response?.data?.message || 'Ошибка проверки товара в избранных',
+//     );
+//   }
+// };

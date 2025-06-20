@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { IFavoriteItem } from "@/models/favorite/favorite";
+import { IFavoriteItem } from "@/models/favorite/api";
 import { getFavorites } from "../../api/favorites";
 import { QueryKeys } from "@/constants";
 import toast from "react-hot-toast";
@@ -19,4 +19,3 @@ export const useGetFavorites = () => {
     },
   });
 };
-
