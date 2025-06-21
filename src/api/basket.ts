@@ -9,7 +9,7 @@ import {
   ResponseDeleteBasketItem,
   RequestEditQuantity,
   ResponseEditQuantity,
-} from '@models/basket/api.ts';
+} from '@models/basket/api';
 
 export const getAllBasketItems =
   async (): Promise<ResponseGetAllBasketItems> => {

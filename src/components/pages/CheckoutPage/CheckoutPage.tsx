@@ -8,15 +8,16 @@ import checkoutImage from '@images/checkout-image.png';
 import { Input } from 'antd';
 const { TextArea } = Input;
 import { useAppDispatch } from '@hooks/reduxHooks';
-import { setDrawerOpen, setModalOpen } from '@store/slices/basket.slice.ts';
-// import { CheckoutPickupModal } from '@pages/CheckoutPage/CheckoutPickupModal';
+import { setDrawerOpen, setModalOpen } from '@store/slices/basket.slice';
+import { CheckoutPickupModal } from '@pages/CheckoutPage/CheckoutPickupModal';
 import { DeliveryPointDrawer } from '@pages/CheckoutPage/DeliveryPointDrawer';
 
 type CheckoutPageProps = {
   price: number;
-}
+};
 
 export const CheckoutPage = ({ price }: CheckoutPageProps) => {
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
 
@@ -24,8 +25,6 @@ export const CheckoutPage = ({ price }: CheckoutPageProps) => {
     searchParams.delete('action');
     navigate({ search: searchParams.toString() });
   };
-
-  const dispatch = useAppDispatch();
 
   return (
     <div className={styles.checkout}>
@@ -97,7 +96,7 @@ export const CheckoutPage = ({ price }: CheckoutPageProps) => {
             <Button onClick={handleClose}>Заказать</Button>
           </div>
         </div>
-        {/*<CheckoutPickupModal />*/}
+        <CheckoutPickupModal />
         <DeliveryPointDrawer />
       </div>
     </div>
