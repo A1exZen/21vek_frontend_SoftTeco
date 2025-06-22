@@ -3,9 +3,9 @@ import { Heart, Scale, ShoppingCart, Star } from 'lucide-react';
 import { Tooltip } from 'antd';
 import { Product } from '@models/product/api.ts';
 import { Link } from 'react-router-dom';
+import {  useState } from 'react';
 import { useAddToFavorites } from '@/hooks/useFavorites/useAddToFavorites';
 import { useRemoveFavorites } from '@/hooks/useFavorites/useRemoveFavorites';
-import { useGetFavorites } from '@/hooks/useFavorites/useGetFavorites';
 
 export const ProductCard = ({ product }: { product: Product }) => {
   const hasDiscount = product.discount != null && product.discount > 0;
@@ -13,17 +13,18 @@ export const ProductCard = ({ product }: { product: Product }) => {
     ? Math.round(product.price / (1 - product.discount / 100))
     : null;
  
-  const { data: favorites = [] } = useGetFavorites();
-  const isFavorite = favorites.some(fav => fav.idProduct === product.idProduct);
+  const [localIsFavorite, setLocalIsFavorite] = useState(product.inFav);
   const { mutate: addToFavorites } = useAddToFavorites();
   const { mutate: removeFromFavorite } = useRemoveFavorites();
 
   const handleToggleFavorite = () => {
-    if (isFavorite) {
-      removeFromFavorite(product.idProduct);
+    
+    if (product.inFav) {
+      removeFromFavorite(product.idProduct)
     } else {
-      addToFavorites(product.idProduct);
+      addToFavorites(product.idProduct)
     }
+    setLocalIsFavorite(prev => !prev)
   };
 
   return (
@@ -47,7 +48,7 @@ export const ProductCard = ({ product }: { product: Product }) => {
             <Scale size={20} />
           </button>
         </Tooltip>
-        <Tooltip title={isFavorite ? "Удалить из избранного" : "Добавить в избранное"}>
+        <Tooltip title={localIsFavorite ? "Удалить из избранного" : "Добавить в избранное"}>
           <button
             className={styles['product-card__favorite']}
             onClick={handleToggleFavorite}
@@ -55,8 +56,8 @@ export const ProductCard = ({ product }: { product: Product }) => {
           >
             <Heart 
               size={20} 
-              color={isFavorite ? '#ff4d4f' : '#000'} 
-              fill={isFavorite ? '#ff4d4f' : 'none'}
+              color={localIsFavorite ? '#ff4d4f' : '#000'} 
+              fill={localIsFavorite ? '#ff4d4f' : 'none'}
             />
           </button>
         </Tooltip>

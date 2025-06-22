@@ -2,7 +2,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination } from 'swiper/modules';
 import { Heart, Star, ChevronLeft, ChevronRight, Scale } from 'lucide-react';
 import { Link, useParams } from 'react-router-dom';
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import type { Swiper as SwiperType } from 'swiper';
 import 'swiper/css';
 import 'swiper/css/pagination';
@@ -14,7 +14,6 @@ import { Product } from '@models/product/api.ts';
 import Sad from '@assets/icons/sad.svg';
 import { useAddToFavorites } from '@/hooks/useFavorites/useAddToFavorites';
 import { useRemoveFavorites } from '@/hooks/useFavorites/useRemoveFavorites';
-import { useGetFavorites } from '@/hooks/useFavorites/useGetFavorites';
 
 interface RecommendedProductsProps {
   productBrand: string;
@@ -110,18 +109,19 @@ export const RecommendedProducts = ({
 };
 
 const ProductSlide = ({ product }: { product: Product }) => {
-  const { data: favorites = [] } = useGetFavorites();
-  const isFavorite = favorites.some(fav => fav.idProduct === product.idProduct);
-  const { mutate: addToFavorites } = useAddToFavorites();
-  const { mutate: removeFromFavorite } = useRemoveFavorites();
-
-  const handleToggleFavorite = () => {
-    if (isFavorite) {
-      removeFromFavorite(product.idProduct);
-    } else {
-      addToFavorites(product.idProduct);
-    }
-  };
+  const [localIsFavorite, setLocalIsFavorite] = useState(product.inFav);
+    const { mutate: addToFavorites } = useAddToFavorites();
+    const { mutate: removeFromFavorite } = useRemoveFavorites();
+  
+    const handleToggleFavorite = () => {
+      
+      if (product.inFav) {
+        removeFromFavorite(product.idProduct)
+      } else {
+        addToFavorites(product.idProduct)
+      }
+      setLocalIsFavorite(prev => !prev)
+    };
 
   const hasDiscount = product.discount !== undefined && product.discount > 0;
   const oldPrice = hasDiscount && product.discount !== undefined
@@ -148,15 +148,15 @@ const ProductSlide = ({ product }: { product: Product }) => {
             <Scale size={20} />
           </button>
         </Tooltip>
-        <Tooltip title={isFavorite ? "Удалить из избранного" : "Добавить в избранное"}>
+        <Tooltip title={localIsFavorite ? "Удалить из избранного" : "Добавить в избранное"}>
           <button
             className={styles['product__favorite']}
             onClick={handleToggleFavorite}
           >
             <Heart 
               size={20} 
-              color={isFavorite ? '#ff4d4f' : '#000'} 
-              fill={isFavorite ? '#ff4d4f' : 'none'}
+              color={localIsFavorite ? '#ff4d4f' : '#000'} 
+              fill={localIsFavorite ? '#ff4d4f' : 'none'}
             />
           </button>
         </Tooltip>

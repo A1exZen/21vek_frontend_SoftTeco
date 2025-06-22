@@ -1,8 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
-import { IFavoriteItem } from "@/models/favorite/api";
 import { getFavorites } from "../../api/favorites";
 import { QueryKeys } from "@/constants";
 import toast from "react-hot-toast";
+import { IFavoriteItem } from "@/models/favorite/api";
 
 export const useGetFavorites = () => {
   return useQuery<IFavoriteItem[], Error>({
@@ -17,5 +17,7 @@ export const useGetFavorites = () => {
         return [];
       }
     },
+    // staleTime: 5 * 60 * 1000,
+    // gcTime: 10 * 60 * 1000
   });
 };

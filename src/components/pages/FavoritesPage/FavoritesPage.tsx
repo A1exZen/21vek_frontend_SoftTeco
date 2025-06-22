@@ -4,24 +4,24 @@ import { Link } from 'react-router-dom';
 import styles from './styles.module.scss';
 import { Star, ShoppingCart } from 'lucide-react';
 import { Divider } from 'antd';
-import { useGetFavorites } from '../../../hooks/useFavorites/useGetFavorites';
-import { useRemoveFavorites } from '../../../hooks/useFavorites/useRemoveFavorites';
+import { useRemoveFavorites } from '@/hooks/useFavorites/useRemoveFavorites';
 import toast from 'react-hot-toast';
+import { useGetFavorites } from '@/hooks/useFavorites/useGetFavorites';
 
 const FavoritesPage = () => {
-  const { data: favorites = [], isFetching } = useGetFavorites();
+  const { data: favorites, isLoading: isFetching } = useGetFavorites();
   const { mutate: removeFavorite } = useRemoveFavorites();
 
-  const handleRemove = useCallback((actionId: number) => {
-  removeFavorite(actionId, {
-    onSuccess: () => {
-      toast.success('Товар удалён из избранного');
-    },
-    onError: () => {
-      toast.error('Ошибка при удалении');
-    },
-  });
-}, [removeFavorite]);
+  const handleRemove = useCallback((idProduct: number) => {
+    removeFavorite(idProduct, {
+      onSuccess: () => {
+        toast.success('Товар удалён из избранного');
+      },
+      onError: () => {
+        toast.error('Ошибка при удалении');
+      },
+    });
+  }, [removeFavorite]);
 
   return (
     <div className={styles.container}>
@@ -30,25 +30,24 @@ const FavoritesPage = () => {
 
       {isFetching ? (
         <div>Загрузка...</div>
-      ) : favorites.length === 0 ? (
+      ) : !favorites || favorites.length === 0 ? (
         <div className={styles.empty__message}>
           У вас пока нет ни одного товара в избранном.
         </div>
       ) : (
         <div className={styles.favorites__list}>
           {favorites.map((item) => (
-            <div key={item.idProduct} className={styles.card}>
+            <div key={item.idProduct} className={styles.card}> {/* Используем idProduct вместо actionId */}
               <div className={styles.card__content}>
-                <Link to={`/product/${item.idProduct}`} className={styles.image__container} >
+                <Link to={`/product/${item.idProduct}`} className={styles.image__container}>
                   <img
                     src={item.img}
                     alt={item.nameProduct}
                     className={styles.product__image}
-                    loading="lazy"
                   />
                 </Link>
                 <div className={styles.info__container}>
-                  <Link to={`/product/${item.idProduct}`} className={styles.product__link} >
+                  <Link to={`/product/${item.idProduct}`} className={styles.product__link}>
                     {item.nameProduct}
                   </Link>
 
