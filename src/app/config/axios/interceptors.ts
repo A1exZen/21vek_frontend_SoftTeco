@@ -9,11 +9,10 @@ import { BaseError, ResponseError, ensureError } from '@utils/ErrorHandler';
 import { $api } from './api';
 import { HttpStatusCode } from '@models/common';
 import { refreshToken as callRefreshTokenApi } from '@/api/auth';
-import { toast } from 'react-hot-toast';
 
 interface Interceptors {
   onSuccess: (response: AxiosResponse) => AxiosResponse;
-  onError: (error: AxiosError) => Promise<never>;
+  onError: (error: AxiosError) => Promise<AxiosResponse>;
 }
 
 let isRefreshing = false;
@@ -44,7 +43,7 @@ export const interceptors: Interceptors = {
     }
     return response.data !== undefined ? response.data : response;
   },
-  onError: async (error: AxiosError): Promise<never> => {
+  onError: async (error: AxiosError): Promise<AxiosResponse> => {
     const err = ensureError(error);
 
     if (!isAxiosError(err)) {
@@ -58,7 +57,6 @@ export const interceptors: Interceptors = {
       if (originalRequest && originalRequest._isRefreshRequest) {
         isRefreshing = false;
         processQueue(err);
-        toast.error('Сессия истекла. Пожалуйста, войдите снова.');
         throw new ResponseError(
           'Refresh token is invalid or expired. Session ended.',
           statusCode,
@@ -87,7 +85,6 @@ export const interceptors: Interceptors = {
           console.error('Error refreshing token:', refreshError);
           isRefreshing = false;
           processQueue(ensureError(refreshError) as AxiosError);
-          toast.error('Сессия истекла. Пожалуйста, войдите снова.');
           throw new ResponseError(
             'Failed to refresh token. Session ended.',
             statusCode,

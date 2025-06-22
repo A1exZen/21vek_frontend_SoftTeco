@@ -17,7 +17,6 @@ import { QueryKeys } from '@/constants';
 import { getAddresses } from '@/api/user';
 import { useAuthCheck } from '@/hooks/useAuthCheck';
 import { getMs } from '@/utils/helpers/getMs';
-import { AccountSidebar } from '@components/widgets/AccountSidebar';
 
 const Profile = () => {
   const [isBusiness, setBusiness] = useState<boolean>(false);
@@ -29,6 +28,7 @@ const Profile = () => {
     queryKey: [QueryKeys.GET_ADDRESSES],
     queryFn: async () => await getAddresses(),
     staleTime: getMs('min', 3),
+    initialData: []
   });
 
   const changeAccountType = (value: boolean) => {
@@ -50,7 +50,6 @@ const Profile = () => {
 
   return (
     <div className="container">
-      <AccountSidebar/>
       <div className={styles['profile']}>
         <h2 className={styles['profile__heading']}>Настройка профиля</h2>
         <div
@@ -83,7 +82,6 @@ const Profile = () => {
         </div>
         <ProfileInfo />
         <ProfileAddress />
-
         {addressees?.map((address) => (
           <Address key={address.idAdress} address={address} />
         ))}

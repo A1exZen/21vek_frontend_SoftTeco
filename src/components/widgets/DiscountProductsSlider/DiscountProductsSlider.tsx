@@ -4,6 +4,7 @@ import { ShoppingCart } from 'lucide-react';
 import styles from './styles.module.scss';
 import { Link } from 'react-router-dom';
 import { Spin } from 'antd';
+import { useAddBasketItem } from '@hooks/useBasket.ts';
 
 export const DiscountProductsSlider = () => {
   const {
@@ -11,6 +12,12 @@ export const DiscountProductsSlider = () => {
     isLoading,
     error,
   } = useFilterProducts({ popular: false, size: 6, page: 0 });
+
+  const { mutate: addToBasket } = useAddBasketItem();
+
+  const handleAddToCart = (idProduct: number) => {
+    addToBasket(idProduct);
+  };
 
   if (error) {
     console.log('error', error);
@@ -30,8 +37,7 @@ export const DiscountProductsSlider = () => {
           <h2 className={styles['discount__title']}>Акции</h2>
         </div>
         <div className={styles['products-grid']}>
-          {products &&
-            products.data.map((product) => (
+          {products?.data?.map((product) => (
               <div key={product.idProduct} className={styles['product-card']}>
                 <div className={styles['product-card__image-container']}>
                   <Link to={`/product/${product.idProduct}`}>
@@ -67,7 +73,10 @@ export const DiscountProductsSlider = () => {
                     ) : null}
                   </div>
 
-                  <button className={styles['product-card__buy-btn']}>
+                  <button
+                    className={styles['product-card__buy-btn']}
+                    onClick={() => handleAddToCart(product.idProduct)}
+                  >
                     <ShoppingCart size={16} color={'#fff'} />
                   </button>
                 </div>

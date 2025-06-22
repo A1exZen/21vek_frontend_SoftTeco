@@ -7,11 +7,16 @@ import { PATHS } from '@/constants';
 import checkoutImage from '@images/checkout-image.png';
 import { Input } from 'antd';
 const { TextArea } = Input;
-import { useAppDispatch, useAppSelector } from '@hooks/reduxHooks';
-import { setModalOpen } from '@store/slices/basket.slice.ts';
-import { CheckoutPickupModal } from '@pages/CheckoutPage/CheckoutPickupModal';
+import { useAppDispatch } from '@hooks/reduxHooks';
+import { setDrawerOpen, setModalOpen } from '@store/slices/basket.slice.ts';
+// import { CheckoutPickupModal } from '@pages/CheckoutPage/CheckoutPickupModal';
+import { DeliveryPointDrawer } from '@pages/CheckoutPage/DeliveryPointDrawer';
 
-export const CheckoutPage = () => {
+type CheckoutPageProps = {
+  price: number;
+}
+
+export const CheckoutPage = ({ price }: CheckoutPageProps) => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
 
@@ -19,12 +24,6 @@ export const CheckoutPage = () => {
     searchParams.delete('action');
     navigate({ search: searchParams.toString() });
   };
-
-  const basketItems = useAppSelector((state) => state.basket.basketItems);
-  const totalPrice = basketItems.reduce(
-    (sum, item) => sum + item.price * item.quantity,
-    0,
-  );
 
   const dispatch = useAppDispatch();
 
@@ -63,7 +62,10 @@ export const CheckoutPage = () => {
                   <span>Самовывоз</span>
                   <span>Бесплатно</span>
                 </button>
-                <button className={styles['checkout__delivery-button']}>
+                <button
+                  className={styles['checkout__delivery-button']}
+                  onClick={() => dispatch(setDrawerOpen(true))}
+                >
                   <Truck />
                   <span>Курьером</span>
                   <span>Бесплатно</span>
@@ -88,14 +90,15 @@ export const CheckoutPage = () => {
           <div className={styles.checkout__summary}>
             <div className={styles.checkout__total}>
               <span className={styles['checkout__total-amount']}>
-                {totalPrice.toFixed(2).replace('.', ',')} р.
+                {price.toFixed(2).replace('.', ',')} р.
               </span>
               <span className={styles.checkout__text}>Стоимость заказа</span>
             </div>
             <Button onClick={handleClose}>Заказать</Button>
           </div>
         </div>
-        <CheckoutPickupModal />
+        {/*<CheckoutPickupModal />*/}
+        <DeliveryPointDrawer />
       </div>
     </div>
   );

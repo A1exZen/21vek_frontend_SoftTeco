@@ -1,20 +1,19 @@
-import UndoNotification from '@/components/ui/UndoNotification/UndoNotification';
 import { Link, useSearchParams } from 'react-router-dom';
-import { useState, useCallback, useEffect } from 'react';
+import { useEffect } from 'react';
 import styles from './styles.module.scss';
 import { BasketItem } from '@components/widgets/BasketItem';
-import { useAppDispatch, useAppSelector } from '@hooks/reduxHooks.ts';
-import { setBasketItems } from '@store/slices/basket.slice.ts';
-import { BasketItemType } from '@/types/BasketItemType.ts';
 import Button from '@components/ui/Button';
 import { CheckoutPage } from '@pages/CheckoutPage';
+import { useGetAllBasketItems } from '@hooks/useBasket';
 
 const Basket = () => {
-  const basketItems = useAppSelector((state) => state.basket.basketItems);
-  const dispatch = useAppDispatch();
+  const { data: basketData } = useGetAllBasketItems();
+
+  const basketItems = Array.isArray(basketData) ? basketData : [];
 
   const [searchParams] = useSearchParams();
   const action = searchParams.get('action');
+
   useEffect(() => {
     if (action === 'checkout') {
       document.body.style.overflow = 'hidden';
@@ -26,43 +25,6 @@ const Basket = () => {
       document.body.style.overflow = 'auto';
     };
   }, [action]);
-
-  const handleQuantityChange = useCallback(
-    (id: string, newQuantity: number) => {
-      dispatch(
-        setBasketItems(
-          basketItems.map((item) =>
-            item.id === id ? { ...item, quantity: newQuantity } : item,
-          ),
-        ),
-      );
-    },
-    [basketItems, dispatch],
-  );
-
-  const [undoState, setUndoState] = useState<{
-    item: BasketItemType | null;
-    key: number;
-  }>({ item: null, key: 0 });
-  const handleRemove = (id: string) => {
-    const itemToRemove = basketItems.find((item) => item.id === id);
-    if (!itemToRemove) return;
-
-    setUndoState({ item: itemToRemove, key: Date.now() });
-  };
-  const handleUndo = () => {
-    setUndoState({ item: null, key: 0 });
-  };
-  const handleRemoveConfirm = useCallback(() => {
-    if (undoState.item) {
-      dispatch(
-        setBasketItems(
-          basketItems.filter((item) => item.id !== undoState.item?.id),
-        ),
-      );
-    }
-    setUndoState({ item: null, key: 0 });
-  }, [undoState.item, basketItems, dispatch]);
 
   const totalPrice = basketItems.reduce((sum, item) => {
     return sum + item.price * item.quantity;
@@ -95,12 +57,7 @@ const Basket = () => {
             </div>
 
             {basketItems.map((item) => (
-              <BasketItem
-                key={item.id}
-                item={item}
-                onQuantityChange={handleQuantityChange}
-                onRemove={handleRemove}
-              />
+              <BasketItem key={item.id} item={item} />
             ))}
 
             <div className={styles['basket__summary-container']}>
@@ -121,16 +78,7 @@ const Basket = () => {
           </>
         )}
 
-        {undoState.item && (
-          <UndoNotification
-            key={undoState.key}
-            message={`Товар "${undoState.item.name}" удален`}
-            onUndo={handleUndo}
-            onComplete={handleRemoveConfirm}
-          />
-        )}
-
-        {action === 'checkout' && <CheckoutPage />}
+        {action === 'checkout' && <CheckoutPage price={totalPrice} />}
       </div>
     </div>
   );

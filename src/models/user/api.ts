@@ -19,8 +19,8 @@ export type Address = {
 };
 
 export type User = {
-  idProfile: number;
-  mail: string;
+  idProfile?: number;
+  mail?: string;
   name?: string;
   birthday?: string;
   tel?: string;

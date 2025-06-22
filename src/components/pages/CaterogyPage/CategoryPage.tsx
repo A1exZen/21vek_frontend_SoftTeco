@@ -8,6 +8,7 @@ import {
 import { Spin } from 'antd';
 import { ProductCard } from '@pages/AllProductsPage/ProductCard';
 import Sad from '@assets/icons/sad.svg';
+import { Breadcrumbs } from '@/components/widgets/Breadcrumbs';
 
 export const CategoryPage = () => {
   const { categoryUrl } = useParams<{ categoryUrl: string }>();
@@ -16,16 +17,19 @@ export const CategoryPage = () => {
     error: productsError,
     isLoading: isProductsLoading,
   } = useGetCategoryByUrl(categoryUrl!);
+
   const {
     data: categories,
     isLoading: isCategoriesLoading,
     error: categoriesError,
   } = useGetAllCategories();
 
-  const category = categories?.find((cat) => cat.url === categoryUrl);
-  const subCategories = categories?.filter(
+  const category = Array.isArray(categories)
+    ? categories.find((cat) => cat.url === categoryUrl)
+    : undefined;
+  const subCategories = Array.isArray(categories) ? categories?.filter(
     (cat) => cat.idParent === category?.idCategories,
-  );
+  ) : undefined;
 
   const isLoading = isCategoriesLoading || isProductsLoading;
   const error = categoriesError || productsError;
@@ -49,6 +53,7 @@ export const CategoryPage = () => {
   }
   return (
     <section className={styles['category__container']}>
+      {category && <Breadcrumbs category={category} />}
       <h1 className={styles['category__title']}>
         {category?.nameCategories || 'Категория'}
       </h1>

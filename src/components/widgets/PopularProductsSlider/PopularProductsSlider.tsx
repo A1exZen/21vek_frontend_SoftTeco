@@ -21,6 +21,9 @@ import { useAddToFavorites } from '@/hooks/useFavorites/useAddToFavorites';
 import { useRemoveFavorites } from '@/hooks/useFavorites/useRemoveFavorites';
 import { Product } from '@/models/product/api';
 
+//import { ProductCard } from '@pages/AllProductsPage/ProductCard';
+
+
 export const PopularProductsSlider = () => {
   const swiperRef = useRef<SwiperType | null>(null);
 
@@ -92,6 +95,12 @@ export const PopularProductsSlider = () => {
                 <ProductSlide product={product} />
               </SwiperSlide>
             ))}
+          //{products?.data?.map((product) => (
+            //<SwiperSlide key={product.idProduct}>
+              //<ProductCard product={product} />
+            //</SwiperSlide>
+          //))}
+
         </Swiper>
         <div className={styles['swiper-pagination']}></div>
       </div>

@@ -2,11 +2,14 @@ import {
   filterProducts,
   getAllProducts,
   getBrands,
-  getProductById,
-  PaginatedResponse,
+  getProductById, searchProducts
 } from '@/api/product.ts';
 import { QueryKeys } from '@/constants';
-import { Product } from '@/models/product/api';
+import {
+  PaginatedResponse,
+  Product,
+  SearchResponse
+} from '@/models/product/api';
 import { useQuery } from '@tanstack/react-query';
 
 export const useGetAllProducts = (
@@ -80,7 +83,7 @@ export const useProducts = (
     ? filteredProductsQuery.isFetching
     : allProductsQuery.isFetching;
 
-  const hasMore = data ? data.pagination.page !== data.pagination.total : false;
+  const hasMore = data?.pagination ? data.pagination.page !== data.pagination.total : false;
 
   return {
     data: data?.data || [],
@@ -92,8 +95,8 @@ export const useProducts = (
     refetch: hasActiveFilters
       ? filteredProductsQuery.refetch
       : allProductsQuery.refetch,
-    total: data?.pagination.total || 0,
-    currentCount: data?.data.length || 0,
+    total: data?.pagination?.total || 0,
+    currentCount: data?.data?.length || 0,
   };
 };
 
@@ -108,13 +111,17 @@ export const useGetBrands = () => {
   return useQuery<string[], Error>({
     queryKey: [QueryKeys.BRANDS],
     queryFn: getBrands,
+    initialData: []
   });
 };
-//
-// export const useGetPriceRange = (categoryId?: number) => {
-//   return useQuery<{ min: number; max: number }, Error>({
-//     queryKey: [QueryKeys.PRICE_RANGE, categoryId],
-//     queryFn: () => getPriceRange(categoryId),
-//     staleTime: 15 * 60 * 1000
-//   });
-// };
+
+export const useSearchProducts = (letters: string) => {
+  return useQuery<SearchResponse, Error>({
+    queryKey: [QueryKeys.SEARCH_PRODUCTS, letters],
+    queryFn: () => searchProducts(letters),
+    enabled: !!letters,
+    staleTime: 5 * 60 * 1000,
+  });
+};
+
+

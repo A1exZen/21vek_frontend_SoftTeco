@@ -11,11 +11,11 @@ interface OfferItemProps {
 }
 
 export const SpecialOffers = () => {
-  const { data, isLoading, isError } = useGetHeaderCategories();
+  const { data , isLoading, isError } = useGetHeaderCategories();
   const MainLink = () => (
     <div className={styles['main-link']}>
       <Label />
-      <Link to={PATHS.PRODUCTS}>Все акции</Link>
+      <Link to={PATHS.PRODUCTS}>Все товары</Link>
       <Divider type="vertical" />
     </div>
   );
@@ -44,7 +44,7 @@ export const SpecialOffers = () => {
     );
   }
 
-  const categories = data?.categories.slice(0,5) || [];
+  const categories = data?.categories?.slice(0,5) || [];
   if (categories.length === 0) {
     return (
       <div className={styles['background']}>

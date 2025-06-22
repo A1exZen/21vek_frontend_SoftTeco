@@ -26,10 +26,12 @@ const ProductCatalog = ({
   const location = useLocation();
   const prevLocationRef = useRef(location.pathname);
 
-  const { data: productCategories } = useGetAllCategories();
-
+  const { data: productCategories = [] } = useGetAllCategories();
 
   const topLevelCategories = useMemo(() => {
+    if (!Array.isArray(productCategories)) {
+      return [];
+    }
     const categories =
       productCategories?.filter((category) => category.idParent === null) ?? [];
 

@@ -1,29 +1,13 @@
 import { $api } from '@/app/config/axios/api';
 import { API_CONFIG } from '@/constants';
-import { Product } from '@models/product/api.ts';
-import { ResponseError } from '@utils/ErrorHandler';
+import {
+  FilterParams,
+  PaginatedResponse,
+  Product,
+  SearchResponse,
+} from '@models/product/api.ts';
+import { BaseError, ResponseError } from '@utils/ErrorHandler';
 import { AxiosError } from 'axios';
-
-export interface Pagination {
-  page?: number;
-  size: number;
-  total: number;
-}
-
-export interface PaginatedResponse {
-  data: Product[];
-  pagination: Pagination;
-}
-
-export interface FilterParams {
-  page?: number;
-  size: number;
-  brand?: string;
-  price_filtr?: 'asc' | 'desc';
-  popular?: boolean;
-  min_price?: number;
-  max_price?: number;
-}
 
 export const getAllProducts = async (
   params: { sort?: number; page?: number; size?: number } = {},
@@ -69,11 +53,8 @@ export const filterProducts = async (
       `${API_CONFIG.ENDPOINTS.PRODUCTS.FILTER}?${queryParams.toString()}`,
     );
   } catch (error) {
-    const axiosError = error as AxiosError<ResponseError>;
-    console.error('Ошибка запроса:', axiosError);
-    throw new Error(
-      axiosError.response?.data?.message || 'Ошибка при фильтрации продуктов',
-    );
+    console.error('Ошибка запроса:', error);
+    throw new BaseError('Ошибка при фильтрации продуктов');
   }
 };
 
@@ -95,6 +76,25 @@ export const getBrands = async (): Promise<string[]> => {
   try {
     return await $api.get<string[], string[]>(
       `${API_CONFIG.ENDPOINTS.PRODUCTS.GET_BRANDS}`,
+    );
+  } catch (error) {
+    const axiosError = error as AxiosError<ResponseError>;
+    console.error('Ошибка получения брендов:', axiosError);
+    throw new Error(
+      axiosError.response?.data?.message || 'Ошибка при получении брендов',
+    );
+  }
+};
+
+export const searchProducts = async (
+  litters: string,
+): Promise<SearchResponse> => {
+  try {
+    const queryParams = new URLSearchParams();
+    queryParams.append('litters', litters);
+
+    return await $api.get(
+      `${API_CONFIG.ENDPOINTS.PRODUCTS.SEARCH}?${queryParams.toString()}`,
     );
   } catch (error) {
     const axiosError = error as AxiosError<ResponseError>;
