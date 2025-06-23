@@ -1,9 +1,10 @@
+version: '3.8'
 services:
   frontend:
     build: .
     ports:
-      - "5173:80"  # Меняем порт, так как Nginx использует 80
+      - "5173:5173"
     environment:
       - NODE_ENV=production
     volumes:
-      - ./.env.production:/app/.env  # Не нужно в финальном образе, но оставим для сборки
+      - ./.env.production:/app/.env
