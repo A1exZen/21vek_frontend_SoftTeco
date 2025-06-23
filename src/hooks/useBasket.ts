@@ -23,6 +23,10 @@ export const useAddBasketItem = () => {
     onSuccess: async () => {
       await queryClient.invalidateQueries({ queryKey: [QueryKeys.BASKET] });
       await queryClient.invalidateQueries({ queryKey: [QueryKeys.PRODUCT] });
+      await queryClient.invalidateQueries({
+        queryKey: [QueryKeys.FILTERED_PRODUCTS],
+      });
+      toast.success('Добавлено в корзину');
     },
     onError: () => toast.error('Не удалось обновить данные'),
   });
@@ -35,6 +39,11 @@ export const useDeleteBasketItem = (idProduct: number) => {
     mutationFn: () => deleteBasketItem(idProduct),
     onSuccess: async () => {
       await queryClient.invalidateQueries({ queryKey: [QueryKeys.BASKET] });
+      await queryClient.invalidateQueries({ queryKey: [QueryKeys.PRODUCT] });
+      await queryClient.invalidateQueries({
+        queryKey: [QueryKeys.FILTERED_PRODUCTS],
+      });
+      toast.success('Удалено из корзины');
     },
     onError: () => toast.error('Не удалось обновить данные'),
   });

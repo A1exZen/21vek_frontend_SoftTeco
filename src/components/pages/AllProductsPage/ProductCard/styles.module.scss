@@ -124,24 +124,9 @@
 		text-decoration: line-through;
 	}
 
-	.product-card__buy-btn {
-		width: 100%;
-		background: #e91e63;
-		color: white;
-		border: none;
-		padding: 12px;
-		border-radius: 8px;
-		font-weight: 600;
-		cursor: pointer;
-		transition: background-color 0.2s;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		gap: 8px;
-
-		&:hover {
-			background: #c2185b;
-		}
+	.cart-btn {
+		background-color: #fdf0f8;
+		color: var(--primary);
 	}
 
 }
