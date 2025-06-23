@@ -1,38 +1,41 @@
-# Этап 1: Сборка проекта
+# Базовый образ с Node.js 20 (LTS, совместим с pnpm и React 19)
 FROM node:20-alpine AS builder
 
-# Установка pnpm
-RUN corepack enable && corepack prepare pnpm@latest --activate
+# Устанавливаем pnpm
+RUN npm install -g pnpm
 
+# Устанавливаем рабочую директорию
 WORKDIR /app
 
-# Копируем только package.json и pnpm-lock.yaml для ускорения сборки
+# Копируем файлы зависимостей и переменные окружения
 COPY package.json pnpm-lock.yaml ./
+COPY .env.development .env.development
+COPY .env.production .env.production
 
-# Установка зависимостей
-RUN pnpm install
+# Устанавливаем зависимости
+RUN pnpm install --frozen-lockfile
 
-# Копируем остальные файлы
+# Копируем весь проект
 COPY . .
 
-# Установка переменной окружения (при необходимости)
-ENV NODE_ENV=production
-
-# Сборка проекта
+# Собираем приложение (Vite использует переменные из .env.production для продакшена)
 RUN pnpm build
 
-# Этап 2: Сервер для отдачи статики (nginx)
-FROM nginx:stable-alpine
+# Финальный образ для продакшена
+FROM node:20-alpine
 
-# Удалим стандартную конфигурацию
-RUN rm /etc/nginx/conf.d/default.conf
+# Устанавливаем serve для раздачи статических файлов
+RUN npm install -g serve
 
-# Копируем собственный конфиг nginx
-COPY nginx.conf /etc/nginx/conf.d
+# Устанавливаем рабочую директорию
+WORKDIR /app
 
-# Копируем собранные файлы в nginx
-COPY --from=builder /app/dist /usr/share/nginx/html
+# Копируем собранные файлы
+COPY --from=builder /app/dist ./dist
+COPY --from=builder /app/.env.production .env
 
+# Указываем порт (5173 из vite.config.ts)
 EXPOSE 5173
 
-CMD ["nginx", "-g", "daemon off;"]
+# Запускаем приложение с переменными окружения
+CMD ["serve", "-s", "dist", "-l", "5173"]
