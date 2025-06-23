@@ -1,7 +1,4 @@
 export interface RequestPlaceOrder {
-  basket_items: {
-    id_us_storage: number;
-  }[];
   comment: string;
   adress: string;
   shipping_cost: number;
@@ -9,11 +6,7 @@ export interface RequestPlaceOrder {
 }
 
 export interface ResponsePlaceOrder {
-  basket_items: {
-    id_us_storage: number;
-  }[];
-  comment: string;
-  adress: string;
-  shipping_cost: number;
-  organization: string;
+  status: string;
+  message: string;
+  order_processor_id: number;
 }
