@@ -1,6 +1,8 @@
 import styles from './styles.module.scss';
 import { Heart, Star } from 'lucide-react';
 import { Product } from '@models/product/api.ts';
+import { useAddToFavorites } from '@/hooks/useFavorites/useAddToFavorites';
+import { useRemoveFavorites } from '@/hooks/useFavorites/useRemoveFavorites';
 import { useAddBasketItem } from '@hooks/useBasket.ts';
 
 interface ProductGalleryProps {
@@ -15,6 +17,21 @@ export const ProductPurchase = ({ product }: ProductGalleryProps) => {
   const oldPrice = product.discount
     ? Math.round(product.price / (1 - product.discount / 100))
     : null;
+  
+   const [localIsFavorite, setLocalIsFavorite] = useState(product.inFav);
+  const { mutate: addToFavorites } = useAddToFavorites();
+  const { mutate: removeFromFavorite } = useRemoveFavorites();
+
+  const handleToggleFavorite = () => {
+    
+    if (product.inFav) {
+      removeFromFavorite(product.idProduct)
+    } else {
+      addToFavorites(product.idProduct)
+    }
+    setLocalIsFavorite(prev => !prev)
+  };
+
 
   const handleAddToCart = (idProduct: number) => {
     addToBasket(idProduct);
@@ -57,8 +74,14 @@ export const ProductPurchase = ({ product }: ProductGalleryProps) => {
         >
           {!product.inCart ? 'В корзине' : 'Добавить в корзину'}
         </button>
-        <button className={styles['product-purchase__favorite-btn']}>
-          <Heart />
+        <button 
+          className={styles['product-purchase__favorite-btn']}
+          onClick={handleToggleFavorite}
+        >
+          <Heart 
+            color={localIsFavorite ? '#ff4d4f' : '#000'} 
+            fill={localIsFavorite ? '#ff4d4f' : 'none'}
+          />
         </button>
       </div>
     </div>
