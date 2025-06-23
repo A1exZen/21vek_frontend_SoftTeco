@@ -1,12 +1,9 @@
-version: '2.2'
-
 services:
-  client:
-    build:
-      context: .
-      dockerfile: Dockerfile
+  frontend:
+    build: .
     ports:
-      - "5173:5173"  # Порт снаружи:порт внутри контейнера
+      - "5173:80"  # Меняем порт, так как Nginx использует 80
     environment:
       - NODE_ENV=production
-    restart: unless-stopped
+    volumes:
+      - ./.env.production:/app/.env  # Не нужно в финальном образе, но оставим для сборки

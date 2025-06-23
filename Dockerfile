@@ -1,38 +1,37 @@
-# Этап 1: Сборка проекта
+# Базовый образ для сборки
 FROM node:20-alpine AS builder
 
-# Установка pnpm
-RUN corepack enable && corepack prepare pnpm@latest --activate
+# Устанавливаем pnpm
+RUN npm install -g pnpm
 
+# Устанавливаем рабочую директорию
 WORKDIR /app
 
-# Копируем только package.json и pnpm-lock.yaml для ускорения сборки
+# Копируем файлы зависимостей и переменные окружения
 COPY package.json pnpm-lock.yaml ./
+COPY .env.development .env.development
+COPY .env.production .env.production
 
-# Установка зависимостей
-RUN pnpm install
+# Устанавливаем зависимости
+RUN pnpm install --frozen-lockfile
 
-# Копируем остальные файлы
+# Копируем весь проект
 COPY . .
 
-# Установка переменной окружения (при необходимости)
-ENV NODE_ENV=production
-
-# Сборка проекта
+# Собираем приложение
 RUN pnpm build
 
-# Этап 2: Сервер для отдачи статики (nginx)
-FROM nginx:stable-alpine
+# Финальный образ с Nginx
+FROM nginx:alpine
 
-# Удалим стандартную конфигурацию
-RUN rm /etc/nginx/conf.d/default.conf
-
-# Копируем собственный конфиг nginx
-COPY nginx.conf /etc/nginx/conf.d
-
-# Копируем собранные файлы в nginx
+# Копируем собранные файлы в директорию Nginx
 COPY --from=builder /app/dist /usr/share/nginx/html
 
-EXPOSE 5173
+# Копируем кастомный конфиг Nginx
+COPY nginx.conf /etc/nginx/conf.d/default.conf
 
+# Указываем порт
+EXPOSE 80
+
+# Запускаем Nginx
 CMD ["nginx", "-g", "daemon off;"]

@@ -2,18 +2,18 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination } from 'swiper/modules';
 import { Heart, Star, ChevronLeft, ChevronRight, Scale } from 'lucide-react';
 import { Link, useParams } from 'react-router-dom';
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import type { Swiper as SwiperType } from 'swiper';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
-
 import styles from './styles.module.scss';
 import { useFilterProducts } from '@hooks/useProducts.ts';
 import { Spin, Tooltip } from 'antd';
 import { Product } from '@models/product/api.ts';
-
 import Sad from '@assets/icons/sad.svg';
+import { useAddToFavorites } from '@/hooks/useFavorites/useAddToFavorites';
+import { useRemoveFavorites } from '@/hooks/useFavorites/useRemoveFavorites';
 
 interface RecommendedProductsProps {
   productBrand: string;
@@ -37,6 +37,7 @@ export const RecommendedProducts = ({
   if (isLoading) {
     return <Spin />;
   }
+
   return (
     <section className={styles['recommended']}>
       <div className={styles['recommended__header']}>
@@ -89,70 +90,10 @@ export const RecommendedProducts = ({
           }}
           className={styles['products-swiper']}
         >
-          { products && products.length > 0 ? (
+          {products && products.length > 0 ? (
             products.map((product) => (
               <SwiperSlide key={product.idProduct}>
-                <div className={styles['product']}>
-                  <div className={styles['product__image-container']}>
-                    <Link to={`/product/${product.idProduct}`}>
-                      <img
-                        src={product.img}
-                        alt={product.nameProduct}
-                        className={styles['product__image']}
-                      />
-                    </Link>
-                    {product.discount != null && product.discount > 0 && (
-                      <span className={styles['product__discount']}>
-                        -{product.discount}%
-                      </span>
-                    )}
-                    <Tooltip title="Добавить в сравнение">
-                      <button className={styles['product__scale']}>
-                        <Scale size={20} />
-                      </button>
-                    </Tooltip>
-                    <Tooltip title="Добавить в избранное">
-                      <button className={styles['product__favorite']}>
-                        <Heart size={20} />
-                      </button>
-                    </Tooltip>
-                  </div>
-
-                  <div className={styles['product__content']}>
-                    <div className={styles['product__rating']}>
-                      <Star size={14} color={'#ffa726'} fill={'#ffa726'} />
-                      <span className={styles['product__rating-value']}>
-                        {product.rating}
-                      </span>
-
-                      <span className={styles['product__rating-count']}>
-                        ({product.numberOfReviews})
-                      </span>
-                    </div>
-
-                    <h3 className={styles['product__title']}>
-                      {product.nameProduct}
-                    </h3>
-
-                    <div className={styles['product__price']}>
-                      <span className={styles['product__price-current']}>
-                        {product.price} р.
-                      </span>
-                      {product.discount && product.discount > 0 ? (
-                        <span className={styles['product__price-old']}>
-                          {Math.round(
-                            product.price / (1 - product.discount / 100),
-                          )}
-                          p.
-                        </span>
-                      ) : null}
-                    </div>
-
-                    <button className={styles['product__buy-btn']}>
-                      В корзину
-                    </button>
-                  </div>
-                </div>
+                <ProductSlide product={product} />
               </SwiperSlide>
             ))
           ) : (
@@ -164,5 +105,93 @@ export const RecommendedProducts = ({
         <div className={styles['swiper-pagination']}></div>
       </div>
     </section>
+  );
+};
+
+const ProductSlide = ({ product }: { product: Product }) => {
+  const [localIsFavorite, setLocalIsFavorite] = useState(product.inFav);
+    const { mutate: addToFavorites } = useAddToFavorites();
+    const { mutate: removeFromFavorite } = useRemoveFavorites();
+  
+    const handleToggleFavorite = () => {
+      
+      if (product.inFav) {
+        removeFromFavorite(product.idProduct)
+      } else {
+        addToFavorites(product.idProduct)
+      }
+      setLocalIsFavorite(prev => !prev)
+    };
+
+  const hasDiscount = product.discount !== undefined && product.discount > 0;
+  const oldPrice = hasDiscount && product.discount !== undefined
+    ? Math.round(product.price / (1 - product.discount / 100))
+    : null;
+
+  return (
+    <div className={styles['product']}>
+      <div className={styles['product__image-container']}>
+        <Link to={`/product/${product.idProduct}`}>
+          <img
+            src={product.img}
+            alt={product.nameProduct}
+            className={styles['product__image']}
+          />
+        </Link>
+        {hasDiscount && product.discount !== undefined && (
+          <span className={styles['product__discount']}>
+            -{product.discount}%
+          </span>
+        )}
+        <Tooltip title="Добавить в сравнение">
+          <button className={styles['product__scale']}>
+            <Scale size={20} />
+          </button>
+        </Tooltip>
+        <Tooltip title={localIsFavorite ? "Удалить из избранного" : "Добавить в избранное"}>
+          <button
+            className={styles['product__favorite']}
+            onClick={handleToggleFavorite}
+          >
+            <Heart 
+              size={20} 
+              color={localIsFavorite ? '#ff4d4f' : '#000'} 
+              fill={localIsFavorite ? '#ff4d4f' : 'none'}
+            />
+          </button>
+        </Tooltip>
+      </div>
+
+      <div className={styles['product__content']}>
+        <div className={styles['product__rating']}>
+          <Star size={14} color={'#ffa726'} fill={'#ffa726'} />
+          <span className={styles['product__rating-value']}>
+            {product.rating}
+          </span>
+          <span className={styles['product__rating-count']}>
+            ({product.numberOfReviews})
+          </span>
+        </div>
+
+        <h3 className={styles['product__title']}>
+          {product.nameProduct}
+        </h3>
+
+        <div className={styles['product__price']}>
+          <span className={styles['product__price-current']}>
+            {product.price} р.
+          </span>
+          {oldPrice && (
+            <span className={styles['product__price-old']}>
+              {oldPrice} р.
+            </span>
+          )}
+        </div>
+
+        <button className={styles['product__buy-btn']}>
+          В корзину
+        </button>
+      </div>
+    </div>
   );
 };

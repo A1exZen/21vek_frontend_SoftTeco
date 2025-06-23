@@ -27,16 +27,16 @@ export const routes: RouteObject[] = [
     element: <MainLayout />,
     children: [
       { index: true, element: <Home /> },
-      // { path: PATHS.PRODUCT_COMPARISON, element: <ProductComparison />},
       { path: PATHS.PRODUCTS, element: <AllProductsPage /> },
       { path: PATHS.BASKET, element: <Basket /> },
       {
         element: <AccountLayout />,
         children: [
           { path: PATHS.VIEW_HISTORY, element: <ViewHistory /> },
-          { path: PATHS.FAVORITES, element: <FavoritesPage /> },
-          { path: PATHS.COMPARE, element: <ProductComparisonData /> },
           { path: PATHS.PROFILE, element: <Profile /> },
+          { path: PATHS.COMPARE, element: <ProductComparison />},
+          { path: PATHS.PRODUCT_COMPARISON_DATA, element: <ProductComparisonData/>},
+          { path: PATHS.FAVORITES, element: <FavoritesPage /> },
         ],
       },
       { path: PATHS.NOT_FOUND, element: <ErrorPage /> },
