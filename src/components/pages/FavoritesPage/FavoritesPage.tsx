@@ -1,134 +1,90 @@
-import { useState, useCallback } from 'react';
+import { useCallback } from 'react';
 import Button from '@/components/ui/Button';
 import { Link } from 'react-router-dom';
-import { FAVORITES_MOCK, IFavoriteItem } from './constants';
 import styles from './styles.module.scss';
-import { Star, ShoppingCart, Check } from 'lucide-react';
-import UndoNotification from '@/components/ui/UndoNotification/UndoNotification';
+import { Star, ShoppingCart } from 'lucide-react';
 import { Divider } from 'antd';
-import { useAddBasketItem } from '@hooks/useBasket.ts';
+import { useRemoveFavorites } from '@/hooks/useFavorites/useRemoveFavorites';
+import toast from 'react-hot-toast';
+import { useGetFavorites } from '@/hooks/useFavorites/useGetFavorites';
 
 const FavoritesPage = () => {
-  const [favorites, setFavorites] = useState<IFavoriteItem[]>(FAVORITES_MOCK);
-  const [undoState, setUndoState] = useState<{
-    item: IFavoriteItem | null;
-    key: number;
-  }>({ item: null, key: 0 });
+  const { data: favorites, isLoading: isFetching } = useGetFavorites();
+  const { mutate: removeFavorite } = useRemoveFavorites();
 
-  const { mutate: addToBasket } = useAddBasketItem();
-
-  const handleToggleCart = (id: number) => {
-    addToBasket(id);
-    setFavorites((prevFavorites) =>
-      prevFavorites.map((item) =>
-        item.id === id ? { ...item, inCart: !item.inCart } : item,
-      ),
-    );
-  };
-
-  const handleRemove = (id: number) => {
-    const itemToRemove = favorites.find((item) => item.id === id);
-    if (!itemToRemove) return;
-
-    setUndoState({
-      item: itemToRemove,
-      key: Date.now(),
+  const handleRemove = useCallback((idProduct: number) => {
+    removeFavorite(idProduct, {
+      onSuccess: () => {
+        toast.success('Товар удалён из избранного');
+      },
+      onError: () => {
+        toast.error('Ошибка при удалении');
+      },
     });
-  };
-
-  const handleUndo = () => {
-    setUndoState({ item: null, key: 0 });
-  };
-
-  const handleRemoveConfirm = useCallback(() => {
-    if (undoState.item) {
-      setFavorites((prevFavorites) =>
-        prevFavorites.filter((item) => item.id !== undoState.item?.id),
-      );
-    }
-    setUndoState({ item: null, key: 0 });
-  }, [undoState.item]);
+  }, [removeFavorite]);
 
   return (
     <div className={styles.container}>
       <h2 className={styles.title}>Избранные товары</h2>
       <Divider type="horizontal" />
 
-      {favorites.length === 0 ? (
+      {isFetching ? (
+        <div>Загрузка...</div>
+      ) : !favorites || favorites.length === 0 ? (
         <div className={styles.empty__message}>
           У вас пока нет ни одного товара в избранном.
         </div>
       ) : (
         <div className={styles.favorites__list}>
           {favorites.map((item) => (
-            <div key={item.id} className={styles.card}>
+            <div key={item.idProduct} className={styles.card}> {/* Используем idProduct вместо actionId */}
               <div className={styles.card__content}>
-                <div className={styles.image__container}>
+                <Link to={`/product/${item.idProduct}`} className={styles.image__container}>
                   <img
-                    src={item.image}
-                    alt={item.name}
+                    src={item.img}
+                    alt={item.nameProduct}
                     className={styles.product__image}
                   />
-                </div>
-
+                </Link>
                 <div className={styles.info__container}>
-                  <Link
-                    to={`/product/${item.id}`}
-                    className={styles.product__link}
-                  >
-                    {item.name}
+                  <Link to={`/product/${item.idProduct}`} className={styles.product__link}>
+                    {item.nameProduct}
                   </Link>
 
-                  <div className={styles.product__code}>код {item.code}</div>
+                  <div className={styles.product__meta}>
+                    <span>Бренд: {item.brand}</span>
+                    <span>Категория: {item.categoriesId}</span>
+                    <span>Статус: {item.status}</span>
+                  </div>
 
                   <div className={styles.rating}>
                     {[...Array(5)].map((_, i) => (
-                      <Star
+                      <Star 
                         key={i}
                         size={16}
                         fill={i < Math.floor(item.rating) ? '#FFD700' : 'none'}
                         color="#FFD700"
                       />
                     ))}
-                    <span className={styles['rating-value']}>
-                      ({item.rating.toFixed(1)})
-                    </span>
+                    <span className={styles['rating-value']}>({item.rating.toFixed(1)})</span>
                   </div>
 
-                  <div className={styles.price}>
-                    {item.price.toLocaleString()} р.
-                  </div>
+                  <div className={styles.price}>{item.price.toLocaleString()} р.</div>
 
                   <div className={styles.actions}>
-                    {item.inCart ? (
-                      <Button
-                        variant="solid"
-                        color="first"
-                        className={styles['in-cart__button']}
-                        onClick={() => handleToggleCart(item.id)}
-                      >
-                        <Check size={16} className={styles.icon} />В корзине
-                      </Button>
-                    ) : (
-                      <Button
-                        variant="solid"
-                        color="first"
-                        className={styles.cart__button}
-                        onClick={() => handleToggleCart(item.id)}
-                      >
-                        <ShoppingCart
-                          size={16}
-                          className={styles.icon}
-                          color="white"
-                        />
-                        В корзину
-                      </Button>
-                    )}
+                    <Button 
+                      variant="solid"
+                      color="first"
+                      className={styles.cart__button}
+                    >
+                      <ShoppingCart size={16} className={styles.icon} color='white'/>
+                      В корзину
+                    </Button>
 
-                    <Button
+                    <Button 
                       variant="link"
                       className={styles.remove__button}
-                      onClick={() => handleRemove(item.id)}
+                      onClick={() => handleRemove(item.idProduct)}
                     >
                       Удалить из списка
                     </Button>
@@ -138,15 +94,6 @@ const FavoritesPage = () => {
             </div>
           ))}
         </div>
-      )}
-
-      {undoState.item && (
-        <UndoNotification
-          key={undoState.key}
-          message={`Товар "${undoState.item.name}" удален`}
-          onUndo={handleUndo}
-          onComplete={handleRemoveConfirm}
-        />
       )}
     </div>
   );
