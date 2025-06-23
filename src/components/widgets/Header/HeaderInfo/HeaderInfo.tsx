@@ -42,7 +42,7 @@ export const HeaderInfo = () => {
 
           <nav className={styles['header-info__nav']}>
             <div className={styles['header-info__nav-list']}>
-              <Link to="/" className={styles['header-info__nav-link']}>
+              <Link to="business" className={styles['header-info__nav-link']}>
                 <Toolbox />
                 Для бизнеса
               </Link>
