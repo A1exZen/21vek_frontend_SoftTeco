@@ -6,6 +6,7 @@ import { useMemo } from 'react';
 
 export const BrandsSection = () => {
   const { data: brands } = useGetBrands();
+  console.log(brands);
   const displayedBrands = useMemo(() => {
     return Array.isArray(brands) ? brands.slice(0, 6) : [];
   }, [brands]);

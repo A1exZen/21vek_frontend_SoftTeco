@@ -1,0 +1,1 @@
+export {FavoriteCard} from './FavoriteCard.tsx'

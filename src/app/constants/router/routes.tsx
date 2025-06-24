@@ -16,6 +16,7 @@ import { ProductPage } from '@pages/ProductPage/ProductPage.tsx';
 import { AllProductsPage } from '@pages/AllProductsPage';
 import { ViewHistory } from '@pages/ViewHistory';
 import { AccountLayout } from '@layouts/AccountLayout';
+import { ProductComparison } from '@pages/ProductComparison';
 
 const ErrorPage = lazy(() => import('@pages/Error'));
 const Profile = lazy(() => import('@pages/Profile'));

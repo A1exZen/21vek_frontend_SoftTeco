@@ -21,17 +21,27 @@ interface FilterCardProps {
   currentFilter: Filter;
 }
 
+const DEFAULT_MIN_PRICE = 0;
+const DEFAULT_MAX_PRICE = 10000;
+
 export const FilterCard: React.FC<FilterCardProps> = ({
-  isOpen,
-  onClose,
-  onFilterChange,
-  currentFilter,
-}) => {
-  const [localFilter, setLocalFilter] = useState<Filter>(currentFilter);
+                                                        isOpen,
+                                                        onClose,
+                                                        onFilterChange,
+                                                        currentFilter,
+                                                      }) => {
+  const [localFilter, setLocalFilter] = useState<Filter>({
+    ...currentFilter,
+    min_price: currentFilter.min_price ?? DEFAULT_MIN_PRICE,
+    max_price: currentFilter.max_price ?? DEFAULT_MAX_PRICE,
+  });
   const debouncedFilter = useDebounce(localFilter, 1000);
   const [showAllBrands, setShowAllBrands] = useState(false);
 
   const { data: brands } = useGetBrands();
+
+  const currentMinPrice = localFilter.min_price ?? DEFAULT_MIN_PRICE;
+  const currentMaxPrice = localFilter.max_price ?? DEFAULT_MAX_PRICE;
 
   const visibleBrands = useMemo(() => {
     if (!Array.isArray(brands)) return [];
@@ -66,11 +76,34 @@ export const FilterCard: React.FC<FilterCardProps> = ({
     }));
   };
 
-  const handlePriceRangeChange = (value: [number, number]) => {
+  const handlePriceRangeChange = (value: number[]) => {
+    const [min, max] = value;
     setLocalFilter((prev) => ({
       ...prev,
-      min_price: value[0],
-      max_price: value[1],
+      min_price: min,
+      max_price: max,
+    }));
+  };
+
+  const handleMinPriceChange = (value: number | null) => {
+    const newMinPrice = value === null || value < 0 ? DEFAULT_MIN_PRICE : value;
+    const adjustedMaxPrice = Math.max(newMinPrice, currentMaxPrice);
+
+    setLocalFilter((prev) => ({
+      ...prev,
+      min_price: newMinPrice,
+      max_price: adjustedMaxPrice,
+    }));
+  };
+
+  const handleMaxPriceChange = (value: number | null) => {
+    const newMaxPrice = value === null || value < 0 ? DEFAULT_MIN_PRICE : value;
+    const adjustedMinPrice = Math.min(currentMinPrice, newMaxPrice);
+
+    setLocalFilter((prev) => ({
+      ...prev,
+      min_price: adjustedMinPrice,
+      max_price: newMaxPrice,
     }));
   };
 
@@ -120,40 +153,29 @@ export const FilterCard: React.FC<FilterCardProps> = ({
           <div className={styles['filters__price-inputs']}>
             <InputNumber
               className={styles['filters__price-input']}
-              value={localFilter.min_price || 0}
-              min={0}
-              max={10000}
-              onChange={(value) =>
-                setLocalFilter((prev) => ({
-                  ...prev,
-                  min_price: value || undefined,
-                }))
-              }
+              value={currentMinPrice}
+              min={DEFAULT_MIN_PRICE}
+              max={DEFAULT_MAX_PRICE}
+              onChange={handleMinPriceChange}
+              placeholder="От"
             />
             <InputNumber
               className={styles['filters__price-input']}
-              value={localFilter.max_price || 10000}
-              min={0}
-              max={10000}
-              onChange={(value) =>
-                setLocalFilter((prev) => ({
-                  ...prev,
-                  max_price: value || undefined,
-                }))
-              }
+              value={currentMaxPrice}
+              min={DEFAULT_MIN_PRICE}
+              max={DEFAULT_MAX_PRICE}
+              onChange={handleMaxPriceChange}
+              placeholder="До"
             />
           </div>
           <div className={styles['filters__price-slider']}>
             <Slider
               range
-              min={0}
-              max={10000}
+              min={DEFAULT_MIN_PRICE}
+              max={DEFAULT_MAX_PRICE}
               step={20}
-              value={[
-                localFilter.min_price || 0,
-                localFilter.max_price || 10000,
-              ]}
-              onChange={handlePriceRangeChange as (value: number | number[]) => void}
+              value={[currentMinPrice, currentMaxPrice]}
+              onChange={handlePriceRangeChange}
               tooltip={{
                 formatter: (value) => `${value} р.`,
               }}
