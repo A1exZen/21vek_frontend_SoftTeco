@@ -117,6 +117,11 @@
             color: #b4b5b8;
           }
 
+          .checkout__select :global(.ant-select-selector) {
+            border: 1px solid #ebedf0 !important;
+            box-shadow: none !important;
+          }
+
           .checkout__input {
             border: 1px solid #ebedf0 !important;
             box-shadow: none !important;

@@ -2,10 +2,12 @@ import { configureStore, combineReducers } from '@reduxjs/toolkit';
 
 import authReducer from './slices/auth.slice';
 import basketReducer from './slices/basket.slice';
+import checkoutReducer from './slices/checkout.slice';
 
 const rootReducer = combineReducers({
   auth: authReducer,
   basket: basketReducer,
+  checkout: checkoutReducer,
 });
 
 const store = configureStore({

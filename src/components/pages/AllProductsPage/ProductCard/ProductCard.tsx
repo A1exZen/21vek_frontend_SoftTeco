@@ -6,9 +6,10 @@ import { Link } from 'react-router-dom';
 import {  useState } from 'react';
 import { useAddToFavorites } from '@/hooks/useFavorites/useAddToFavorites';
 import { useRemoveFavorites } from '@/hooks/useFavorites/useRemoveFavorites';
-import { useAddBasketItem } from '@hooks/useBasket.ts';
+import { useAddBasketItem, useDeleteBasketItem } from '@hooks/useBasket.ts';
 
 export const ProductCard = ({ product }: { product: Product }) => {
+  const [isInCart, setIsInCart] = useState(product.inCart);
   const hasDiscount = product.discount != null && product.discount > 0;
   const oldPrice = product.discount
     ? Math.round(product.price / (1 - product.discount / 100))
@@ -28,10 +29,18 @@ export const ProductCard = ({ product }: { product: Product }) => {
     setLocalIsFavorite(prev => !prev)
 
   console.log(product);
-  const { mutate: addToBasket } = useAddBasketItem();
 
-  const handleAddToCart = (idProduct: number) => {
-    addToBasket(idProduct);
+  const { mutate: addToBasket } = useAddBasketItem();
+  const { mutate: deleteItem } = useDeleteBasketItem(product.idProduct);
+
+  const toggleCart = () => {
+    if (isInCart) {
+      deleteItem();
+      setIsInCart(false);
+    } else {
+      addToBasket(product.idProduct);
+      setIsInCart(true);
+    }
   };
 
   return (
@@ -96,10 +105,14 @@ export const ProductCard = ({ product }: { product: Product }) => {
         </div>
 
         <button
-          className={product.inCart ? 'in-cart-btn' : 'cart-btn'}
-          onClick={() => handleAddToCart(product.idProduct)}
+          className={isInCart ? 'in-cart-btn' : 'cart-btn'}
+          onClick={() => toggleCart()}
         >
-          <ShoppingCart size={16} /> {product.inCart ? 'В корзине' : 'В'}
+          <ShoppingCart
+            size={16}
+            color={isInCart ? 'var(--primary)' : '#fff'}
+          />
+          {isInCart ? 'В корзине' : 'В корзину'}
         </button>
       </div>
     </div>

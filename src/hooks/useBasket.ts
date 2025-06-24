@@ -20,9 +20,13 @@ export const useAddBasketItem = () => {
 
   return useMutation({
     mutationFn: (idProduct: number) => addBasketItem(idProduct),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: [QueryKeys.BASKET] });
-      queryClient.invalidateQueries({ queryKey: [QueryKeys.PRODUCT] });
+    onSuccess: async () => {
+      await queryClient.invalidateQueries({ queryKey: [QueryKeys.BASKET] });
+      await queryClient.invalidateQueries({ queryKey: [QueryKeys.PRODUCT] });
+      await queryClient.invalidateQueries({
+        queryKey: [QueryKeys.FILTERED_PRODUCTS],
+      });
+      toast.success('Добавлено в корзину');
     },
     onError: () => toast.error('Не удалось обновить данные'),
   });
@@ -33,8 +37,13 @@ export const useDeleteBasketItem = (idProduct: number) => {
 
   return useMutation({
     mutationFn: () => deleteBasketItem(idProduct),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: [QueryKeys.BASKET] });
+    onSuccess: async () => {
+      await queryClient.invalidateQueries({ queryKey: [QueryKeys.BASKET] });
+      await queryClient.invalidateQueries({ queryKey: [QueryKeys.PRODUCT] });
+      await queryClient.invalidateQueries({
+        queryKey: [QueryKeys.FILTERED_PRODUCTS],
+      });
+      toast.success('Удалено из корзины');
     },
     onError: () => toast.error('Не удалось обновить данные'),
   });
@@ -45,8 +54,8 @@ export const useEditQuantity = (idProduct: number) => {
 
   return useMutation({
     mutationFn: (count: number) => editQuantity(idProduct, count),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: [QueryKeys.BASKET] });
+    onSuccess: async () => {
+      await queryClient.invalidateQueries({ queryKey: [QueryKeys.BASKET] });
     },
     onError: () => toast.error('Не удалось обновить данные'),
   });

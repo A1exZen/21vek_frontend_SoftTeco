@@ -41,6 +41,9 @@ export const API_CONFIG = {
       DELETE_ITEM: 'basket/del-basket-prod',
       EDIT_QUANTITY: 'basket/redact-product-bask',
     },
+    CHECKOUT: {
+      PLACE_ORDER: '/brand/checkout',
+    },
   },
 };
 
