@@ -11,6 +11,7 @@ interface ModalProps {
   openChangedAction: (value: boolean) => void;
   fullscreen?: boolean;
   className?: string;
+  noPadding?: boolean;
 }
 
 export const Modal: FC<ModalProps> = ({
@@ -19,6 +20,7 @@ export const Modal: FC<ModalProps> = ({
   openChangedAction,
   fullscreen = false,
   className = '',
+  noPadding = false,
 }) => {
   useEffect(() => {
     if (!open) return;
@@ -52,9 +54,11 @@ export const Modal: FC<ModalProps> = ({
         onClick={handleOverlayClick}
       >
         <div
-          className={`${styles.modal} ${fullscreen ? styles['modal__fullscreen'] : ''} ${className}`}
+          className={`${styles.modal} ${fullscreen ? styles['modal--fullscreen'] : ''} ${className}`}
         >
-          <div className={styles.modal__content}>
+          <div
+            className={`${styles.modal__content} ${noPadding ? styles['modal__content--no-padding'] : ''}`}
+          >
             <Button
               icon={<X size={22} color="var(--gray-600)" />}
               variant="rounded"

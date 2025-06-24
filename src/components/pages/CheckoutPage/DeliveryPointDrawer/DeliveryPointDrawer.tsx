@@ -9,10 +9,12 @@ import {
   deliveryOptions,
 } from '@pages/CheckoutPage/DeliveryPointDrawer/constants';
 import Button from '@components/ui/Button';
+import { setAddress } from '@store/slices/checkout.slice';
 
 export const DeliveryPointDrawer = () => {
   const isDrawerOpen = useAppSelector((state) => state.basket.isDrawerOpen);
   const dispatch = useAppDispatch();
+  const address = useAppSelector((state) => state.checkout.address);
 
   const closeDrawer = useCallback(() => {
     dispatch(setDrawerOpen(false));
@@ -61,10 +63,11 @@ export const DeliveryPointDrawer = () => {
               Выберите адрес доставки
             </label>
             <Select
-              defaultValue={deliveryAddresses[0].value}
               options={deliveryAddresses}
               className={styles.drawer__select}
-            ></Select>
+              onChange={(newValue) => dispatch(setAddress(newValue))}
+              value={address}
+            />
           </div>
           <div className={styles['drawer__form-block']}>
             <label className={styles['drawer__form-text']}>Дата доставки</label>

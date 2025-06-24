@@ -7,25 +7,41 @@ import { PATHS } from '@/constants';
 import checkoutImage from '@images/checkout-image.png';
 import { Input } from 'antd';
 const { TextArea } = Input;
-import { useAppDispatch } from '@hooks/reduxHooks';
-import { setDrawerOpen, setModalOpen } from '@store/slices/basket.slice.ts';
-// import { CheckoutPickupModal } from '@pages/CheckoutPage/CheckoutPickupModal';
+import { useAppDispatch, useAppSelector } from '@hooks/reduxHooks';
+import { setDrawerOpen, setModalOpen } from '@store/slices/basket.slice';
+import { CheckoutPickupModal } from '@pages/CheckoutPage/CheckoutPickupModal';
 import { DeliveryPointDrawer } from '@pages/CheckoutPage/DeliveryPointDrawer';
+import { setComment } from '@store/slices/checkout.slice';
+import { useCheckout } from '@hooks/useCheckout';
 
 type CheckoutPageProps = {
   price: number;
-}
+};
 
 export const CheckoutPage = ({ price }: CheckoutPageProps) => {
+  const dispatch = useAppDispatch();
+  const address = useAppSelector((state) => state.checkout.address);
+  const comment = useAppSelector((state) => state.checkout.comment);
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
+
+  const { mutate: placeOrder } = useCheckout();
+
+  const handleCheckout = () => {
+    placeOrder({
+      comment: comment,
+      adress: address,
+      shipping_cost: 0,
+      organization: 'string',
+    });
+    searchParams.delete('action');
+    navigate({ search: searchParams.toString() });
+  };
 
   const handleClose = () => {
     searchParams.delete('action');
     navigate({ search: searchParams.toString() });
   };
-
-  const dispatch = useAppDispatch();
 
   return (
     <div className={styles.checkout}>
@@ -84,6 +100,8 @@ export const CheckoutPage = ({ price }: CheckoutPageProps) => {
               <TextArea
                 style={{ height: 102, resize: 'none' }}
                 className={styles.checkout__input}
+                value={comment}
+                onChange={(e) => dispatch(setComment(e.target.value))}
               />
             </div>
           </div>
@@ -94,10 +112,10 @@ export const CheckoutPage = ({ price }: CheckoutPageProps) => {
               </span>
               <span className={styles.checkout__text}>Стоимость заказа</span>
             </div>
-            <Button onClick={handleClose}>Заказать</Button>
+            <Button onClick={handleCheckout}>Заказать</Button>
           </div>
         </div>
-        {/*<CheckoutPickupModal />*/}
+        <CheckoutPickupModal />
         <DeliveryPointDrawer />
       </div>
     </div>
