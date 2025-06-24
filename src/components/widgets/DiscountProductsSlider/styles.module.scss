@@ -115,7 +115,7 @@
 				text-decoration: line-through;
 			}
 
-			.product-card__buy-btn {
+			.product-card__buy-btn, .product-card__buy-btn-inCart {
 				position: absolute;
 				right: 1rem;
 				bottom: 1rem;
@@ -136,8 +136,16 @@
 				}
 			}
 
+			.product-card__buy-btn-inCart{
+				background: var(--primary-light);
+				&:hover {
+					background: var(--magenta-300);
+				}
+			}
+
 		}
 	}
+
 
 }
 

@@ -21,9 +21,10 @@ export const useAddBasketItem = () => {
   return useMutation({
     mutationFn: (idProduct: number) => addBasketItem(idProduct),
     onSuccess: async () => {
-      await queryClient.invalidateQueries({ queryKey: [QueryKeys.BASKET] });
-      await queryClient.invalidateQueries({ queryKey: [QueryKeys.PRODUCT] });
-      await queryClient.invalidateQueries({
+      await queryClient.refetchQueries({ queryKey: [QueryKeys.BASKET] });
+      await queryClient.refetchQueries({ queryKey: [QueryKeys.PRODUCT] });
+      await queryClient.refetchQueries({ queryKey: [QueryKeys.VIEW_HISTORY] });
+      await queryClient.refetchQueries({
         queryKey: [QueryKeys.FILTERED_PRODUCTS],
       });
       toast.success('Добавлено в корзину');
@@ -38,9 +39,10 @@ export const useDeleteBasketItem = (idProduct: number) => {
   return useMutation({
     mutationFn: () => deleteBasketItem(idProduct),
     onSuccess: async () => {
-      await queryClient.invalidateQueries({ queryKey: [QueryKeys.BASKET] });
-      await queryClient.invalidateQueries({ queryKey: [QueryKeys.PRODUCT] });
-      await queryClient.invalidateQueries({
+      await queryClient.refetchQueries({ queryKey: [QueryKeys.BASKET] });
+      await queryClient.refetchQueries({ queryKey: [QueryKeys.PRODUCT] });
+      await queryClient.refetchQueries({ queryKey: [QueryKeys.VIEW_HISTORY] });
+      await queryClient.refetchQueries({
         queryKey: [QueryKeys.FILTERED_PRODUCTS],
       });
       toast.success('Удалено из корзины');
@@ -55,7 +57,7 @@ export const useEditQuantity = (idProduct: number) => {
   return useMutation({
     mutationFn: (count: number) => editQuantity(idProduct, count),
     onSuccess: async () => {
-      await queryClient.invalidateQueries({ queryKey: [QueryKeys.BASKET] });
+      await queryClient.refetchQueries({ queryKey: [QueryKeys.BASKET] });
     },
     onError: () => toast.error('Не удалось обновить данные'),
   });

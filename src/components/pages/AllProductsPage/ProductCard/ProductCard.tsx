@@ -3,35 +3,34 @@ import { Heart, Scale, ShoppingCart, Star } from 'lucide-react';
 import { Tooltip } from 'antd';
 import { Product } from '@models/product/api.ts';
 import { Link } from 'react-router-dom';
-import {  useState } from 'react';
+import { useState } from 'react';
 import { useAddToFavorites } from '@/hooks/useFavorites/useAddToFavorites';
 import { useRemoveFavorites } from '@/hooks/useFavorites/useRemoveFavorites';
 import { useAddBasketItem, useDeleteBasketItem } from '@hooks/useBasket.ts';
 
 export const ProductCard = ({ product }: { product: Product }) => {
   const [isInCart, setIsInCart] = useState(product.inCart);
+  const [localIsFavorite, setLocalIsFavorite] = useState(product.inFav);
+
+  const { mutate: addToFavorites } = useAddToFavorites();
+  const { mutate: removeFromFavorite } = useRemoveFavorites(product.idProduct);
+  const { mutate: addToBasket } = useAddBasketItem();
+  const { mutate: deleteItem } = useDeleteBasketItem(product.idProduct);
+
   const hasDiscount = product.discount != null && product.discount > 0;
   const oldPrice = product.discount
     ? Math.round(product.price / (1 - product.discount / 100))
     : null;
 
-  const [localIsFavorite, setLocalIsFavorite] = useState(product.inFav);
-  const { mutate: addToFavorites } = useAddToFavorites();
-  const { mutate: removeFromFavorite } = useRemoveFavorites();
-
   const handleToggleFavorite = () => {
-    
-    if (product.inFav) {
-      removeFromFavorite(product.idProduct)
+    if (localIsFavorite) {
+      removeFromFavorite();
+      setLocalIsFavorite(false);
     } else {
-      addToFavorites(product.idProduct)
+      addToFavorites(product.idProduct);
+      setLocalIsFavorite(true);
     }
-    setLocalIsFavorite(prev => !prev)
-
-  console.log(product);
-
-  const { mutate: addToBasket } = useAddBasketItem();
-  const { mutate: deleteItem } = useDeleteBasketItem(product.idProduct);
+  };
 
   const toggleCart = () => {
     if (isInCart) {
@@ -64,15 +63,18 @@ export const ProductCard = ({ product }: { product: Product }) => {
             <Scale size={20} />
           </button>
         </Tooltip>
-        <Tooltip title={localIsFavorite ? "Удалить из избранного" : "Добавить в избранное"}>
+        <Tooltip
+          title={
+            localIsFavorite ? 'Удалить из избранного' : 'Добавить в избранное'
+          }
+        >
           <button
             className={styles['product-card__favorite']}
             onClick={handleToggleFavorite}
-          
           >
-            <Heart 
-              size={20} 
-              color={localIsFavorite ? '#ff4d4f' : '#000'} 
+            <Heart
+              size={20}
+              color={localIsFavorite ? '#ff4d4f' : '#000'}
               fill={localIsFavorite ? '#ff4d4f' : 'none'}
             />
           </button>

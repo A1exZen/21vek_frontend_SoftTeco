@@ -27,7 +27,7 @@ const Basket = () => {
   }, [action]);
 
   const totalPrice = basketItems.reduce((sum, item) => {
-    return sum + item.price * item.quantity;
+    return sum + item.price
   }, 0);
 
   const isBasketEmpty = basketItems.length === 0;

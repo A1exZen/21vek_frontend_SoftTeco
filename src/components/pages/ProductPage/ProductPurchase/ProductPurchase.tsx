@@ -12,7 +12,9 @@ interface ProductGalleryProps {
 }
 
 export const ProductPurchase = ({ product }: ProductGalleryProps) => {
+  console.log("ekfefkfek",product);
   const [isInCart, setIsInCart] = useState(product.inCart);
+  const [isInFav, setIsInFav] = useState(product.inFav);
   const { mutate: addToBasket } = useAddBasketItem();
   const { mutate: deleteItem } = useDeleteBasketItem(product.idProduct);
 
@@ -20,19 +22,18 @@ export const ProductPurchase = ({ product }: ProductGalleryProps) => {
   const oldPrice = product.discount
     ? Math.round(product.price / (1 - product.discount / 100))
     : null;
-  
-   const [localIsFavorite, setLocalIsFavorite] = useState(product.inFav);
+
   const { mutate: addToFavorites } = useAddToFavorites();
-  const { mutate: removeFromFavorite } = useRemoveFavorites();
+  const { mutate: removeFromFavorite } = useRemoveFavorites(product.idProduct);
 
   const handleToggleFavorite = () => {
-    
-    if (product.inFav) {
-      removeFromFavorite(product.idProduct)
+    if (isInFav) {
+      removeFromFavorite()
+      setIsInFav(false)
     } else {
       addToFavorites(product.idProduct)
+      setIsInFav(true)
     }
-    setLocalIsFavorite(prev => !prev)
   };
 
 
@@ -86,8 +87,8 @@ export const ProductPurchase = ({ product }: ProductGalleryProps) => {
           onClick={handleToggleFavorite}
         >
           <Heart 
-            color={localIsFavorite ? '#ff4d4f' : '#000'} 
-            fill={localIsFavorite ? '#ff4d4f' : 'none'}
+            color={isInFav ? '#ff4d4f' : '#000'}
+            fill={isInFav ? '#ff4d4f' : 'none'}
           />
         </button>
       </div>
