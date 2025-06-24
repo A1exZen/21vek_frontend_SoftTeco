@@ -17,6 +17,7 @@ import { AllProductsPage } from '@pages/AllProductsPage';
 import { ViewHistory } from '@pages/ViewHistory';
 import { AccountLayout } from '@layouts/AccountLayout';
 import { ProductComparison } from '@pages/ProductComparison';
+import BusinessPage from '@pages/BusinessPage';
 
 const ErrorPage = lazy(() => import('@pages/Error'));
 const Profile = lazy(() => import('@pages/Profile'));
@@ -29,6 +30,7 @@ export const routes: RouteObject[] = [
     children: [
       { index: true, element: <Home /> },
       { path: PATHS.PRODUCTS, element: <AllProductsPage /> },
+      { path: PATHS.BUSINESS, element: <BusinessPage /> },
       { path: PATHS.BASKET, element: <Basket /> },
       {
         element: <AccountLayout />,

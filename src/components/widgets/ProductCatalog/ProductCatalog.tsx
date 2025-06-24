@@ -25,8 +25,23 @@ const ProductCatalog = ({
   const catalogRef = useRef<HTMLDivElement>(null);
   const location = useLocation();
   const prevLocationRef = useRef(location.pathname);
+  const [isScrolled, setIsScrolled] = useState(false);
 
   const { data: productCategories = [] } = useGetAllCategories();
+
+  const handleScroll = useCallback(() => {
+    const scrollY = window.scrollY || window.pageYOffset;
+    setIsScrolled(scrollY > 300);
+  }, []);
+  useEffect(() => {
+    if (isOpen) {
+      window.addEventListener('scroll', handleScroll);
+      handleScroll();
+    }
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, [isOpen, handleScroll]);
 
   const topLevelCategories = useMemo(() => {
     if (!Array.isArray(productCategories)) {
@@ -124,7 +139,9 @@ const ProductCatalog = ({
 
   return (
     <div className={styles['product-catalog']}>
-      <div className={styles['product-catalog__overlay']} />
+      <div className={`${styles['product-catalog__overlay']} ${
+        isScrolled ? styles['product-catalog__overlay--scrolled'] : ''
+      }`} />
       <div className={styles['product-catalog__panel']} ref={catalogRef}>
         <div className={styles['product-catalog__content']}>
           <nav className={styles['product-catalog__main-categories']}>
