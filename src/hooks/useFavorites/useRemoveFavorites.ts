@@ -11,7 +11,8 @@ export const useRemoveFavorites = (idProduct: number) => {
     onSuccess: async () => {
       await queryClient.refetchQueries({ queryKey: [QueryKeys.FAVORITE] });
       await queryClient.refetchQueries({ queryKey: [QueryKeys.PRODUCT] });
-      await queryClient.refetchQueries({ queryKey: [QueryKeys.FILTERED_PRODUCTS] });
+      await queryClient.invalidateQueries({ queryKey: [QueryKeys.FILTERED_PRODUCTS] });
+
       toast.success('Удалено из избранных');
     },
     onError: () => {

@@ -64,7 +64,7 @@ export const checkToken = async (): Promise<void> => {
 };
 
 export const logout = async (): Promise<void> => {
-  await $api.post(API_CONFIG.ENDPOINTS.AUTH.LOGOUT);
+  await $api.delete(API_CONFIG.ENDPOINTS.AUTH.LOGOUT);
 };
 
 export const me = async (): Promise<UserResponse> => {

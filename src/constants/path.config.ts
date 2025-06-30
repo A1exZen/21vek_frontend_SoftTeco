@@ -17,7 +17,7 @@ export enum PATHS {
   PRODUCT_COMPARISON_DATA = '/compare/:category',
   BASKET = '/basket',
   COMPARE = '/compare',
-  ORDERS = '/orders',
+  ORDER_HISTORY = '/order-history',
 
   DISCOUNTS = '/discounts',
   APARTMENT = '/apartment-giveaway',

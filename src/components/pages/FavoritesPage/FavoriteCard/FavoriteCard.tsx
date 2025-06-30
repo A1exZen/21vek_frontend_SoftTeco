@@ -3,7 +3,7 @@ import styles from '../styles.module.scss';
 import { Link } from 'react-router-dom';
 import { ShoppingCart, Star } from 'lucide-react';
 import Button from '@components/ui/Button';
-import { useCallback, useState } from 'react';
+import {useState } from 'react';
 import { useRemoveFavorites } from '@hooks/useFavorites/useRemoveFavorites.ts';
 import { useAddBasketItem, useDeleteBasketItem } from '@/hooks/useBasket';
 
@@ -14,9 +14,9 @@ export const FavoriteCard = ({ item }: { item: IFavoriteItem }) => {
   const { mutate: addToBasket } = useAddBasketItem();
   const { mutate: deleteItem } = useDeleteBasketItem(item.idProduct);
 
-  const handleRemove = useCallback(() => {
+  const handleRemove = () => {
     removeFavorite();
-  }, [deleteItem]);
+  };
 
   const toggleCart = () => {
     if (isInCart) {

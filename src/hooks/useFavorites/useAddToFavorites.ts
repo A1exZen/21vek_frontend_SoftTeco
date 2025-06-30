@@ -11,7 +11,8 @@ export const useAddToFavorites = () => {
     onSuccess: async () => {
       await queryClient.refetchQueries({ queryKey: [QueryKeys.FAVORITE] });
       await queryClient.refetchQueries({ queryKey: [QueryKeys.PRODUCT] });
-      await queryClient.refetchQueries({ queryKey: [QueryKeys.FILTERED_PRODUCTS] });
+      await queryClient.invalidateQueries({ queryKey: [QueryKeys.FILTERED_PRODUCTS] });
+
       toast.success('Товар добавлен в избранное');
     },
     onError: (error: Error) => {

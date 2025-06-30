@@ -17,7 +17,7 @@ interface ISlide {
 export const SLIDES: ISlide[] = [
   { 
     id: 1, 
-    path: PATHS.DISCOUNTS, 
+    path: PATHS.PRODUCTS,
     img: sliderImg1,
     alt: 'Скидки' 
   },
@@ -29,13 +29,13 @@ export const SLIDES: ISlide[] = [
   },
   { 
     id: 3, 
-    path: PATHS.DISCOUNTS, 
+    path: PATHS.PRODUCTS,
     img: sliderImg3,
     alt: 'Скидки' 
   },
   { 
     id: 4, 
-    path: PATHS.PRODUCTS, 
+    path: PATHS.PROFILE,
     img: sliderImg4,
     alt: 'Продукты' 
   },

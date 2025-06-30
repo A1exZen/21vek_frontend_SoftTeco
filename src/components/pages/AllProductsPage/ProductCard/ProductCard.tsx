@@ -3,7 +3,7 @@ import { Heart, Scale, ShoppingCart, Star } from 'lucide-react';
 import { Tooltip } from 'antd';
 import { Product } from '@models/product/api.ts';
 import { Link } from 'react-router-dom';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useAddToFavorites } from '@/hooks/useFavorites/useAddToFavorites';
 import { useRemoveFavorites } from '@/hooks/useFavorites/useRemoveFavorites';
 import { useAddBasketItem, useDeleteBasketItem } from '@hooks/useBasket.ts';
@@ -11,6 +11,10 @@ import { useAddBasketItem, useDeleteBasketItem } from '@hooks/useBasket.ts';
 export const ProductCard = ({ product }: { product: Product }) => {
   const [isInCart, setIsInCart] = useState(product.inCart);
   const [localIsFavorite, setLocalIsFavorite] = useState(product.inFav);
+
+  useEffect(() => {
+    setLocalIsFavorite(product.inFav || false);
+  }, [product.inFav]);
 
   const { mutate: addToFavorites } = useAddToFavorites();
   const { mutate: removeFromFavorite } = useRemoveFavorites(product.idProduct);

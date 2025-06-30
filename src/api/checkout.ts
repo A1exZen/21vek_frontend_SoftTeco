@@ -1,7 +1,11 @@
 import { $api } from '@app/config/axios/api';
 import { API_CONFIG } from '@/constants';
 import { BaseError, ensureError } from '@utils/ErrorHandler';
-import { RequestPlaceOrder, ResponsePlaceOrder } from '@models/checkout/api';
+import {
+  OrderHistoryResponse,
+  RequestPlaceOrder,
+  ResponsePlaceOrder,
+} from '@models/checkout/api';
 
 export const placeOrder = async (
   orderData: RequestPlaceOrder,
@@ -15,5 +19,17 @@ export const placeOrder = async (
   } catch (error) {
     const err = ensureError(error);
     throw new BaseError('placing order failed', { cause: err });
+  }
+};
+
+
+export const getOrderHistory = async (): Promise<OrderHistoryResponse> => {
+  try {
+    return await $api.get<OrderHistoryResponse, OrderHistoryResponse>(
+      API_CONFIG.ENDPOINTS.CHECKOUT.GET_ORDERS
+    );
+  } catch (error) {
+    const err = ensureError(error);
+    throw new BaseError('getting order history failed', { cause: err });
   }
 };
