@@ -18,6 +18,7 @@ import { ViewHistory } from '@pages/ViewHistory';
 import { AccountLayout } from '@layouts/AccountLayout';
 import { ProductComparison } from '@pages/ProductComparison';
 import BusinessPage from '@pages/BusinessPage';
+import { OrderHistory } from '@pages/OrderHistory/OrderHistory.tsx';
 
 const ErrorPage = lazy(() => import('@pages/Error'));
 const Profile = lazy(() => import('@pages/Profile'));
@@ -35,6 +36,7 @@ export const routes: RouteObject[] = [
       {
         element: <AccountLayout />,
         children: [
+          { path: PATHS.ORDER_HISTORY, element: <OrderHistory /> },
           { path: PATHS.VIEW_HISTORY, element: <ViewHistory /> },
           { path: PATHS.PROFILE, element: <Profile /> },
           { path: PATHS.COMPARE, element: <ProductComparison />},

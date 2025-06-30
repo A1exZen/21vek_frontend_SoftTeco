@@ -160,6 +160,17 @@ export const UserControls = () => {
                     </span>
                       </div>
                     </Link>
+                    <Link
+                      to={PATHS.ORDER_HISTORY}
+                      className={styles['account-dropdown__link']}
+                    >
+                      <div className={styles['account-dropdown__item']}>
+                        <Eye size={20} />
+                        <span className={styles['account-dropdown__text']}>
+                      История заказов
+                    </span>
+                      </div>
+                    </Link>
                   </>
                 )}
                 <Link

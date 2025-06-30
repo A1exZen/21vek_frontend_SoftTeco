@@ -11,6 +11,8 @@ export enum QueryKeys {
   HEADER_CATEGORIES = 'headerCategories',
   CATEGORY = 'category',
 
+  CATEGORY_COMPARISON = 'category_comparison',
+
   GET_ADDRESSES = 'get-addresses',
 
   PRODUCTS = 'allProduct',
@@ -21,4 +23,6 @@ export enum QueryKeys {
 
   FAVORITE = 'favorite',
   BASKET = 'basket',
+
+  ORDER_HISTORY='orderHistory',
 }

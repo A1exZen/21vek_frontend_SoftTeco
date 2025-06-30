@@ -6,6 +6,7 @@ import Logo from '@assets/icons/main-logo.png';
 import { PATHS } from '@/constants';
 import checkoutImage from '@images/checkout-image.png';
 import { Input } from 'antd';
+
 const { TextArea } = Input;
 import { useAppDispatch, useAppSelector } from '@hooks/reduxHooks';
 import { setDrawerOpen, setModalOpen } from '@store/slices/basket.slice';
@@ -13,6 +14,7 @@ import { CheckoutPickupModal } from '@pages/CheckoutPage/CheckoutPickupModal';
 import { DeliveryPointDrawer } from '@pages/CheckoutPage/DeliveryPointDrawer';
 import { setComment } from '@store/slices/checkout.slice';
 import { useCheckout } from '@hooks/useCheckout';
+import { deliveryAddresses } from '@pages/CheckoutPage/DeliveryPointDrawer/constants.ts';
 
 type CheckoutPageProps = {
   price: number;
@@ -30,12 +32,12 @@ export const CheckoutPage = ({ price }: CheckoutPageProps) => {
   const handleCheckout = () => {
     placeOrder({
       comment: comment,
-      adress: address,
-      shipping_cost: 0,
-      organization: 'string',
+      adress:
+        deliveryAddresses.find(({ value }) => value === address)?.label || '',
+      shippingCost: 0,
     });
     searchParams.delete('action');
-    navigate({ search: searchParams.toString() });
+    navigate('/');
   };
 
   const handleClose = () => {
