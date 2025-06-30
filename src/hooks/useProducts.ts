@@ -53,10 +53,10 @@ export const useProducts = (
 ) => {
   const hasActiveFilters = Boolean(
     filterParams.brand ||
-      filterParams.price_filtr ||
-      filterParams.popular ||
-      filterParams.min_price ||
-      filterParams.max_price,
+    filterParams.price_filtr ||
+    filterParams.popular ||
+    filterParams.min_price ||
+    filterParams.max_price,
   );
 
   const allProductsQuery = useGetAllProducts(
@@ -110,8 +110,7 @@ export const useGetProduct = (id: number) => {
 export const useGetBrands = () => {
   return useQuery<string[], Error>({
     queryKey: [QueryKeys.BRANDS],
-    queryFn: getBrands,
-    initialData: []
+    queryFn: getBrands
   });
 };
 
