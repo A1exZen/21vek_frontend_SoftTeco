@@ -17,11 +17,12 @@ const App = () => (
   <ConfigProvider locale={getAntdLocale()} theme={antdTheme}>
     <Provider store={store}>
       <QueryClientProvider client={queryClient}>
-        <Toaster position={'top-right'}/>
+        <Toaster position={'top-right'} />
         <RouterProvider router={router} />
       </QueryClientProvider>
     </Provider>
   </ConfigProvider>
+  // fasdf
 );
 
 export default App;

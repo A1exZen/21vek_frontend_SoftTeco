@@ -52,7 +52,7 @@ export const AddressModal = ({ isOpen, onClose }: AddressModalProps) => {
     <Modal footer={null} open={isOpen} onCancel={onClose}>
       <form onSubmit={handleSubmit(onSubmit)} className={styles['form']}>
         <h3 className={styles['form__title']}>Добавление адреса</h3>
-
+        afdsf
         <label htmlFor="settlement" className={styles['form__inp-label']}>
           Населенный пункт
           <Controller
@@ -67,7 +67,6 @@ export const AddressModal = ({ isOpen, onClose }: AddressModalProps) => {
         {errors.settlement && (
           <FormErrorMessage message={errors.settlement.message!} />
         )}
-
         <label htmlFor="street" className={styles['form__inp-label']}>
           Улица, дом
           <Controller
@@ -80,7 +79,6 @@ export const AddressModal = ({ isOpen, onClose }: AddressModalProps) => {
           />
         </label>
         {errors.street && <FormErrorMessage message={errors.street.message!} />}
-
         <div className={styles['form__row']}>
           <label htmlFor="entrance" className={styles['form__inp-label']}>
             Подъезд
@@ -125,7 +123,6 @@ export const AddressModal = ({ isOpen, onClose }: AddressModalProps) => {
             <FormErrorMessage message={errors.aptOffice.message!} />
           )}
         </div>
-
         {user?.address?.some((address) => address.isMain) && (
           <label
             htmlFor="main-address"
@@ -135,7 +132,6 @@ export const AddressModal = ({ isOpen, onClose }: AddressModalProps) => {
             Сделать основным адресом
           </label>
         )}
-
         <Button
           type="submit"
           disabled={!isValid || addAddressMutation.isPending}
